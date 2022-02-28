@@ -1,0 +1,9 @@
+export const ADD_ITEM = 'ADD_ITEM';
+export const APPROVE_ITEM = 'APPROVE_ITEM';
+export const DELETE_ITEM = 'DELETE_ITEM';
+export const CHANGE_ITEM = 'CHANGE_ITEM';
+export const CHANGE_INPUT = 'CHANGE_INPUT';
+export const SET_RESULT_CONTENT = 'SET_RESULT_CONTENT';
+export const CHANGE_USER_INPUT = 'CHANGE_USER_INPUT';
+export const WRITE_IMG = 'WRITE_IMG';
+export const EXCUTE_ITEM = 'EXCUTE_ITEM';
