@@ -1,9 +1,15 @@
 import express from 'express';
 import cardsRoute from './routes/cards';
+import adminRoute from './routes/admin';
 import { CustomRoute } from './types';
 
 const cors = require('cors');
 const app = express();
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({extended:true})); 
+
+app.use(bodyParser.json());
 
 app.use(
   cors({
@@ -14,7 +20,7 @@ app.use(
 
 app.use('/static', express.static(__dirname + '/public'));
 
-const routes: CustomRoute[] = [...cardsRoute];
+const routes: CustomRoute[] = [...cardsRoute, ...adminRoute];
 
 routes.forEach(({ method, route, handler }) => {
   app[method](route, handler);

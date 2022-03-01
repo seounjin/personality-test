@@ -1,5 +1,6 @@
 import { useReducer, useCallback } from 'react';
 import selectReducer from '../_reducers/adminReducer';
+import fetcher from '../api/fetcher';
 import {
   InitialState,
   Items,
@@ -36,7 +37,7 @@ interface UseAdmin {
   handleAdd: () => void;
   handleApprove: () => void;
   handleTextArea: (event: any) => void;
-  handleCreate: () => void;
+  handleCreate: () => Promise<void>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleUser: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleImgUpload: (imgFile: any) => void;
@@ -96,9 +97,27 @@ const useAdmin = (): UseAdmin => {
     dispatch({ type: APPROVE_ITEM });
   }, []);
 
-  const handleCreate = useCallback((): void => {
-    console.log('생성');
+  const handleCreate = useCallback(async (): Promise<void> => {
     console.log('!!', state);
+
+    const formData = new FormData();
+    formData.append('user', JSON.stringify({ ...state.userItem }));
+    formData.append('items', JSON.stringify(state.items));
+    formData.append('result', JSON.stringify(state.resultContent));
+    formData.append('file', state.imgFile);
+
+    const res = await fetcher('post', '/admin', formData);
+    // const data = {
+    //   user: { ...state.userItem },
+    //   items: state.items,
+    //   result: state.resultContent,
+    // };
+    // const config = {
+    //   headers: {
+    //     'content-type': 'multipart/form-data',
+    //   },
+    // };
+    // const config = { headers: { 'Content-Type': 'application/json' } };
   }, [state]);
 
   const handleUser = useCallback((event): void => {
@@ -110,8 +129,7 @@ const useAdmin = (): UseAdmin => {
     });
   }, []);
 
-  const handleImgUpload = useCallback((imgFile: any): void => {
-    console.log('!!!', imgFile);
+  const handleImgUpload = useCallback((imgFile: File): void => {
     dispatch({ type: WRITE_IMG, imgFile: imgFile });
   }, []);
 

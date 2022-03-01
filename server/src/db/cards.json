@@ -1,7 +1,1 @@
-[
-    {"id":1,"imgUrl":"http://localhost:8000/static/images/img1.jpg"},
-    {"id":1,"imgUrl":"http://localhost:8000/static/images/img1.jpg"},
-    {"id":1,"imgUrl":"http://localhost:8000/static/images/img1.jpg"},
-    {"id":1,"imgUrl":"http://localhost:8000/static/images/img1.jpg"}
-   
-]
+[{"id":"1","imgUrl":"http://localhost:8000/static/images/imgfile1646141320719.png"}]

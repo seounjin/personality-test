@@ -15,8 +15,6 @@ const ImageUploadContainer = ({
   };
 
   const onImageChange = (event: any): void => {
-    const formData: FormData = new FormData();
-    formData.append('file', event.target.files[0]);
     setImgSrc(URL.createObjectURL(event.target.files[0]));
     handleImgUpload(event.target.files[0]);
   };

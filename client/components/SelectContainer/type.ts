@@ -30,6 +30,7 @@ export interface InitialState {
   resultItems: Array<ResultItems>[];
   resultContent: ResultContent[];
   userItem: UserItem;
+  imgFile?: File;
 }
 
 export type Action =

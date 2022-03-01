@@ -43,7 +43,7 @@ const selectItemCombine = (itemLength, items) => {
   });
 
   const resultContent = selectNumber.map((data) => {
-    return { id: data, who: '', content: '' };
+    return { id: data.join(''), who: '', content: '' };
   });
 
   return { resultItems: resultItems, resultContent: resultContent };
