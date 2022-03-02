@@ -30,21 +30,23 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 
   return (
     <Wrapper>
-      {/* <ul>
+      <ul>
         {Pcards.map((data, index) => {
-          return <Card key={'card' + index} imgUrl={data.imgUrl}></Card>;
+          return (
+            <Card key={'card' + index} imgUrl={data.imgUrl} id={data.id}></Card>
+          );
         })}
-      </ul> */}
+      </ul>
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
     </Wrapper>
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const cards = await fetcher('get', '/cards');
-//   return {
-//     props: { cards },
-//   };
-// };
+export const getServerSideProps: GetServerSideProps = async () => {
+  const cards = await fetcher('get', '/cards');
+  return {
+    props: { cards },
+  };
+};
 
 export default Home;

@@ -9,6 +9,11 @@ const Wrapper = styled.li<wrapper>`
   list-style: none;
   padding: 10px;
   display: inline-block;
+
+  a {
+    text-decoration: none;
+  }
+
   .card_header {
     padding-bottom: 75%;
     position: relative;
