@@ -38,7 +38,6 @@ export interface User {
     
 };
 
-
 export interface SelectItem {
     question: string;
     select_1: string;

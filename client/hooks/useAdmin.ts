@@ -97,14 +97,19 @@ const useAdmin = (): UseAdmin => {
     dispatch({ type: APPROVE_ITEM });
   }, []);
 
+  // 등록 요청
   const handleCreate = useCallback(async (): Promise<void> => {
     console.log('!!', state);
 
     const formData = new FormData();
     formData.append('user', JSON.stringify({ ...state.userItem }));
-    formData.append('items', JSON.stringify(state.items));
     formData.append('result', JSON.stringify(state.resultContent));
     formData.append('file', state.imgFile);
+
+    const items = state.items.map((data, index) => {
+      return { ...data, select_1_id: index * 2, select_2_id: index * 2 + 1 };
+    });
+    formData.append('items', JSON.stringify(items));
 
     const res = await fetcher('post', '/admin', formData);
     if (res.success) {

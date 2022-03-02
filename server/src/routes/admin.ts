@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req:express.Request, file:any, cb:(error:string | null, state: boolean) => void) => {	
     const fileType  = path.extname(file.originalname);
-    console.log("변순데", fileType)
+    
     if(fileType  !== '.png' && fileType  !== '.jpg' && fileType !== 'jpeg'){
         return cb('jpg jpeg png 파일만 업로드 가능합니다.', false);
     } 
