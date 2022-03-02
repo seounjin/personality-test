@@ -1,5 +1,6 @@
 import { CustomRoute, METHOD, DBField, User, SelectItems, ResultItems, Card } from '../types';
 import { readDB, writeDB } from '../db/dbController';
+import express from 'express';
 
 const multer = require('multer');
 const path = require('path');
@@ -18,7 +19,7 @@ const setCards = (data:Card[]) => writeDB(DBField.CARDS, data);
 
 const storage = multer.diskStorage({
     destination: 'src/public/images/',
-    filename: (req: any, file: any, cb: any) => {
+    filename: (req: express.Request, file: any, cb: (error: Error | null, filename: string) => void) => {
         const imgFile = "imgfile" + Date.now() + path.extname(file.originalname);
         const cardData = getCards();
         setCards([...cardData, {id:String(cardData.length + 1), imgUrl:`http://localhost:8000/static/images/${imgFile}`}]);
@@ -26,9 +27,19 @@ const storage = multer.diskStorage({
     }
 });
 
+const fileFilter = (req:express.Request, file:any, cb:(error:string | null, state: boolean) => void) => {	
+    const fileType  = path.extname(file.originalname);
+    console.log("변순데", fileType)
+    if(fileType  !== '.png' && fileType  !== '.jpg' && fileType !== 'jpeg'){
+        return cb('jpg jpeg png 파일만 업로드 가능합니다.', false);
+    } 
+    cb(null, true);
+}
+
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 1000000 }
+    fileFilter: fileFilter,
+    limits: { fileSize: 10 * 1024 * 1024 } //크기 제한 : 10MB
 }).any();
 
 const adminRoute : CustomRoute[] = [
@@ -62,12 +73,13 @@ const adminRoute : CustomRoute[] = [
                 const resultKey = Object.keys(resultData[0]).length;
                 setResultItems([{...resultData[0],[resultKey + 1]: result}]);
 
+                return res.status(200).json( { success: true } );
+
+
             } catch (error) {
-                console.log("error", error);
+                console.log("에러", error);
+                return res.status(400).json( { success: false, error } );
             }
-            
-            // const msgs = getMsgs()
-            // res.send(msgs);
         }
     ]
     },

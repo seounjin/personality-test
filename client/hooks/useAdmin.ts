@@ -107,17 +107,9 @@ const useAdmin = (): UseAdmin => {
     formData.append('file', state.imgFile);
 
     const res = await fetcher('post', '/admin', formData);
-    // const data = {
-    //   user: { ...state.userItem },
-    //   items: state.items,
-    //   result: state.resultContent,
-    // };
-    // const config = {
-    //   headers: {
-    //     'content-type': 'multipart/form-data',
-    //   },
-    // };
-    // const config = { headers: { 'Content-Type': 'application/json' } };
+    if (res.success) {
+      alert('등록되었습니다.');
+    }
   }, [state]);
 
   const handleUser = useCallback((event): void => {
