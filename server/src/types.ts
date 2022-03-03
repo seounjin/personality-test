@@ -26,12 +26,13 @@ export interface CustomRoute {
 };
 
 export interface Card {
-    id: string
-    imgUrl: string
+    id: string;
+    imgUrl: string;
+    title: string;
 };
 
 export interface User {
-    key:number;
+    key: number;
     title: string;
     id: string;
     password: string;

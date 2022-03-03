@@ -4,10 +4,12 @@ import Card from '../components/Card';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
+import { title } from 'process';
 
 interface CardItem {
   id: string;
   imgUrl: string;
+  title: string;
 }
 
 type HomeProps = {
@@ -33,7 +35,12 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
       <ul>
         {Pcards.map((data, index) => {
           return (
-            <Card key={'card' + index} imgUrl={data.imgUrl} id={data.id}></Card>
+            <Card
+              key={'card' + index}
+              imgUrl={data.imgUrl}
+              id={data.id}
+              title={data.title}
+            ></Card>
           );
         })}
       </ul>

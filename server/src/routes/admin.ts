@@ -22,7 +22,8 @@ const storage = multer.diskStorage({
     filename: (req: express.Request, file: any, cb: (error: Error | null, filename: string) => void) => {
         const imgFile = "imgfile" + Date.now() + path.extname(file.originalname);
         const cardData = getCards();
-        setCards([...cardData, {id:String(cardData.length + 1), imgUrl:`http://localhost:8000/static/images/${imgFile}`}]);
+        const user = JSON.parse(req.body.user);
+        setCards([...cardData, {id:String(cardData.length + 1), imgUrl:`http://localhost:8000/static/images/${imgFile}`, title: user['title']}]);
       cb(null, imgFile);
     }
 });
