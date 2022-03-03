@@ -56,5 +56,5 @@ export interface ResultItem {
 };
 
 export interface ResultItems {
-    [key:number]: ResultItem[]
+    [key:string]: ResultItem[]
 };

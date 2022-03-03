@@ -5,16 +5,16 @@ import WindowCharacter from './WindowCharacter';
 import { lastScreenProps } from './types';
 
 const LastScreen = ({ LastScreenData, handleReStartClick }): JSX.Element => {
-  const { description } = LastScreenData;
+  const { who, content } = LastScreenData;
 
   return (
     <BackgroundImg height={'100%'}>
       <Wrapper>
         <div className="result-name">
-          <span>당신은 우리흥~~~~~~우리흥!</span>
+          <span>{who}</span>
         </div>
 
-        <WindowCharacter description={description}></WindowCharacter>
+        <WindowCharacter description={content}></WindowCharacter>
 
         <button
           className="restart-button"
