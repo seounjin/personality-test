@@ -1,15 +1,12 @@
-import { useRouter } from 'next/router';
 import BackgroundImg from '../../BackgroundImg';
 import Wrapper from './styles';
 
 interface EntranceProps {
+  title: string;
   handleStartClick: () => void;
 }
 
-const Entrance = ({ handleStartClick }: EntranceProps): JSX.Element => {
-  const router = useRouter();
-  const { title } = router.query;
-
+const Entrance = ({ title, handleStartClick }: EntranceProps): JSX.Element => {
   return (
     <BackgroundImg height={'668px'}>
       <Wrapper>

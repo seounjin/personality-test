@@ -14,9 +14,7 @@ const Card = ({ imgUrl, id, title }: CardProps): JSX.Element => {
       <Link
         href={{
           pathname: `/main/${id}`,
-          query: { title: title },
         }}
-        as={`/main/${id}`}
       >
         <a>
           <div>

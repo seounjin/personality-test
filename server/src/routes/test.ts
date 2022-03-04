@@ -1,6 +1,7 @@
 import { CustomRoute, METHOD, DBField, User, SelectItems, ResultItems, Card } from '../types';
 import { readDB } from '../db/dbController';
 
+const getCards = (): Card[] => readDB(DBField.CARDS);
 const getSelectItems = (): SelectItems[] => readDB(DBField.SELECT_ITEMS);
 const getResultItems = (): ResultItems[] => readDB(DBField.RESULT_ITEM);
 
@@ -15,7 +16,10 @@ const testRoute : CustomRoute[] = [
                 const selectItems = getSelectItems();
                 const selectItem = selectItems[0][id];
 
-                return res.status(200).json( { success: true, testData: selectItem } );
+                const cardData = getCards().filter((data) => data.id === `${id}`);
+                const { title } = cardData[0];
+
+                return res.status(200).json( { success: true, testData: selectItem, title: title} );
             
             } catch (error) {
                 console.log("error", error);
@@ -33,7 +37,6 @@ const testRoute : CustomRoute[] = [
                 const id = req.query.id as string;
                 const { result } = req.query;
 
-                console.log("결과1", req.query)
 
                 const resultItems = getResultItems();
                 const resultData = resultItems[0][id].filter((data) => data.id === result);
