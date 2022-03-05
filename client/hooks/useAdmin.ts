@@ -36,11 +36,13 @@ interface UseAdmin {
   handleDelete: (index: number) => void;
   handleAdd: () => void;
   handleApprove: () => void;
-  handleTextArea: (event: any) => void;
+  handleTextArea: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
   handleCreate: () => Promise<void>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleUser: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleImgUpload: (imgFile: any) => void;
+  handleImgUpload: (imgFile: File) => void;
   handleExcute: () => void;
   items: Items[];
   isVisible: Array<boolean>;
@@ -50,7 +52,7 @@ interface UseAdmin {
 
 const useAdmin = (): UseAdmin => {
   const [state, dispatch] = useReducer(selectReducer, initialState);
-  const { items, isVisible, isResultScreen, resultItems }: any = state;
+  const { items, isVisible, isResultScreen, resultItems } = state;
 
   const handleOk = useCallback((index: number): void => {
     dispatch({ type: CHANGE_INPUT, index: index });
@@ -64,7 +66,7 @@ const useAdmin = (): UseAdmin => {
     dispatch({ type: ADD_ITEM });
   }, []);
 
-  const onChange = useCallback((event: any): void => {
+  const onChange = useCallback((event): void => {
     const {
       value,
       name,
@@ -79,7 +81,7 @@ const useAdmin = (): UseAdmin => {
     });
   }, []);
 
-  const handleTextArea = useCallback((event: any): void => {
+  const handleTextArea = useCallback((event): void => {
     const {
       value,
       name,
@@ -99,9 +101,9 @@ const useAdmin = (): UseAdmin => {
 
   // 등록 요청
   const handleCreate = useCallback(async (): Promise<void> => {
-    console.log('!!', state);
+    console.log('handleCreate', state);
 
-    const formData = new FormData();
+    const formData: FormData = new FormData();
     formData.append('user', JSON.stringify({ ...state.userItem }));
     formData.append('result', JSON.stringify(state.resultContent));
     formData.append('file', state.imgFile);

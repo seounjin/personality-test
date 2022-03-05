@@ -4,23 +4,18 @@ import QuestionImg from './QuestionImg';
 import Main from './Main';
 import LastScreen from './LastScreen';
 import fetcher from '../../api/fetcher';
+import { TestData, LastScreenData, MainProps } from './types';
 import Wrapper from './styles';
-
-export interface TestDataType {
-  question: string;
-  select_1: string;
-  select_2: string;
-  select_1_id: number;
-  select_2_id: number;
-}
 
 const MainContainer = ({
   mainStaticData: { testData, title, id },
-}): JSX.Element => {
-  const [CurrentIndex, setCurrentIndex] = useState(-1);
-  const [SelectValue, setSelectValue] = useState('');
-  const [LastScreenData, setLastScreenData] = useState(null);
-  const [TestData, setTestData] = useState(testData);
+}: MainProps): JSX.Element => {
+  const [CurrentIndex, setCurrentIndex] = useState<number>(-1);
+  const [SelectValue, setSelectValue] = useState<string>('');
+  const [LastScreenData, setLastScreenData] = useState<LastScreenData | null>(
+    null,
+  );
+  const [TestData, setTestData] = useState<TestData[]>(testData);
 
   // 시작 버튼
   const handleStartClick = (): void => {
@@ -88,10 +83,9 @@ const MainContainer = ({
       ) : CurrentIndex !== TestData.length ? (
         <QuestionImg>
           {TestData &&
-            TestData.map((data: TestDataType, index: number) => (
+            TestData.map((data: TestData, index: number) => (
               <Main
                 key={index}
-                CurrentIndex={CurrentIndex}
                 opacity={CurrentIndex === index ? 1 : 0}
                 question={data.question}
                 select_1={data.select_1}
@@ -103,7 +97,7 @@ const MainContainer = ({
       ) : (
         LastScreenData && (
           <LastScreen
-            LastScreenData={LastScreenData}
+            lastScreenData={LastScreenData}
             handleReStartClick={handleReStartClick}
           ></LastScreen>
         )

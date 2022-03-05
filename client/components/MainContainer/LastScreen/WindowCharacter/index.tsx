@@ -1,10 +1,7 @@
 import React from 'react';
 import Wrapper from './styles';
-import { windowCharacterProps } from '../types';
 
-const WindowCharacter = ({
-  description,
-}: windowCharacterProps): JSX.Element => {
+const WindowCharacter = ({ description }): JSX.Element => {
   return (
     <Wrapper>
       <div className="content">{description}</div>

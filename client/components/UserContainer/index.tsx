@@ -26,5 +26,4 @@ const UserContainer = ({ handleUser }: UserContainerProps): JSX.Element => {
   );
 };
 
-// export default UserContainer;
 export default React.memo(UserContainer);

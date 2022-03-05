@@ -1,8 +1,11 @@
 import MainContainer from '../../components/MainContainer';
 import fetcher from '../../api/fetcher';
-import { GetStaticProps } from 'next';
+import { MainProps } from '../../components/MainContainer/types';
+import { GetStaticProps, GetStaticPaths } from 'next';
 
-const MainPage = ({ mainStaticData }) => {
+type Params = { id: string };
+
+const MainPage = ({ mainStaticData }: MainProps): JSX.Element => {
   return (
     <>
       <MainContainer mainStaticData={mainStaticData}></MainContainer>
@@ -10,14 +13,16 @@ const MainPage = ({ mainStaticData }) => {
   );
 };
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = [0, 0, 0].map((_, index) => ({
     params: { id: `${index + 1}` },
   }));
   return { paths, fallback: false };
 };
 
-export const getStaticProps = async ({ params: { id } }) => {
+export const getStaticProps: GetStaticProps<MainProps, Params> = async ({
+  params: { id },
+}) => {
   const { testData, title } = await fetcher('get', `/test/${id}`);
 
   return {

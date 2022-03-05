@@ -2,7 +2,6 @@ import React from 'react';
 import Wrapper from './styles';
 
 interface MainProps {
-  CurrentIndex: number;
   opacity: number;
   question: string;
   select_1: string;
@@ -11,7 +10,6 @@ interface MainProps {
 }
 
 const Main = ({
-  CurrentIndex,
   opacity,
   question,
   select_1,

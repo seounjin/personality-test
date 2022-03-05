@@ -2,19 +2,20 @@ import React, { useRef, useState } from 'react';
 import Wrapper from './styles';
 
 interface ImgUploadProps {
-  handleImgUpload: (fromData: FormData) => void;
+  handleImgUpload: (imgFile: File) => void;
 }
 
 const ImageUploadContainer = ({
   handleImgUpload,
 }: ImgUploadProps): JSX.Element => {
-  const imgUploadRef = useRef(null);
-  const [ImgSrc, setImgSrc] = useState('imageholder.png');
-  const handleClick = () => {
+  const imgUploadRef = useRef<HTMLInputElement>(null);
+  const [ImgSrc, setImgSrc] = useState<string>('imageholder.png');
+
+  const handleClick = (): void => {
     imgUploadRef.current.click();
   };
 
-  const onImageChange = (event: any): void => {
+  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setImgSrc(URL.createObjectURL(event.target.files[0]));
     handleImgUpload(event.target.files[0]);
   };
@@ -35,5 +36,3 @@ const ImageUploadContainer = ({
 };
 
 export default React.memo(ImageUploadContainer);
-
-// export default ImageUploadContainer;

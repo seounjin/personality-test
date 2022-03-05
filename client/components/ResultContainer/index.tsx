@@ -5,7 +5,9 @@ import { ResultItems } from '../SelectContainer/type';
 
 interface ResultProps {
   resultItems: Array<ResultItems>[];
-  handleTextArea: (event: any) => void;
+  handleTextArea: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
 }
 
 const ResultContainer = ({

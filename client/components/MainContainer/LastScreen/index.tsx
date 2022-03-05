@@ -2,10 +2,22 @@ import React from 'react';
 import Wrapper from './styles';
 import BackgroundImg from '../../BackgroundImg';
 import WindowCharacter from './WindowCharacter';
-import { lastScreenProps } from './types';
 
-const LastScreen = ({ LastScreenData, handleReStartClick }): JSX.Element => {
-  const { who, content } = LastScreenData;
+interface LastScreenData {
+  who: string;
+  content: string;
+}
+
+interface LastScreenProps {
+  lastScreenData: LastScreenData;
+  handleReStartClick: () => void;
+}
+
+const LastScreen = ({
+  lastScreenData,
+  handleReStartClick,
+}: LastScreenProps): JSX.Element => {
+  const { who, content } = lastScreenData;
 
   return (
     <BackgroundImg height={'100%'}>
