@@ -1,14 +1,16 @@
 import React from 'react';
 import Wrapper from './styles';
+import MoreOutlined from '../MoreOutlined';
 import Link from 'next/link';
 
 type CardProps = {
   imgUrl: string;
   id: string;
   title: string;
+  handleModal: () => void;
 };
 
-const Card = ({ imgUrl, id, title }: CardProps): JSX.Element => {
+const Card = ({ imgUrl, id, title, handleModal }: CardProps): JSX.Element => {
   return (
     <Wrapper imgUrl={imgUrl}>
       <Link
@@ -18,7 +20,9 @@ const Card = ({ imgUrl, id, title }: CardProps): JSX.Element => {
       >
         <a>
           <div>
-            <div className="card_header"></div>
+            <div className="card_header">
+              <MoreOutlined handleModal={handleModal} />
+            </div>
             <div className="card_body">
               <h1>{title}</h1>
             </div>

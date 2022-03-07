@@ -23,6 +23,12 @@ const Wrapper = styled.li<wrapper>`
     background-position: 50%;
     box-shadow: inset 0 0 0 1px rgb(0 0 0 / 10%);
   }
+
+  .card_header:hover {
+    button {
+      display: inline;
+    }
+  }
   .card_body {
   }
 `;
