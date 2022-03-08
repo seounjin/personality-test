@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Wrapper from './styles';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
@@ -28,9 +28,9 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
     setPcards([...Pcards, ...res]);
   };
 
-  const handleModal = () => {
+  const handleModal = useCallback(() => {
     setOpenModal(!OpenModal);
-  };
+  }, []);
 
   // useEffect(() => {
   //   if (Intersecting) getCards();
@@ -51,7 +51,7 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
           );
         })}
       </ul>
-      {OpenModal && <Modal handleModal={handleModal}></Modal>}
+      {/* {OpenModal && <Modal handleModal={handleModal}></Modal>} */}
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
     </Wrapper>
   );

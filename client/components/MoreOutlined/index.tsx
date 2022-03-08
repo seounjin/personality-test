@@ -4,20 +4,18 @@ import Multilist from '../Multilist';
 
 const MoreOutlined = ({ handleModal }) => {
   const [isClicked, setClicked] = useState(false);
+
   const onClick = (event) => {
     event.preventDefault();
-    handleModal();
-    // setClicked(!isClicked);
+    // handleModal();
+    setClicked(!isClicked);
     console.log('하이');
   };
+
   return (
-    <Button onClick={onClick}>
+    <Button aria-label="img-btn" onClick={onClick}>
       <img alt="moreOutlined" src={'/vertical_icon.png'}></img>
-      {isClicked && (
-        <div>
-          <Multilist />
-        </div>
-      )}
+      {isClicked && <Multilist handleModal={handleModal} />}
     </Button>
   );
 };

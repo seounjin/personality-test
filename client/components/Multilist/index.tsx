@@ -1,4 +1,4 @@
-const Multilist = () => {
+const Multilist = ({ handleModal }) => {
   return (
     <div>
       <ul>

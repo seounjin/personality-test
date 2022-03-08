@@ -4,7 +4,9 @@ import userEvent from '@testing-library/user-event';
 
 describe('Multilist', () => {
   test('Multilist render', () => {
-    const { getByText } = render(<Multilist />);
+    const handleModal = jest.fn();
+
+    const { getByText } = render(<Multilist handleModal={handleModal} />);
     const modify = getByText('수정');
     expect(modify).toBeInTheDocument();
 
