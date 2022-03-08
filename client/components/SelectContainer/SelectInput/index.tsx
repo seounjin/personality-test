@@ -45,5 +45,4 @@ const SelectInput = ({
   );
 };
 
-// export default SelectInput;select_1 select_2
 export default React.memo(SelectInput);

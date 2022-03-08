@@ -11,7 +11,7 @@ describe('MoreOutlined button', () => {
     expect(img).toHaveAttribute('src', '/vertical_icon.png');
   });
 
-  test('Img Button Click', async () => {
+  test.skip('Img Button Click', async () => {
     const handleModal = jest.fn();
     const { getByRole, findByRole } = render(
       <MoreOutlined handleModal={handleModal} />,
