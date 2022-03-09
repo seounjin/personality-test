@@ -20,12 +20,13 @@ const Wrapper = styled.div`
     background-color: rgb(0, 0, 0, 0.6);
   }
   .modal {
-    width: 500px;
     position: relative;
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
     border-radius: 18px;
+    background-color: #fff;
   }
 `;
 

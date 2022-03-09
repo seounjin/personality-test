@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import Multilist from '..';
 import userEvent from '@testing-library/user-event';
 
@@ -12,5 +12,18 @@ describe('Multilist', () => {
 
     const del = getByText('삭제');
     expect(del).toBeInTheDocument();
+  });
+
+  test('Multilist Click', () => {
+    const handleModal = jest.fn();
+    const { getByRole, getByLabelText } = render(
+      <Multilist handleModal={handleModal} />,
+    );
+
+    const modify = getByRole('modify');
+    const del = getByRole('delete');
+
+    userEvent.click(modify);
+    userEvent.click(del);
   });
 });

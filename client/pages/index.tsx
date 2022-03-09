@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Wrapper from './styles';
 import Card from '../components/Card';
-import Modal from '../components/Modal';
+import ModalContainer from '../components/ModalContainer';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
@@ -30,7 +30,7 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 
   const handleModal = useCallback(() => {
     setOpenModal(!OpenModal);
-  }, []);
+  }, [OpenModal]);
 
   // useEffect(() => {
   //   if (Intersecting) getCards();
@@ -51,7 +51,7 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
           );
         })}
       </ul>
-      {/* {OpenModal && <Modal handleModal={handleModal}></Modal>} */}
+      {OpenModal && <ModalContainer handleModal={handleModal}></ModalContainer>}
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
     </Wrapper>
   );

@@ -2,8 +2,12 @@ const Multilist = ({ handleModal }) => {
   return (
     <div>
       <ul>
-        <li>수정</li>
-        <li>삭제</li>
+        <li role="modify" onClick={handleModal}>
+          수정
+        </li>
+        <li role="delete" onClick={handleModal}>
+          삭제
+        </li>
       </ul>
     </div>
   );

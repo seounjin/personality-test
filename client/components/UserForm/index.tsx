@@ -7,7 +7,7 @@ interface Item {
 
 interface UserFormProps {
   item: Item[];
-  handleUser: () => void;
+  handleUser: (event) => void;
 }
 
 const UserForm = ({ handleUser, item }: UserFormProps): JSX.Element => {
