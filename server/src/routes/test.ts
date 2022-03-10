@@ -1,11 +1,11 @@
-import { CustomRoute, METHOD, DBField, User, SelectItems, ResultItems, Card } from '../types';
+import { CustomRoute, METHOD, DBField, User, SelectItem, ResultItem, Card } from '../types';
 import { readDB } from '../db/dbController';
 
 const { authentication } = require('../utils/authentication');
 
 const getCards = (): Card[] => readDB(DBField.CARDS);
-const getSelectItems = (): SelectItems[] => readDB(DBField.SELECT_ITEMS);
-const getResultItems = (): ResultItems[] => readDB(DBField.RESULT_ITEM);
+const getSelectItems = (): SelectItem[] => readDB(DBField.SELECT_ITEMS);
+const getResultItems = (): ResultItem[] => readDB(DBField.RESULT_ITEM);
 
 const testRoute : CustomRoute[] = [
     {
@@ -15,13 +15,12 @@ const testRoute : CustomRoute[] = [
             try {
 
                 const id = parseInt(req.params.id);
-                const selectItems = getSelectItems();
-                const selectItem = selectItems[0][id];
+                const selectData = getSelectItems().filter((data) => data.key === id);
 
-                const cardData = getCards().filter((data) => data.id === `${id}`);
+                const cardData = getCards().filter((data) => data.id === id);
                 const { title } = cardData[0];
 
-                return res.status(200).json( { success: true, testData: selectItem, title: title} );
+                return res.status(200).json( { success: true, testData: selectData, title: title} );
             
             } catch (error) {
                 console.log("error", error);
@@ -39,9 +38,10 @@ const testRoute : CustomRoute[] = [
                 const id = req.query.id as string;
                 const { result } = req.query;
 
-
-                const resultItems = getResultItems();
-                const resultData = resultItems[0][id].filter((data) => data.id === result);
+                const resultData = getResultItems()
+                                                .filter((data) => data.key === parseInt(id))
+                                                .filter((data) => data.id === result);
+                                                
                 
                 return res.status(200).json( { success: true, resultData: resultData } );
             

@@ -1,4 +1,4 @@
-import { CustomRoute, METHOD, DBField, User, SelectItems, ResultItems, Card } from '../types';
+import { CustomRoute, METHOD, DBField, User, SelectItem, ResultItem, Card } from '../types';
 import { readDB, writeDB } from '../db/dbController';
 import express from 'express';
 
@@ -8,11 +8,11 @@ const path = require('path');
 const getUsers = (): User[] => readDB(DBField.USERS);
 const setUsers = (data: User[]) => writeDB(DBField.USERS, data);
 
-const getSelectItems = (): SelectItems[] => readDB(DBField.SELECT_ITEMS);
-const setSelectItems = (data: SelectItems[]) => writeDB(DBField.SELECT_ITEMS, data);
+const getSelectItems = (): SelectItem[] => readDB(DBField.SELECT_ITEMS);
+const setSelectItems = (data: SelectItem[]) => writeDB(DBField.SELECT_ITEMS, data);
 
-const getResultItems = (): ResultItems[] => readDB(DBField.RESULT_ITEM);
-const setResultItems = (data: ResultItems[]) => writeDB(DBField.RESULT_ITEM, data);
+const getResultItems = (): ResultItem[] => readDB(DBField.RESULT_ITEM);
+const setResultItems = (data: ResultItem[]) => writeDB(DBField.RESULT_ITEM, data);
 
 const getCards = (): Card[] => readDB(DBField.CARDS);
 const setCards = (data:Card[]) => writeDB(DBField.CARDS, data);
@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
         const imgFile = "imgfile" + Date.now() + path.extname(file.originalname);
         const cardData = getCards();
         const user = JSON.parse(req.body.user);
-        setCards([...cardData, {id:String(cardData.length + 1), imgUrl:`http://localhost:8000/static/images/${imgFile}`, title: user['title']}]);
+        setCards([...cardData, {id:cardData.length + 1, imgUrl:`http://localhost:8000/static/images/${imgFile}`, title: user['title']}]);
       cb(null, imgFile);
     }
 });
@@ -57,22 +57,27 @@ const adminRoute : CustomRoute[] = [
 
                 // user data
                 const users = getUsers();
+                
+                const key = users.length + 1;
+
                 const userData = { 
                     ...user, 
-                    key:users.length + 1 
+                    key: key
                 };
                 setUsers([...users, userData]);
                 
                 // select data
                 const selectData = getSelectItems();
-                const selectKey = Object.keys(selectData[0]).length;
-                setSelectItems([{...selectData[0],[selectKey + 1]: items}]);
+                const newSelectItem = items.map((data:SelectItem) => {return {...data, key:key}});
+                
+                setSelectItems([...selectData,...newSelectItem]);
                 
 
                 // result data
                 const resultData = getResultItems();
-                const resultKey = Object.keys(resultData[0]).length;
-                setResultItems([{...resultData[0],[resultKey + 1]: result}]);
+                const newResultData = result.map((data:ResultItem) => {return {...data, key:key}});
+
+                setResultItems([...resultData, ...newResultData]);
 
                 return res.status(200).json( { success: true } );
 

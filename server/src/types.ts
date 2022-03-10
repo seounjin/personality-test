@@ -27,7 +27,7 @@ export interface CustomRoute {
 };
 
 export interface Card {
-    id: string;
+    id: number;
     imgUrl: string;
     title: string;
 };
@@ -41,9 +41,12 @@ export interface User {
 };
 
 export interface SelectItem {
+    key: number;
     question: string;
     select_1: string;
     select_2: string;
+    select_1_id: number;
+    select_2_id: number;
 };
 
 export interface SelectItems {
@@ -51,6 +54,7 @@ export interface SelectItems {
 };
 
 export interface ResultItem {
+    key:number;
     id: string;
     who:string;
     content:string;
