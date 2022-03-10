@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Wrapper from './styles';
 import Card from '../components/Card';
 import ModalContainer from '../components/ModalContainer';
@@ -20,6 +20,7 @@ type HomeProps = {
 const Home = ({ cards }: HomeProps): JSX.Element => {
   const [Pcards, setPcards] = useState(cards);
   const [OpenModal, setOpenModal] = useState(false);
+  const [SelectCard, setSelectCard] = useState(null);
   const target = useRef(null);
   // const Intersecting = useInfiniteScroll(target);
 
@@ -28,9 +29,14 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
     setPcards([...Pcards, ...res]);
   };
 
-  const handleModal = useCallback(() => {
-    setOpenModal(!OpenModal);
-  }, [OpenModal]);
+  const handleModal = useCallback(
+    (cardId) => {
+      console.log('cardid', cardId);
+      setSelectCard(cardId);
+      setOpenModal(!OpenModal);
+    },
+    [OpenModal, SelectCard],
+  );
 
   // useEffect(() => {
   //   if (Intersecting) getCards();
@@ -51,7 +57,12 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
           );
         })}
       </ul>
-      {OpenModal && <ModalContainer handleModal={handleModal}></ModalContainer>}
+      {OpenModal && (
+        <ModalContainer
+          handleModal={handleModal}
+          SelectCard={SelectCard}
+        ></ModalContainer>
+      )}
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
     </Wrapper>
   );

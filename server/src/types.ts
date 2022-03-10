@@ -3,6 +3,7 @@ import express from 'express';
 export enum METHOD {
     GET = 'get',
     POST = 'post',
+    DELETE = 'delete'
 };
 
 export enum DBField {

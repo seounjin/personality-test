@@ -1,3 +1,4 @@
+import React from 'react';
 import Wrapper from './styles';
 
 interface Item {
@@ -7,7 +8,7 @@ interface Item {
 
 interface UserFormProps {
   item: Item[];
-  handleUser: (event) => void;
+  handleUser: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const UserForm = ({ handleUser, item }: UserFormProps): JSX.Element => {
@@ -27,4 +28,4 @@ const UserForm = ({ handleUser, item }: UserFormProps): JSX.Element => {
   );
 };
 
-export default UserForm;
+export default React.memo(UserForm);
