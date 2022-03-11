@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import UserForm from '../UserForm';
 import AdminButton from '../AdminButton';
 import fetcher from '../../api/fetcher';
+import { useRouter } from 'next/router';
 
 const ITEM = [
   { label: '아이디', input: 'id' },
@@ -21,18 +22,21 @@ const ModalContainer = ({
 }: ModalProps): JSX.Element => {
   const [UserId, setUserId] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
-  const [User, setUser] = useState({ id: '', password: '' });
+  const router = useRouter();
 
   const handleOk = async () => {
-    console.log('!!!', UserId, Password, SelectCard);
     const res = await fetcher('post', `/test`, {
       userId: UserId,
       password: Password,
       cardId: SelectCard,
     });
-    // if (res.success) {
-    //   alert('성공');
-    // }
+
+    if (res.success) {
+      router.reload();
+      alert('해당 카드를 삭제하였습니다.');
+    } else {
+      alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+    }
   };
 
   const handleUser = useCallback((event): void => {

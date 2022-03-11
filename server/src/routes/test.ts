@@ -1,11 +1,19 @@
 import { CustomRoute, METHOD, DBField, User, SelectItem, ResultItem, Card } from '../types';
-import { readDB } from '../db/dbController';
+import { readDB, writeDB } from '../db/dbController';
 
 const { authentication } = require('../utils/authentication');
 
-const getCards = (): Card[] => readDB(DBField.CARDS);
+const getUsers = (): User[] => readDB(DBField.USERS);
+const setUsers = (data: User[]) => writeDB(DBField.USERS, data);
+
 const getSelectItems = (): SelectItem[] => readDB(DBField.SELECT_ITEMS);
+const setSelectItems = (data: SelectItem[]) => writeDB(DBField.SELECT_ITEMS, data);
+
 const getResultItems = (): ResultItem[] => readDB(DBField.RESULT_ITEM);
+const setResultItems = (data: ResultItem[]) => writeDB(DBField.RESULT_ITEM, data);
+
+const getCards = (): Card[] => readDB(DBField.CARDS);
+const setCards = (data:Card[]) => writeDB(DBField.CARDS, data);
 
 const testRoute : CustomRoute[] = [
     {
@@ -52,8 +60,9 @@ const testRoute : CustomRoute[] = [
             
         }
     },
+
     {
-        method: METHOD.POST,
+        method: METHOD.POST, // 삭제
         route: '/test',
         handler: ({body:{userId, password, cardId}}, res) => {
             try {
@@ -66,11 +75,16 @@ const testRoute : CustomRoute[] = [
                 }
 
                 const cardData = getCards().filter((data) => data.id !== cardId);
-                console.log("카드데이터", cardData);
+                setCards(cardData);
 
-                const resultItems = getResultItems();
-                delete resultItems['2'];
-                console.log("resultItems", resultItems);
+                const resultItems = getResultItems().filter((data) => data.key !== cardId);
+                setResultItems(resultItems);
+
+                const selectItem = getSelectItems().filter((data) => data.key !== cardId);
+                setSelectItems(selectItem);
+
+                const useItem = getUsers().filter((data) => data.key !== cardId);
+                setUsers(useItem);
 
                 return res.status(200).json( { success: true } );
             
@@ -78,7 +92,6 @@ const testRoute : CustomRoute[] = [
                 console.log("error", error);
                 return res.status(400).json( { success: false, error: error } );
             }
-            
         }
     },
 ];
