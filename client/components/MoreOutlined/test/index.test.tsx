@@ -3,7 +3,7 @@ import MoreOutlined from '..';
 import userEvent from '@testing-library/user-event';
 
 describe('MoreOutlined button', () => {
-  test('Img Button', () => {
+  test.skip('Img Button', () => {
     const handleModal = jest.fn();
     const result = render(<MoreOutlined handleModal={handleModal} />);
 

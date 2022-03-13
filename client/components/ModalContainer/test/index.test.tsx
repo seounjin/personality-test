@@ -5,14 +5,14 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
 describe('ModalContainer', () => {
-  test('ModalContainer render', () => {
+  test.skip('ModalContainer render', () => {
     const handleModal = jest.fn();
     const result = render(<ModalContainer handleModal={handleModal} />);
     expect(result.getByLabelText('아이디')).toBeInTheDocument();
     expect(result.getByLabelText('비밀번호')).toBeInTheDocument();
   });
 
-  test('handleOk handleModal Click', () => {
+  test.skip('handleOk handleModal Click', () => {
     const handleModal = jest.fn();
     const result = render(<ModalContainer handleModal={handleModal} />);
 
