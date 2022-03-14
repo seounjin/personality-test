@@ -1,5 +1,11 @@
 import React from 'react';
 import Wrapper from './styles';
+import UserForm from '../UserForm';
+
+const ITEM = [
+  { label: '아이디', input: 'id' },
+  { label: '비밀번호', input: 'password' },
+];
 
 interface UserContainerProps {
   handleUser: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -13,14 +19,7 @@ const UserContainer = ({ handleUser }: UserContainerProps): JSX.Element => {
           <label>제목</label>
           <input name="title" onChange={handleUser} />
         </div>
-        <div className="user_wrapper">
-          <label>아이디</label>
-          <input name="id" onChange={handleUser} />
-        </div>
-        <div className="user_wrapper">
-          <label>비밀번호</label>
-          <input name="password" onChange={handleUser} />
-        </div>
+        <UserForm item={ITEM} handleUser={handleUser}></UserForm>
       </div>
     </Wrapper>
   );
