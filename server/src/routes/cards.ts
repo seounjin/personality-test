@@ -6,7 +6,7 @@ const getCards = (): Card[] => readDB(DBField.CARDS);
 const cardsRoute : CustomRoute[] = [
     {
         method: METHOD.GET,
-        route: '/cards',
+        route: '/api/v1/cards',
         handler: (req, res) => {
             const msgs = getCards();
             res.send(msgs);

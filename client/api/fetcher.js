@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'http://localhost:8000/api/v1';
 
 const fetcher = async (method, url, ...rest) => {
   try {

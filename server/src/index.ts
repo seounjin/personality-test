@@ -1,7 +1,7 @@
 import express from 'express';
 import cardsRoute from './routes/cards';
-import adminRoute from './routes/admin';
-import testRoute from './routes/test';
+// import adminRoute from './routes/admin';
+import testRoute from './routes/tests';
 import { CustomRoute } from './types';
 
 const cors = require('cors');
@@ -21,7 +21,7 @@ app.use(
 
 app.use('/static', express.static(__dirname + '/public'));
 
-const routes: CustomRoute[] = [...cardsRoute, ...adminRoute, ...testRoute];
+const routes: CustomRoute[] = [...cardsRoute, ...testRoute];
 
 routes.forEach(({ method, route, handler }) => {
   app[method](route, handler);

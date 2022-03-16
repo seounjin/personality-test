@@ -14,16 +14,19 @@ const MainPage = ({ mainStaticData }: MainProps): JSX.Element => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = [0, 0, 0].map((_, index) => ({
-    params: { id: `${index + 1}` },
-  }));
+  // 서버에 요청하는 것으로 바꿔야함
+  const paths = Array(100)
+    .fill(0)
+    .map((_, index) => ({
+      params: { id: `${index + 1}` },
+    }));
   return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps<MainProps, Params> = async ({
   params: { id },
 }) => {
-  const { testData, title } = await fetcher('get', `/test/${id}`);
+  const { testData, title } = await fetcher('get', `/tests/${id}`);
 
   return {
     props: { mainStaticData: { testData: testData, title: title, id } },

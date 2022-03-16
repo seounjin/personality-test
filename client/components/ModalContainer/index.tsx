@@ -25,10 +25,9 @@ const ModalContainer = ({
   const router = useRouter();
 
   const handleOk = async () => {
-    const res = await fetcher('post', `/test`, {
+    const res = await fetcher('post', `/tests/${SelectCard}`, {
       userId: UserId,
       password: Password,
-      cardId: SelectCard,
     });
 
     if (res.success) {

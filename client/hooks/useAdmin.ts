@@ -113,7 +113,7 @@ const useAdmin = (): UseAdmin => {
     });
     formData.append('items', JSON.stringify(items));
 
-    const res = await fetcher('post', '/admin', formData);
+    const res = await fetcher('post', '/tests', formData);
     if (res.success) {
       alert('등록되었습니다.');
     }

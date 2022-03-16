@@ -44,7 +44,7 @@ const MainContainer = ({
   };
 
   const lastClick = async (sumId: string) => {
-    const res = await fetcher('get', `/test?id=${id}&result=${sumId}`);
+    const res = await fetcher('get', `/tests?id=${id}&result=${sumId}`);
     if (res.success) {
       setLastScreenData(res.resultData[0]);
     }
