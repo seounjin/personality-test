@@ -70,17 +70,17 @@ const testRoute : CustomRoute[] = [
 
     {
         method: METHOD.GET,
-        route: '/api/v1/tests',
+        route: '/api/v1/tests/:testId/results/:resultId',
         handler: (req, res) => {
             try {
-                const id = req.query.id as string;
-                const { result } = req.query;
+
+                const testId = req.params.testId as string;
+                const resultId = req.params.resultId;
 
                 const resultData = getResultItems()
-                                                .filter((data) => data.key === parseInt(id))
-                                                .filter((data) => data.id === result);
+                                                .filter((data) => data.key === parseInt(testId))
+                                                .filter((data) => data.id === resultId);
                                                 
-                
                 return res.status(200).json( { success: true, resultData: resultData } );
             
             } catch (error) {
