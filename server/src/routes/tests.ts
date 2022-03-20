@@ -93,7 +93,7 @@ const testRoute : CustomRoute[] = [
 
     {
         method: METHOD.POST, // 삭제
-        route: '/api/v1/tests/:testId/edit',
+        route: '/api/v1/tests/:testId/delete',
         handler: (req, res) => {
             try {
                 const {userId, password} = req.body;
@@ -127,7 +127,7 @@ const testRoute : CustomRoute[] = [
     },
 
     {
-        method: METHOD.POST,
+        method: METHOD.POST, //등록
         route: '/api/v1/tests',
         handler: [upload, ({ body }, res) => {
 
@@ -135,7 +135,7 @@ const testRoute : CustomRoute[] = [
                 
                 const user = JSON.parse(body.user);
                 const items = JSON.parse(body.items);
-                const result = JSON.parse(body.result);
+                const result = JSON.parse(body.results);
 
                 // user data
                 const users = getUsers();
@@ -186,8 +186,6 @@ const testRoute : CustomRoute[] = [
                 
                 const resultItems = getResultItems().filter((data) => data.key !== testId);
                 
-                console.log("확인", useItem, selectData, resultItems)
-
                 return res.status(200).json( { success: false, userItem:useItem, items:selectData, resultContent:resultItems } );
                 
             } catch (error) {
@@ -220,6 +218,23 @@ const testRoute : CustomRoute[] = [
         }
     },
 
+    {
+        method: METHOD.POST, 
+        route: '/api/v1/tests/:testId/edit',
+        handler: [upload, ({ body }, res)=> {
+            try {
+                console.log("바디", body)             
+
+                return res.status(200).json( { success: true } );
+            
+            } catch (error) {
+                console.log("error", error);
+                return res.status(400).json( { success: false, error: error } );
+            }
+        }
+        ]
+    },
+        
 ];
 
 export default testRoute;

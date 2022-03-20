@@ -19,6 +19,7 @@ import {
   WRITE_IMG,
   EXCUTE_ITEM,
 } from '../_actions/adminAction';
+import { useRouter } from 'next/router';
 import selectItemCombine from '../utils/selectItemCombine';
 
 // const initialState: InitialState = {
@@ -60,6 +61,8 @@ interface AdminData {
 }
 
 const useAdmin = (adminData?: AdminData): UseAdmin => {
+  const router = useRouter();
+
   const initialState = useCallback((data?) => {
     let tempItems = [];
     if (data) {
@@ -144,8 +147,17 @@ const useAdmin = (adminData?: AdminData): UseAdmin => {
   // 등록 요청
   const handleCreate = useCallback(async (): Promise<void> => {
     const formData: FormData = new FormData();
+
+    const { id } = router.query;
+
+    if (id) {
+      formData.append('test', JSON.stringify({ title: state.userItem.title }));
+    } else {
+      formData.append('user', JSON.stringify({ ...state.userItem }));
+    }
+
     formData.append('user', JSON.stringify({ ...state.userItem }));
-    formData.append('result', JSON.stringify(state.resultContent));
+    formData.append('results', JSON.stringify(state.resultContent));
     formData.append('file', state.imgFile);
 
     const items = state.items.map((data, index) => {
@@ -153,9 +165,11 @@ const useAdmin = (adminData?: AdminData): UseAdmin => {
     });
     formData.append('items', JSON.stringify(items));
 
-    const res = await fetcher('post', '/tests', formData);
+    const endpoint = id ? `/tests/${id}/edit` : '/tests';
+    const res = await fetcher('post', endpoint, formData);
     if (res.success) {
       alert('등록되었습니다.');
+      router.push('/');
     }
   }, [state]);
 
