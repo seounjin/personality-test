@@ -9,8 +9,6 @@ import fetcher from '../../api/fetcher';
 import { GetStaticProps, GetStaticPaths } from 'next';
 
 const Admin = ({ adminData }): JSX.Element => {
-  console.log('어드민', adminData);
-
   const {
     handleOk,
     handleDelete,

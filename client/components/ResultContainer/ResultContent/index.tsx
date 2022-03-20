@@ -39,14 +39,14 @@ const ResultContent = ({
             data-index={index}
             name="who"
             onChange={handleTextArea}
-            value={resultContent ? resultContent.who : ''}
+            defaultValue={resultContent ? resultContent.who : ''}
           />
           <label>설명</label>
           <textarea
             name="content"
             data-index={index}
             onChange={handleTextArea}
-            value={resultContent ? resultContent.content : ''}
+            defaultValue={resultContent ? resultContent.content : ''}
           ></textarea>
         </div>
       </div>

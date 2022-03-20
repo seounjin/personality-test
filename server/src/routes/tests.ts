@@ -93,11 +93,11 @@ const testRoute : CustomRoute[] = [
 
     {
         method: METHOD.POST, // 삭제
-        route: '/api/v1/tests/:id',
+        route: '/api/v1/tests/:testId/edit',
         handler: (req, res) => {
             try {
                 const {userId, password} = req.body;
-                const cardId = parseInt(req.params.id);
+                const cardId = parseInt(req.params.testId);
                 console.log("바디", userId, password, cardId);
                 
                 // 아이디 비번 일치하는지 확인
