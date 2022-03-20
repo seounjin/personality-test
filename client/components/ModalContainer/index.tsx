@@ -12,29 +12,46 @@ const ITEM = [
 ];
 
 interface ModalProps {
-  handleModal: (cardId?: string) => void;
+  handleModal: (cardId?: string, action?: string) => void;
   SelectCard: string;
+  SelectAction: string;
 }
 
 const ModalContainer = ({
   handleModal,
   SelectCard,
+  SelectAction,
 }: ModalProps): JSX.Element => {
   const [UserId, setUserId] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
   const router = useRouter();
 
   const handleOk = async () => {
-    const res = await fetcher('post', `/tests/${SelectCard}/edit`, {
-      userId: UserId,
-      password: Password,
-    });
+    if (SelectAction === '삭제') {
+      const res = await fetcher('post', `/tests/${SelectCard}/edit`, {
+        userId: UserId,
+        password: Password,
+      });
 
-    if (res.success) {
-      router.reload();
-      alert('해당 카드를 삭제하였습니다.');
+      if (res.success) {
+        router.reload();
+        alert('해당 카드를 삭제하였습니다.');
+      } else {
+        alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+      }
     } else {
-      alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+      // 수정
+      const res = await fetcher('post', `/tests/${SelectCard}/edit-page`, {
+        userId: UserId,
+        password: Password,
+      });
+
+      // 아이디 비밀번호 일치할경우 수정페이지로 이동
+      if (res.success) {
+        router.push(`/admin/${SelectCard}`);
+      } else {
+        alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+      }
     }
   };
 

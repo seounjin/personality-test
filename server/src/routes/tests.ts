@@ -197,6 +197,29 @@ const testRoute : CustomRoute[] = [
         }
     ]
     },
+    {
+        method: METHOD.POST, 
+        route: '/api/v1/tests/:testId/edit-page',
+        handler: (req, res) => {
+            try {
+                const { userId, password } = req.body;
+                const cardId = parseInt(req.params.testId);
+                console.log("바디", userId, password, cardId);
+                
+                // 아이디 비번 일치하는지 확인
+                if(!authentication(userId, password, cardId)){
+                    return res.status(200).json( { success: false } );
+                }
+
+                return res.status(200).json( { success: true } );
+            
+            } catch (error) {
+                console.log("error", error);
+                return res.status(400).json( { success: false, error: error } );
+            }
+        }
+    },
+
 ];
 
 export default testRoute;

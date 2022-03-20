@@ -7,7 +7,7 @@ type CardProps = {
   imgUrl: string;
   id: string;
   title: string;
-  handleModal: (cardId?: string) => void;
+  handleModal: (cardId?: string, action?: string) => void;
 };
 
 const Card = ({ imgUrl, id, title, handleModal }: CardProps): JSX.Element => {

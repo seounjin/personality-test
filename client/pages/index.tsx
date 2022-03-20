@@ -21,6 +21,7 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
   const [Pcards, setPcards] = useState(cards);
   const [OpenModal, setOpenModal] = useState(false);
   const [SelectCard, setSelectCard] = useState(null);
+  const [SelectAction, setSelectAction] = useState('');
   const target = useRef(null);
   // const Intersecting = useInfiniteScroll(target);
 
@@ -30,9 +31,10 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
   };
 
   const handleModal = useCallback(
-    (cardId) => {
+    (cardId, action) => {
       console.log('cardid', cardId);
       setSelectCard(cardId);
+      setSelectAction(action);
       setOpenModal(!OpenModal);
     },
     [OpenModal, SelectCard],
@@ -61,6 +63,7 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
         <ModalContainer
           handleModal={handleModal}
           SelectCard={SelectCard}
+          SelectAction={SelectAction}
         ></ModalContainer>
       )}
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
@@ -69,7 +72,8 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const cards = await fetcher('get', '/cards');
+  const { cards, success } = await fetcher('get', '/cards');
+
   return {
     props: { cards },
   };

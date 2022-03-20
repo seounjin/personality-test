@@ -2,10 +2,10 @@ const Multilist = ({ handleModal, cardId }) => {
   return (
     <div>
       <ul>
-        <li role="modify" onClick={() => handleModal(cardId)}>
+        <li role="modify" onClick={() => handleModal(cardId, '수정')}>
           수정
         </li>
-        <li role="delete" onClick={() => handleModal(cardId)}>
+        <li role="delete" onClick={() => handleModal(cardId, '삭제')}>
           삭제
         </li>
       </ul>
