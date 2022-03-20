@@ -31,6 +31,7 @@ export interface InitialState {
   resultContent: ResultContents[];
   userItem: UserItem;
   imgFile?: File;
+  imgUrl?: string;
 }
 
 export type Action =

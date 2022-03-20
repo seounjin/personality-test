@@ -26,6 +26,7 @@ const Admin = ({ adminData }): JSX.Element => {
     resultItems,
     userItem,
     resultContent,
+    imgUrl,
   } = useAdmin(adminData);
 
   return (
@@ -44,6 +45,7 @@ const Admin = ({ adminData }): JSX.Element => {
         <div className="admin_content">
           <h1>이미지 등록</h1>
           <ImageUploadContainer
+            imgUrl={imgUrl}
             handleImgUpload={handleImgUpload}
           ></ImageUploadContainer>
         </div>
@@ -105,10 +107,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { id } }) => {
   const res = await fetcher('get', `/tests/${id}/edit`);
-  const { userItem, items, resultContent } = res;
+  const { userItem, items, resultContent, imgUrl } = res;
 
   return {
-    props: { adminData: { userItem, items, resultContent } },
+    props: { adminData: { userItem, items, resultContent, imgUrl } },
   };
 };
 

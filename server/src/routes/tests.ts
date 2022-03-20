@@ -179,6 +179,8 @@ const testRoute : CustomRoute[] = [
 
             try {
                 const testId = parseInt(req.params.id);
+                
+                const { imgUrl } = getCards().filter((data) => data.id !== testId)[0];
 
                 const useItem = getUsers().filter((data) => data.key !== testId)[0];
                 
@@ -186,7 +188,7 @@ const testRoute : CustomRoute[] = [
                 
                 const resultItems = getResultItems().filter((data) => data.key !== testId);
                 
-                return res.status(200).json( { success: false, userItem:useItem, items:selectData, resultContent:resultItems } );
+                return res.status(200).json( { success: false, userItem:useItem, items:selectData, resultContent:resultItems, imgUrl:imgUrl } );
                 
             } catch (error) {
                 console.log("에러", error);

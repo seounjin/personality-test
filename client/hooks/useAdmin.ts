@@ -22,19 +22,6 @@ import {
 import { useRouter } from 'next/router';
 import selectItemCombine from '../utils/selectItemCombine';
 
-// const initialState: InitialState = {
-//   items: [
-//     { question: '', select_1: '', select_2: '' },
-//     { question: '', select_1: '', select_2: '' },
-//     { question: '', select_1: '', select_2: '' },
-//   ],
-//   isVisible: [true, true, true],
-//   isResultScreen: false,
-//   resultItems: [],
-//   resultContent: [],
-//   userItem: { title: '', id: '', password: '' },
-// };
-
 interface UseAdmin {
   handleOk: (index: number) => void;
   handleDelete: (index: number) => void;
@@ -54,16 +41,17 @@ interface UseAdmin {
   resultItems: Array<ResultItems>[];
   userItem?: UserItem;
   resultContent?: ResultContents[];
+  imgUrl?: string;
 }
 
 interface AdminData {
   title: string;
 }
 
-const useAdmin = (adminData?: AdminData): UseAdmin => {
+const useAdmin = (adminData?): UseAdmin => {
   const router = useRouter();
 
-  const initialState = useCallback((data?) => {
+  const initialState = useCallback((data?): InitialState => {
     let tempItems = [];
     if (data) {
       const { resultItems } = selectItemCombine(data.items.length, data.items);
@@ -86,10 +74,12 @@ const useAdmin = (adminData?: AdminData): UseAdmin => {
       isResultScreen: data ? true : false,
       resultItems: data ? tempItems : [],
       resultContent: data ? data.resultContent : [],
+      imgUrl: data ? data.imgUrl : '',
     };
   }, []);
 
   const [state, dispatch] = useReducer(selectReducer, initialState(adminData));
+
   const {
     items,
     isVisible,
@@ -97,6 +87,7 @@ const useAdmin = (adminData?: AdminData): UseAdmin => {
     resultContent,
     resultItems,
     userItem,
+    imgUrl,
   } = state;
 
   const handleOk = useCallback((index: number): void => {
@@ -207,7 +198,9 @@ const useAdmin = (adminData?: AdminData): UseAdmin => {
     resultItems,
     resultContent,
     userItem,
+    imgUrl,
   };
 };
 
 export default useAdmin;
+1;

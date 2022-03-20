@@ -45,8 +45,8 @@ export interface SelectItem {
     question: string;
     select_1: string;
     select_2: string;
-    select_1_id: number;
-    select_2_id: number;
+    select_1_id: string;
+    select_2_id: string;
 };
 
 export interface SelectItems {
