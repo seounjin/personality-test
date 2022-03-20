@@ -40,6 +40,8 @@ const selectReducer = (state: InitialState, action: Action) => {
         itemLength,
         state.items,
       );
+      console.log('리절트아이템', resultItems);
+      console.log('리절트콘텐트', resultContent);
 
       return {
         ...state,

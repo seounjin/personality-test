@@ -172,6 +172,31 @@ const testRoute : CustomRoute[] = [
     ]
     },
 
+    {
+        method: METHOD.GET,
+        route: '/api/v1/tests/:testId/edit',
+        handler: [upload, (req, res) => {
+
+            try {
+                const testId = parseInt(req.params.id);
+
+                const useItem = getUsers().filter((data) => data.key !== testId)[0];
+                
+                const selectData = getSelectItems().filter((data) => data.key !== testId);
+                
+                const resultItems = getResultItems().filter((data) => data.key !== testId);
+                
+                console.log("확인", useItem, selectData, resultItems)
+
+                return res.status(200).json( { success: false, userItem:useItem, items:selectData, resultContent:resultItems } );
+                
+            } catch (error) {
+                console.log("에러", error);
+                return res.status(400).json( { success: false, error } );
+            }
+        }
+    ]
+    },
 ];
 
 export default testRoute;

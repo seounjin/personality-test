@@ -8,10 +8,17 @@ interface Item {
 
 interface UserFormProps {
   item: Item[];
+  userId?: string;
+  password?: string;
   handleUser: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UserForm = ({ handleUser, item }: UserFormProps): JSX.Element => {
+const UserForm = ({
+  handleUser,
+  item,
+  userId,
+  password,
+}: UserFormProps): JSX.Element => {
   return (
     <Wrapper>
       <div className="user_container">
@@ -19,7 +26,12 @@ const UserForm = ({ handleUser, item }: UserFormProps): JSX.Element => {
           return (
             <div className="user_wrapper" key={`${data.label}` + index}>
               <label htmlFor={data.input}>{data.label}</label>
-              <input id={data.input} name={data.input} onChange={handleUser} />
+              <input
+                id={data.input}
+                name={data.input}
+                onChange={handleUser}
+                defaultValue={data.input == 'id' ? userId : password}
+              />
             </div>
           );
         })}

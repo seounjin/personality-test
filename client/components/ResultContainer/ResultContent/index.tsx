@@ -1,10 +1,11 @@
 import React from 'react';
 import Wrapper from './styles';
-import { ResultItems } from '../../SelectContainer/type';
+import { ResultContents, ResultItems } from '../../SelectContainer/type';
 
 interface ResultContentProps {
   item: ResultItems[];
   index: number;
+  resultContent: ResultContents;
   handleTextArea: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
@@ -13,6 +14,7 @@ interface ResultContentProps {
 const ResultContent = ({
   item,
   index,
+  resultContent,
   handleTextArea,
 }: ResultContentProps): JSX.Element => {
   return (
@@ -33,12 +35,18 @@ const ResultContent = ({
 
         <div className="result_content_wrapper">
           <label>당신은?</label>
-          <input data-index={index} name="who" onChange={handleTextArea} />
+          <input
+            data-index={index}
+            name="who"
+            onChange={handleTextArea}
+            value={resultContent ? resultContent.who : ''}
+          />
           <label>설명</label>
           <textarea
             name="content"
             data-index={index}
             onChange={handleTextArea}
+            value={resultContent ? resultContent.content : ''}
           ></textarea>
         </div>
       </div>

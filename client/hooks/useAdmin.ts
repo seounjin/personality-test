@@ -5,6 +5,8 @@ import {
   InitialState,
   Items,
   ResultItems,
+  UserItem,
+  ResultContents,
 } from '../components/SelectContainer/type';
 import {
   APPROVE_ITEM,
@@ -17,19 +19,20 @@ import {
   WRITE_IMG,
   EXCUTE_ITEM,
 } from '../_actions/adminAction';
+import selectItemCombine from '../utils/selectItemCombine';
 
-const initialState: InitialState = {
-  items: [
-    { question: '', select_1: '', select_2: '' },
-    { question: '', select_1: '', select_2: '' },
-    { question: '', select_1: '', select_2: '' },
-  ],
-  isVisible: [true, true, true],
-  isResultScreen: false,
-  resultItems: [],
-  resultContent: [],
-  userItem: { title: '', id: '', password: '' },
-};
+// const initialState: InitialState = {
+//   items: [
+//     { question: '', select_1: '', select_2: '' },
+//     { question: '', select_1: '', select_2: '' },
+//     { question: '', select_1: '', select_2: '' },
+//   ],
+//   isVisible: [true, true, true],
+//   isResultScreen: false,
+//   resultItems: [],
+//   resultContent: [],
+//   userItem: { title: '', id: '', password: '' },
+// };
 
 interface UseAdmin {
   handleOk: (index: number) => void;
@@ -48,11 +51,50 @@ interface UseAdmin {
   isVisible: Array<boolean>;
   isResultScreen: boolean;
   resultItems: Array<ResultItems>[];
+  userItem?: UserItem;
+  resultContent?: ResultContents[];
 }
 
-const useAdmin = (): UseAdmin => {
-  const [state, dispatch] = useReducer(selectReducer, initialState);
-  const { items, isVisible, isResultScreen, resultItems } = state;
+interface AdminData {
+  title: string;
+}
+
+const useAdmin = (adminData?: AdminData): UseAdmin => {
+  const initialState = useCallback((data?) => {
+    let tempItems = [];
+    if (data) {
+      const { resultItems } = selectItemCombine(data.items.length, data.items);
+      tempItems = [...resultItems];
+    }
+    return {
+      userItem: {
+        title: data ? data.userItem.title : '',
+        id: data ? data.userItem.id : '',
+        password: data ? data.userItem.password : '',
+      },
+      items: data
+        ? data.items
+        : [
+            { question: '', select_1: '', select_2: '' },
+            { question: '', select_1: '', select_2: '' },
+            { question: '', select_1: '', select_2: '' },
+          ],
+      isVisible: data ? data.items.map(() => false) : [true, true, true],
+      isResultScreen: data ? true : false,
+      resultItems: data ? tempItems : [],
+      resultContent: data ? data.resultContent : [],
+    };
+  }, []);
+
+  const [state, dispatch] = useReducer(selectReducer, initialState(adminData));
+  const {
+    items,
+    isVisible,
+    isResultScreen,
+    resultContent,
+    resultItems,
+    userItem,
+  } = state;
 
   const handleOk = useCallback((index: number): void => {
     dispatch({ type: CHANGE_INPUT, index: index });
@@ -66,7 +108,7 @@ const useAdmin = (): UseAdmin => {
     dispatch({ type: ADD_ITEM });
   }, []);
 
-  const onChange = useCallback((event): void => {
+  const onChange = (event): void => {
     const {
       value,
       name,
@@ -79,9 +121,9 @@ const useAdmin = (): UseAdmin => {
       value: value,
       name: name,
     });
-  }, []);
+  };
 
-  const handleTextArea = useCallback((event): void => {
+  const handleTextArea = (event): void => {
     const {
       value,
       name,
@@ -93,7 +135,7 @@ const useAdmin = (): UseAdmin => {
       name: name,
       value: value,
     });
-  }, []);
+  };
 
   const handleApprove = useCallback((): void => {
     dispatch({ type: APPROVE_ITEM });
@@ -101,8 +143,6 @@ const useAdmin = (): UseAdmin => {
 
   // 등록 요청
   const handleCreate = useCallback(async (): Promise<void> => {
-    console.log('handleCreate', state);
-
     const formData: FormData = new FormData();
     formData.append('user', JSON.stringify({ ...state.userItem }));
     formData.append('result', JSON.stringify(state.resultContent));
@@ -119,14 +159,14 @@ const useAdmin = (): UseAdmin => {
     }
   }, [state]);
 
-  const handleUser = useCallback((event): void => {
+  const handleUser = (event): void => {
     const { value, name } = event.target;
     dispatch({
       type: CHANGE_USER_INPUT,
       name: name,
       value: value,
     });
-  }, []);
+  };
 
   const handleImgUpload = useCallback((imgFile: File): void => {
     dispatch({ type: WRITE_IMG, imgFile: imgFile });
@@ -151,6 +191,8 @@ const useAdmin = (): UseAdmin => {
     isVisible,
     isResultScreen,
     resultItems,
+    resultContent,
+    userItem,
   };
 };
 

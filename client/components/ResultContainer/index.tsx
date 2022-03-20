@@ -1,10 +1,11 @@
 import React from 'react';
 import Wrapper from './styles';
 import ResultContent from './ResultContent';
-import { ResultItems } from '../SelectContainer/type';
+import { ResultContents, ResultItems } from '../SelectContainer/type';
 
 interface ResultProps {
   resultItems: Array<ResultItems>[];
+  resultContents?: ResultContents[];
   handleTextArea: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
@@ -12,6 +13,7 @@ interface ResultProps {
 
 const ResultContainer = ({
   resultItems,
+  resultContents,
   handleTextArea,
 }: ResultProps): JSX.Element => {
   return (
@@ -22,6 +24,7 @@ const ResultContainer = ({
             key={'resultItems' + index}
             item={data}
             index={index}
+            resultContent={resultContents && resultContents[index]}
             handleTextArea={handleTextArea}
           ></ResultContent>
         );

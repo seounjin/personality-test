@@ -11,8 +11,8 @@ export interface ResultItems {
   content: string;
 }
 
-export interface ResultContent {
-  index: number;
+export interface ResultContents {
+  id: number;
   content: string;
   who: string;
 }
@@ -28,7 +28,7 @@ export interface InitialState {
   isVisible: Array<boolean>;
   isResultScreen: boolean;
   resultItems: Array<ResultItems>[];
-  resultContent: ResultContent[];
+  resultContent: ResultContents[];
   userItem: UserItem;
   imgFile?: File;
 }
