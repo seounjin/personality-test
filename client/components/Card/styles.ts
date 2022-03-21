@@ -28,8 +28,12 @@ const Wrapper = styled.li<wrapper>`
     button {
       display: inline;
     }
+    div {
+      display: inline;
+    }
   }
   .card_body {
+    color: black;
   }
 `;
 

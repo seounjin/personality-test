@@ -48,35 +48,35 @@ interface AdminData {
   title: string;
 }
 
+const initialState = (data?): InitialState => {
+  let tempItems = [];
+  if (data) {
+    const { resultItems } = selectItemCombine(data.items.length, data.items);
+    tempItems = [...resultItems];
+  }
+  return {
+    userItem: {
+      title: data ? data.userItem.title : '',
+      id: data ? data.userItem.id : '',
+      password: data ? data.userItem.password : '',
+    },
+    items: data
+      ? data.items
+      : [
+          { question: '', select_1: '', select_2: '' },
+          { question: '', select_1: '', select_2: '' },
+          { question: '', select_1: '', select_2: '' },
+        ],
+    isVisible: data ? data.items.map(() => false) : [true, true, true],
+    isResultScreen: data ? true : false,
+    resultItems: data ? tempItems : [],
+    resultContent: data ? data.resultContent : [],
+    imgUrl: data ? data.imgUrl : '',
+  };
+};
+
 const useAdmin = (adminData?): UseAdmin => {
   const router = useRouter();
-
-  const initialState = useCallback((data?): InitialState => {
-    let tempItems = [];
-    if (data) {
-      const { resultItems } = selectItemCombine(data.items.length, data.items);
-      tempItems = [...resultItems];
-    }
-    return {
-      userItem: {
-        title: data ? data.userItem.title : '',
-        id: data ? data.userItem.id : '',
-        password: data ? data.userItem.password : '',
-      },
-      items: data
-        ? data.items
-        : [
-            { question: '', select_1: '', select_2: '' },
-            { question: '', select_1: '', select_2: '' },
-            { question: '', select_1: '', select_2: '' },
-          ],
-      isVisible: data ? data.items.map(() => false) : [true, true, true],
-      isResultScreen: data ? true : false,
-      resultItems: data ? tempItems : [],
-      resultContent: data ? data.resultContent : [],
-      imgUrl: data ? data.imgUrl : '',
-    };
-  }, []);
 
   const [state, dispatch] = useReducer(selectReducer, initialState(adminData));
 
@@ -202,4 +202,3 @@ const useAdmin = (adminData?): UseAdmin => {
 };
 
 export default useAdmin;
-1;

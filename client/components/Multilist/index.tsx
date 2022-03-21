@@ -1,15 +1,22 @@
+import Wrapper from './styles';
 const Multilist = ({ handleModal, cardId }) => {
   return (
-    <div>
+    <Wrapper>
       <ul>
-        <li role="modify" onClick={() => handleModal(cardId, '수정')}>
+        <li
+          role="modify"
+          onClick={(event) => handleModal(event, cardId, '수정')}
+        >
           수정
         </li>
-        <li role="delete" onClick={() => handleModal(cardId, '삭제')}>
+        <li
+          role="delete"
+          onClick={(event) => handleModal(event, cardId, '삭제')}
+        >
           삭제
         </li>
       </ul>
-    </div>
+    </Wrapper>
   );
 };
 

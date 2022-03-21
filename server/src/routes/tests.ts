@@ -179,16 +179,19 @@ const testRoute : CustomRoute[] = [
         handler: [upload, (req, res) => {
 
             try {
-                const testId = parseInt(req.params.id);
                 
-                const { imgUrl } = getCards().filter((data) => data.id !== testId)[0];
+                const testId = parseInt(req.params.testId);
 
-                const useItem = getUsers().filter((data) => data.key !== testId)[0];
+                const { imgUrl } = getCards().filter((data) => data.id === testId)[0];
+
+                const useItem = getUsers().filter((data) => data.key === testId)[0];
                 
-                const selectData = getSelectItems().filter((data) => data.key !== testId);
+                const selectData = getSelectItems().filter((data) => data.key === testId);
                 
-                const resultItems = getResultItems().filter((data) => data.key !== testId);
+                const resultItems = getResultItems().filter((data) => data.key === testId);
                 
+                console.log("수정 데이터 요청")
+
                 return res.status(200).json( { success: false, userItem:useItem, items:selectData, resultContent:resultItems, imgUrl:imgUrl } );
                 
             } catch (error) {

@@ -95,23 +95,39 @@ const Admin = ({ adminData }): JSX.Element => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  // 서버에 요청하는 것으로 바꿔야함
-  const paths = Array(100)
-    .fill(0)
-    .map((_, index) => ({
-      params: { id: `${index + 1}` },
-    }));
-  return { paths, fallback: false };
-};
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   // 서버에 요청하는 것으로 바꿔야함
+//   const paths = Array(100)
+//     .fill(0)
+//     .map((_, index) => ({
+//       params: { id: `${index + 1}` },
+//     }));
+//   return { paths, fallback: false };
+// };
 
-export const getStaticProps = async ({ params: { id } }) => {
+// export const getStaticProps = async ({ params: { id } }) => {
+//   const res = await fetcher('get', `/tests/${id}/edit`);
+//   const { userItem, items, resultContent, imgUrl } = res;
+//   return {
+//     props: { adminData: { userItem, items, resultContent, imgUrl } },
+//   };
+// };
+
+export async function getServerSideProps(context) {
+  const id = context.params.id;
+  const cookie = context.req ? context.req.headers.cookie : '';
   const res = await fetcher('get', `/tests/${id}/edit`);
-  const { userItem, items, resultContent, imgUrl } = res;
 
+  // const res = await fetcher('get', `/tests/${id}/edit`, {
+  //   headers: {
+  //     Cookie: cookie,
+  //   },
+  // });
+
+  const { userItem, items, resultContent, imgUrl } = res;
   return {
     props: { adminData: { userItem, items, resultContent, imgUrl } },
   };
-};
+}
 
 export default Admin;

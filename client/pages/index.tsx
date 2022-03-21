@@ -31,7 +31,9 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
   };
 
   const handleModal = useCallback(
-    (cardId, action) => {
+    (event, cardId, action) => {
+      console.log('이벤트', event);
+      event.preventDefault();
       console.log('cardid', cardId);
       setSelectCard(cardId);
       setSelectAction(action);

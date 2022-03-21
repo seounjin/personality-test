@@ -12,7 +12,11 @@ const ITEM = [
 ];
 
 interface ModalProps {
-  handleModal: (cardId?: string, action?: string) => void;
+  handleModal: (
+    event?: React.MouseEvent<HTMLElement>,
+    cardId?: string,
+    action?: string,
+  ) => void;
   SelectCard: string;
   SelectAction: string;
 }
@@ -71,7 +75,7 @@ const ModalContainer = ({
 
   return (
     <Wrapper>
-      <div className="overlay" onClick={() => handleModal()}></div>
+      <div className="overlay" onClick={(event) => handleModal(event)}></div>
       <div className="modal">
         <UserForm handleUser={handleUser} item={ITEM}></UserForm>
         <AdminButton
