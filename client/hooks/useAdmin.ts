@@ -102,7 +102,7 @@ const useAdmin = (adminData?): UseAdmin => {
     dispatch({ type: ADD_ITEM });
   }, []);
 
-  const onChange = (event): void => {
+  const onChange = useCallback((event): void => {
     const {
       value,
       name,
@@ -115,9 +115,9 @@ const useAdmin = (adminData?): UseAdmin => {
       value: value,
       name: name,
     });
-  };
+  }, []);
 
-  const handleTextArea = (event): void => {
+  const handleTextArea = useCallback((event): void => {
     const {
       value,
       name,
@@ -129,7 +129,7 @@ const useAdmin = (adminData?): UseAdmin => {
       name: name,
       value: value,
     });
-  };
+  }, []);
 
   const handleApprove = useCallback((): void => {
     dispatch({ type: APPROVE_ITEM });
@@ -147,7 +147,6 @@ const useAdmin = (adminData?): UseAdmin => {
       formData.append('user', JSON.stringify({ ...state.userItem }));
     }
 
-    formData.append('user', JSON.stringify({ ...state.userItem }));
     formData.append('results', JSON.stringify(state.resultContent));
     formData.append('file', state.imgFile);
 
@@ -164,14 +163,14 @@ const useAdmin = (adminData?): UseAdmin => {
     }
   }, [state]);
 
-  const handleUser = (event): void => {
+  const handleUser = useCallback((event): void => {
     const { value, name } = event.target;
     dispatch({
       type: CHANGE_USER_INPUT,
       name: name,
       value: value,
     });
-  };
+  }, []);
 
   const handleImgUpload = useCallback((imgFile: File): void => {
     dispatch({ type: WRITE_IMG, imgFile: imgFile });

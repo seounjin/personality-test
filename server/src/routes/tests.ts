@@ -98,7 +98,7 @@ const testRoute : CustomRoute[] = [
             try {
                 const {userId, password} = req.body;
                 const cardId = parseInt(req.params.testId);
-                console.log("바디", userId, password, cardId);
+                console.log("바디1", userId, password, cardId);
                 
                 // 아이디 비번 일치하는지 확인
                 if(!authentication(userId, password, cardId)){
@@ -106,6 +106,7 @@ const testRoute : CustomRoute[] = [
                 }
 
                 const cardData = getCards().filter((data) => data.id !== cardId);
+                console.log("!!!", cardData)
                 setCards(cardData);
 
                 const resultItems = getResultItems().filter((data) => data.key !== cardId);
@@ -204,7 +205,7 @@ const testRoute : CustomRoute[] = [
             try {
                 const { userId, password } = req.body;
                 const cardId = parseInt(req.params.testId);
-                console.log("바디", userId, password, cardId);
+                console.log("수정 아이디 비번 체크", userId, password, cardId);
                 
                 // 아이디 비번 일치하는지 확인
                 if(!authentication(userId, password, cardId)){

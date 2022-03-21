@@ -27,8 +27,9 @@ const ModalContainer = ({
   const router = useRouter();
 
   const handleOk = async () => {
+    console.log('SelectAction', SelectAction);
     if (SelectAction === '삭제') {
-      const res = await fetcher('post', `/tests/${SelectCard}/edit`, {
+      const res = await fetcher('post', `/tests/${SelectCard}/delete`, {
         userId: UserId,
         password: Password,
       });

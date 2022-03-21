@@ -24,7 +24,7 @@ const SelectInput = ({
             name="question"
             data-index={index}
             onChange={onChange}
-            value={data[`question`] ? data[`question`] : ''}
+            defaultValue={data[`question`] ? data[`question`] : ''}
           />
         ) : (
           <p>{data[`question`]}</p>
@@ -37,7 +37,7 @@ const SelectInput = ({
             name="select_1"
             data-index={index}
             onChange={onChange}
-            value={data[`select_1`] ? data[`select_1`] : ''}
+            defaultValue={data[`select_1`] ? data[`select_1`] : ''}
           />
         ) : (
           <p>{data[`select_1`]}</p>
@@ -50,7 +50,7 @@ const SelectInput = ({
             name="select_2"
             data-index={index}
             onChange={onChange}
-            value={data[`select_2`]}
+            defaultValue={data[`select_2`]}
           />
         ) : (
           <p>{data[`select_2`]}</p>
