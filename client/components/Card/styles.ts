@@ -35,6 +35,14 @@ const Wrapper = styled.li<wrapper>`
   .card_body {
     color: black;
   }
+
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 50%;
+  }
 `;
 
 export default Wrapper;

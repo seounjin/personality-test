@@ -27,7 +27,9 @@ const Admin = (): JSX.Element => {
   return (
     <Wrapper>
       <div className="admin_wrapper">
-        <h1>만들어 보아요</h1>
+        <div className="admin_title">
+          <h1>만들어 보아요</h1>
+        </div>
 
         <div className="admin_content">
           <h1>유저 등록</h1>

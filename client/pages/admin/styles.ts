@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   position: relative;
+  min-width: 381px;
   min-height: calc(100vh - 50px);
   background-color: ${(props) => props.theme.colors.gray_background};
   padding: 10px;
@@ -23,6 +24,21 @@ const Wrapper = styled.div`
       rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     border-radius: 8px;
     height: 100%;
+  }
+
+  @media (max-width: 479px) {
+    padding: 20px 0;
+    background-color: ${(props) => props.theme.colors.white};
+
+    .admin_title {
+      display: flex;
+      justify-content: center;
+    }
+
+    .admin_content {
+      border-radius: 0;
+      box-shadow: none;
+    }
   }
 `;
 
