@@ -45,10 +45,13 @@ interface UseAdmin {
 }
 
 interface AdminData {
-  title: string;
+  userItem: UserItem;
+  items: Items[];
+  resultContent: ResultContents[];
+  imgUrl: string;
 }
 
-const initialState = (data?): InitialState => {
+const initialState = (data?: AdminData): InitialState => {
   let tempItems = [];
   if (data) {
     const { resultItems } = selectItemCombine(data.items.length, data.items);

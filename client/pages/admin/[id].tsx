@@ -6,9 +6,25 @@ import AdminButton from '../../components/AdminButton';
 import UserContainer from '../../components/UserContainer';
 import useAdmin from '../../hooks/useAdmin';
 import fetcher from '../../api/fetcher';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import {
+  UserItem,
+  Items,
+  ResultContents,
+} from '../../components/SelectContainer/type';
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
 
-const Admin = ({ adminData }): JSX.Element => {
+interface AdminData {
+  userItem: UserItem;
+  items: Items[];
+  resultContent: ResultContents[];
+  imgUrl: string;
+}
+
+type AdminProps = {
+  adminData: AdminData;
+};
+
+const Admin = ({ adminData }: AdminProps): JSX.Element => {
   const {
     handleOk,
     handleDelete,
@@ -115,7 +131,7 @@ const Admin = ({ adminData }): JSX.Element => {
 //   };
 // };
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params.id;
   const cookie = context.req ? context.req.headers.cookie : '';
   const res = await fetcher('get', `/tests/${id}/edit`);
@@ -130,6 +146,6 @@ export async function getServerSideProps(context) {
   return {
     props: { adminData: { userItem, items, resultContent, imgUrl } },
   };
-}
+};
 
 export default Admin;
