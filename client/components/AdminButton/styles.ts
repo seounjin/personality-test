@@ -14,10 +14,6 @@ const Wrapper = styled.div`
     font-weight: 600;
     border-radius: 8px;
   }
-
-  button:hover {
-    cursor: pointer;
-  }
 `;
 
 export default Wrapper;

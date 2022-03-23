@@ -76,6 +76,10 @@ const MainContainer = ({
         setSelectValue(sumId);
       }
     }
+    return () => {
+      sessionStorage.removeItem('index');
+      sessionStorage.removeItem('sumId');
+    };
   }, []);
 
   return (

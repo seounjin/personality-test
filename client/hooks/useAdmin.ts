@@ -134,9 +134,17 @@ const useAdmin = (adminData?): UseAdmin => {
     });
   }, []);
 
-  const handleApprove = useCallback((): void => {
+  const handleApprove = (): void => {
+    const isCheck = isVisible.filter((data) => data === true);
+    console.log('!!!', isVisible, isCheck);
+
+    if (isCheck.length) {
+      alert('선택지 작성에서 확인버튼을 눌러주세요!!!');
+      return;
+    }
+
     dispatch({ type: APPROVE_ITEM });
-  }, []);
+  };
 
   // 등록 요청
   const handleCreate = useCallback(async (): Promise<void> => {
