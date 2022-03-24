@@ -93,9 +93,16 @@ const useAdmin = (adminData?): UseAdmin => {
     imgUrl,
   } = state;
 
-  const handleOk = useCallback((index: number): void => {
+  const handleOk = (index: number): void => {
+    const { question, select_1, select_2 } = items[index];
+
+    if (!question || !select_1 || !select_2) {
+      alert('선택지를 채워주세요');
+      return;
+    }
+
     dispatch({ type: CHANGE_INPUT, index: index });
-  }, []);
+  };
 
   const handleDelete = useCallback((index: number): void => {
     dispatch({ type: DELETE_ITEM, index: index });
@@ -136,7 +143,6 @@ const useAdmin = (adminData?): UseAdmin => {
 
   const handleApprove = (): void => {
     const isCheck = isVisible.filter((data) => data === true);
-    console.log('!!!', isVisible, isCheck);
 
     if (isCheck.length) {
       alert('선택지 작성에서 확인버튼을 눌러주세요!!!');
@@ -148,6 +154,26 @@ const useAdmin = (adminData?): UseAdmin => {
 
   // 등록 요청
   const handleCreate = useCallback(async (): Promise<void> => {
+    // 유효성 검사
+    if (!userItem.title || !userItem.id || !userItem.password) {
+      alert('제목 아이디 비밀번호를 채워주세요');
+      return;
+    }
+
+    for (let index = 0; index < resultContent.length; index++) {
+      const { who, content } = resultContent[index];
+      if (!who || !content) {
+        alert('결과를 작성해 주세요');
+        return;
+      }
+    }
+
+    if (!state.imgFile) {
+      alert('이미지를 올려주세요');
+      return;
+    }
+
+    // formdata 생성
     const formData: FormData = new FormData();
 
     const { id } = router.query;
