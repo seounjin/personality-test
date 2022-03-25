@@ -28,7 +28,7 @@
 <br/>
 
 
-| Creat|
+| Create|
 |:----------------------------------------:|
 |<img src="https://github.com/seounjin/personality-test/blob/main/client/public/create.gif" width=1000  />|
 
