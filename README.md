@@ -17,9 +17,9 @@
 
 서버
 -----------
-[API문서](https://github.com/flylofty/personality-test-API-Server)  
+[API서버(스프링)](https://github.com/flylofty/personality-test-API-Server)  
 
-[API서버(스프링)](https://cobalt-hide-2b2.notion.site/a3ad2b9df63e40e98209038ed1e8dac3?v=541aae7ed3d64f8da6b3bee96e89c87d)
+[API문서](https://cobalt-hide-2b2.notion.site/a3ad2b9df63e40e98209038ed1e8dac3?v=541aae7ed3d64f8da6b3bee96e89c87d)
 
 <br/>
 
