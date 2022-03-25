@@ -1,4 +1,18 @@
-const selectItemCombine = (itemLength, items) => {
+import {
+  Items,
+  ResultContents,
+  ResultItems,
+} from '../components/SelectContainer/type';
+
+type SelectItemCombine = {
+  resultItems: Array<ResultItems>[];
+  resultContent: ResultContents[];
+};
+
+const selectItemCombine = (
+  itemLength: number,
+  items: Items[],
+): SelectItemCombine => {
   let cnt = -1;
   const tempArray = Array(itemLength)
     .fill(null)
