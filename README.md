@@ -4,6 +4,7 @@
 - 사용스택: TypeScript, Next.js, Jest, NodeJS - Express FrameWork, Spring-Boot
 - 개발환경: Window
 - 개발도구: Visual Studio Code
+- 프로젝트인원: 2명
 - 프로젝트기간: 22. 02 ~ 22. 03
 
 <br/>
@@ -43,6 +44,13 @@
 | Delete|
 |:----------------------------------------:|
 |<img src="https://github.com/seounjin/personality-test/blob/main/client/public/delete.gif" width=1000  />|
+
+
+<br/>
+
+Contributor
+-----------
+<https://github.com/flylofty>
 
 
 
