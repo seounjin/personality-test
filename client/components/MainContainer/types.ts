@@ -17,6 +17,12 @@ export interface MainStaticData {
   id: string;
 }
 
+export interface Error {
+  statusCode: number;
+  message: string;
+}
+
 export interface MainProps {
-  mainStaticData: MainStaticData;
+  mainStaticData?: MainStaticData;
+  error?: Error;
 }

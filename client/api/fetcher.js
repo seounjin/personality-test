@@ -8,7 +8,12 @@ const fetcher = async (method, url, ...rest) => {
     const res = await axios[method](url, ...rest);
     return res.data;
   } catch (error) {
-    console.log('에러', error);
+    if (error.response) {
+      console.log('!!', error.response);
+      return { status: error.response.status };
+    }
+
+    // window.history.replaceState(status, '', '/');
   }
 };
 

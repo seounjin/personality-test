@@ -26,11 +26,27 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<MainProps, Params> = async ({
   params: { id },
 }) => {
-  const { testData, title } = await fetcher('get', `/tests/${id}`);
+  const res = await fetcher('get', `/tests/${id}`);
 
-  return {
-    props: { mainStaticData: { testData: testData, title: title, id } },
-  };
+  if (res) {
+    const { testData, title, status } = res;
+    if (status) {
+      return {
+        props: {
+          error: { statusCode: status, message: 'Error!' },
+        },
+      };
+    }
+    return {
+      props: { mainStaticData: { testData: testData, title: title, id } },
+    };
+  } else {
+    return {
+      props: {
+        error: { statusCode: 500, message: 'Error!' },
+      },
+    };
+  }
 };
 
 export default MainPage;

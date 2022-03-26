@@ -11,7 +11,8 @@ import {
   Items,
   ResultContents,
 } from '../../components/SelectContainer/type';
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
+import { GetServerSideProps } from 'next';
+import Error from 'next/error';
 
 interface AdminData {
   userItem: UserItem;
@@ -113,39 +114,38 @@ const Admin = ({ adminData }: AdminProps): JSX.Element => {
   );
 };
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   // 서버에 요청하는 것으로 바꿔야함
-//   const paths = Array(100)
-//     .fill(0)
-//     .map((_, index) => ({
-//       params: { id: `${index + 1}` },
-//     }));
-//   return { paths, fallback: false };
-// };
-
-// export const getStaticProps = async ({ params: { id } }) => {
-//   const res = await fetcher('get', `/tests/${id}/edit`);
-//   const { userItem, items, resultContent, imgUrl } = res;
-//   return {
-//     props: { adminData: { userItem, items, resultContent, imgUrl } },
-//   };
-// };
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params.id;
   const cookie = context.req ? context.req.headers.cookie : '';
+
   const res = await fetcher('get', `/tests/${id}/edit`);
+
+  if (res) {
+    const { userItem, items, resultContent, imgUrl, sucess, status } = res;
+
+    if (status) {
+      return {
+        props: {
+          error: { statusCode: res.status, message: 'Error!' },
+        },
+      };
+    }
+    return {
+      props: { adminData: { userItem, items, resultContent, imgUrl } },
+    };
+  } else {
+    return {
+      props: {
+        error: { statusCode: 500, message: 'Error!' },
+      },
+    };
+  }
 
   // const res = await fetcher('get', `/tests/${id}/edit`, {
   //   headers: {
   //     Cookie: cookie,
   //   },
   // });
-
-  const { userItem, items, resultContent, imgUrl } = res;
-  return {
-    props: { adminData: { userItem, items, resultContent, imgUrl } },
-  };
 };
 
 export default Admin;

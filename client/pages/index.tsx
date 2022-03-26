@@ -49,17 +49,18 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
   return (
     <Wrapper>
       <ul>
-        {Pcards.map((data, index) => {
-          return (
-            <Card
-              key={'card' + index}
-              imgUrl={data.imgUrl}
-              id={data.id}
-              title={data.title}
-              handleModal={handleModal}
-            ></Card>
-          );
-        })}
+        {Pcards &&
+          Pcards.map((data, index) => {
+            return (
+              <Card
+                key={'card' + index}
+                imgUrl={data.imgUrl}
+                id={data.id}
+                title={data.title}
+                handleModal={handleModal}
+              ></Card>
+            );
+          })}
       </ul>
       {OpenModal && (
         <ModalContainer
@@ -74,11 +75,23 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { cards, success } = await fetcher('get', '/cards');
+  try {
+    const { cards, success } = await fetcher('get', '/cards');
 
-  return {
-    props: { cards },
-  };
+    if (success) {
+      return {
+        props: { cards },
+      };
+    } else {
+      return { props: {} };
+    }
+  } catch (error) {
+    return {
+      props: {
+        error: { statusCode: 503, message: 'Error!' },
+      },
+    };
+  }
 };
 
 export default Home;

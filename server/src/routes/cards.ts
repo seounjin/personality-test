@@ -9,7 +9,6 @@ const cardsRoute : CustomRoute[] = [
         route: '/api/v1/cards',
         handler: (req, res) => {
             const msgs = getCards();
-
             return res.status(200).json( { success: true,  cards:msgs} );
         }
     },

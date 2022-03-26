@@ -81,8 +81,9 @@ const testRoute : CustomRoute[] = [
                                                 .filter((data) => data.key === parseInt(testId))
                                                 .filter((data) => data.id === resultId);
                                                 
+                // return res.status(400).json( { success: false });                            
                 return res.status(200).json( { success: true, resultData: resultData } );
-            
+                
             } catch (error) {
                 console.log("error", error);
                 return res.status(400).json( { success: false, error: error } );
@@ -98,7 +99,7 @@ const testRoute : CustomRoute[] = [
             try {
                 const {userId, password} = req.body;
                 const cardId = parseInt(req.params.testId);
-                console.log("바디1", userId, password, cardId);
+                console.log("삭제", userId, password, cardId);
                 
                 // 아이디 비번 일치하는지 확인
                 if(!authentication(userId, password, cardId)){
@@ -190,9 +191,9 @@ const testRoute : CustomRoute[] = [
                 
                 const resultItems = getResultItems().filter((data) => data.key === testId);
                 
-                console.log("수정 데이터 요청")
+                console.log("수정 데이터 요청",testId)
 
-                return res.status(200).json( { success: false, userItem:useItem, items:selectData, resultContent:resultItems, imgUrl:imgUrl } );
+                return res.status(200).json( { success: true, userItem:useItem, items:selectData, resultContent:resultItems, imgUrl:imgUrl } );
                 
             } catch (error) {
                 console.log("에러", error);

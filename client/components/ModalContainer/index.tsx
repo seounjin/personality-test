@@ -39,8 +39,8 @@ const ModalContainer = ({
       });
 
       if (res.success) {
-        router.reload();
         alert('해당 카드를 삭제하였습니다.');
+        router.reload();
       } else {
         alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
       }
