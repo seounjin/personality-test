@@ -6,14 +6,13 @@ axios.defaults.withCredentials = true;
 const fetcher = async (method, url, ...rest) => {
   try {
     const res = await axios[method](url, ...rest);
-    return res.data;
-  } catch (error) {
-    if (error.response) {
-      console.log('!!', error.response);
-      return { status: error.response.status };
+    console.log('res', res.status);
+    if (res.status === 200 || res.status === 201) {
+      return res.data;
     }
-
-    // window.history.replaceState(status, '', '/');
+  } catch (error) {
+    console.log('fetcher error', error.response.status);
+    return { status: error.response.status };
   }
 };
 

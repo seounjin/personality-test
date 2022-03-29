@@ -32,7 +32,6 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 
   const handleModal = useCallback(
     (event, cardId, action) => {
-      console.log('이벤트', event);
       event.preventDefault();
       console.log('cardid', cardId);
       setSelectCard(cardId);
@@ -76,15 +75,10 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const { cards, success } = await fetcher('get', '/cards');
-
-    if (success) {
-      return {
-        props: { cards },
-      };
-    } else {
-      return { props: {} };
-    }
+    const { cards } = await fetcher('get', '/cards');
+    return {
+      props: { cards },
+    };
   } catch (error) {
     return {
       props: {

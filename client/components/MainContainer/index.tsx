@@ -46,13 +46,9 @@ const MainContainer = ({
   const lastClick = async (sumId: string) => {
     try {
       const res = await fetcher('get', `/tests/${id}/results/${sumId}`);
-      if (res.success) {
-        setLastScreenData(res.resultData[0]);
-      } else {
-        alert('잘못된 요청입니다');
-      }
+      setLastScreenData(res.resultData[0]);
     } catch (error) {
-      console.log(error);
+      console.log('결과요청 페이지 에러', error);
     }
   };
 

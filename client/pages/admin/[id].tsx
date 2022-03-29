@@ -116,9 +116,13 @@ const Admin = ({ adminData }: AdminProps): JSX.Element => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params.id;
-  const cookie = context.req ? context.req.headers.cookie : '';
+  const cookie = context.req.headers.cookie ? context.req.headers.cookie : '';
 
-  const res = await fetcher('get', `/tests/${id}/edit`);
+  const res = await fetcher('get', `/tests/${id}/edit`, {
+    headers: {
+      Cookie: cookie,
+    },
+  });
 
   if (res) {
     const { userItem, items, resultContent, imgUrl, sucess, status } = res;
@@ -140,12 +144,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
-
-  // const res = await fetcher('get', `/tests/${id}/edit`, {
-  //   headers: {
-  //     Cookie: cookie,
-  //   },
-  // });
 };
 
 export default Admin;

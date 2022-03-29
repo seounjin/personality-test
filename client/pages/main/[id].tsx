@@ -26,9 +26,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<MainProps, Params> = async ({
   params: { id },
 }) => {
-  const res = await fetcher('get', `/tests/${id}`);
+  try {
+    const res = await fetcher('get', `/tests/${id}`);
 
-  if (res) {
     const { testData, title, status } = res;
     if (status) {
       return {
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps<MainProps, Params> = async ({
     return {
       props: { mainStaticData: { testData: testData, title: title, id } },
     };
-  } else {
+  } catch (error) {
     return {
       props: {
         error: { statusCode: 500, message: 'Error!' },

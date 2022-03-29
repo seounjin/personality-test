@@ -193,10 +193,16 @@ const useAdmin = (adminData?): UseAdmin => {
     formData.append('items', JSON.stringify(items));
 
     const endpoint = id ? `/tests/${id}/edit` : '/tests';
-    const res = await fetcher('post', endpoint, formData);
-    if (res.success) {
-      alert('등록되었습니다.');
-      router.push('/');
+    try {
+      const res = await fetcher('post', endpoint, formData);
+      if (res.success) {
+        alert('등록되었습니다.');
+        router.push('/');
+      } else {
+        alert('등록이 실패하였습니다.');
+      }
+    } catch (error) {
+      console.log('등록 및 수정 요청 에러', error);
     }
   }, [state]);
 

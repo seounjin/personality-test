@@ -31,31 +31,38 @@ const ModalContainer = ({
   const router = useRouter();
 
   const handleOk = async () => {
-    console.log('SelectAction', SelectAction);
     if (SelectAction === '삭제') {
-      const res = await fetcher('post', `/tests/${SelectCard}/delete`, {
-        userId: UserId,
-        password: Password,
-      });
+      try {
+        const res = await fetcher('post', `/tests/${SelectCard}/delete`, {
+          userId: UserId,
+          password: Password,
+        });
 
-      if (res.success) {
-        alert('해당 카드를 삭제하였습니다.');
-        router.reload();
-      } else {
-        alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+        if (res.success) {
+          alert('해당 카드를 삭제하였습니다.');
+          router.reload();
+        } else {
+          alert('아이디 비밀번호가 일치하지 않습니다.');
+        }
+      } catch (error) {
+        console.log('삭제 에러');
       }
     } else {
-      // 수정
-      const res = await fetcher('post', `/tests/${SelectCard}/edit-page`, {
-        userId: UserId,
-        password: Password,
-      });
+      try {
+        // 수정
+        const res = await fetcher('post', `/tests/${SelectCard}/edit-page`, {
+          userId: UserId,
+          password: Password,
+        });
 
-      // 아이디 비밀번호 일치할경우 수정페이지로 이동
-      if (res.success) {
-        router.push(`/admin/${SelectCard}`);
-      } else {
-        alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+        // 아이디 비밀번호 일치할경우 수정페이지로 이동
+        if (res.success) {
+          router.push(`/admin/${SelectCard}`);
+        } else {
+          alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+        }
+      } catch (error) {
+        console.log('수정 에러');
       }
     }
   };
@@ -64,7 +71,6 @@ const ModalContainer = ({
     event.preventDefault();
 
     const { value, name } = event.target;
-    console.log('!!!', value);
 
     if (name === 'id') {
       setUserId(value);

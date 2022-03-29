@@ -63,3 +63,9 @@ export interface ResultItem {
 export interface ResultItems {
     [key:string]: ResultItem[]
 };
+
+declare module 'express-session' {
+    export interface SessionData {
+      user: string;
+    }
+};

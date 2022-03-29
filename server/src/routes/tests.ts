@@ -51,18 +51,21 @@ const testRoute : CustomRoute[] = [
         route: '/api/v1/tests/:id',
         handler: (req, res) => {
             try {
-                
                 const id = parseInt(req.params.id);
+                console.log("카드아이디", id);
                 const selectData = getSelectItems().filter((data) => data.key === id);
-                
+                if (selectData.length === 0){
+                    return res.sendStatus(404);
+                }
+
                 const cardData = getCards().filter((data) => data.id === id);
                 const { title } = cardData[0];
 
-                return res.status(200).json( { success: true, testData: selectData, title: title} );
+                return res.status(200).json( { testData: selectData, title: title} );
             
             } catch (error) {
                 console.log("error", error);
-                return res.status(400).json( { success: false, error: error } );
+                return res.sendStatus(500);
             }
             
         }
@@ -81,17 +84,17 @@ const testRoute : CustomRoute[] = [
                                                 .filter((data) => data.key === parseInt(testId))
                                                 .filter((data) => data.id === resultId);
                                                 
-                // return res.status(400).json( { success: false });                            
-                return res.status(200).json( { success: true, resultData: resultData } );
+                             
+                return res.status(200).json( { resultData: resultData } );
                 
             } catch (error) {
                 console.log("error", error);
-                return res.status(400).json( { success: false, error: error } );
+                return res.status(400).json( {  error: error } );
             }
             
         }
     },
-
+    
     {
         method: METHOD.POST, // 삭제
         route: '/api/v1/tests/:testId/delete',
@@ -103,7 +106,7 @@ const testRoute : CustomRoute[] = [
                 
                 // 아이디 비번 일치하는지 확인
                 if(!authentication(userId, password, cardId)){
-                    return res.status(200).json( { success: false } );
+                    return res.status(401).json( { success: false } );
                 }
 
                 const cardData = getCards().filter((data) => data.id !== cardId);
@@ -123,7 +126,7 @@ const testRoute : CustomRoute[] = [
             
             } catch (error) {
                 console.log("error", error);
-                return res.status(400).json( { success: false, error: error } );
+                return res.status(401).json( { success: false, error: error } );
             }
         }
     },
@@ -163,7 +166,7 @@ const testRoute : CustomRoute[] = [
 
                 setResultItems([...resultData, ...newResultData]);
 
-                return res.status(200).json( { success: true } );
+                return res.status(201).json( { success: true } );
 
 
             } catch (error) {
@@ -178,7 +181,12 @@ const testRoute : CustomRoute[] = [
         method: METHOD.GET,
         route: '/api/v1/tests/:testId/edit',
         handler: [upload, (req, res) => {
-
+            console.log("인증실패")
+            if (!req.session.user){
+                console.log("인증실패")
+                return res.sendStatus(401);
+            } 
+            
             try {
                 
                 const testId = parseInt(req.params.testId);
@@ -213,26 +221,26 @@ const testRoute : CustomRoute[] = [
                 
                 // 아이디 비번 일치하는지 확인
                 if(!authentication(userId, password, cardId)){
-                    return res.status(200).json( { success: false } );
+                    return res.status(401).json( { success: false } );
                 }
-
-                return res.status(200).json( { success: true } );
-            
+                req.session.user = req.session.id;
+               
+                return res.status(200).json( { success: true } );;
             } catch (error) {
                 console.log("error", error);
-                return res.status(400).json( { success: false, error: error } );
+                return res.status(400).json( { success: false, error } );
             }
         }
     },
 
-    {
+    { // 수정요청
         method: METHOD.POST, 
         route: '/api/v1/tests/:testId/edit',
         handler: [upload, ({ body }, res)=> {
             try {
                 console.log("바디", body)             
 
-                return res.status(200).json( { success: true } );
+                return res.status(200).json( { success: false } );
             
             } catch (error) {
                 console.log("error", error);
