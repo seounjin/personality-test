@@ -125,7 +125,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
 
   if (res) {
-    const { userItem, items, resultContent, imgUrl, sucess, status } = res;
+    const { userItem, items, resultContent, imgUrl, status } = res;
 
     if (status) {
       return {
@@ -140,7 +140,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   } else {
     return {
       props: {
-        error: { statusCode: 500, message: 'Error!' },
+        error: {
+          statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
+          message: 'Error!',
+        },
       },
     };
   }

@@ -180,16 +180,21 @@ const testRoute : CustomRoute[] = [
     {
         method: METHOD.GET,
         route: '/api/v1/tests/:testId/edit',
-        handler: [upload, (req, res) => {
-            console.log("인증실패")
-            if (!req.session.user){
+        handler: (req, res) => {
+            
+            if (!req.session.cardId){
                 console.log("인증실패")
-                return res.sendStatus(401);
+                return res.sendStatus(403);
             } 
+            const testId = parseInt(req.params.testId);
+            if (req.session.cardId !== testId){
+                console.log("인증실패");
+                return res.sendStatus(403);
+            }
             
             try {
                 
-                const testId = parseInt(req.params.testId);
+                
 
                 const { imgUrl } = getCards().filter((data) => data.id === testId)[0];
 
@@ -205,10 +210,10 @@ const testRoute : CustomRoute[] = [
                 
             } catch (error) {
                 console.log("에러", error);
-                return res.status(400).json( { success: false, error } );
+                return res.status(404).json( { success: false, error } );
             }
         }
-    ]
+    
     },
     {
         method: METHOD.POST, 
@@ -223,7 +228,7 @@ const testRoute : CustomRoute[] = [
                 if(!authentication(userId, password, cardId)){
                     return res.status(401).json( { success: false } );
                 }
-                req.session.user = req.session.id;
+                req.session.cardId = cardId;
                
                 return res.status(200).json( { success: true } );;
             } catch (error) {

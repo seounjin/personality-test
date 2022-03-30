@@ -75,14 +75,27 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const { cards } = await fetcher('get', '/cards');
+    const { cards, status } = await fetcher('get', '/cards');
+    if (status >= 500) {
+      return {
+        props: {
+          error: {
+            statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
+            message: 'Error!',
+          },
+        },
+      };
+    }
     return {
       props: { cards },
     };
   } catch (error) {
     return {
       props: {
-        error: { statusCode: 503, message: 'Error!' },
+        error: {
+          statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
+          message: 'Error!',
+        },
       },
     };
   }

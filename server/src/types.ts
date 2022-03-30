@@ -66,6 +66,6 @@ export interface ResultItems {
 
 declare module 'express-session' {
     export interface SessionData {
-      user: string;
+        cardId: number;
     }
 };
