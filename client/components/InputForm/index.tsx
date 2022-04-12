@@ -9,20 +9,26 @@ interface Item {
 
 interface InputFormProps {
   item: Item[];
+  num?: number;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputForm = ({ item, handleChange }: InputFormProps): JSX.Element => {
+const InputForm = ({
+  item,
+  num,
+  handleChange,
+}: InputFormProps): JSX.Element => {
   return (
     <Wrapper>
       {item.map((data, index) => {
         const { label, input, defaultValue } = data;
         return (
-          <div key={'userForm' + index} className="userform_container">
+          <div key={label + index} className="inputform_container">
             <label>{label}</label>
             <input
               id={input}
               name={input}
+              data-index={num}
               onChange={handleChange}
               defaultValue={defaultValue}
             ></input>

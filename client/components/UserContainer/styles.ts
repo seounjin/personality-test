@@ -18,18 +18,6 @@ const Wrapper = styled.div`
     justify-content: space-between;
   }
 
-  label {
-    margin: 4px 0 4px 0;
-    font-weight: bold;
-  }
-
-  input {
-    margin: 4px 0 4px 0;
-    border: none;
-    outline: none;
-    background-color: ${(props) => props.theme.colors.gray_background};
-  }
-
   p {
     color: #808080;
   }

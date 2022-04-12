@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  .userform_container {
+  .inputform_container {
     display: flex;
     flex-direction: column;
-
+    font-size: 13px;
     label {
-      font-size: 13px;
+      margin: 4px 0 4px 0;
+      font-weight: bold;
     }
+
     input {
       width: 340px;
       height: 24px;
-      // background-color: #fff;
+      margin: 4px 0 4px 0;
+      border: none;
+      outline: none;
+      background-color: ${(props) => props.theme.colors.gray_background};
     }
   }
 `;

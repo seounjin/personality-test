@@ -200,12 +200,16 @@ const testRoute : CustomRoute[] = [
 
                 const useItem = getUsers().filter((data) => data.key === testId)[0];
                 
-                const selectData = getSelectItems().filter((data) => data.key === testId);
+                const selectData = getSelectItems().filter((data) => data.key === testId).map((data, index) => {
+                    const { question, select_1, select_2 } = data;
+                    return {question: question, select_1:select_1, select_2:select_2}
+                });
                 
                 const resultItems = getResultItems().filter((data) => data.key === testId);
                 
                 console.log("수정 데이터 요청",testId)
 
+             
                 return res.status(200).json( { success: true, userItem:useItem, items:selectData, resultContent:resultItems, imgUrl:imgUrl } );
                 
             } catch (error) {
