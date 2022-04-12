@@ -2,11 +2,7 @@ import React from 'react';
 import Wrapper from './styles';
 import UserForm from '../UserForm';
 import { UserItem } from '../SelectContainer/type';
-
-const ITEM = [
-  { label: '아이디', input: 'id' },
-  { label: '비밀번호', input: 'password' },
-];
+import InputForm from '../InputForm';
 
 interface UserContainerProps {
   userItem?: UserItem;
@@ -19,10 +15,16 @@ const UserContainer = ({
 }: UserContainerProps): JSX.Element => {
   const { title, id, password } = userItem;
 
+  const ITEM = [
+    { label: '제목', input: 'title', defaultValue: title },
+    { label: '아이디', input: 'id', defaultValue: id },
+    { label: '비밀번호', input: 'password', defaultValue: password },
+  ];
+
   return (
     <Wrapper>
       <div className="user_container">
-        <div className="user_wrapper">
+        {/* <div className="user_wrapper">
           <label>제목</label>
           <input
             name="title"
@@ -35,7 +37,9 @@ const UserContainer = ({
           handleUser={handleUser}
           userId={id}
           password={password}
-        ></UserForm>
+        ></UserForm> */}
+        {/* 임시 폼 */}
+        <InputForm item={ITEM} handleChange={handleUser}></InputForm>
       </div>
     </Wrapper>
   );
