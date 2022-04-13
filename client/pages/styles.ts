@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   position: relative;
   max-width: 1060px;
   min-height: calc(100vh - 50px);
