@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   .result_content_wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    // align-items: center;
     margin: 10px;
 
     input {
@@ -25,6 +25,7 @@ const Wrapper = styled.div`
         rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     }
     label {
+      font-size: 13px;
       margin: 4px 0;
       font-weight: bold;
     }

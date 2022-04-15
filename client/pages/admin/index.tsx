@@ -32,19 +32,19 @@ const Admin = (): JSX.Element => {
         </div>
 
         <div className="admin_content">
-          <h1>유저 등록</h1>
+          <h2>유저 등록</h2>
           <UserContainer handleUser={handleUser}></UserContainer>
         </div>
 
         <div className="admin_content">
-          <h1>이미지 등록</h1>
+          <h2>이미지 등록</h2>
           <ImageUploadContainer
             handleImgUpload={handleImgUpload}
           ></ImageUploadContainer>
         </div>
 
         <div className="admin_content">
-          <h1>선택지 작성</h1>
+          <h2>선택지 작성</h2>
           {items.map((data, index) => (
             <SelectContainer
               key={'select' + index}
@@ -69,7 +69,7 @@ const Admin = (): JSX.Element => {
 
         {isResultScreen && (
           <div className="admin_content">
-            <h1>결과 작성</h1>
+            <h2>결과 작성</h2>
             <ResultContainer
               handleTextArea={handleTextArea}
               resultItems={resultItems}

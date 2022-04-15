@@ -7,6 +7,9 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.colors.gray_background};
   padding: 10px;
 
+  h2 {
+    font-size: 1.8rem;
+  }
   .admin_wrapper {
     margin: 0 auto;
     max-width: 754px;
