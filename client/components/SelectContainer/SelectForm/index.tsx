@@ -3,7 +3,7 @@ import Wrapper from './styles';
 
 interface Item {
   label: string;
-  input: string;
+  input?: string;
   defaultValue: string;
 }
 

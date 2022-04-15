@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 
   .admin_wrapper {
     margin: 0 auto;
-    max-width: 1060px;
+    max-width: 754px;
   }
 
   .admin_content {

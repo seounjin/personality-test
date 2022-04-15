@@ -22,7 +22,7 @@ const ResultContainer = ({
         return (
           <ResultContent
             key={'resultItems' + index}
-            item={data}
+            item={data[0] as unknown as ResultItems[]}
             index={index}
             resultContent={resultContents && resultContents[index]}
             handleTextArea={handleTextArea}

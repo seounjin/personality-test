@@ -1,5 +1,6 @@
 import React from 'react';
 import Wrapper from './styles';
+import SelectForm from '../../SelectContainer/SelectForm';
 import { ResultContents, ResultItems } from '../../SelectContainer/type';
 
 interface ResultContentProps {
@@ -20,7 +21,8 @@ const ResultContent = ({
   return (
     <Wrapper>
       <div className="result_content_container">
-        {item.map((data, index) => {
+        <SelectForm item={item}></SelectForm>
+        {/* {item.map((data, index) => {
           const { questionNumber, selectNumber, question, content } = data;
           return (
             <div className="result_content_wrapper" key={'resContent' + index}>
@@ -31,7 +33,7 @@ const ResultContent = ({
               <p>{content}</p>
             </div>
           );
-        })}
+        })} */}
 
         <div className="result_content_wrapper">
           <label>당신은?</label>

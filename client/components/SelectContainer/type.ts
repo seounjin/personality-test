@@ -4,11 +4,16 @@ export interface Items {
   select_2: string;
 }
 
+// export interface ResultItems {
+//   questionNumber: number;
+//   selectNumber: number;
+//   question: string;
+//   content: string;
+// }
+
 export interface ResultItems {
-  questionNumber: number;
-  selectNumber: number;
-  question: string;
-  content: string;
+  label: string;
+  defaultValue: string;
 }
 
 export interface ResultContents {

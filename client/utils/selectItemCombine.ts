@@ -47,12 +47,25 @@ const selectItemCombine = (
       const content = items[questionNumber][select];
       const question = items[Math.floor(data2 / 2)]['question'];
 
-      return {
-        questionNumber: questionNumber + 1,
-        selectNumber: selectNumber + 1,
-        question: question,
-        content: content,
-      };
+      return [
+        {
+          label: `${questionNumber + 1}번 질문에 대한`,
+          defaultValue: question,
+        },
+        {
+          label: `${selectNumber + 1}번선택`,
+          defaultValue: content,
+        },
+      ];
+
+      // return [
+      //   {
+      //     questionNumber: questionNumber + 1,
+      //     selectNumber: selectNumber + 1,
+      //     question: question,
+      //     content: content,
+      //   },
+      // ];
     });
   });
 

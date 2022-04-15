@@ -17,8 +17,12 @@ const Wrapper = styled.div`
     margin: 10px;
 
     input {
-      width: 260px;
+      width: 340px;
       margin: 4px 0;
+      border: none;
+      outline: none;
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     }
     label {
       margin: 4px 0;
@@ -30,10 +34,14 @@ const Wrapper = styled.div`
     }
   }
   textarea {
-    width: 260px;
+    width: 340px;
     height: 130px;
     resize: none;
+    border: none;
+    outline: none;
     margin: 4px 0;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+      rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   }
 `;
 
