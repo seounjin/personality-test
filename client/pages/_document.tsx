@@ -36,13 +36,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          {/* <link
-            href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css"
-            rel="stylesheet"
-            type="text/css"
-          /> */}
-        </Head>
+        <Head></Head>
         <title>성향 테스트</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <body>

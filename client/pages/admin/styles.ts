@@ -29,7 +29,7 @@ const Wrapper = styled.div`
     height: 100%;
   }
 
-  @media (max-width: 479px) {
+  @media (max-width: 640px) {
     padding: 20px 0;
     background-color: ${(props) => props.theme.colors.white};
 

@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '../styles/theme';
 import Error from 'next/error';
 import Layout from '../layout';
-// import '../public/fonts/style.css';
+import '../public/fonts/style.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   if (pageProps.error) {
