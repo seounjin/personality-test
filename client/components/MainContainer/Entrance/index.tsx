@@ -8,7 +8,7 @@ interface EntranceProps {
 
 const Entrance = ({ title, handleStartClick }: EntranceProps): JSX.Element => {
   return (
-    <BackgroundImg height={'668px'}>
+    <BackgroundImg>
       <Wrapper>
         <div>{title}</div>
         <img className="poster-img" src="/poster.png"></img>

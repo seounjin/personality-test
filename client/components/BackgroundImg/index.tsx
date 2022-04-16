@@ -3,14 +3,10 @@ import Wrapper from './styles';
 
 interface BackgroundImgProps {
   children: React.ReactNode;
-  height: string;
 }
 
-const BackgroundImg = ({
-  children,
-  height,
-}: BackgroundImgProps): JSX.Element => {
-  return <Wrapper height={height}>{children}</Wrapper>;
+const BackgroundImg = ({ children }: BackgroundImgProps): JSX.Element => {
+  return <Wrapper>{children}</Wrapper>;
 };
 
 export default BackgroundImg;
