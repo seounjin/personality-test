@@ -10,16 +10,21 @@ const Wrapper = styled.div`
       font-weight: bold;
     }
 
+    input[type='password'] {
+      font-family: 'Malgun gothic', dotum, sans-serif;
+    }
+
     input {
       width: 320px;
       height: 24px;
       margin: 4px 0 4px 0;
-      border: none;
+      border: rgba(27, 31, 35, 0.15) solid 2px;
       outline: none;
-      // background-color: ${(props) => props.theme.colors.gray_background};
       border-radius: 2px;
-      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    }
+
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px white inset;
     }
   }
 `;

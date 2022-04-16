@@ -26,7 +26,7 @@ const InputForm = ({
           <div key={label + index} className="inputform_container">
             <label>{label}</label>
             <input
-              id={input}
+              type={input === 'password' ? 'password' : 'text'}
               name={input}
               data-index={num}
               onChange={handleChange}
