@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   justify-content: center;
   width: 100%;
   margin: 13px 0;
-
+  font-size: 1.4rem;
   button {
     border: none;
     padding: 10px 16px;

@@ -20,6 +20,14 @@ const Wrapper = styled.div`
       padding: 4px;
       color: black;
     }
+    li:first-child:hover {
+      border-radius: 3px 3px 0px 0px;
+      background-color: #f3f3f4;
+    }
+    li:last-child:hover {
+      border-radius: 0px 0px 3px 3px;
+      background-color: #f3f3f4;
+    }
   }
 `;
 

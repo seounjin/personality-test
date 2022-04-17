@@ -35,10 +35,20 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
-        <Head></Head>
+      <Html lang="ko">
+        <Head>
+          <meta
+            name="description"
+            content="각양각색의 사람들의 성향을 테스트 할 수 있는 폼을 제공해주는 서비스입니다."
+          />
+          <meta
+            name="keywords"
+            content="성향, 테스트, 성향테스트, mbti, 사람, 성격"
+          />
+          <meta name="author" content="Sung Jin, Young Nam " />
+        </Head>
         <title>성향 테스트</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <body>
           <Main />
           <NextScript />

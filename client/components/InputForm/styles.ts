@@ -4,7 +4,7 @@ const Wrapper = styled.div`
   .inputform_container {
     display: flex;
     flex-direction: column;
-    font-size: 13px;
+    font-size: 1.5rem;
     label {
       margin: 4px 0 4px 0;
       font-weight: bold;
@@ -15,10 +15,10 @@ const Wrapper = styled.div`
     }
 
     input {
-      width: 320px;
-      height: 24px;
+      width: 280px;
+      height: 28px;
       margin: 4px 0 4px 0;
-      border: rgba(27, 31, 35, 0.15) solid 2px;
+      border: rgba(27, 31, 35, 0.15) solid 1.7px;
       outline: none;
       border-radius: 2px;
     }

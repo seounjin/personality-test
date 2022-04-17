@@ -21,12 +21,16 @@ const Wrapper = styled.div`
   }
   .modal {
     position: relative;
-    padding: 0.5rem;
+    padding: 3.2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 18px;
+    border-radius: 6px;
     background-color: #fff;
+
+    .modal_button {
+      margin-top: 2rem;
+    }
   }
 `;
 

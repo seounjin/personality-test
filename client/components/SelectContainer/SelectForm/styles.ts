@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  font-size: 13px;
+  font-size: 1.5rem;
   .selectform_title {
     margin: 10px 0 10px 0;
     label {
@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   }
 
   .selectform_content {
-    width: 340px;
+    width: 280px;
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
       rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;

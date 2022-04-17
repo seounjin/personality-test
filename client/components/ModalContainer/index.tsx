@@ -4,11 +4,12 @@ import { useState, useCallback } from 'react';
 import UserForm from '../UserForm';
 import AdminButton from '../AdminButton';
 import fetcher from '../../api/fetcher';
+import InputForm from '../InputForm';
 import { useRouter } from 'next/router';
 
 const ITEM = [
-  { label: '아이디', input: 'id' },
-  { label: '비밀번호', input: 'password' },
+  { label: '아이디', input: 'id', defaultValue: '' },
+  { label: '비밀번호', input: 'password', defaultValue: '' },
 ];
 
 interface ModalProps {
@@ -83,13 +84,16 @@ const ModalContainer = ({
     <Wrapper>
       <div className="overlay" onClick={(event) => handleModal(event)}></div>
       <div className="modal">
-        <UserForm handleUser={handleUser} item={ITEM}></UserForm>
-        <AdminButton
-          leftButton={handleOk}
-          rightButton={handleModal}
-          leftName={'확인'}
-          rightName={'취소'}
-        />
+        <InputForm handleChange={handleUser} item={ITEM}></InputForm>
+        {/* <UserForm handleUser={handleUser} item={ITEM}></UserForm> */}
+        <div className="modal_button">
+          <AdminButton
+            leftButton={handleOk}
+            rightButton={handleModal}
+            leftName={'확인'}
+            rightName={'취소'}
+          />
+        </div>
       </div>
     </Wrapper>
   );

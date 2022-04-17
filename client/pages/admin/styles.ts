@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   position: relative;
-  min-width: 381px;
   min-height: calc(100vh - 50px);
   background-color: ${(props) => props.theme.colors.gray_background};
   padding: 10px;
@@ -12,6 +11,7 @@ const Wrapper = styled.div`
   }
   .admin_wrapper {
     margin: 0 auto;
+    // width: 100%;
     max-width: 754px;
   }
 
@@ -32,6 +32,13 @@ const Wrapper = styled.div`
   @media (max-width: 640px) {
     padding: 20px 0;
     background-color: ${(props) => props.theme.colors.white};
+
+    // .admin_wrapper {
+    //   width: 100%;
+    //   display: flex;
+    //   flex-direction: column;
+    //   justify-content: center;
+    // }
 
     .admin_title {
       display: flex;

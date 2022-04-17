@@ -13,11 +13,11 @@ const Wrapper = styled.div`
   .result_content_wrapper {
     display: flex;
     flex-direction: column;
-    // align-items: center;
     margin: 10px;
 
     input {
-      width: 340px;
+      width: 280px;
+      height: 28px;
       margin: 4px 0;
       border: none;
       outline: none;
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
         rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     }
     label {
-      font-size: 13px;
+      font-size: 1.5rem;
       margin: 4px 0;
       font-weight: bold;
     }
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
     }
   }
   textarea {
-    width: 340px;
+    width: 280px;
     height: 130px;
     resize: none;
     border: none;
