@@ -7,14 +7,26 @@ import axios from 'axios';
 describe('ModalContainer', () => {
   test.skip('ModalContainer render', () => {
     const handleModal = jest.fn();
-    const result = render(<ModalContainer handleModal={handleModal} />);
+    const result = render(
+      <ModalContainer
+        SelectCard={'1'}
+        SelectAction={'삭제'}
+        handleModal={handleModal}
+      />,
+    );
     expect(result.getByLabelText('아이디')).toBeInTheDocument();
     expect(result.getByLabelText('비밀번호')).toBeInTheDocument();
   });
 
   test.skip('handleOk handleModal Click', () => {
     const handleModal = jest.fn();
-    const result = render(<ModalContainer handleModal={handleModal} />);
+    const result = render(
+      <ModalContainer
+        SelectCard={'1'}
+        SelectAction={'삭제'}
+        handleModal={handleModal}
+      />,
+    );
 
     userEvent.click(result.getByText('확인'));
     userEvent.click(result.getByText('취소'));
@@ -30,7 +42,13 @@ describe('ModalContainer', () => {
     window.alert = mockAlert;
 
     const handleModal = jest.fn();
-    const result = render(<ModalContainer handleModal={handleModal} />);
+    const result = render(
+      <ModalContainer
+        SelectCard={'1'}
+        SelectAction={'삭제'}
+        handleModal={handleModal}
+      />,
+    );
     userEvent.click(result.getByText('확인'));
 
     await waitFor(() => {

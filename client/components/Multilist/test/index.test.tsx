@@ -1,4 +1,4 @@
-import { render, act } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Multilist from '..';
 import userEvent from '@testing-library/user-event';
 
@@ -6,7 +6,9 @@ describe('Multilist', () => {
   test('Multilist render', () => {
     const handleModal = jest.fn();
 
-    const { getByText } = render(<Multilist handleModal={handleModal} />);
+    const { getByText } = render(
+      <Multilist cardId={1} handleModal={handleModal} />,
+    );
     const modify = getByText('수정');
     expect(modify).toBeInTheDocument();
 
@@ -16,8 +18,8 @@ describe('Multilist', () => {
 
   test('Multilist Click', () => {
     const handleModal = jest.fn();
-    const { getByRole, getByLabelText } = render(
-      <Multilist handleModal={handleModal} />,
+    const { getByRole } = render(
+      <Multilist cardId={1} handleModal={handleModal} />,
     );
 
     const modify = getByRole('modify');

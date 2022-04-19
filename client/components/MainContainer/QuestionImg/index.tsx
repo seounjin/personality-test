@@ -3,7 +3,7 @@ import BackgroundImg from '../../BackgroundImg';
 import Wrapper from './styles';
 
 const QuestionImg = ({ children }): JSX.Element => (
-  <BackgroundImg height={'668px'}>
+  <BackgroundImg>
     <Wrapper>{children}</Wrapper>
   </BackgroundImg>
 );

@@ -20,7 +20,7 @@ const LastScreen = ({
   const { who, content } = lastScreenData;
 
   return (
-    <BackgroundImg height={'100%'}>
+    <BackgroundImg>
       <Wrapper>
         <div className="result-name">
           <span>{who}</span>

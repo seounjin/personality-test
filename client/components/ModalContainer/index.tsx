@@ -1,7 +1,6 @@
 import React from 'react';
 import Wrapper from './styles';
 import { useState, useCallback } from 'react';
-import UserForm from '../UserForm';
 import AdminButton from '../AdminButton';
 import fetcher from '../../api/fetcher';
 import InputForm from '../InputForm';
@@ -85,7 +84,6 @@ const ModalContainer = ({
       <div className="overlay" onClick={(event) => handleModal(event)}></div>
       <div className="modal">
         <InputForm handleChange={handleUser} item={ITEM}></InputForm>
-        {/* <UserForm handleUser={handleUser} item={ITEM}></UserForm> */}
         <div className="modal_button">
           <AdminButton
             leftButton={handleOk}

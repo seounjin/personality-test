@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 describe('MoreOutlined button', () => {
   test.skip('Img Button', () => {
     const handleModal = jest.fn();
-    const result = render(<MoreOutlined handleModal={handleModal} />);
+    const result = render(<MoreOutlined onClick={handleModal} />);
 
     const img = result.getByAltText('moreOutlined');
     expect(img).toHaveAttribute('src', '/vertical_icon.png');
@@ -13,9 +13,7 @@ describe('MoreOutlined button', () => {
 
   test.skip('Img Button Click', async () => {
     const handleModal = jest.fn();
-    const { getByRole, findByRole } = render(
-      <MoreOutlined handleModal={handleModal} />,
-    );
+    const { getByRole } = render(<MoreOutlined onClick={handleModal} />);
 
     const target = getByRole('button', { name: /img-btn/i });
 

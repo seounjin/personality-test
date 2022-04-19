@@ -31,7 +31,7 @@
 
 | Create|
 |:----------------------------------------:|
-|<img src="https://github.com/seounjin/personality-test/blob/main/client/public/create.gif" width=1000  />|
+|<img src="https://github.com/seounjin/personality-test/blob/main/client/public/_create.gif" width=1000  />|
 
 | Read|
 |:----------------------------------------:|
@@ -39,7 +39,7 @@
 
 | Update|
 |:----------------------------------------:|
-|<img src="https://github.com/seounjin/personality-test/blob/main/client/public/update.gif" width=1000  />|
+|<img src="https://github.com/seounjin/personality-test/blob/main/client/public/_update.gif" width=1000  />|
 
 | Delete|
 |:----------------------------------------:|
