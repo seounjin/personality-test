@@ -5,6 +5,7 @@ import { theme } from '../styles/theme';
 import Error from 'next/error';
 import Layout from '../layout';
 import '../public/fonts/style.css';
+import { wrapper } from '../store';
 
 function MyApp({ Component, pageProps }: AppProps) {
   if (pageProps.error) {
@@ -25,4 +26,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

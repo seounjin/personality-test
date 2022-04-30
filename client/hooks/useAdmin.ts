@@ -93,16 +93,15 @@ const useAdmin = (adminData?): UseAdmin => {
     imgUrl,
   } = state;
 
-  const handleOk = (index: number): void => {
+  const handleOk = useCallback((index: number): void => {
     const { question, select_1, select_2 } = items[index];
-
     if (!question || !select_1 || !select_2) {
       alert('선택지를 채워주세요');
       return;
     }
 
     dispatch({ type: CHANGE_INPUT, index: index });
-  };
+  }, []);
 
   const handleDelete = useCallback((index: number): void => {
     dispatch({ type: DELETE_ITEM, index: index });

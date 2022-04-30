@@ -1,19 +1,17 @@
 import React, { useRef, useState } from 'react';
 import Wrapper from './styles';
+import { useDispatch } from 'react-redux';
 
 interface ImgUploadProps {
-  imgUrl?: string;
-  handleImgUpload: (imgFile: File) => void;
+  handleImgFile: (imgFile: File) => void;
 }
 
 const ImageUploadContainer = ({
-  imgUrl,
-  handleImgUpload,
+  handleImgFile,
 }: ImgUploadProps): JSX.Element => {
   const imgUploadRef = useRef<HTMLInputElement>(null);
-  const [ImgSrc, setImgSrc] = useState<string>(
-    imgUrl ? imgUrl : 'imageholder.png',
-  );
+
+  const [ImgSrc, setImgSrc] = useState<string>('imageholder.png');
 
   const handleClick = (): void => {
     imgUploadRef.current.click();
@@ -21,7 +19,7 @@ const ImageUploadContainer = ({
 
   const onImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setImgSrc(URL.createObjectURL(event.target.files[0]));
-    handleImgUpload(event.target.files[0]);
+    handleImgFile(event.target.files[0]);
   };
 
   return (
@@ -32,7 +30,7 @@ const ImageUploadContainer = ({
         accept={'image/*'}
         onChange={onImageChange}
       />
-      <img src={ImgSrc} />
+      <img alt={'img'} src={ImgSrc} />
 
       <button onClick={handleClick}>썸네일 등록</button>
     </Wrapper>
