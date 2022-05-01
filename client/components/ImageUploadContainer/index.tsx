@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Wrapper from './styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { RootState } from '../../store/modules';
 
 interface ImgUploadProps {
   handleImgFile: (imgFile: File) => void;
@@ -11,7 +12,16 @@ const ImageUploadContainer = ({
 }: ImgUploadProps): JSX.Element => {
   const imgUploadRef = useRef<HTMLInputElement>(null);
 
-  const [ImgSrc, setImgSrc] = useState<string>('imageholder.png');
+  const { imgUrl } = useSelector(
+    (state: RootState) => ({
+      imgUrl: state.admin.imgUrl,
+    }),
+    shallowEqual,
+  );
+
+  const [ImgSrc, setImgSrc] = useState<string>(
+    imgUrl ? imgUrl : 'imageholder.png',
+  );
 
   const handleClick = (): void => {
     imgUploadRef.current.click();

@@ -12,4 +12,5 @@ export interface AdminInitialState {
   resultItems: Array<ResultItems>[];
   userItem?: UserItem;
   resultContent?: ResultContents[];
+  imgUrl?: string;
 }

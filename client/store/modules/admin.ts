@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import selectItemCombine from '../../utils/selectItemCombine';
 import { AdminInitialState } from '../types';
+import fetcher from '../../api/fetcher';
 
 const initialState: AdminInitialState = {
   userItem: {
@@ -17,7 +18,25 @@ const initialState: AdminInitialState = {
   isResultScreen: false,
   resultItems: [],
   resultContent: [],
+  imgUrl: '',
 };
+
+interface FetchParms {
+  cardId: string | string[];
+  cookie: string;
+}
+export const fetchAdminData = createAsyncThunk(
+  'admin/fetchAdminDataStatus',
+  async ({ cardId, cookie }: FetchParms, { getState, requestId }) => {
+    const res = await fetcher('get', `/tests/${cardId}/edit`, {
+      headers: {
+        Cookie: cookie,
+      },
+    });
+
+    return res;
+  },
+);
 
 const adminSlice = createSlice({
   name: 'admin',
@@ -80,7 +99,24 @@ const adminSlice = createSlice({
       });
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchAdminData.fulfilled, (state, action) => {
+      const { userItem, items, imgUrl, resultContent } = action.payload;
+      const { resultItems } = selectItemCombine(items.length, items);
+      state.userItem = userItem;
+      state.items = items;
+      state.resultContent = resultContent;
+      state.imgUrl = imgUrl;
+      state.isResultScreen = true;
+      state.resultItems = resultItems;
+
+      state.isVisible = [...Array(items.length)].map(() => {
+        return false;
+      });
+    });
+  },
 });
+
 export const {
   handlerSelectInput,
   transSelectItem,

@@ -22,18 +22,6 @@ const ResultContent = ({
     <Wrapper>
       <div className="result_content_container">
         <SelectForm item={item}></SelectForm>
-        {/* {item.map((data, index) => {
-          const { questionNumber, selectNumber, question, content } = data;
-          return (
-            <div className="result_content_wrapper" key={'resContent' + index}>
-              <label> {questionNumber + '번질문에 대한'} </label>
-              <p> {question} </p>
-
-              <label> {selectNumber + '번 선택함'} </label>
-              <p>{content}</p>
-            </div>
-          );
-        })} */}
 
         <div className="result_content_wrapper">
           <label>당신은?</label>

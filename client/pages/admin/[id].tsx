@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Wrapper from './styles';
 import ImageUploadContainer from '../../components/ImageUploadContainer';
 import ResultContainer from '../../components/ResultContainer';
@@ -6,13 +7,17 @@ import AdminButton from '../../components/AdminButton';
 import UserContainer from '../../components/UserContainer';
 import useAdmin from '../../hooks/useAdmin';
 import fetcher from '../../api/fetcher';
+import { fetchAdminData } from '../../store/modules/admin';
+import { useSelector, shallowEqual } from 'react-redux';
+import { RootState } from '../../store/modules';
+
 import {
   UserItem,
   Items,
   ResultContents,
 } from '../../components/SelectContainer/type';
 import { GetServerSideProps } from 'next';
-import Error from 'next/error';
+import { wrapper } from '../../store';
 
 interface AdminData {
   userItem: UserItem;
@@ -25,26 +30,40 @@ type AdminProps = {
   adminData: AdminData;
 };
 
-const Admin = ({ adminData }: AdminProps): JSX.Element => {
-  const {
-    handleOk,
-    handleDelete,
-    handleAdd,
-    onChange,
-    handleApprove,
-    handleTextArea,
-    handleCreate,
-    handleUser,
-    handleImgUpload,
-    handleExcute,
-    items,
-    isVisible,
-    isResultScreen,
-    resultItems,
-    userItem,
-    resultContent,
-    imgUrl,
-  } = useAdmin(adminData);
+const Admin = (): JSX.Element => {
+  // const {
+  //   handleOk,
+  //   handleDelete,
+  //   handleAdd,
+  //   onChange,
+  //   handleApprove,
+  //   handleTextArea,
+  //   handleCreate,
+  //   handleUser,
+  //   handleImgUpload,
+  //   handleExcute,
+  //   items,
+  //   isVisible,
+  //   isResultScreen,
+  //   resultItems,
+  //   userItem,
+  //   resultContent,
+  //   imgUrl,
+  // } = useAdmin(adminData);
+
+  const [ImgFile, setImgFile] = useState<File>(null);
+
+  const handleImgFile = (imgFile: File) => {
+    console.log('imgFile', imgFile);
+    setImgFile(imgFile);
+  };
+
+  const { isResultScreen } = useSelector(
+    (state: RootState) => ({
+      isResultScreen: state.admin.isResultScreen,
+    }),
+    shallowEqual,
+  );
 
   return (
     <Wrapper>
@@ -55,58 +74,25 @@ const Admin = ({ adminData }: AdminProps): JSX.Element => {
 
         <div className="admin_content">
           <h2>유저 등록</h2>
-          <UserContainer
-            userItem={userItem}
-            handleUser={handleUser}
-          ></UserContainer>
+          <UserContainer></UserContainer>
         </div>
 
         <div className="admin_content">
           <h2>이미지 등록</h2>
           <ImageUploadContainer
-            imgUrl={imgUrl}
-            handleImgUpload={handleImgUpload}
+            handleImgFile={handleImgFile}
           ></ImageUploadContainer>
         </div>
 
         <div className="admin_content">
           <h2>선택지 작성</h2>
-          {items.map((data, index) => (
-            <SelectContainer
-              key={'select' + index}
-              handleOk={handleOk}
-              handleDelete={handleDelete}
-              onChange={onChange}
-              index={index}
-              data={data}
-              isVisible={isVisible[index]}
-              isResultScreen={isResultScreen}
-            ></SelectContainer>
-          ))}
-          {isResultScreen === false && (
-            <AdminButton
-              leftButton={handleAdd}
-              rightButton={handleApprove}
-              leftName={'추가'}
-              rightName={'완료'}
-            />
-          )}
+          <SelectContainer></SelectContainer>
         </div>
 
         {isResultScreen && (
           <div className="admin_content">
             <h2>결과 작성</h2>
-            <ResultContainer
-              handleTextArea={handleTextArea}
-              resultItems={resultItems}
-              resultContents={resultContent}
-            ></ResultContainer>
-            <AdminButton
-              leftButton={handleExcute}
-              rightButton={handleCreate}
-              leftName={'취소'}
-              rightName={'생성'}
-            />
+            <ResultContainer ImgFile={ImgFile}></ResultContainer>
           </div>
         )}
       </div>
@@ -114,39 +100,54 @@ const Admin = ({ adminData }: AdminProps): JSX.Element => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.params.id;
-  const cookie = context.req.headers.cookie ? context.req.headers.cookie : '';
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    const id = context.params.id;
+    const cookie = context.req.headers.cookie ? context.req.headers.cookie : '';
+    await store.dispatch(fetchAdminData({ cardId: id, cookie: cookie }));
 
-  const res = await fetcher('get', `/tests/${id}/edit`, {
-    headers: {
-      Cookie: cookie,
-    },
-  });
-
-  if (res) {
-    const { userItem, items, resultContent, imgUrl, status } = res;
-
-    if (status) {
-      return {
-        props: {
-          error: { statusCode: res.status, message: 'Error!' },
-        },
-      };
-    }
     return {
-      props: { adminData: { userItem, items, resultContent, imgUrl } },
+      props: {}, // will be passed to the page component as props
     };
-  } else {
-    return {
-      props: {
-        error: {
-          statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
-          message: 'Error!',
-        },
-      },
-    };
-  }
-};
+  },
+);
+
+// export const getServerSideProps = async (context) => {
+//   const id = context.params.id;
+//   const cookie = context.req.headers.cookie ? context.req.headers.cookie : '';
+
+//   console.log('확인', context.store);
+//   // context.store.dis
+//   const res = await fetcher('get', `/tests/${id}/edit`, {
+//     headers: {
+//       Cookie: cookie,
+//     },
+//   });
+
+//   if (res) {
+//     const { userItem, items, resultContent, imgUrl, status } = res;
+
+//     if (status) {
+//       return {
+//         props: {
+//           error: { statusCode: res.status, message: 'Error!' },
+//         },
+//       };
+//     }
+//     return {
+//       props: { adminData: { userItem, items, resultContent, imgUrl } },
+//     };
+//   } else {
+//     return {
+//       props: {
+//         error: {
+//           statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
+//           message: 'Error!',
+//         },
+//       },
+//     };
+
+//   }
+// };
 
 export default Admin;

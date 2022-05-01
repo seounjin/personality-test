@@ -102,7 +102,7 @@ const ResultContainer = ({ ImgFile }: ResultContainerProps): JSX.Element => {
             key={'resultItems' + index}
             item={data[0] as unknown as ResultItems[]}
             index={index}
-            resultContent={resultContent}
+            resultContent={resultContent[index]}
             handleTextArea={handleTextArea}
           ></ResultContent>
         );
