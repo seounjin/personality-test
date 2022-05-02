@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import Wrapper from './styles';
 import ResultContent from './ResultContent';
 import AdminButton from '../AdminButton';
-import { ResultContents, ResultItems } from '../SelectContainer/type';
+import { ResultItems } from '../SelectContainer/type';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { setResultContent, excuteResultItem } from '../../store/modules/admin';
 import { RootState } from '../../store/modules';
@@ -118,42 +118,3 @@ const ResultContainer = ({ ImgFile }: ResultContainerProps): JSX.Element => {
 };
 
 export default ResultContainer;
-
-// export default React.memo(ResultContainer);
-
-// import React from 'react';
-// import Wrapper from './styles';
-// import ResultContent from './ResultContent';
-// import { ResultContents, ResultItems } from '../SelectContainer/type';
-
-// interface ResultProps {
-//   resultItems: Array<ResultItems>[];
-//   resultContents?: ResultContents[];
-//   handleTextArea: (
-//     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-//   ) => void;
-// }
-
-// const ResultContainer = ({
-//   resultItems,
-//   resultContents,
-//   handleTextArea,
-// }: ResultProps): JSX.Element => {
-//   return (
-//     <Wrapper>
-//       {resultItems.map((data, index) => {
-//         return (
-//           <ResultContent
-//             key={'resultItems' + index}
-//             item={data[0] as unknown as ResultItems[]}
-//             index={index}
-//             resultContent={resultContents && resultContents[index]}
-//             handleTextArea={handleTextArea}
-//           ></ResultContent>
-//         );
-//       })}
-//     </Wrapper>
-//   );
-// };
-
-// export default ResultContainer;

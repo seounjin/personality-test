@@ -42,7 +42,9 @@ const adminSlice = createSlice({
   name: 'admin',
   initialState,
   reducers: {
-    reduxHandleUser: (state, action) => {
+    reSetAdminData: () => initialState,
+
+    handleUser: (state, action) => {
       state.userItem = {
         ...state.userItem,
         [action.payload.name]: action.payload.value,
@@ -118,10 +120,11 @@ const adminSlice = createSlice({
 });
 
 export const {
+  reSetAdminData,
   handlerSelectInput,
   transSelectItem,
   deleteSelectItem,
-  reduxHandleUser,
+  handleUser,
   addSelectItem,
   approveSelectItem,
   setResultContent,

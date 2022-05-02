@@ -1,26 +1,12 @@
-import { useState } from 'react';
 import Wrapper from './styles';
 import ImageUploadContainer from '../../components/ImageUploadContainer';
 import ResultContainer from '../../components/ResultContainer';
 import SelectContainer from '../../components/SelectContainer';
 import UserContainer from '../../components/UserContainer';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from '../../store/modules';
+import useAdmin from '../../hooks/useAdmin';
 
 const Admin = (): JSX.Element => {
-  const [ImgFile, setImgFile] = useState<File>(null);
-
-  const handleImgFile = (imgFile: File) => {
-    console.log('imgFile', imgFile);
-    setImgFile(imgFile);
-  };
-
-  const { isResultScreen } = useSelector(
-    (state: RootState) => ({
-      isResultScreen: state.admin.isResultScreen,
-    }),
-    shallowEqual,
-  );
+  const { ImgFile, isResultScreen, handleImgFile } = useAdmin();
 
   return (
     <Wrapper>

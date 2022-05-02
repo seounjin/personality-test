@@ -1,69 +1,15 @@
-import { useState } from 'react';
 import Wrapper from './styles';
 import ImageUploadContainer from '../../components/ImageUploadContainer';
 import ResultContainer from '../../components/ResultContainer';
 import SelectContainer from '../../components/SelectContainer';
-import AdminButton from '../../components/AdminButton';
 import UserContainer from '../../components/UserContainer';
-import useAdmin from '../../hooks/useAdmin';
-import fetcher from '../../api/fetcher';
 import { fetchAdminData } from '../../store/modules/admin';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from '../../store/modules';
-
-import {
-  UserItem,
-  Items,
-  ResultContents,
-} from '../../components/SelectContainer/type';
 import { GetServerSideProps } from 'next';
 import { wrapper } from '../../store';
-
-interface AdminData {
-  userItem: UserItem;
-  items: Items[];
-  resultContent: ResultContents[];
-  imgUrl: string;
-}
-
-type AdminProps = {
-  adminData: AdminData;
-};
+import useAdmin from '../../hooks/useAdmin';
 
 const Admin = (): JSX.Element => {
-  // const {
-  //   handleOk,
-  //   handleDelete,
-  //   handleAdd,
-  //   onChange,
-  //   handleApprove,
-  //   handleTextArea,
-  //   handleCreate,
-  //   handleUser,
-  //   handleImgUpload,
-  //   handleExcute,
-  //   items,
-  //   isVisible,
-  //   isResultScreen,
-  //   resultItems,
-  //   userItem,
-  //   resultContent,
-  //   imgUrl,
-  // } = useAdmin(adminData);
-
-  const [ImgFile, setImgFile] = useState<File>(null);
-
-  const handleImgFile = (imgFile: File) => {
-    console.log('imgFile', imgFile);
-    setImgFile(imgFile);
-  };
-
-  const { isResultScreen } = useSelector(
-    (state: RootState) => ({
-      isResultScreen: state.admin.isResultScreen,
-    }),
-    shallowEqual,
-  );
+  const { ImgFile, isResultScreen, handleImgFile } = useAdmin();
 
   return (
     <Wrapper>
@@ -100,8 +46,8 @@ const Admin = (): JSX.Element => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (context) => {
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async (context) => {
     const id = context.params.id;
     const cookie = context.req.headers.cookie ? context.req.headers.cookie : '';
     await store.dispatch(fetchAdminData({ cardId: id, cookie: cookie }));
@@ -109,8 +55,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {}, // will be passed to the page component as props
     };
-  },
-);
+  });
 
 // export const getServerSideProps = async (context) => {
 //   const id = context.params.id;
