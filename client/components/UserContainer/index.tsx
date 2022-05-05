@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Wrapper from './styles';
 import InputForm from '../InputForm';
 import { handleUser } from '../../store/modules/admin';
@@ -13,27 +13,37 @@ const UserContainer = (): JSX.Element => {
     shallowEqual,
   );
 
-  const { title, id, password } = userItem;
   const dispatch = useDispatch();
-  const ITEM = [
-    { label: '제목', input: 'title', defaultValue: title },
-    { label: '아이디', input: 'id', defaultValue: id },
-    { label: '비밀번호', input: 'password', defaultValue: password },
-  ];
 
-  const onChange = (event) => {
-    const { value, name } = event.target;
+  const onChange = useCallback((event) => {
+    const {
+      value,
+      name,
+      dataset: { index },
+    } = event.target;
 
-    dispatch(handleUser({ value, name }));
-  };
+    dispatch(handleUser({ value, name, index }));
+  }, []);
 
   return (
     <Wrapper>
       <div className="user_container">
-        <InputForm item={ITEM} handleChange={onChange}></InputForm>
+        {userItem.map((data, index) => {
+          const { label, input, defaultValue } = data;
+          return (
+            <InputForm
+              key={label + index}
+              label={label}
+              input={input}
+              defaultValue={defaultValue}
+              num={index}
+              handleChange={onChange}
+            ></InputForm>
+          );
+        })}
       </div>
     </Wrapper>
   );
 };
 
-export default React.memo(UserContainer);
+export default UserContainer;

@@ -4,11 +4,11 @@ import { AdminInitialState } from '../types';
 import fetcher from '../../api/fetcher';
 
 const initialState: AdminInitialState = {
-  userItem: {
-    title: '',
-    id: '',
-    password: '',
-  },
+  userItem: [
+    { label: '제목', input: 'title', defaultValue: '' },
+    { label: '아이디', input: 'id', defaultValue: '' },
+    { label: '비밀번호', input: 'password', defaultValue: '' },
+  ],
   items: [
     { question: '', select_1: '', select_2: '' },
     { question: '', select_1: '', select_2: '' },
@@ -45,10 +45,9 @@ const adminSlice = createSlice({
     reSetAdminData: () => initialState,
 
     handleUser: (state, action) => {
-      state.userItem = {
-        ...state.userItem,
-        [action.payload.name]: action.payload.value,
-      };
+      const { index, name, value } = action.payload;
+      console.log('state', name, value);
+      state.userItem[index] = { ...state.userItem[index], defaultValue: value };
     },
 
     handlerSelectInput: (state, action) => {
@@ -105,7 +104,10 @@ const adminSlice = createSlice({
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
       const { userItem, items, imgUrl, resultContent } = action.payload;
       const { resultItems } = selectItemCombine(items.length, items);
-      state.userItem = userItem;
+      state.userItem = state.userItem.map((data, index) => {
+        return { ...data, defaultValue: userItem[data.input] };
+      });
+
       state.items = items;
       state.resultContent = resultContent;
       state.imgUrl = imgUrl;

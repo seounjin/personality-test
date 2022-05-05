@@ -83,7 +83,19 @@ const ModalContainer = ({
     <Wrapper>
       <div className="overlay" onClick={(event) => handleModal(event)}></div>
       <div className="modal">
-        <InputForm handleChange={handleUser} item={ITEM}></InputForm>
+        {ITEM.map((data, index) => {
+          const { label, input, defaultValue } = data;
+          return (
+            <InputForm
+              key={label + index}
+              label={label}
+              input={input}
+              defaultValue={defaultValue}
+              index={index}
+              handleChange={handleUser}
+            ></InputForm>
+          );
+        })}
         <div className="modal_button">
           <AdminButton
             leftButton={handleOk}

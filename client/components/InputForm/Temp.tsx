@@ -1,16 +1,15 @@
-import Wrapper from './styles';
 import React from 'react';
 
 interface TempPropsType {
   label: string;
   input: string;
   num?: number;
-  index?: number;
+  index: number;
   defaultValue: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputForm = ({
+const Temp = ({
   label,
   input,
   defaultValue,
@@ -19,7 +18,7 @@ const InputForm = ({
   handleChange,
 }: TempPropsType): JSX.Element => {
   return (
-    <Wrapper>
+    <div key={label + index} className="inputform_container">
       <label>{label}</label>
       <input
         type={input === 'password' ? 'password' : 'text'}
@@ -28,8 +27,8 @@ const InputForm = ({
         onChange={handleChange}
         defaultValue={defaultValue}
       ></input>
-    </Wrapper>
+    </div>
   );
 };
 
-export default React.memo(InputForm);
+export default React.memo(Temp);
