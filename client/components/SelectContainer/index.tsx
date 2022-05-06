@@ -9,8 +9,6 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
 import {
   handlerSelectInput,
-  transSelectItem,
-  deleteSelectItem,
   addSelectItem,
   approveSelectItem,
 } from '../../store/modules/admin';
@@ -35,20 +33,6 @@ const SelectContainer = (): JSX.Element => {
     } = event.target;
 
     dispatch(handlerSelectInput({ name, value, index }));
-  }, []);
-
-  const handleOk = useCallback((index: number): void => {
-    // const { question, select_1, select_2 } = items[index];
-    // if (!question || !select_1 || !select_2) {
-    //   alert('선택지를 채워주세요');
-    //   return;
-    // }
-
-    dispatch(transSelectItem({ index }));
-  }, []);
-
-  const handleDelete = useCallback((index: number): void => {
-    dispatch(deleteSelectItem({ index }));
   }, []);
 
   const handleAdd = useCallback((): void => {
@@ -81,11 +65,11 @@ const SelectContainer = (): JSX.Element => {
 
   return (
     <Wrapper>
-      {items.map((data, index22) => {
-        const item = _mapObject(pretreatment, data, index22);
+      {items.map((data, selectIndex) => {
+        const item = _mapObject(pretreatment, data, selectIndex);
         return (
-          <div key={'selectItem' + `${index22}`}>
-            {isVisible[index22] === true ? (
+          <div key={'selectItem' + `${selectIndex}`}>
+            {isVisible[selectIndex] === true ? (
               item.map((data, index) => {
                 const { label, input, defaultValue } = data;
                 return (
@@ -93,7 +77,7 @@ const SelectContainer = (): JSX.Element => {
                     key={label + index}
                     label={label}
                     input={input}
-                    num={index22}
+                    num={selectIndex}
                     defaultValue={defaultValue}
                     index={index}
                     handleChange={onChange}
@@ -105,12 +89,7 @@ const SelectContainer = (): JSX.Element => {
             )}
 
             {!isResultScreen && (
-              <SelectButton
-                handleOk={handleOk}
-                handleDelete={handleDelete}
-                index={index22}
-                isVisible={isVisible}
-              />
+              <SelectButton index={selectIndex}></SelectButton>
             )}
           </div>
         );
@@ -125,43 +104,6 @@ const SelectContainer = (): JSX.Element => {
       )}
     </Wrapper>
   );
-  // return (
-  //   <Wrapper>
-  //     {items.map((data, index) => {
-  //       const item = _mapObject(pretreatment, data, index);
-  //       return (
-  //         <div key={'selectItem' + `${index}`}>
-  //           {isVisible[index] === true ? (
-  //             <InputForm
-  //               handleChange={onChange}
-  //               num={index}
-  //               item={item}
-  //             ></InputForm>
-  //           ) : (
-  //             <SelectForm item={item}></SelectForm>
-  //           )}
-
-  //           {!isResultScreen && (
-  //             <SelectButton
-  //               handleOk={handleOk}
-  //               handleDelete={handleDelete}
-  //               index={index}
-  //               isVisible={isVisible}
-  //             />
-  //           )}
-  //         </div>
-  //       );
-  //     })}
-  //     {isResultScreen === false && (
-  //       <AdminButton
-  //         leftButton={handleAdd}
-  //         rightButton={handleApprove}
-  //         leftName={'추가'}
-  //         rightName={'완료'}
-  //       />
-  //     )}
-  //   </Wrapper>
-  // );
 };
 
-export default React.memo(SelectContainer);
+export default SelectContainer;

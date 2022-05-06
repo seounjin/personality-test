@@ -1,61 +1,89 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Wrapper from './styles';
 import { Items } from '../type';
+import InputForm from '../../InputForm';
+import SelectForm from '../SelectForm';
+import SelectButton from '../SelectButton';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { RootState } from '../../../store/modules';
+
+import {
+  handlerSelectInput,
+  transSelectItem,
+  deleteSelectItem,
+} from '../../../store/modules/admin';
 
 interface SelectInputProps {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  index: number;
-  data: Items;
-  isVisible: boolean;
+  // onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  inputIndex: number;
+  item: any;
 }
 
-const SelectInput = ({
-  onChange,
-  index,
-  data,
-  isVisible,
-}: SelectInputProps): JSX.Element => {
+const SelectInput = ({ inputIndex, item }: SelectInputProps): JSX.Element => {
+  const dispatch = useDispatch();
+
+  const { isResultScreen, isVisible } = useSelector(
+    (state: RootState) => ({
+      isResultScreen: state.admin.isResultScreen,
+      isVisible: state.admin.isVisible,
+    }),
+    shallowEqual,
+  );
+
+  const handleOk = useCallback((index: number): void => {
+    // console.log('확인', items[index]);
+    // const { question, select_1, select_2 } = items[index];
+    // if (!question || !select_1 || !select_2) {
+    //   alert('선택지를 채워주세요');
+    //   return;
+    // }
+
+    dispatch(transSelectItem({ index }));
+  }, []);
+
+  const handleDelete = useCallback((index: number): void => {
+    dispatch(deleteSelectItem({ index }));
+  }, []);
+
+  const onChange = useCallback((event): void => {
+    const {
+      value,
+      name,
+      dataset: { index },
+    } = event.target;
+
+    dispatch(handlerSelectInput({ name, value, index }));
+  }, []);
+
   return (
-    <Wrapper isVisible={isVisible}>
-      <div className="select_wrapper">
-        <label>{`${index + 1}번 질문`}</label>
-        {isVisible === true ? (
-          <input
-            name="question"
-            data-index={index}
-            onChange={onChange}
-            defaultValue={data[`question`] ? data[`question`] : ''}
-          />
-        ) : (
-          <p>{data[`question`]}</p>
-        )}
-      </div>
-      <div className="select_wrapper">
-        <label>1번 선택</label>
-        {isVisible === true ? (
-          <input
-            name="select_1"
-            data-index={index}
-            onChange={onChange}
-            defaultValue={data[`select_1`] ? data[`select_1`] : ''}
-          />
-        ) : (
-          <p>{data[`select_1`]}</p>
-        )}
-      </div>
-      <div className="select_wrapper">
-        <label>2번 선택</label>
-        {isVisible === true ? (
-          <input
-            name="select_2"
-            data-index={index}
-            onChange={onChange}
-            defaultValue={data[`select_2`]}
-          />
-        ) : (
-          <p>{data[`select_2`]}</p>
-        )}
-      </div>
+    <Wrapper>
+      {isVisible[inputIndex] === true ? (
+        item.map((data, index) => {
+          const { label, input, defaultValue } = data;
+          return (
+            <InputForm
+              key={label + index}
+              label={label}
+              input={input}
+              num={inputIndex}
+              defaultValue={defaultValue}
+              index={index}
+              handleChange={onChange}
+            ></InputForm>
+          );
+        })
+      ) : (
+        <SelectForm item={item}></SelectForm>
+      )}
+
+      {!isResultScreen && (
+        <SelectButton
+          handleOk={handleOk}
+          handleDelete={handleDelete}
+          index={inputIndex}
+          isVisible={isVisible}
+        />
+      )}
     </Wrapper>
   );
 };
