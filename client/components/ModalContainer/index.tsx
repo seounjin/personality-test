@@ -1,7 +1,7 @@
 import React from 'react';
 import Wrapper from './styles';
 import { useState, useCallback } from 'react';
-import AdminButton from '../AdminButton';
+import TwoButton from '../TwoButton';
 import fetcher from '../../api/fetcher';
 import InputForm from '../InputForm';
 import { useRouter } from 'next/router';
@@ -97,7 +97,7 @@ const ModalContainer = ({
           );
         })}
         <div className="modal_button">
-          <AdminButton
+          <TwoButton
             leftButton={handleOk}
             rightButton={handleModal}
             leftName={'확인'}

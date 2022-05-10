@@ -27,14 +27,27 @@ interface FetchParms {
 }
 export const fetchAdminData = createAsyncThunk(
   'admin/fetchAdminDataStatus',
-  async ({ cardId, cookie }: FetchParms, { getState, requestId }) => {
-    const res = await fetcher('get', `/tests/${cardId}/edit`, {
-      headers: {
-        Cookie: cookie,
-      },
-    });
+  async (
+    { cardId, cookie }: FetchParms,
+    { rejectWithValue, getState, requestId },
+  ) => {
+    try {
+      const res = await fetcher('get', `/tests/${cardId}/edit`, {
+        headers: {
+          Cookie: cookie,
+        },
+      });
+      if (res) {
+        const { status } = res;
+        if (status) {
+          throw new Error(status);
+        }
+      }
 
-    return res;
+      return res;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   },
 );
 

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import Wrapper from './styles';
 import ResultContent from './ResultContent';
-import AdminButton from '../AdminButton';
+import TwoButton from '../TwoButton';
 import { ResultItems } from '../SelectContainer/type';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { setResultContent, excuteResultItem } from '../../store/modules/admin';
@@ -40,7 +40,7 @@ const ResultContainer = ({ ImgFile }: ResultContainerProps): JSX.Element => {
     dispatch(excuteResultItem());
   }, []);
 
-  const handleCreate = async (): Promise<void> => {
+  const handleSubmit = async (): Promise<void> => {
     // 유효성 검사
     if (!userItem.title || !userItem.id || !userItem.password) {
       alert('제목 아이디 비밀번호를 채워주세요');
@@ -99,7 +99,7 @@ const ResultContainer = ({ ImgFile }: ResultContainerProps): JSX.Element => {
       {resultItems.map((data, index) => {
         return (
           <ResultContent
-            key={'resultItems' + index}
+            key={'resultItems' + index.toString()}
             item={data[0] as unknown as ResultItems[]}
             index={index}
             resultContent={resultContent[index]}
@@ -107,9 +107,10 @@ const ResultContainer = ({ ImgFile }: ResultContainerProps): JSX.Element => {
           ></ResultContent>
         );
       })}
-      <AdminButton
+
+      <TwoButton
         leftButton={handleExcute}
-        rightButton={handleCreate}
+        rightButton={handleSubmit}
         leftName={'취소'}
         rightName={'생성'}
       />

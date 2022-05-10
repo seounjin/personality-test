@@ -3,7 +3,7 @@ import Wrapper from './styles';
 import SelectButton from './SelectButton';
 import InputForm from '../InputForm';
 import SelectForm from './SelectForm';
-import AdminButton from '../AdminButton';
+import TwoButton from '../TwoButton';
 import _mapObject from '../../utils/_mapObject';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
@@ -95,7 +95,7 @@ const SelectContainer = (): JSX.Element => {
         );
       })}
       {isResultScreen === false && (
-        <AdminButton
+        <TwoButton
           leftButton={handleAdd}
           rightButton={handleApprove}
           leftName={'추가'}

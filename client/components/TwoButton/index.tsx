@@ -1,19 +1,19 @@
 import React from 'react';
 import Wrapper from './styles';
 
-interface AdminButtonProps {
+interface TwoButtonProps {
   leftButton: () => void;
   rightButton: () => void;
   leftName: string;
   rightName: string;
 }
 
-const AdminButton = ({
+const TwoButton = ({
   leftButton,
   rightButton,
   leftName,
   rightName,
-}: AdminButtonProps): JSX.Element => {
+}: TwoButtonProps): JSX.Element => {
   return (
     <Wrapper>
       <button onClick={leftButton}>{leftName}</button>
@@ -22,4 +22,4 @@ const AdminButton = ({
   );
 };
 
-export default React.memo(AdminButton);
+export default React.memo(TwoButton);

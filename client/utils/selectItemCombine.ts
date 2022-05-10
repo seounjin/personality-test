@@ -57,15 +57,6 @@ const selectItemCombine = (
           defaultValue: content,
         },
       ];
-
-      // return [
-      //   {
-      //     questionNumber: questionNumber + 1,
-      //     selectNumber: selectNumber + 1,
-      //     question: question,
-      //     content: content,
-      //   },
-      // ];
     });
   });
 

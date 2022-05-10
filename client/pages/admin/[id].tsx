@@ -50,49 +50,18 @@ export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context) => {
     const id = context.params.id;
     const cookie = context.req.headers.cookie ? context.req.headers.cookie : '';
-    await store.dispatch(fetchAdminData({ cardId: id, cookie: cookie }));
 
-    return {
-      props: {}, // will be passed to the page component as props
-    };
+    try {
+      const res = await store
+        .dispatch(fetchAdminData({ cardId: id, cookie: cookie }))
+        .unwrap();
+    } catch (error) {
+      return {
+        props: {
+          error: { statusCode: error, message: 'Error!' },
+        },
+      };
+    }
   });
-
-// export const getServerSideProps = async (context) => {
-//   const id = context.params.id;
-//   const cookie = context.req.headers.cookie ? context.req.headers.cookie : '';
-
-//   console.log('확인', context.store);
-//   // context.store.dis
-//   const res = await fetcher('get', `/tests/${id}/edit`, {
-//     headers: {
-//       Cookie: cookie,
-//     },
-//   });
-
-//   if (res) {
-//     const { userItem, items, resultContent, imgUrl, status } = res;
-
-//     if (status) {
-//       return {
-//         props: {
-//           error: { statusCode: res.status, message: 'Error!' },
-//         },
-//       };
-//     }
-//     return {
-//       props: { adminData: { userItem, items, resultContent, imgUrl } },
-//     };
-//   } else {
-//     return {
-//       props: {
-//         error: {
-//           statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
-//           message: 'Error!',
-//         },
-//       },
-//     };
-
-//   }
-// };
 
 export default Admin;
