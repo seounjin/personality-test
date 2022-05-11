@@ -42,7 +42,7 @@ const storage = multer.diskStorage({
     setCards([
       ...cardData,
       {
-        id: cardData.length + 1,
+        id: cardData.length ? cardData[cardData.length - 1].id + 1 : 1,
         imgUrl: `http://localhost:8000/static/images/${imgFile}`,
         title: user["title"],
       },
@@ -167,7 +167,9 @@ const testRoute: CustomRoute[] = [
           // user data
           const users = getUsers();
 
-          const key = users.length + 1;
+          const key: number = users.length
+            ? users[users.length - 1].key + 1
+            : 1;
 
           const userData = {
             ...user,
@@ -236,15 +238,13 @@ const testRoute: CustomRoute[] = [
 
         console.log("수정 데이터 요청", testId);
 
-        return res
-          .status(200)
-          .json({
-            success: true,
-            userItem: useItem,
-            items: selectData,
-            resultContent: resultItems,
-            imgUrl: imgUrl,
-          });
+        return res.status(200).json({
+          success: true,
+          userItem: useItem,
+          items: selectData,
+          resultContent: resultItems,
+          imgUrl: imgUrl,
+        });
       } catch (error) {
         console.log("에러", error);
         return res.status(404).json({ success: false, error });

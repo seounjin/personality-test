@@ -42,7 +42,11 @@ const ResultContainer = ({ ImgFile }: ResultContainerProps): JSX.Element => {
 
   const handleSubmit = async (): Promise<void> => {
     // 유효성 검사
-    if (!userItem.title || !userItem.id || !userItem.password) {
+    if (
+      !userItem[0].defaultValue ||
+      !userItem[1].defaultValue ||
+      !userItem[2].defaultValue
+    ) {
       alert('제목 아이디 비밀번호를 채워주세요');
       return;
     }
@@ -66,9 +70,19 @@ const ResultContainer = ({ ImgFile }: ResultContainerProps): JSX.Element => {
     const { id } = router.query;
 
     if (id) {
-      formData.append('test', JSON.stringify({ title: userItem.title }));
+      formData.append(
+        'test',
+        JSON.stringify({ title: userItem[0].defaultValue }),
+      );
     } else {
-      formData.append('user', JSON.stringify({ ...userItem }));
+      formData.append(
+        'user',
+        JSON.stringify({
+          title: userItem[0].defaultValue,
+          id: userItem[1].defaultValue,
+          password: userItem[2].defaultValue,
+        }),
+      );
     }
 
     formData.append('results', JSON.stringify(resultContent));
