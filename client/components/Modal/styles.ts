@@ -27,10 +27,6 @@ const Wrapper = styled.div`
     align-items: center;
     border-radius: 6px;
     background-color: #fff;
-
-    .modal_button {
-      margin-top: 2rem;
-    }
   }
 `;
 

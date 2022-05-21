@@ -6,16 +6,21 @@ import Link from 'next/link';
 
 type CardProps = {
   imgUrl: string;
-  id: string;
+  cardId: string;
   title: string;
-  handleModal: (
+  handleMultilist: (
     event?: React.MouseEvent<HTMLElement>,
     cardId?: string,
     action?: string,
   ) => void;
 };
 
-const Card = ({ imgUrl, id, title, handleModal }: CardProps): JSX.Element => {
+const Card = ({
+  imgUrl,
+  cardId,
+  title,
+  handleMultilist,
+}: CardProps): JSX.Element => {
   const [isClicked, setClicked] = useState(false);
 
   const onClick = useCallback(
@@ -30,14 +35,16 @@ const Card = ({ imgUrl, id, title, handleModal }: CardProps): JSX.Element => {
     <Wrapper imgUrl={imgUrl}>
       <Link
         href={{
-          pathname: `/main/${id}`,
+          pathname: `/main/${cardId}`,
         }}
       >
         <a>
           <div>
             <div className="card_header">
               <MoreOutlined onClick={onClick} />
-              {isClicked && <Multilist handleModal={handleModal} cardId={id} />}
+              {isClicked && (
+                <Multilist handleMultilist={handleMultilist} cardId={cardId} />
+              )}
             </div>
             <div className="card_body">
               <h1>{title}</h1>

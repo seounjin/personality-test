@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Wrapper from './styles';
 import Card from '../components/Card';
-import ModalContainer from '../components/ModalContainer';
+import Modal from '../components/Modal';
+import UserModalForm from '../components/UserModalForm';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
@@ -18,7 +19,7 @@ type HomeProps = {
 };
 
 const Home = ({ cards }: HomeProps): JSX.Element => {
-  const [Pcards, setPcards] = useState(cards);
+  const [Cards, setCards] = useState(cards);
   const [OpenModal, setOpenModal] = useState(false);
   const [SelectCard, setSelectCard] = useState(null);
   const [SelectAction, setSelectAction] = useState('');
@@ -27,19 +28,20 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 
   const getCards = async () => {
     const res = await fetcher('get', '/cards');
-    setPcards([...Pcards, ...res]);
+    setCards([...Cards, ...res]);
   };
 
-  const handleModal = useCallback(
-    (event, cardId, action) => {
-      event.preventDefault();
-      console.log('cardid', cardId);
-      setSelectCard(cardId);
-      setSelectAction(action);
-      setOpenModal(!OpenModal);
-    },
-    [OpenModal, SelectCard],
-  );
+  const handleMultilist = useCallback((event, cardId, action) => {
+    event.preventDefault();
+    console.log('cardid', cardId);
+    setSelectCard(cardId);
+    setSelectAction(action);
+    setOpenModal(true);
+  }, []);
+
+  const handleModal = useCallback(() => {
+    setOpenModal(false);
+  }, []);
 
   // useEffect(() => {
   //   if (Intersecting) getCards();
@@ -48,26 +50,29 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
   return (
     <Wrapper>
       <ul>
-        {Pcards &&
-          Pcards.map((data, index) => {
+        {Cards &&
+          Cards.map((data, index) => {
             return (
               <Card
                 key={'card' + index}
                 imgUrl={data.imgUrl}
-                id={data.id}
+                cardId={data.id}
                 title={data.title}
-                handleModal={handleModal}
+                handleMultilist={handleMultilist}
               ></Card>
             );
           })}
       </ul>
       {OpenModal && (
-        <ModalContainer
-          handleModal={handleModal}
-          SelectCard={SelectCard}
-          SelectAction={SelectAction}
-        ></ModalContainer>
+        <Modal handleModal={handleModal}>
+          <UserModalForm
+            handleModal={handleModal}
+            SelectCard={SelectCard}
+            SelectAction={SelectAction}
+          ></UserModalForm>
+        </Modal>
       )}
+
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
     </Wrapper>
   );
