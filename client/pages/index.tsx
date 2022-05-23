@@ -3,6 +3,7 @@ import Wrapper from './styles';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import UserModalForm from '../components/UserModalForm';
+import MoreOutlined from '../components/MoreOutlined';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
@@ -33,7 +34,6 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 
   const handleMultilist = useCallback((event, cardId, action) => {
     event.preventDefault();
-    console.log('cardid', cardId);
     setSelectCard(cardId);
     setSelectAction(action);
     setOpenModal(true);
@@ -58,7 +58,12 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
                 imgUrl={data.imgUrl}
                 cardId={data.id}
                 title={data.title}
-                handleMultilist={handleMultilist}
+                HeaderComponent={
+                  <MoreOutlined
+                    cardId={data.id}
+                    handleMultilist={handleMultilist}
+                  ></MoreOutlined>
+                }
               ></Card>
             );
           })}

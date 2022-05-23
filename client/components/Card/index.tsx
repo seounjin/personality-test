@@ -1,36 +1,20 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import Wrapper from './styles';
-import MoreOutlined from '../MoreOutlined';
-import Multilist from '../Multilist';
 import Link from 'next/link';
 
-type CardProps = {
+interface CardProps {
   imgUrl: string;
   cardId: string;
   title: string;
-  handleMultilist: (
-    event?: React.MouseEvent<HTMLElement>,
-    cardId?: string,
-    action?: string,
-  ) => void;
-};
+  HeaderComponent: JSX.Element;
+}
 
 const Card = ({
   imgUrl,
   cardId,
   title,
-  handleMultilist,
+  HeaderComponent,
 }: CardProps): JSX.Element => {
-  const [isClicked, setClicked] = useState(false);
-
-  const onClick = useCallback(
-    (event) => {
-      event.preventDefault();
-      setClicked(!isClicked);
-    },
-    [isClicked],
-  );
-
   return (
     <Wrapper imgUrl={imgUrl}>
       <Link
@@ -40,12 +24,7 @@ const Card = ({
       >
         <a>
           <div>
-            <div className="card_header">
-              <MoreOutlined onClick={onClick} />
-              {isClicked && (
-                <Multilist handleMultilist={handleMultilist} cardId={cardId} />
-              )}
-            </div>
+            <div className="card_header">{HeaderComponent}</div>
             <div className="card_body">
               <h1>{title}</h1>
             </div>
