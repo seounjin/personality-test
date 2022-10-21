@@ -1,5 +1,4 @@
-import Wrapper from './styles';
-import Header from './Header';
+import Header from './Header/Header';
 
 const Layout = ({ children }): JSX.Element => {
   return (

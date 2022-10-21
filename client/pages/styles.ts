@@ -5,7 +5,7 @@ const Wrapper = styled.section`
   max-width: 1060px;
   min-height: calc(100vh - 50px);
   margin: 0 auto;
-
+  margin-top: 50px;
   ul {
     margin: 0;
     padding: 0;
