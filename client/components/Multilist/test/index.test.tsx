@@ -1,13 +1,13 @@
 import { render } from '@testing-library/react';
-import Multilist from '..';
 import userEvent from '@testing-library/user-event';
+import Multilist from '..';
 
 describe('Multilist', () => {
   test('Multilist render', () => {
-    const handleModal = jest.fn();
+    const handleMultilist = jest.fn();
 
     const { getByText } = render(
-      <Multilist cardId={1} handleModal={handleModal} />,
+      <Multilist cardId={1} handleMultilist={handleMultilist} />,
     );
     const modify = getByText('수정');
     expect(modify).toBeInTheDocument();
@@ -17,13 +17,13 @@ describe('Multilist', () => {
   });
 
   test('Multilist Click', () => {
-    const handleModal = jest.fn();
+    const handleMultilist = jest.fn();
     const { getByRole } = render(
-      <Multilist cardId={1} handleModal={handleModal} />,
+      <Multilist cardId={1} handleMultilist={handleMultilist} />,
     );
 
-    const modify = getByRole('modify');
-    const del = getByRole('delete');
+    const modify = getByRole('modify', { hidden: true });
+    const del = getByRole('delete', { hidden: true });
 
     userEvent.click(modify);
     userEvent.click(del);

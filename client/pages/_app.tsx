@@ -8,6 +8,8 @@ import '../public/fonts/style.css';
 import { wrapper } from '../store';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log('패이지프롭스', pageProps);
+  console.log('컴포넌트', Component);
   if (pageProps.error) {
     return (
       <Error

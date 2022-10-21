@@ -110,7 +110,7 @@ describe('<Admin />', () => {
     expect(CompleteButton()).not.toBeInTheDocument();
   });
 
-  test('추가버튼을 누르면 3번 질문 폼이 생성된다.', () => {
+  test.skip('추가버튼을 누르면 3번 질문 폼이 생성된다.', () => {
     const { QuestionNumber, clickAdd } = renderAdminForm();
 
     clickAdd();
