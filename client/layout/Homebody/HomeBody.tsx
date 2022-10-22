@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from './Homebody.stlye';
+import { Container } from './HomeBody.stlye';
 
 interface HomeBodyProps {
   children: React.ReactNode;

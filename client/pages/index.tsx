@@ -1,25 +1,20 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Card from '../components/Card';
 import Modal from '../components/Modal';
 import UserModalForm from '../components/UserModalForm';
 import MoreOutlined from '../components/MoreOutlined';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
-import HomeBody from '../layout/Homebody/Homebody';
-
-interface CardItem {
-  id: string;
-  imgUrl: string;
-  title: string;
-}
+import HomeBody from '../layout/Homebody/HomeBody';
+import CardList from '../components/CardList/Cardlist';
+import { Card } from '../components/CardList/CardList.type';
 
 type HomeProps = {
-  cards: CardItem[];
+  cardItems: Card[];
 };
 
-const Home = ({ cards }: HomeProps): JSX.Element => {
-  const [Cards, setCards] = useState(cards);
+const Home = ({ cardItems }: HomeProps): JSX.Element => {
+  const [Cards, setCards] = useState(cardItems);
   const [OpenModal, setOpenModal] = useState(false);
   const [SelectCard, setSelectCard] = useState(null);
   const [SelectAction, setSelectAction] = useState('');
@@ -48,25 +43,8 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
 
   return (
     <HomeBody>
-      <ul>
-        {Cards &&
-          Cards.map((data, index) => {
-            return (
-              <Card
-                key={'card' + index}
-                imgUrl={data.imgUrl}
-                cardId={data.id}
-                title={data.title}
-                HeaderComponent={
-                  <MoreOutlined
-                    cardId={data.id}
-                    handleMultilist={handleMultilist}
-                  ></MoreOutlined>
-                }
-              ></Card>
-            );
-          })}
-      </ul>
+      {Cards && <CardList cardItems={Cards} />}
+
       {OpenModal && (
         <Modal handleModal={handleModal}>
           <UserModalForm
@@ -96,7 +74,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       };
     }
     return {
-      props: { cards },
+      props: { cardItems: cards },
     };
   } catch (error) {
     return {
