@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Wrapper from './styles';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import UserModalForm from '../components/UserModalForm';
@@ -7,7 +6,7 @@ import MoreOutlined from '../components/MoreOutlined';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
-import { title } from 'process';
+import HomeBody from '../layout/Homebody/Homebody';
 
 interface CardItem {
   id: string;
@@ -48,7 +47,7 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
   // }, [Intersecting]);
 
   return (
-    <Wrapper>
+    <HomeBody>
       <ul>
         {Cards &&
           Cards.map((data, index) => {
@@ -79,7 +78,7 @@ const Home = ({ cards }: HomeProps): JSX.Element => {
       )}
 
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
-    </Wrapper>
+    </HomeBody>
   );
 };
 
