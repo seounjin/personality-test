@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Multilist from '..';
+import Multilist from '../MultiList';
 
 describe('Multilist', () => {
   test('Multilist render', () => {

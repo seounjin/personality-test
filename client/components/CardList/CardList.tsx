@@ -6,10 +6,12 @@ import {
   CardItemBody,
   StyledLink,
   Headline,
+  MoreOutlinedContainer,
 } from './CardList.style';
 import Link from 'next/link';
 import { Card } from './CardList.type';
 import MoreOutlined from '../MoreOutlined/MoreOutlined';
+import MultiList from '../Multilist/MultiList';
 
 type CardListProps = {
   cardItems: Card[];
@@ -28,7 +30,10 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
           >
             <StyledLink>
               <CardItemHeader imgUrl={imgUrl}>
-                <MoreOutlined />
+                <MoreOutlinedContainer>
+                  <MoreOutlined />
+                  <MultiList />
+                </MoreOutlinedContainer>
               </CardItemHeader>
               <CardItemBody>
                 <Headline>{title}</Headline>

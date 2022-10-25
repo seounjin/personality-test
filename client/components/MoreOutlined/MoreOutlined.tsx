@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Image } from './MoreOutlined.style';
 
 const MoreOutlined = (): JSX.Element => {
-  const [isClicked, setClicked] = useState(false);
-
   const onClick = (event) => {
     event.preventDefault();
-    setClicked(!isClicked);
   };
 
   return (

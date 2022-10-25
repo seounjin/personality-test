@@ -41,3 +41,11 @@ export const StyledLink = styled.a`
 `;
 
 export const Headline = styled.h1``;
+
+export const MoreOutlinedContainer = styled.div`
+  &:hover {
+    ul {
+      display: inline;
+    }
+  }
+`;
