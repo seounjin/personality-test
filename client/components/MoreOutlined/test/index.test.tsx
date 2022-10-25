@@ -1,5 +1,5 @@
 import { render, screen, act } from '@testing-library/react';
-import MoreOutlined from '..';
+import MoreOutlined from '../MoreOutlined';
 import userEvent from '@testing-library/user-event';
 
 describe('MoreOutlined button', () => {

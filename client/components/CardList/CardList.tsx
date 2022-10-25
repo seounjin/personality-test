@@ -9,6 +9,7 @@ import {
 } from './CardList.style';
 import Link from 'next/link';
 import { Card } from './CardList.type';
+import MoreOutlined from '../MoreOutlined/MoreOutlined';
 
 type CardListProps = {
   cardItems: Card[];
@@ -26,7 +27,9 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
             passHref
           >
             <StyledLink>
-              <CardItemHeader imgUrl={imgUrl} />
+              <CardItemHeader imgUrl={imgUrl}>
+                <MoreOutlined />
+              </CardItemHeader>
               <CardItemBody>
                 <Headline>{title}</Headline>
               </CardItemBody>

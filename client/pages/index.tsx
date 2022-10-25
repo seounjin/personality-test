@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Modal from '../components/Modal';
 import UserModalForm from '../components/UserModalForm';
-import MoreOutlined from '../components/MoreOutlined';
+import MoreOutlined from '../components/MoreOutlined/MoreOutlined';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import HomeBody from '../layout/Homebody/HomeBody';
-import CardList from '../components/CardList/Cardlist';
+import CardList from '../components/CardList/CardList';
 import { Card } from '../components/CardList/CardList.type';
 
 type HomeProps = {
