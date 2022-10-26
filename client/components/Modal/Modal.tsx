@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Wrapper from './styles';
+import { Wrapper, Overlay, ModalContent } from './Modal.style';
 
 interface ModalProps {
   children: ReactNode;
@@ -9,8 +9,8 @@ interface ModalProps {
 const Modal = ({ children, handleModal }: ModalProps): JSX.Element => {
   return (
     <Wrapper>
-      <div className="overlay" onClick={handleModal}></div>
-      <div className="modal">{children}</div>
+      <Overlay onClick={handleModal} />
+      <ModalContent>{children}</ModalContent>
     </Wrapper>
   );
 };

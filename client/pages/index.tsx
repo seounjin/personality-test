@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Modal from '../components/Modal';
+import Modal from '../components/Modal/Modal';
 import UserModalForm from '../components/UserModalForm';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
