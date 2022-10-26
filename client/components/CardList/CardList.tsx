@@ -32,7 +32,7 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
               <CardItemHeader imgUrl={imgUrl}>
                 <MoreOutlinedContainer>
                   <MoreOutlined />
-                  <MultiList />
+                  <MultiList cardId={id} />
                 </MoreOutlinedContainer>
               </CardItemHeader>
               <CardItemBody>

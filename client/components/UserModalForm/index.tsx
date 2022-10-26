@@ -5,6 +5,8 @@ import TwoButton from '../TwoButton';
 import fetcher from '../../api/fetcher';
 import InputForm from '../InputForm';
 import { useRouter } from 'next/router';
+import { RootState } from '../../store/modules';
+import { useSelector, shallowEqual } from 'react-redux';
 
 const ITEM = [
   { label: '아이디', input: 'id', defaultValue: '' },
@@ -13,22 +15,24 @@ const ITEM = [
 
 interface UserModalFormProps {
   handleModal: () => void;
-  SelectCard: string;
-  SelectAction: string;
 }
 
-const UserModalForm = ({
-  handleModal,
-  SelectCard,
-  SelectAction,
-}: UserModalFormProps): JSX.Element => {
+const UserModalForm = ({ handleModal }: UserModalFormProps): JSX.Element => {
   const [UserId, setUserId] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
   const router = useRouter();
 
+  const { selectCard, selectAction } = useSelector(
+    (state: RootState) => ({
+      selectCard: state.home.selectCard,
+      selectAction: state.home.selectAction,
+    }),
+    shallowEqual,
+  );
+
   const requestDelete = async () => {
     try {
-      const res = await fetcher('post', `/tests/${SelectCard}/delete`, {
+      const res = await fetcher('post', `/tests/${selectCard}/delete`, {
         userId: UserId,
         password: Password,
       });
@@ -47,14 +51,14 @@ const UserModalForm = ({
   const requestUpdate = async () => {
     try {
       // 수정
-      const res = await fetcher('post', `/tests/${SelectCard}/edit-page`, {
+      const res = await fetcher('post', `/tests/${selectCard}/edit-page`, {
         userId: UserId,
         password: Password,
       });
 
       // 아이디 비밀번호 일치할경우 수정페이지로 이동
       if (res.success) {
-        router.push(`/admin/${SelectCard}`);
+        router.push(`/admin/${selectCard}`);
       } else {
         alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
       }
@@ -64,9 +68,9 @@ const UserModalForm = ({
   };
 
   const handleOk = () => {
-    if (SelectAction === '삭제') {
+    if (selectAction === 'delete') {
       requestDelete();
-    } else {
+    } else if (selectAction === 'modify') {
       requestUpdate();
     }
   };

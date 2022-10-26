@@ -1,41 +1,41 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Modal from '../components/Modal';
 import UserModalForm from '../components/UserModalForm';
-import MoreOutlined from '../components/MoreOutlined/MoreOutlined';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import HomeBody from '../layout/Homebody/HomeBody';
 import CardList from '../components/CardList/CardList';
 import { Card } from '../components/CardList/CardList.type';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { RootState } from '../store/modules';
+import { setIsOpenModal } from '../store/modules/home';
 
 type HomeProps = {
   cardItems: Card[];
 };
 
 const Home = ({ cardItems }: HomeProps): JSX.Element => {
-  const [Cards, setCards] = useState(cardItems);
-  const [OpenModal, setOpenModal] = useState(false);
-  const [SelectCard, setSelectCard] = useState(null);
-  const [SelectAction, setSelectAction] = useState('');
+  const [Cards, setCards] = useState<Card[]>(cardItems);
   const target = useRef(null);
   // const Intersecting = useInfiniteScroll(target);
+
+  const dispatch = useDispatch();
+  const { isOpenModal } = useSelector(
+    (state: RootState) => ({
+      isOpenModal: state.home.isOpenModal,
+    }),
+    shallowEqual,
+  );
 
   const getCards = async () => {
     const res = await fetcher('get', '/cards');
     setCards([...Cards, ...res]);
   };
 
-  const handleMultilist = useCallback((event, cardId, action) => {
-    event.preventDefault();
-    setSelectCard(cardId);
-    setSelectAction(action);
-    setOpenModal(true);
-  }, []);
-
-  const handleModal = useCallback(() => {
-    setOpenModal(false);
-  }, []);
+  const handleModal = () => {
+    dispatch(setIsOpenModal(!isOpenModal));
+  };
 
   // useEffect(() => {
   //   if (Intersecting) getCards();
@@ -45,13 +45,9 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
     <HomeBody>
       {Cards && <CardList cardItems={Cards} />}
 
-      {OpenModal && (
+      {isOpenModal && (
         <Modal handleModal={handleModal}>
-          <UserModalForm
-            handleModal={handleModal}
-            SelectCard={SelectCard}
-            SelectAction={SelectAction}
-          ></UserModalForm>
+          <UserModalForm handleModal={handleModal} />
         </Modal>
       )}
 
