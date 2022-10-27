@@ -10,6 +10,9 @@ import { Card } from '../components/CardList/CardList.type';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { RootState } from '../store/modules';
 import { setIsOpenModal } from '../store/modules/home';
+import ModalPortal from '../portal/ModalPortal';
+
+const MCardList = React.memo(CardList);
 
 type HomeProps = {
   cardItems: Card[];
@@ -34,7 +37,7 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
   };
 
   const closeModal = () => {
-    dispatch(setIsOpenModal(!isOpenModal));
+    dispatch(setIsOpenModal(false));
   };
 
   useEffect(() => {
@@ -43,14 +46,15 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 
   return (
     <HomeBody>
-      {Cards && <CardList cardItems={Cards} />}
+      {Cards && <MCardList cardItems={Cards} />}
 
       {isOpenModal && (
-        <Modal onClose={closeModal}>
-          <UserModalForm onClose={closeModal} />
-        </Modal>
+        <ModalPortal>
+          <Modal onClose={closeModal}>
+            <UserModalForm onClose={closeModal} />
+          </Modal>
+        </ModalPortal>
       )}
-
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
     </HomeBody>
   );
