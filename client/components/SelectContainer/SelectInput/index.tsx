@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import Wrapper from './styles';
 import { Items } from '../type';
-import InputForm from '../../InputForm';
+import InputForm from '../../InputForm/InputForm';
 import SelectForm from '../SelectForm';
 import SelectButton from '../SelectButton';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -59,16 +59,15 @@ const SelectInput = ({ inputIndex, item }: SelectInputProps): JSX.Element => {
     <Wrapper>
       {isVisible[inputIndex] === true ? (
         item.map((data, index) => {
-          const { label, input, defaultValue } = data;
+          const { label, type, defaultValue } = data;
           return (
             <InputForm
               key={label + index}
               label={label}
-              input={input}
-              num={inputIndex}
+              type={type}
+              index={inputIndex}
               defaultValue={defaultValue}
-              index={index}
-              handleChange={onChange}
+              onChange={onChange}
             ></InputForm>
           );
         })

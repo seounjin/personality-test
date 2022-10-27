@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from '../components/Modal/Modal';
-import UserModalForm from '../components/UserModalForm';
+import UserModalForm from '../components/UserModalForm/UserModalForm';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
@@ -18,7 +18,7 @@ type HomeProps = {
 const Home = ({ cardItems }: HomeProps): JSX.Element => {
   const [Cards, setCards] = useState<Card[]>(cardItems);
   const target = useRef(null);
-  // const Intersecting = useInfiniteScroll(target);
+  const Intersecting = useInfiniteScroll(target);
 
   const dispatch = useDispatch();
   const { isOpenModal } = useSelector(
@@ -33,21 +33,21 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
     setCards([...Cards, ...res]);
   };
 
-  const handleModal = () => {
+  const closeModal = () => {
     dispatch(setIsOpenModal(!isOpenModal));
   };
 
-  // useEffect(() => {
-  //   if (Intersecting) getCards();
-  // }, [Intersecting]);
+  useEffect(() => {
+    if (Intersecting) getCards();
+  }, [Intersecting]);
 
   return (
     <HomeBody>
       {Cards && <CardList cardItems={Cards} />}
 
       {isOpenModal && (
-        <Modal handleModal={handleModal}>
-          <UserModalForm handleModal={handleModal} />
+        <Modal onClose={closeModal}>
+          <UserModalForm onClose={closeModal} />
         </Modal>
       )}
 

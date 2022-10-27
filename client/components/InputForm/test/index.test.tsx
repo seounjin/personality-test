@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import InputForm from '..';
+import InputForm from '../InputForm';
 
 describe('InputForm', () => {
   test.skip('InputForm render', () => {

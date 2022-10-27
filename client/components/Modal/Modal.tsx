@@ -3,13 +3,13 @@ import { Wrapper, Overlay, ModalContent } from './Modal.style';
 
 interface ModalProps {
   children: ReactNode;
-  handleModal: () => void;
+  onClose: () => void;
 }
 
-const Modal = ({ children, handleModal }: ModalProps): JSX.Element => {
+const Modal = ({ children, onClose }: ModalProps): JSX.Element => {
   return (
     <Wrapper>
-      <Overlay onClick={handleModal} />
+      <Overlay onClick={onClose} />
       <ModalContent>{children}</ModalContent>
     </Wrapper>
   );

@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import Wrapper from './styles';
 import SelectButton from './SelectButton';
-import InputForm from '../InputForm';
+import InputForm from '../InputForm/InputForm';
 import SelectForm from './SelectForm';
-import TwoButton from '../TwoButton';
+import TwoButton from '../TwoButton/TwoButton';
 import _mapObject from '../../utils/_mapObject';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
@@ -71,16 +71,15 @@ const SelectContainer = (): JSX.Element => {
           <div key={'selectItem' + `${selectIndex}`}>
             {isVisible[selectIndex] === true ? (
               item.map((data, index) => {
-                const { label, input, defaultValue } = data;
+                const { label, type, defaultValue } = data;
                 return (
                   <InputForm
                     key={label + index}
                     label={label}
-                    input={input}
-                    num={selectIndex}
+                    type={type}
+                    index={selectIndex}
                     defaultValue={defaultValue}
-                    index={index}
-                    handleChange={onChange}
+                    onChange={onChange}
                   ></InputForm>
                 );
               })

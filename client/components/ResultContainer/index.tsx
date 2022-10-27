@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import Wrapper from './styles';
 import ResultContent from './ResultContent';
-import TwoButton from '../TwoButton';
+import TwoButton from '../TwoButton/TwoButton';
 import { ResultItems } from '../SelectContainer/type';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { setResultContent, excuteResultItem } from '../../store/modules/admin';

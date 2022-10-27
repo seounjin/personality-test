@@ -6,7 +6,7 @@ export interface Items {
 
 export interface InpitFormType {
   label: string;
-  input: string;
+  type: string;
   defaultValue: string;
 }
 

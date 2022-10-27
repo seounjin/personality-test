@@ -5,9 +5,9 @@ import fetcher from '../../api/fetcher';
 
 const initialState: AdminInitialState = {
   userItem: [
-    { label: '제목', input: 'title', defaultValue: '' },
-    { label: '아이디', input: 'id', defaultValue: '' },
-    { label: '비밀번호', input: 'password', defaultValue: '' },
+    { label: '제목', type: 'title', defaultValue: '' },
+    { label: '아이디', type: 'id', defaultValue: '' },
+    { label: '비밀번호', type: 'password', defaultValue: '' },
   ],
   items: [
     { question: '', select_1: '', select_2: '' },
@@ -118,7 +118,7 @@ const adminSlice = createSlice({
       const { userItem, items, imgUrl, resultContent } = action.payload;
       const { resultItems } = selectItemCombine(items.length, items);
       state.userItem = state.userItem.map((data, index) => {
-        return { ...data, defaultValue: userItem[data.input] };
+        return { ...data, defaultValue: userItem[data.type] };
       });
 
       state.items = items;

@@ -13,7 +13,7 @@ interface MultiListProps {
 const MultiList = ({ cardId }: MultiListProps): JSX.Element => {
   const dispatch = useDispatch();
 
-  const onClick = (event, action) => {
+  const openModal = (event, action) => {
     event.preventDefault();
     dispatch(setSelectCard(cardId));
     dispatch(setSelectAction(action));
@@ -24,13 +24,13 @@ const MultiList = ({ cardId }: MultiListProps): JSX.Element => {
     <Wrapper>
       <MultiListItem
         role="modify"
-        onClick={(event) => onClick(event, 'modify')}
+        onClick={(event) => openModal(event, 'modify')}
       >
         수정
       </MultiListItem>
       <MultiListItem
         role="delete"
-        onClick={(event) => onClick(event, 'delete')}
+        onClick={(event) => openModal(event, 'delete')}
       >
         삭제
       </MultiListItem>

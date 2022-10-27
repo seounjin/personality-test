@@ -1,23 +1,26 @@
 import React from 'react';
-import Wrapper from './styles';
+import { Container, ButtonWrapper } from './UserModalForm.style';
 import { useState, useCallback } from 'react';
-import TwoButton from '../TwoButton';
+import TwoButton from '../TwoButton/TwoButton';
 import fetcher from '../../api/fetcher';
-import InputForm from '../InputForm';
+import InputForm from '../InputForm/InputForm';
 import { useRouter } from 'next/router';
 import { RootState } from '../../store/modules';
 import { useSelector, shallowEqual } from 'react-redux';
 
-const ITEM = [
-  { label: '아이디', input: 'id', defaultValue: '' },
-  { label: '비밀번호', input: 'password', defaultValue: '' },
+const INPUT_ITEM = [
+  { id: 't1', label: '아이디', type: 'id', defaultValue: '' },
+  { id: 't2', label: '비밀번호', type: 'password', defaultValue: '' },
 ];
 
 interface UserModalFormProps {
-  handleModal: () => void;
+  onClose: () => void;
 }
 
-const UserModalForm = ({ handleModal }: UserModalFormProps): JSX.Element => {
+const MTwoButton = React.memo(TwoButton);
+const MInputForm = React.memo(InputForm);
+
+const UserModalForm = ({ onClose }: UserModalFormProps): JSX.Element => {
   const [UserId, setUserId] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
   const router = useRouter();
@@ -50,13 +53,11 @@ const UserModalForm = ({ handleModal }: UserModalFormProps): JSX.Element => {
 
   const requestUpdate = async () => {
     try {
-      // 수정
       const res = await fetcher('post', `/tests/${selectCard}/edit-page`, {
         userId: UserId,
         password: Password,
       });
 
-      // 아이디 비밀번호 일치할경우 수정페이지로 이동
       if (res.success) {
         router.push(`/admin/${selectCard}`);
       } else {
@@ -76,41 +77,35 @@ const UserModalForm = ({ handleModal }: UserModalFormProps): JSX.Element => {
   };
 
   const handleUser = useCallback((event): void => {
-    event.preventDefault();
-
     const { value, name } = event.target;
 
     if (name === 'id') {
       setUserId(value);
-    } else {
+    } else if (name === 'password') {
       setPassword(value);
     }
   }, []);
 
   return (
-    <Wrapper>
-      {ITEM.map((data, index) => {
-        const { label, input, defaultValue } = data;
-        return (
-          <InputForm
-            key={label + index}
-            label={label}
-            input={input}
-            defaultValue={defaultValue}
-            index={index}
-            handleChange={handleUser}
-          ></InputForm>
-        );
-      })}
-      <div className="modal_button">
-        <TwoButton
+    <Container>
+      {INPUT_ITEM.map(({ id, label, type, defaultValue }) => (
+        <MInputForm
+          key={id}
+          label={label}
+          type={type}
+          defaultValue={defaultValue}
+          onChange={handleUser}
+        />
+      ))}
+      <ButtonWrapper>
+        <MTwoButton
           leftButton={handleOk}
-          rightButton={handleModal}
+          rightButton={onClose}
           leftName={'확인'}
           rightName={'취소'}
         />
-      </div>
-    </Wrapper>
+      </ButtonWrapper>
+    </Container>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Wrapper from './styles';
+import { Wrapper, Button } from './TwoButton.style';
 
 interface TwoButtonProps {
   leftButton: () => void;
@@ -16,10 +16,10 @@ const TwoButton = ({
 }: TwoButtonProps): JSX.Element => {
   return (
     <Wrapper>
-      <button onClick={leftButton}>{leftName}</button>
-      <button onClick={rightButton}>{rightName}</button>
+      <Button onClick={leftButton}>{leftName}</Button>
+      <Button onClick={rightButton}>{rightName}</Button>
     </Wrapper>
   );
 };
 
-export default React.memo(TwoButton);
+export default TwoButton;
