@@ -1,5 +1,5 @@
 import React from 'react';
-import BackgroundImg from '../../BackgroundImg';
+import BackgroundImg from '../../BackgroundImage/BackgroundImage';
 import Wrapper from './styles';
 
 const QuestionImg = ({ children }): JSX.Element => (

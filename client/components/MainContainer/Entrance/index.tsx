@@ -1,4 +1,4 @@
-import BackgroundImg from '../../BackgroundImg';
+import BackgroundImg from '../../BackgroundImage/BackgroundImage';
 import Wrapper from './styles';
 
 interface EntranceProps {

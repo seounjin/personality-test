@@ -1,6 +1,6 @@
 import React from 'react';
 import Wrapper from './styles';
-import BackgroundImg from '../../BackgroundImg';
+import BackgroundImg from '../../BackgroundImage/BackgroundImage';
 import WindowCharacter from './WindowCharacter';
 
 interface LastScreenData {
