@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Entrance from './Entrance';
+import StartScreen from './StartScreen/StartScreen';
 import QuestionImg from './QuestionImg';
 import Main from './Main';
 import LastScreen from './LastScreen';
@@ -85,7 +85,7 @@ const MainContainer = ({
   return (
     <Wrapper>
       {CurrentIndex === -1 ? (
-        <Entrance title={title} handleStartClick={handleStartClick}></Entrance>
+        <StartScreen title={title} handleStartClick={handleStartClick} />
       ) : CurrentIndex !== TestData.length ? (
         <QuestionImg>
           {TestData &&
