@@ -31,12 +31,6 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
           >
             <StyledLink>
               <CardItemHeader>
-                {/* <Image
-                  alt="card-img"
-                  src={imgUrl}
-                  layout="fill"
-                  objectFit="cover"
-                /> */}
                 <Image
                   alt="card-img"
                   src={imgUrl}
