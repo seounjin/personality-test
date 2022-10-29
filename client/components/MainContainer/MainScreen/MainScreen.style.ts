@@ -16,6 +16,14 @@ export const Container = styled.div<ContainerProps>`
   font-size: 1.6rem;
 `;
 
+export const Wrapper = styled.div`
+  position: relative;
+  width: 336px;
+  height: 578px;
+  border: solid;
+  background-color: white;
+`;
+
 export const QuestionWrapper = styled.div`
   position: absolute;
   top: 50px;

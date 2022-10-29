@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import StartScreen from './StartScreen/StartScreen';
-import QuestionImg from './QuestionImg';
 import Main from './MainScreen/MainScreen';
 import LastScreen from './LastScreen/LastScreen';
 import fetcher from '../../api/fetcher';
 import { TestData, LastScreenData, MainProps } from './types';
 import Wrapper from './styles';
+import BackgroundImage from '../BackgroundImage/BackgroundImage';
 
 const MainContainer = ({
   mainStaticData: { testData, title, id },
@@ -84,30 +84,32 @@ const MainContainer = ({
 
   return (
     <Wrapper>
-      {CurrentIndex === -1 ? (
-        <StartScreen title={title} handleStartClick={handleStartClick} />
-      ) : CurrentIndex !== TestData.length ? (
-        <QuestionImg>
-          {TestData &&
-            TestData.map((data: TestData, index: number) => (
-              <Main
-                key={index}
-                opacity={CurrentIndex === index ? 1 : 0}
-                question={data.question}
-                select_1={data.select_1}
-                select_2={data.select_2}
-                handleButtonClick={handleButtonClick}
-              ></Main>
-            ))}
-        </QuestionImg>
-      ) : (
-        LastScreenData && (
-          <LastScreen
-            lastScreenData={LastScreenData}
-            handleReStartClick={handleReStartClick}
-          ></LastScreen>
-        )
-      )}
+      <BackgroundImage>
+        {CurrentIndex === -1 ? (
+          <StartScreen title={title} handleStartClick={handleStartClick} />
+        ) : CurrentIndex !== TestData.length ? (
+          <>
+            {TestData &&
+              TestData.map((data: TestData, index: number) => (
+                <Main
+                  key={index}
+                  opacity={CurrentIndex === index ? 1 : 0}
+                  question={data.question}
+                  select_1={data.select_1}
+                  select_2={data.select_2}
+                  handleButtonClick={handleButtonClick}
+                ></Main>
+              ))}
+          </>
+        ) : (
+          LastScreenData && (
+            <LastScreen
+              lastScreenData={LastScreenData}
+              handleReStartClick={handleReStartClick}
+            ></LastScreen>
+          )
+        )}
+      </BackgroundImage>
     </Wrapper>
   );
 };

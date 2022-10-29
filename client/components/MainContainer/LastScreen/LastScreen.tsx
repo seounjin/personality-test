@@ -26,17 +26,15 @@ const LastScreen = ({
   const { who, content } = lastScreenData;
 
   return (
-    <BackgroundImg>
-      <Container>
-        <TitleWrapper>
-          <Title>{who}</Title>
-        </TitleWrapper>
-        <ContentWrapper>
-          <Content> {content}</Content>
-        </ContentWrapper>
-        <RestartButton onClick={handleReStartClick} />
-      </Container>
-    </BackgroundImg>
+    <Container>
+      <TitleWrapper>
+        <Title>{who}</Title>
+      </TitleWrapper>
+      <ContentWrapper>
+        <Content> {content}</Content>
+      </ContentWrapper>
+      <RestartButton onClick={handleReStartClick} />
+    </Container>
   );
 };
 

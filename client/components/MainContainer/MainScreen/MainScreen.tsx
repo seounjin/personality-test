@@ -6,6 +6,7 @@ import {
   ButtonWrapper,
   BlueButton,
   WhiteButton,
+  Wrapper,
 } from './MainScreen.style';
 
 interface MainProps {
@@ -24,21 +25,23 @@ const MainScreen = ({
   handleButtonClick,
 }: MainProps): JSX.Element => {
   return (
-    <Container opacity={opacity}>
-      <QuestionWrapper>
-        <Question>{question}</Question>
-      </QuestionWrapper>
+    <Wrapper>
+      <Container opacity={opacity}>
+        <QuestionWrapper>
+          <Question>{question}</Question>
+        </QuestionWrapper>
 
-      <ButtonWrapper>
-        <WhiteButton data-id="1" onClick={handleButtonClick}>
-          {select_1}
-        </WhiteButton>
+        <ButtonWrapper>
+          <WhiteButton data-id="1" onClick={handleButtonClick}>
+            {select_1}
+          </WhiteButton>
 
-        <BlueButton data-id="2" onClick={handleButtonClick}>
-          {select_2}
-        </BlueButton>
-      </ButtonWrapper>
-    </Container>
+          <BlueButton data-id="2" onClick={handleButtonClick}>
+            {select_2}
+          </BlueButton>
+        </ButtonWrapper>
+      </Container>
+    </Wrapper>
   );
 };
 

@@ -12,18 +12,11 @@ const StartScreen = ({
   handleStartClick,
 }: EntranceProps): JSX.Element => {
   return (
-    <BackgroundImage>
-      <Wrapper>
-        <Headline>{title}</Headline>
-        <Image
-          alt="poster-img"
-          src="/poster.png"
-          width="250px"
-          height="250px"
-        />
-        <Button onClick={handleStartClick}>테스트 시작하기</Button>
-      </Wrapper>
-    </BackgroundImage>
+    <Wrapper>
+      <Headline>{title}</Headline>
+      <Image alt="poster-img" src="/poster.png" width="250px" height="250px" />
+      <Button onClick={handleStartClick}>테스트 시작하기</Button>
+    </Wrapper>
   );
 };
 
