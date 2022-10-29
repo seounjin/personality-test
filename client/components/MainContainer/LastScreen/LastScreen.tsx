@@ -1,7 +1,13 @@
 import React from 'react';
-import Wrapper from './styles';
+import {
+  Container,
+  Content,
+  ContentWrapper,
+  RestartButton,
+  Title,
+  TitleWrapper,
+} from './LastScreen.style';
 import BackgroundImg from '../../BackgroundImage/BackgroundImage';
-import WindowCharacter from './WindowCharacter';
 
 interface LastScreenData {
   who: string;
@@ -21,18 +27,15 @@ const LastScreen = ({
 
   return (
     <BackgroundImg>
-      <Wrapper>
-        <div className="result-name">
-          <span>{who}</span>
-        </div>
-
-        <WindowCharacter description={content}></WindowCharacter>
-
-        <button
-          className="restart-button"
-          onClick={handleReStartClick}
-        ></button>
-      </Wrapper>
+      <Container>
+        <TitleWrapper>
+          <Title>{who}</Title>
+        </TitleWrapper>
+        <ContentWrapper>
+          <Content> {content}</Content>
+        </ContentWrapper>
+        <RestartButton onClick={handleReStartClick} />
+      </Container>
     </BackgroundImg>
   );
 };
