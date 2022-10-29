@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import StartScreen from './StartScreen/StartScreen';
 import QuestionImg from './QuestionImg';
-import Main from './Main';
+import Main from './MainScreen/MainScreen';
 import LastScreen from './LastScreen';
 import fetcher from '../../api/fetcher';
 import { TestData, LastScreenData, MainProps } from './types';
