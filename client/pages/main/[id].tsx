@@ -1,20 +1,90 @@
-import MainContainer from '../../components/MainContainer';
 import fetcher from '../../api/fetcher';
-import { MainProps } from '../../components/MainContainer/types';
+import { MainProps, PersonalityTest, ResultData } from './types';
 import { GetStaticProps, GetStaticPaths } from 'next';
+import { useState } from 'react';
+import useSlide from '../../hooks/useSlide';
+import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
+import LastScreen from '../../components/LastScreen/LastScreen';
+import MainScreen from '../../components/MainScreen/MainScreen';
+import StartScreen from '../../components/StartScreen/StartScreen';
+import { Wrapper, HiddenWrapper, SlideWrapper } from './style';
 
 type Params = { id: string };
 
-const MainPage = ({ mainStaticData }: MainProps): JSX.Element => {
+const MainPage = ({
+  data: { testData, title, id },
+}: MainProps): JSX.Element => {
+  const [personalityTest] = useState<PersonalityTest[]>(testData);
+  const [lastSlide] = useState<number>(personalityTest.length);
+  const [options, setOptions] = useState<string>('');
+  const [resultData, setResultData] = useState<ResultData | null>(null);
+  const { slideRef, currentSlide, nextSlide, resetSlide } = useSlide();
+
+  const startClick = (): void => {
+    nextSlide();
+  };
+
+  const combineOptions = (optionId: string) => {
+    return optionId === '1'
+      ? options + personalityTest[currentSlide - 1].select_1_id
+      : options + personalityTest[currentSlide - 1].select_2_id;
+  };
+
+  const optionsButtonClick = (event): void => {
+    const optionId: string = event.target.dataset.id;
+    const sumId: string = combineOptions(optionId);
+    setOptions(sumId);
+
+    if (currentSlide === lastSlide) {
+      requestResult(sumId);
+    }
+  };
+
+  const requestResult = async (sumId: string) => {
+    try {
+      const res = await fetcher('get', `/tests/${id}/results/${sumId}`);
+      setResultData(res.resultData[0]);
+      nextSlide();
+    } catch (error) {
+      console.log('결과요청 페이지 에러', error);
+    }
+  };
+
+  const reStartClick = (): void => {
+    setOptions('');
+    resetSlide();
+  };
+
   return (
-    <>
-      <MainContainer mainStaticData={mainStaticData}></MainContainer>
-    </>
+    <Wrapper>
+      <HiddenWrapper>
+        <SlideWrapper ref={slideRef}>
+          <BackgroundImage>
+            <StartScreen title={title} onClick={startClick} />
+          </BackgroundImage>
+
+          {personalityTest.map((data: PersonalityTest, index: number) => (
+            <BackgroundImage key={`p${index}`}>
+              <MainScreen
+                question={data.question}
+                select_1={data.select_1}
+                select_2={data.select_2}
+                onClick={optionsButtonClick}
+              />
+            </BackgroundImage>
+          ))}
+          {resultData && (
+            <BackgroundImage>
+              <LastScreen data={resultData} onClick={reStartClick} />
+            </BackgroundImage>
+          )}
+        </SlideWrapper>
+      </HiddenWrapper>
+    </Wrapper>
   );
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // 서버에 요청하는 것으로 바꿔야함
   const paths = Array(100)
     .fill(0)
     .map((_, index) => ({
@@ -38,7 +108,7 @@ export const getStaticProps: GetStaticProps<MainProps, Params> = async ({
       };
     }
     return {
-      props: { mainStaticData: { testData: testData, title: title, id } },
+      props: { data: { testData: testData, title: title, id } },
     };
   } catch (error) {
     return {

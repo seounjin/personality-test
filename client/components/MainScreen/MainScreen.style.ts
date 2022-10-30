@@ -1,27 +1,20 @@
 import styled from 'styled-components';
 
-interface ContainerProps {
-  opacity: number;
-}
-
-export const Container = styled.div<ContainerProps>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: ${(props) => props.opacity};
-  transition: opacity 1s;
-
-  width: 100%;
-  height: 100%;
-  font-size: 1.6rem;
-`;
-
 export const Wrapper = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 375px;
+  height: 100%;
+`;
+
+export const Container = styled.div`
   width: 336px;
   height: 578px;
   border: solid;
   background-color: white;
+  font-size: 1.6rem;
 `;
 
 export const QuestionWrapper = styled.div`

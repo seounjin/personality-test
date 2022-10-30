@@ -1,21 +1,17 @@
-import BackgroundImage from '../../BackgroundImage/BackgroundImage';
 import { Wrapper, Button, Headline } from './StartScreen.style';
 import Image from 'next/image';
 
 interface EntranceProps {
   title: string;
-  handleStartClick: () => void;
+  onClick: () => void;
 }
 
-const StartScreen = ({
-  title,
-  handleStartClick,
-}: EntranceProps): JSX.Element => {
+const StartScreen = ({ title, onClick }: EntranceProps): JSX.Element => {
   return (
     <Wrapper>
       <Headline>{title}</Headline>
       <Image alt="poster-img" src="/poster.png" width="250px" height="250px" />
-      <Button onClick={handleStartClick}>테스트 시작하기</Button>
+      <Button onClick={onClick}>테스트 시작하기</Button>
     </Wrapper>
   );
 };

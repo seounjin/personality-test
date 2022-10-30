@@ -10,33 +10,31 @@ import {
 } from './MainScreen.style';
 
 interface MainProps {
-  opacity: number;
   question: string;
   select_1: string;
   select_2: string;
-  handleButtonClick: (event) => void;
+  onClick: (event) => void;
 }
 
 const MainScreen = ({
-  opacity,
   question,
   select_1,
   select_2,
-  handleButtonClick,
+  onClick,
 }: MainProps): JSX.Element => {
   return (
     <Wrapper>
-      <Container opacity={opacity}>
+      <Container>
         <QuestionWrapper>
           <Question>{question}</Question>
         </QuestionWrapper>
 
         <ButtonWrapper>
-          <WhiteButton data-id="1" onClick={handleButtonClick}>
+          <WhiteButton data-id="1" onClick={onClick}>
             {select_1}
           </WhiteButton>
 
-          <BlueButton data-id="2" onClick={handleButtonClick}>
+          <BlueButton data-id="2" onClick={onClick}>
             {select_2}
           </BlueButton>
         </ButtonWrapper>

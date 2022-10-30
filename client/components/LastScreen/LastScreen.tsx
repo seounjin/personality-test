@@ -7,7 +7,6 @@ import {
   Title,
   TitleWrapper,
 } from './LastScreen.style';
-import BackgroundImg from '../../BackgroundImage/BackgroundImage';
 
 interface LastScreenData {
   who: string;
@@ -15,15 +14,12 @@ interface LastScreenData {
 }
 
 interface LastScreenProps {
-  lastScreenData: LastScreenData;
-  handleReStartClick: () => void;
+  data: LastScreenData;
+  onClick: () => void;
 }
 
-const LastScreen = ({
-  lastScreenData,
-  handleReStartClick,
-}: LastScreenProps): JSX.Element => {
-  const { who, content } = lastScreenData;
+const LastScreen = ({ data, onClick }: LastScreenProps): JSX.Element => {
+  const { who, content } = data;
 
   return (
     <Container>
@@ -33,7 +29,7 @@ const LastScreen = ({
       <ContentWrapper>
         <Content> {content}</Content>
       </ContentWrapper>
-      <RestartButton onClick={handleReStartClick} />
+      <RestartButton onClick={onClick} />
     </Container>
   );
 };

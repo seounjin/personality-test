@@ -1,4 +1,4 @@
-export interface TestData {
+export interface PersonalityTest {
   question: string;
   select_1: string;
   select_2: string;
@@ -6,13 +6,13 @@ export interface TestData {
   select_2_id: number;
 }
 
-export interface LastScreenData {
+export interface ResultData {
   who: string;
   content: string;
 }
 
 export interface MainStaticData {
-  testData: TestData[];
+  testData: PersonalityTest[];
   title: string;
   id: string;
 }
@@ -23,6 +23,6 @@ export interface Error {
 }
 
 export interface MainProps {
-  mainStaticData?: MainStaticData;
+  data?: MainStaticData;
   error?: Error;
 }
