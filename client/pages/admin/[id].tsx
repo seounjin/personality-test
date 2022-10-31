@@ -2,7 +2,7 @@ import Wrapper from './styles';
 import ImageUploadContainer from '../../components/ImageUploadContainer';
 import ResultContainer from '../../components/ResultContainer';
 import SelectContainer from '../../components/SelectContainer';
-import UserContainer from '../../components/UserContainer';
+import UserForm from '../../components/UserForm/UserForm';
 import { fetchAdminData } from '../../store/modules/admin';
 import { GetServerSideProps } from 'next';
 import { wrapper } from '../../store';
@@ -20,7 +20,7 @@ const Admin = (): JSX.Element => {
 
         <div className="admin_content">
           <h2>유저 등록</h2>
-          <UserContainer></UserContainer>
+          <UserForm />
         </div>
 
         <div className="admin_content">

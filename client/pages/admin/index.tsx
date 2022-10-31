@@ -2,7 +2,7 @@ import Wrapper from './styles';
 import ImageUploadContainer from '../../components/ImageUploadContainer';
 import ResultContainer from '../../components/ResultContainer';
 import SelectContainer from '../../components/SelectContainer';
-import UserContainer from '../../components/UserContainer';
+import UserContainer from '../../components/UserForm/UserForm';
 import useAdmin from '../../hooks/useAdmin';
 
 const Admin = (): JSX.Element => {

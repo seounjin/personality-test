@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Wrapper from './styles';
+import Wrapper from './UserForm.style';
 import InputForm from '../InputForm/InputForm';
 import { handleUser } from '../../store/modules/admin';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -27,21 +27,19 @@ const UserContainer = (): JSX.Element => {
 
   return (
     <Wrapper>
-      <div className="user_container">
-        {userItem.map((data, index) => {
-          const { label, type, defaultValue } = data;
-          return (
-            <InputForm
-              key={label + index}
-              label={label}
-              type={type}
-              defaultValue={defaultValue}
-              index={index}
-              onChange={onChange}
-            ></InputForm>
-          );
-        })}
-      </div>
+      {userItem.map((data, index) => {
+        const { label, type, defaultValue } = data;
+        return (
+          <InputForm
+            key={label + index}
+            label={label}
+            type={type}
+            defaultValue={defaultValue}
+            index={index}
+            onChange={onChange}
+          ></InputForm>
+        );
+      })}
     </Wrapper>
   );
 };
