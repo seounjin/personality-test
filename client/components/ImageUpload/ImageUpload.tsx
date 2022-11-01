@@ -1,15 +1,13 @@
 import React, { useRef, useState } from 'react';
-import Wrapper from './styles';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { Container, Button, Input, Img } from './ImageUpload.style';
+import { useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
 
 interface ImgUploadProps {
   handleImgFile: (imgFile: File) => void;
 }
 
-const ImageUploadContainer = ({
-  handleImgFile,
-}: ImgUploadProps): JSX.Element => {
+const ImgUpload = ({ handleImgFile }: ImgUploadProps): JSX.Element => {
   const imgUploadRef = useRef<HTMLInputElement>(null);
 
   const { imgUrl } = useSelector(
@@ -33,18 +31,17 @@ const ImageUploadContainer = ({
   };
 
   return (
-    <Wrapper>
-      <input
+    <Container>
+      <Input
         type="file"
         ref={imgUploadRef}
         accept={'image/*'}
         onChange={onImageChange}
       />
-      <img alt={'img'} src={ImgSrc} />
-
-      <button onClick={handleClick}>썸네일 등록</button>
-    </Wrapper>
+      <Img alt={'img'} src={ImgSrc} />
+      <Button onClick={handleClick}>썸네일 등록</Button>
+    </Container>
   );
 };
 
-export default React.memo(ImageUploadContainer);
+export default ImgUpload;

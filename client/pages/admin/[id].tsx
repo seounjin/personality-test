@@ -1,5 +1,5 @@
 import { Wrapper, Container, TitleWrapper, Title, SubTitle } from './styles';
-import ImageUploadContainer from '../../components/ImageUploadContainer';
+import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import ResultContainer from '../../components/ResultContainer';
 import SelectContainer from '../../components/SelectContainer';
 import UserForm from '../../components/UserForm/UserForm';
@@ -26,7 +26,7 @@ const Admin = (): JSX.Element => {
 
         <AdminContent>
           <SubTitle>이미지 등록</SubTitle>
-          <ImageUploadContainer handleImgFile={handleImgFile} />
+          <ImageUpload handleImgFile={handleImgFile} />
         </AdminContent>
 
         <AdminContent>
@@ -37,7 +37,7 @@ const Admin = (): JSX.Element => {
         {isResultScreen && (
           <AdminContent>
             <SubTitle>결과 작성</SubTitle>
-            <ResultContainer ImgFile={ImgFile}></ResultContainer>
+            <ResultContainer ImgFile={ImgFile} />
           </AdminContent>
         )}
       </Container>
