@@ -18,3 +18,5 @@ export const Container = styled.div`
     box-shadow: none;
   }
 `;
+
+export const SubTitle = styled.h2``;

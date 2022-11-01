@@ -1,12 +1,21 @@
 import React from 'react';
-import { Container } from './AdminContent.style';
+import { Container, SubTitle } from './AdminContent.style';
 
 interface AdminContentProps {
+  subtitle: string;
   children: React.ReactNode;
 }
 
-const AdminContent = ({ children }: AdminContentProps): JSX.Element => {
-  return <Container>{children}</Container>;
+const AdminContent = ({
+  subtitle,
+  children,
+}: AdminContentProps): JSX.Element => {
+  return (
+    <Container>
+      <SubTitle>{subtitle}</SubTitle>
+      {children}
+    </Container>
+  );
 };
 
 export default AdminContent;

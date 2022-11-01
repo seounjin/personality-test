@@ -28,5 +28,3 @@ export const TitleWrapper = styled.div`
     justify-content: center;
   }
 `;
-
-export const SubTitle = styled.h2``;

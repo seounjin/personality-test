@@ -1,4 +1,4 @@
-import { Wrapper, Container, TitleWrapper, Title, SubTitle } from './styles';
+import { Wrapper, Container, TitleWrapper, Title } from './styles';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import ResultContainer from '../../components/ResultContainer';
 import SelectContainer from '../../components/SelectContainer';
@@ -19,24 +19,20 @@ const Admin = (): JSX.Element => {
           <Title>만들어 보아요</Title>
         </TitleWrapper>
 
-        <AdminContent>
-          <SubTitle>유저 등록</SubTitle>
+        <AdminContent subtitle={'유저등록'}>
           <UserForm />
         </AdminContent>
 
-        <AdminContent>
-          <SubTitle>이미지 등록</SubTitle>
+        <AdminContent subtitle={'이미지 등록'}>
           <ImageUpload handleImgFile={handleImgFile} />
         </AdminContent>
 
-        <AdminContent>
-          <SubTitle>선택지 작성</SubTitle>
+        <AdminContent subtitle={'선택지 작성'}>
           <SelectContainer />
         </AdminContent>
 
         {isResultScreen && (
-          <AdminContent>
-            <SubTitle>결과 작성</SubTitle>
+          <AdminContent subtitle={'결과작성'}>
             <ResultContainer ImgFile={ImgFile} />
           </AdminContent>
         )}
