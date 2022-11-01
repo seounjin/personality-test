@@ -5,7 +5,7 @@ import { handleUser } from '../../store/modules/admin';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
 
-const UserContainer = (): JSX.Element => {
+const UserForm = (): JSX.Element => {
   const { userItem } = useSelector(
     (state: RootState) => ({
       userItem: state.admin.userItem,
@@ -44,4 +44,4 @@ const UserContainer = (): JSX.Element => {
   );
 };
 
-export default UserContainer;
+export default UserForm;

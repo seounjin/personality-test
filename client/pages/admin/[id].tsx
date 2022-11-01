@@ -1,4 +1,4 @@
-import Wrapper from './styles';
+import { Wrapper, Container, TitleWrapper, Title, SubTitle } from './styles';
 import ImageUploadContainer from '../../components/ImageUploadContainer';
 import ResultContainer from '../../components/ResultContainer';
 import SelectContainer from '../../components/SelectContainer';
@@ -7,41 +7,40 @@ import { fetchAdminData } from '../../store/modules/admin';
 import { GetServerSideProps } from 'next';
 import { wrapper } from '../../store';
 import useAdmin from '../../hooks/useAdmin';
+import AdminContent from '../../components/AdminContent/AdminContent';
 
 const Admin = (): JSX.Element => {
   const { ImgFile, isResultScreen, handleImgFile } = useAdmin();
 
   return (
     <Wrapper>
-      <div className="admin_wrapper">
-        <div className="admin_title">
-          <h1>만들어 보아요</h1>
-        </div>
+      <Container>
+        <TitleWrapper>
+          <Title>만들어 보아요</Title>
+        </TitleWrapper>
 
-        <div className="admin_content">
-          <h2>유저 등록</h2>
+        <AdminContent>
+          <SubTitle>유저 등록</SubTitle>
           <UserForm />
-        </div>
+        </AdminContent>
 
-        <div className="admin_content">
-          <h2>이미지 등록</h2>
-          <ImageUploadContainer
-            handleImgFile={handleImgFile}
-          ></ImageUploadContainer>
-        </div>
+        <AdminContent>
+          <SubTitle>이미지 등록</SubTitle>
+          <ImageUploadContainer handleImgFile={handleImgFile} />
+        </AdminContent>
 
-        <div className="admin_content">
-          <h2>선택지 작성</h2>
-          <SelectContainer></SelectContainer>
-        </div>
+        <AdminContent>
+          <SubTitle>선택지 작성</SubTitle>
+          <SelectContainer />
+        </AdminContent>
 
         {isResultScreen && (
-          <div className="admin_content">
-            <h2>결과 작성</h2>
+          <AdminContent>
+            <SubTitle>결과 작성</SubTitle>
             <ResultContainer ImgFile={ImgFile}></ResultContainer>
-          </div>
+          </AdminContent>
         )}
-      </div>
+      </Container>
     </Wrapper>
   );
 };
