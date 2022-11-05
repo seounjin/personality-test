@@ -2,8 +2,8 @@ import React from 'react';
 import { Wrapper, Button } from './TwoButton.style';
 
 interface TwoButtonProps {
-  leftButton: () => void;
-  rightButton: () => void;
+  leftButton: (...props) => void;
+  rightButton: (...props) => void;
   leftName: string;
   rightName: string;
 }

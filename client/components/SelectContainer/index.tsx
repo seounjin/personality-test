@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
-import Wrapper from './styles';
-import SelectButton from './SelectButton';
+import { Wrapper, TwoButtonWrapper } from './styles';
 import InputForm from '../InputForm/InputForm';
 import SelectForm from './SelectForm';
 import TwoButton from '../TwoButton/TwoButton';
@@ -11,6 +10,8 @@ import {
   handlerSelectInput,
   addSelectItem,
   approveSelectItem,
+  transSelectItem,
+  deleteSelectItem,
 } from '../../store/modules/admin';
 
 const SelectContainer = (): JSX.Element => {
@@ -63,6 +64,20 @@ const SelectContainer = (): JSX.Element => {
     };
   }, []);
 
+  const handleOk = (index: number): void => {
+    const { question, select_1, select_2 } = items[index];
+    if (!question || !select_1 || !select_2) {
+      alert('선택지를 채워주세요');
+      return;
+    }
+
+    dispatch(transSelectItem({ index }));
+  };
+
+  const handleDelete = (index: number): void => {
+    dispatch(deleteSelectItem({ index }));
+  };
+
   return (
     <Wrapper>
       {items.map((data, selectIndex) => {
@@ -80,15 +95,22 @@ const SelectContainer = (): JSX.Element => {
                     index={selectIndex}
                     defaultValue={defaultValue}
                     onChange={onChange}
-                  ></InputForm>
+                  />
                 );
               })
             ) : (
-              <SelectForm item={item}></SelectForm>
+              <SelectForm item={item} />
             )}
 
             {!isResultScreen && (
-              <SelectButton index={selectIndex}></SelectButton>
+              <TwoButtonWrapper>
+                <TwoButton
+                  leftButton={() => handleOk(selectIndex)}
+                  rightButton={() => handleDelete(selectIndex)}
+                  leftName={isVisible[selectIndex] ? '확인' : '수정'}
+                  rightName={'삭제'}
+                />
+              </TwoButtonWrapper>
             )}
           </div>
         );

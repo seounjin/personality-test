@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Wrapper from './styles';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../../store/modules';
@@ -23,7 +23,6 @@ const SelectButton = ({ index }: SelectButtonProps): JSX.Element => {
   );
 
   const handleOk = (index: number): void => {
-    console.log('확인', item);
     const { question, select_1, select_2 } = item;
     if (!question || !select_1 || !select_2) {
       alert('선택지를 채워주세요');
@@ -33,9 +32,9 @@ const SelectButton = ({ index }: SelectButtonProps): JSX.Element => {
     dispatch(transSelectItem({ index }));
   };
 
-  const handleDelete = useCallback((index: number): void => {
+  const handleDelete = (index: number): void => {
     dispatch(deleteSelectItem({ index }));
-  }, []);
+  };
 
   return (
     <Wrapper>
@@ -47,4 +46,4 @@ const SelectButton = ({ index }: SelectButtonProps): JSX.Element => {
   );
 };
 
-export default React.memo(SelectButton);
+export default SelectButton;

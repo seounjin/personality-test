@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  display: flex;
-  width: 360px;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
-`;
+export const Wrapper = styled.div``;
 
-export default Wrapper;
+export const TwoButtonWrapper = styled.div`
+  margin: 13px 0;
+`;
