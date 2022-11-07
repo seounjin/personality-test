@@ -1,6 +1,6 @@
 import React from 'react';
 import Wrapper from './styles';
-import SelectForm from '../../SelectContainer/SelectForm';
+import SelectForm from '../../SelectContainer/SelectForm/SelectForm';
 import { ResultContents, ResultItems } from '../../SelectContainer/type';
 
 interface ResultContentProps {

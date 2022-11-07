@@ -59,7 +59,6 @@ const adminSlice = createSlice({
 
     handleUser: (state, action) => {
       const { index, name, value } = action.payload;
-      console.log('state', name, value);
       state.userItem[index] = { ...state.userItem[index], defaultValue: value };
     },
 

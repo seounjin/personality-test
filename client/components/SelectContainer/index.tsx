@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Wrapper, TwoButtonWrapper } from './styles';
 import InputForm from '../InputForm/InputForm';
-import SelectForm from './SelectForm';
+import SelectForm from './SelectForm/SelectForm';
 import TwoButton from '../TwoButton/TwoButton';
 import _mapObject from '../../utils/_mapObject';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -32,7 +32,6 @@ const SelectContainer = (): JSX.Element => {
       name,
       dataset: { index },
     } = event.target;
-
     dispatch(handlerSelectInput({ name, value, index }));
   }, []);
 
@@ -83,13 +82,13 @@ const SelectContainer = (): JSX.Element => {
       {items.map((data, selectIndex) => {
         const item = _mapObject(pretreatment, data, selectIndex);
         return (
-          <div key={'selectItem' + `${selectIndex}`}>
+          <div key={`s${selectIndex}`}>
             {isVisible[selectIndex] === true ? (
               item.map((data, index) => {
                 const { label, type, defaultValue } = data;
                 return (
                   <InputForm
-                    key={label + index}
+                    key={`i${index}`}
                     label={label}
                     type={type}
                     index={selectIndex}
