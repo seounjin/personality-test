@@ -1,12 +1,12 @@
 import React from 'react';
 import Wrapper from './styles';
-import SelectForm from '../../SelectContainer/SelectForm/SelectForm';
-import { ResultContents, ResultItems } from '../../SelectContainer/type';
+import ReadForm from '../../ReadForm/ReadForm';
+import { ResultItem, ResultContent } from '../type';
 
 interface ResultContentProps {
-  item: ResultItems[];
+  item: ResultItem[];
   index: number;
-  resultContent: ResultContents;
+  resultContent: ResultContent;
   handleTextArea: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
@@ -21,7 +21,7 @@ const ResultContent = ({
   return (
     <Wrapper>
       <div className="result_content_container">
-        <SelectForm item={item}></SelectForm>
+        <ReadForm item={item} />
 
         <div className="result_content_wrapper">
           <label>당신은?</label>

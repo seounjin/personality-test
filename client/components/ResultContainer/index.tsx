@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 import Wrapper from './styles';
 import ResultContent from './ResultContent';
 import TwoButton from '../TwoButton/TwoButton';
-import { ResultItems } from '../SelectContainer/type';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { setResultContent, excuteResultItem } from '../../store/modules/admin';
 import { RootState } from '../../store/modules';
 import { useRouter } from 'next/router';
 import fetcher from '../../api/fetcher';
+import { ResultItem } from './type';
 
 interface ResultContainerProps {
   ImgFile: File;
@@ -114,7 +114,7 @@ const ResultContainer = ({ ImgFile }: ResultContainerProps): JSX.Element => {
         return (
           <ResultContent
             key={'resultItems' + index.toString()}
-            item={data[0] as unknown as ResultItems[]}
+            item={data[0] as unknown as ResultItem[]}
             index={index}
             resultContent={resultContent[index]}
             handleTextArea={handleTextArea}

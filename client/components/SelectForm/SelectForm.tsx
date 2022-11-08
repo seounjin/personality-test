@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
-import { Wrapper, TwoButtonWrapper } from './styles';
-import InputForm from '../InputForm/InputForm';
-import SelectForm from './SelectForm/SelectForm';
+import { Container, TwoButtonWrapper, FormContainer } from './SelectForm.style';
+import ReadForm from '../ReadForm/ReadForm';
 import TwoButton from '../TwoButton/TwoButton';
+import WriteForm from '../WriteForm/WriteForm';
 import _mapObject from '../../utils/_mapObject';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
@@ -14,7 +14,7 @@ import {
   deleteSelectItem,
 } from '../../store/modules/admin';
 
-const SelectContainer = (): JSX.Element => {
+const SelectForm = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const { items, isResultScreen, isVisible } = useSelector(
@@ -26,14 +26,17 @@ const SelectContainer = (): JSX.Element => {
     shallowEqual,
   );
 
-  const onChange = useCallback((event): void => {
-    const {
-      value,
-      name,
-      dataset: { index },
-    } = event.target;
-    dispatch(handlerSelectInput({ name, value, index }));
-  }, []);
+  const onChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      const {
+        value,
+        name,
+        dataset: { index },
+      } = event.target;
+      dispatch(handlerSelectInput({ name, value, index }));
+    },
+    [],
+  );
 
   const handleAdd = useCallback((): void => {
     dispatch(addSelectItem());
@@ -50,18 +53,16 @@ const SelectContainer = (): JSX.Element => {
     dispatch(approveSelectItem());
   };
 
-  const pretreatment = useCallback((key, items, index) => {
-    return {
-      label:
-        key === 'question'
-          ? `${index + 1}번질문`
-          : key === 'select_1'
-          ? '1번선택지'
-          : '2번선택지',
-      input: key,
-      defaultValue: items[key],
-    };
-  }, []);
+  const pretreatment = (key, items, index) => ({
+    label:
+      key === 'question'
+        ? `${index + 1}번질문`
+        : key === 'select_1'
+        ? '1번선택지'
+        : '2번선택지',
+    type: key,
+    defaultValue: items[key],
+  });
 
   const handleOk = (index: number): void => {
     const { question, select_1, select_2 } = items[index];
@@ -78,27 +79,19 @@ const SelectContainer = (): JSX.Element => {
   };
 
   return (
-    <Wrapper>
+    <Container>
       {items.map((data, selectIndex) => {
         const item = _mapObject(pretreatment, data, selectIndex);
         return (
-          <div key={`s${selectIndex}`}>
-            {isVisible[selectIndex] === true ? (
-              item.map((data, index) => {
-                const { label, type, defaultValue } = data;
-                return (
-                  <InputForm
-                    key={`i${index}`}
-                    label={label}
-                    type={type}
-                    index={selectIndex}
-                    defaultValue={defaultValue}
-                    onChange={onChange}
-                  />
-                );
-              })
+          <FormContainer key={`s${selectIndex}`}>
+            {isVisible[selectIndex] ? (
+              <WriteForm
+                item={item}
+                selectIndex={selectIndex}
+                onChange={onChange}
+              />
             ) : (
-              <SelectForm item={item} />
+              <ReadForm item={item} />
             )}
 
             {!isResultScreen && (
@@ -111,10 +104,10 @@ const SelectContainer = (): JSX.Element => {
                 />
               </TwoButtonWrapper>
             )}
-          </div>
+          </FormContainer>
         );
       })}
-      {isResultScreen === false && (
+      {!isResultScreen && (
         <TwoButton
           leftButton={handleAdd}
           rightButton={handleApprove}
@@ -122,8 +115,8 @@ const SelectContainer = (): JSX.Element => {
           rightName={'완료'}
         />
       )}
-    </Wrapper>
+    </Container>
   );
 };
 
-export default SelectContainer;
+export default SelectForm;

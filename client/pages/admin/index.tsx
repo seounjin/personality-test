@@ -1,7 +1,7 @@
 import { Wrapper, Container, TitleWrapper, Title } from './styles';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import ResultContainer from '../../components/ResultContainer';
-import SelectContainer from '../../components/SelectContainer/SelectForm/SelectForm';
+import SelectForm from '../../components/SelectForm/SelectForm';
 import UserForm from '../../components/UserForm/UserForm';
 import useAdmin from '../../hooks/useAdmin';
 import AdminContent from '../../components/AdminContent/AdminContent';
@@ -25,7 +25,7 @@ const Admin = (): JSX.Element => {
         </AdminContent>
 
         <AdminContent subtitle={'선택지 작성'}>
-          <SelectContainer />
+          <SelectForm />
         </AdminContent>
 
         {isResultScreen && (

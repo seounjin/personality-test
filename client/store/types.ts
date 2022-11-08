@@ -1,16 +1,13 @@
-import {
-  Items,
-  ResultItems,
-  InpitFormType,
-  ResultContents,
-} from '../components/SelectContainer/type';
+import { InputForm } from '../components/InputForm/InputForm.type';
+import { ResultContent, ResultItem } from '../components/ResultContainer/type';
+import { SelectItem } from '../components/SelectForm/SelectForm.type';
 
 export interface AdminInitialState {
-  userItem?: InpitFormType[];
-  items: Items[];
+  userItem?: InputForm[];
+  items: SelectItem[];
   isVisible: Array<boolean>;
   isResultScreen: boolean;
-  resultItems: Array<ResultItems>[];
-  resultContent?: ResultContents[];
+  resultItems: Array<ResultItem>[];
+  resultContent?: ResultContent[];
   imgUrl?: string;
 }

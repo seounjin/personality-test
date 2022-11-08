@@ -1,17 +1,14 @@
-import {
-  Items,
-  ResultContents,
-  ResultItems,
-} from '../components/SelectContainer/type';
+import { ResultContent, ResultItem } from '../components/ResultContainer/type';
+import { SelectItem } from '../components/SelectForm/SelectForm.type';
 
 type SelectItemCombine = {
-  resultItems: Array<ResultItems>[];
-  resultContent: ResultContents[];
+  resultItems: Array<ResultItem>[];
+  resultContent: ResultContent[];
 };
 
 const selectItemCombine = (
   itemLength: number,
-  items: Items[],
+  items: SelectItem[],
 ): SelectItemCombine => {
   let cnt = -1;
   const tempArray = Array(itemLength)

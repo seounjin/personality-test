@@ -6,7 +6,7 @@ import {
   Title,
   ContentWrapper,
   Content,
-} from './SelectForm.style';
+} from './ReadForm.style';
 
 interface Item {
   label: string;
@@ -17,7 +17,7 @@ interface SelectFormProps {
   item: Item[];
 }
 
-const SelectForm = ({ item }: SelectFormProps): JSX.Element => {
+const ReadForm = ({ item }: SelectFormProps): JSX.Element => {
   return (
     <Wrapper>
       {item.map(({ label, defaultValue }) => {
@@ -37,4 +37,4 @@ const SelectForm = ({ item }: SelectFormProps): JSX.Element => {
   );
 };
 
-export default SelectForm;
+export default ReadForm;
