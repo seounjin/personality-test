@@ -1,4 +1,7 @@
-import { ResultContent, ResultItem } from '../components/ResultContainer/type';
+import {
+  ResultContent,
+  ResultItem,
+} from '../components/ResultCard/ResultCard.type';
 import { SelectItem } from '../components/SelectForm/SelectForm.type';
 
 type SelectItemCombine = {

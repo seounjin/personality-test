@@ -13,11 +13,11 @@ interface Item {
   defaultValue: string;
 }
 
-interface SelectFormProps {
+interface ReadFormProps {
   item: Item[];
 }
 
-const ReadForm = ({ item }: SelectFormProps): JSX.Element => {
+const ReadForm = ({ item }: ReadFormProps): JSX.Element => {
   return (
     <Wrapper>
       {item.map(({ label, defaultValue }) => {

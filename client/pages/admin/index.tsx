@@ -1,6 +1,6 @@
 import { Wrapper, Container, TitleWrapper, Title } from './styles';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
-import ResultContainer from '../../components/ResultContainer';
+import ResultCard from '../../components/ResultCard/ResultCard';
 import SelectForm from '../../components/SelectForm/SelectForm';
 import UserForm from '../../components/UserForm/UserForm';
 import useAdmin from '../../hooks/useAdmin';
@@ -30,7 +30,7 @@ const Admin = (): JSX.Element => {
 
         {isResultScreen && (
           <AdminContent subtitle={'결과작성'}>
-            <ResultContainer ImgFile={ImgFile} />
+            <ResultCard ImgFile={ImgFile} />
           </AdminContent>
         )}
       </Container>
