@@ -1,13 +1,12 @@
+import React from 'react';
+import useParseItem from '../../hooks/useParseItem';
 import InputForm from '../InputForm/InputForm';
+import { SelectItem } from '../SelectCard/SelectCard.type';
 
-interface Item {
-  label: string;
-  type: string;
-  defaultValue: string;
-}
+const MInputForm = React.memo(InputForm);
 
 interface WriteFormProps {
-  item: Item[];
+  item: SelectItem[];
   selectIndex: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -17,21 +16,19 @@ const WriteForm = ({
   selectIndex,
   onChange,
 }: WriteFormProps): JSX.Element => {
+  const writeItem = useParseItem({ item, index: selectIndex });
   return (
     <>
-      {item.map((data, index) => {
-        const { label, type, defaultValue } = data;
-        return (
-          <InputForm
-            key={`i${index}`}
-            label={label}
-            type={type}
-            index={selectIndex}
-            defaultValue={defaultValue}
-            onChange={onChange}
-          />
-        );
-      })}
+      {writeItem.map(({ label, type, defaultValue }, index) => (
+        <MInputForm
+          key={`i${index}`}
+          label={label}
+          type={type}
+          index={selectIndex}
+          defaultValue={defaultValue}
+          onChange={onChange}
+        />
+      ))}
     </>
   );
 };

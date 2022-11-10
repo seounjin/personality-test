@@ -5,6 +5,8 @@ import { handleUser } from '../../store/modules/admin';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
 
+const MInputForm = React.memo(InputForm);
+
 const UserForm = (): JSX.Element => {
   const { userItem } = useSelector(
     (state: RootState) => ({
@@ -27,19 +29,16 @@ const UserForm = (): JSX.Element => {
 
   return (
     <Wrapper>
-      {userItem.map((data, index) => {
-        const { label, type, defaultValue } = data;
-        return (
-          <InputForm
-            key={label + index}
-            label={label}
-            type={type}
-            defaultValue={defaultValue}
-            index={index}
-            onChange={onChange}
-          ></InputForm>
-        );
-      })}
+      {userItem.map(({ label, type, defaultValue }, index) => (
+        <MInputForm
+          key={label + index}
+          label={label}
+          type={type}
+          defaultValue={defaultValue}
+          index={index}
+          onChange={onChange}
+        />
+      ))}
     </Wrapper>
   );
 };

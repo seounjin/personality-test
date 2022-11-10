@@ -1,4 +1,7 @@
 import React from 'react';
+import useParseItem from '../../hooks/useParseItem';
+import _mapObject from '../../utils/_mapObject';
+import { SelectItem } from '../SelectCard/SelectCard.type';
 import {
   Wrapper,
   Container,
@@ -8,21 +11,19 @@ import {
   Content,
 } from './ReadForm.style';
 
-interface Item {
-  label: string;
-  defaultValue: string;
-}
-
 interface ReadFormProps {
-  item: Item[];
+  item: SelectItem[];
+  selectIndex: number;
 }
 
-const ReadForm = ({ item }: ReadFormProps): JSX.Element => {
+const ReadForm = ({ item, selectIndex }: ReadFormProps): JSX.Element => {
+  const readItem = useParseItem({ item, index: selectIndex });
+
   return (
     <Wrapper>
-      {item.map(({ label, defaultValue }) => {
+      {readItem.map(({ label, defaultValue }, index) => {
         return (
-          <Container key={label}>
+          <Container key={`r${index}`}>
             <TitleWrapper>
               <Title>{label}</Title>
             </TitleWrapper>

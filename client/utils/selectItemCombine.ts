@@ -2,7 +2,7 @@ import {
   ResultContent,
   ResultItem,
 } from '../components/ResultCard/ResultCard.type';
-import { SelectItem } from '../components/SelectForm/SelectForm.type';
+import { SelectItem } from '../components/SelectCard/SelectCard.type';
 
 type SelectItemCombine = {
   resultItems: Array<ResultItem>[];

@@ -2,7 +2,7 @@ import { Wrapper, Container, TitleWrapper, Title } from './styles';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import ResultCard from '../../components/ResultCard/ResultCard';
 import UserForm from '../../components/UserForm/UserForm';
-import SelectForm from '../../components/SelectForm/SelectForm';
+import SelectForm from '../../components/SelectCard/SelectCard';
 import { fetchAdminData } from '../../store/modules/admin';
 import { GetServerSideProps } from 'next';
 import { wrapper } from '../../store';

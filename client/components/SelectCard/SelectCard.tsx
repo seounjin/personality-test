@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
-import { Container, TwoButtonWrapper, FormContainer } from './SelectForm.style';
+import { Container, TwoButtonWrapper, FormContainer } from './SelectCard.style';
 import ReadForm from '../ReadForm/ReadForm';
 import TwoButton from '../TwoButton/TwoButton';
 import WriteForm from '../WriteForm/WriteForm';
-import _mapObject from '../../utils/_mapObject';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
 import {
@@ -14,7 +13,11 @@ import {
   deleteSelectItem,
 } from '../../store/modules/admin';
 
-const SelectForm = (): JSX.Element => {
+const MWriteForm = React.memo(WriteForm);
+const MReadForm = React.memo(ReadForm);
+const MTwoButton = React.memo(TwoButton);
+
+const SelectCard = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const { items, isResultScreen, isVisible } = useSelector(
@@ -26,7 +29,7 @@ const SelectForm = (): JSX.Element => {
     shallowEqual,
   );
 
-  const onChange = useCallback(
+  const handlechange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       const {
         value,
@@ -38,32 +41,6 @@ const SelectForm = (): JSX.Element => {
     [],
   );
 
-  const handleAdd = useCallback((): void => {
-    dispatch(addSelectItem());
-  }, []);
-
-  const handleApprove = (): void => {
-    const isCheck = isVisible.filter((data) => data === true);
-
-    if (isCheck.length) {
-      alert('선택지 작성에서 확인버튼을 눌러주세요!!!');
-      return;
-    }
-
-    dispatch(approveSelectItem());
-  };
-
-  const pretreatment = (key, items, index) => ({
-    label:
-      key === 'question'
-        ? `${index + 1}번질문`
-        : key === 'select_1'
-        ? '1번선택지'
-        : '2번선택지',
-    type: key,
-    defaultValue: items[key],
-  });
-
   const handleOk = (index: number): void => {
     const { question, select_1, select_2 } = items[index];
     if (!question || !select_1 || !select_2) {
@@ -74,32 +51,46 @@ const SelectForm = (): JSX.Element => {
     dispatch(transSelectItem({ index }));
   };
 
-  const handleDelete = (index: number): void => {
+  const handleDelete = useCallback((index: number): void => {
     dispatch(deleteSelectItem({ index }));
-  };
+  }, []);
+
+  const handleAdd = useCallback((): void => {
+    dispatch(addSelectItem());
+  }, []);
+
+  const handleApprove = useCallback((): void => {
+    const isCheck = isVisible.filter((data) => data === true);
+
+    if (isCheck.length) {
+      alert('선택지 작성에서 확인버튼을 눌러주세요!!!');
+      return;
+    }
+
+    dispatch(approveSelectItem());
+  }, []);
 
   return (
     <Container>
-      {items.map((data, selectIndex) => {
-        const item = _mapObject(pretreatment, data, selectIndex);
+      {items.map((data, index) => {
         return (
-          <FormContainer key={`s${selectIndex}`}>
-            {isVisible[selectIndex] ? (
-              <WriteForm
-                item={item}
-                selectIndex={selectIndex}
-                onChange={onChange}
+          <FormContainer key={`s${index}`}>
+            {isVisible[index] ? (
+              <MWriteForm
+                item={data}
+                selectIndex={index}
+                onChange={handlechange}
               />
             ) : (
-              <ReadForm item={item} />
+              <MReadForm item={data} selectIndex={index} />
             )}
 
             {!isResultScreen && (
               <TwoButtonWrapper>
                 <TwoButton
-                  leftButton={() => handleOk(selectIndex)}
-                  rightButton={() => handleDelete(selectIndex)}
-                  leftName={isVisible[selectIndex] ? '확인' : '수정'}
+                  leftButton={() => handleOk(index)}
+                  rightButton={() => handleDelete(index)}
+                  leftName={isVisible[index] ? '확인' : '수정'}
                   rightName={'삭제'}
                 />
               </TwoButtonWrapper>
@@ -108,7 +99,7 @@ const SelectForm = (): JSX.Element => {
         );
       })}
       {!isResultScreen && (
-        <TwoButton
+        <MTwoButton
           leftButton={handleAdd}
           rightButton={handleApprove}
           leftName={'추가'}
@@ -119,4 +110,4 @@ const SelectForm = (): JSX.Element => {
   );
 };
 
-export default SelectForm;
+export default SelectCard;

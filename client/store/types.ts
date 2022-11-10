@@ -3,7 +3,7 @@ import {
   ResultContent,
   ResultItem,
 } from '../components/ResultCard/ResultCard.type';
-import { SelectItem } from '../components/SelectForm/SelectForm.type';
+import { SelectItem } from '../components/SelectCard/SelectCard.type';
 
 export interface AdminInitialState {
   userItem?: InputForm[];
