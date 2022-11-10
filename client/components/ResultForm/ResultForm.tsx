@@ -9,6 +9,8 @@ import {
 import ReadForm from '../ReadForm/ReadForm';
 import { ResultItem, ResultContent } from '../ResultCard/ResultCard.type';
 
+const MReadForm = React.memo(ReadForm);
+
 interface ResultFormProps {
   item: ResultItem[];
   index: number;
@@ -26,7 +28,7 @@ const ResultForm = ({
 }: ResultFormProps): JSX.Element => {
   return (
     <Container>
-      <ReadForm item={item} />
+      <MReadForm item={item} />
       <ContentContainer>
         <Label>당신은?</Label>
         <Input

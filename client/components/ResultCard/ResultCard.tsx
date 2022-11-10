@@ -8,6 +8,8 @@ import { RootState } from '../../store/modules';
 import { useRouter } from 'next/router';
 import fetcher from '../../api/fetcher';
 
+const MResultForm = React.memo(ResultForm);
+
 interface ResultCardProps {
   ImgFile: File;
 }
@@ -35,9 +37,9 @@ const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
     dispatch(setResultContent({ name, value, index }));
   }, []);
 
-  const handlecancel = useCallback((): void => {
+  const handlecancel = (): void => {
     dispatch(excuteResultItem());
-  }, []);
+  };
 
   const isNotValidUserItem = (): boolean =>
     !userItem[0].defaultValue ||
@@ -120,7 +122,7 @@ const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
     <Container>
       {resultItems.map((data, index) => {
         return (
-          <ResultForm
+          <MResultForm
             key={`r${index}`}
             item={data[0]}
             index={index}
