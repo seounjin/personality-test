@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import selectItemCombine from '../../utils/selectItemCombine';
 import { AdminInitialState } from '../types';
 import fetcher from '../../api/fetcher';
+import { selectItemCombine } from '../../features/personalityTest/personalityTest.utils';
 
 const initialState: AdminInitialState = {
   userItem: [

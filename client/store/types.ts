@@ -2,8 +2,8 @@ import { InputForm } from '../components/InputForm/InputForm.type';
 import {
   ResultContent,
   ResultItem,
-} from '../components/ResultCard/ResultCard.type';
-import { SelectItem } from '../components/SelectCard/SelectCard.type';
+} from '../features/admin/container/ResultCard/ResultCard.type';
+import { SelectItem } from '../features/admin/container/SelectCard/SelectCard.type';
 
 export interface AdminInitialState {
   userItem?: InputForm[];

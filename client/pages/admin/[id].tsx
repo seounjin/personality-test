@@ -1,16 +1,16 @@
 import { Wrapper, Container, TitleWrapper, Title } from './styles';
-import ImageUpload from '../../components/ImageUpload/ImageUpload';
-import ResultCard from '../../components/ResultCard/ResultCard';
-import UserForm from '../../components/UserForm/UserForm';
-import SelectForm from '../../components/SelectCard/SelectCard';
+import ImageUpload from '../../features/admin/container/ImageUpload/ImageUpload';
+import ResultCard from '../../features/admin/container/ResultCard/ResultCard';
+import UserForm from '../../features/admin/components/UserForm/UserForm';
+import SelectCard from '../../features/admin/container/SelectCard/SelectCard';
 import { fetchAdminData } from '../../store/modules/admin';
 import { GetServerSideProps } from 'next';
 import { wrapper } from '../../store';
-import useAdmin from '../../hooks/useAdmin';
-import AdminContent from '../../components/AdminContent/AdminContent';
+import AdminContent from '../../features/admin/components/AdminContent/AdminContent';
+import { useAdmin } from '../../features/admin/admin.hook';
 
 const Admin = (): JSX.Element => {
-  const { ImgFile, isResultScreen, handleImgFile } = useAdmin();
+  const { imgFile, isResultScreen, handleImgFile } = useAdmin();
 
   return (
     <Wrapper>
@@ -28,12 +28,12 @@ const Admin = (): JSX.Element => {
         </AdminContent>
 
         <AdminContent subtitle={'선택지 작성'}>
-          <SelectForm />
+          <SelectCard />
         </AdminContent>
 
         {isResultScreen && (
           <AdminContent subtitle={'결과작성'}>
-            <ResultCard ImgFile={ImgFile} />
+            <ResultCard ImgFile={imgFile} />
           </AdminContent>
         )}
       </Container>

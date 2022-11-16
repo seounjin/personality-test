@@ -21,8 +21,8 @@ const MTwoButton = React.memo(TwoButton);
 const MInputForm = React.memo(InputForm);
 
 const UserModalForm = ({ onClose }: UserModalFormProps): JSX.Element => {
-  const [UserId, setUserId] = useState<string>('');
-  const [Password, setPassword] = useState<string>('');
+  const [userId, setUserId] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const router = useRouter();
 
   const { selectCard, selectAction } = useSelector(
@@ -36,8 +36,8 @@ const UserModalForm = ({ onClose }: UserModalFormProps): JSX.Element => {
   const requestDelete = async () => {
     try {
       const res = await fetcher('post', `/tests/${selectCard}/delete`, {
-        userId: UserId,
-        password: Password,
+        userId: userId,
+        password: password,
       });
 
       if (res.success) {
@@ -54,8 +54,8 @@ const UserModalForm = ({ onClose }: UserModalFormProps): JSX.Element => {
   const requestUpdate = async () => {
     try {
       const res = await fetcher('post', `/tests/${selectCard}/edit-page`, {
-        userId: UserId,
-        password: Password,
+        userId: userId,
+        password: password,
       });
 
       if (res.success) {

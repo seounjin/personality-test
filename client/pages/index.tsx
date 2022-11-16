@@ -5,12 +5,12 @@ import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import HomeBody from '../layout/Homebody/HomeBody';
-import CardList from '../components/CardList/CardList';
-import { Card } from '../components/CardList/CardList.type';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { RootState } from '../store/modules';
 import { setIsOpenModal } from '../store/modules/home';
 import ModalPortal from '../portal/ModalPortal';
+import CardList from '../features/personalityTest/components/CardList/CardList';
+import { Card } from '../features/personalityTest/components/CardList/CardList.type';
 
 const MCardList = React.memo(CardList);
 
@@ -19,7 +19,7 @@ type HomeProps = {
 };
 
 const Home = ({ cardItems }: HomeProps): JSX.Element => {
-  const [Cards, setCards] = useState<Card[]>(cardItems);
+  const [cards, setCards] = useState<Card[]>(cardItems);
   const target = useRef(null);
   const Intersecting = useInfiniteScroll(target);
 
@@ -33,7 +33,7 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 
   const getCards = async () => {
     const res = await fetcher('get', '/cards');
-    setCards([...Cards, ...res]);
+    setCards([...cards, ...res]);
   };
 
   const closeModal = () => {
@@ -46,7 +46,7 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 
   return (
     <HomeBody>
-      {Cards && <MCardList cardItems={Cards} />}
+      {cards && <MCardList cardItems={cards} />}
 
       {isOpenModal && (
         <ModalPortal>

@@ -2,12 +2,13 @@ import fetcher from '../../api/fetcher';
 import { MainProps, PersonalityTest, ResultData } from './types';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { useState } from 'react';
-import useSlide from '../../hooks/useSlide';
-import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
-import LastScreen from '../../components/LastScreen/LastScreen';
-import MainScreen from '../../components/MainScreen/MainScreen';
-import StartScreen from '../../components/StartScreen/StartScreen';
+import BackgroundImage from '../../features/personalityTest/components/BackgroundImage/BackgroundImage';
+import LastScreen from '../../features/personalityTest/components/LastScreen/LastScreen';
+
 import { Wrapper, HiddenWrapper, SlideWrapper } from './style';
+import MainScreen from '../../features/personalityTest/components/MainScreen/MainScreen';
+import StartScreen from '../../features/personalityTest/components/StartScreen/StartScreen';
+import { useSlide } from '../../features/personalityTest/personalityTest.hook';
 
 type Params = { id: string };
 
