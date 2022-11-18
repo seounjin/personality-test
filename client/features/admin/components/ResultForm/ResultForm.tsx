@@ -5,17 +5,15 @@ import {
   Label,
   Input,
   Textarea,
+  HeaderContainer,
+  P,
+  ShadowBox,
 } from './ResultForm.style';
-import ReadForm from '../ReadForm/ReadForm';
-import {
-  ResultItem,
-  ResultContent,
-} from '../../container/ResultCard/ResultCard.type';
-
-const MReadForm = React.memo(ReadForm);
+import { ResultContent } from '../../container/ResultCard/ResultCard.type';
+import { InputForm } from '../../../../components/InputForm/InputForm.type';
 
 interface ResultFormProps {
-  item: ResultItem[];
+  items: InputForm[][];
   index: number;
   content: ResultContent;
   onChange: (
@@ -24,14 +22,24 @@ interface ResultFormProps {
 }
 
 const ResultForm = ({
-  item,
+  items,
   index,
   content,
   onChange,
 }: ResultFormProps): JSX.Element => {
   return (
     <Container>
-      <MReadForm item={item} />
+      {items.map((item) => {
+        return item.map(({ label, defaultValue }, index) => (
+          <HeaderContainer key={`r${index}`}>
+            <Label>{label}</Label>
+            <ShadowBox>
+              <P>{defaultValue}</P>
+            </ShadowBox>
+          </HeaderContainer>
+        ));
+      })}
+
       <ContentContainer>
         <Label>당신은?</Label>
         <Input

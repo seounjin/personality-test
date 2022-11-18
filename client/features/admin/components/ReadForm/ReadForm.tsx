@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParseItem } from '../../../personalityTest/personalityTest.hook';
+import { useParseItem } from '../../admin.hook';
 import { SelectItem } from '../../container/SelectCard/SelectCard.type';
 import {
   Wrapper,

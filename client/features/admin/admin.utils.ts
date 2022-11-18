@@ -1,3 +1,4 @@
+import _mapObject from '../../utils/_mapObject';
 import {
   ResultContent,
   ResultItem,

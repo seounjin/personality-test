@@ -48,7 +48,6 @@ const SelectCard = (): JSX.Element => {
       return;
     }
 
-    console.log('오키버튼');
     dispatch(setSelectItemVisble({ index }));
   };
 
@@ -75,6 +74,8 @@ const SelectCard = (): JSX.Element => {
   return (
     <Container>
       {items.map((data, index) => {
+        // const item = parseItem({ item: data, index });
+        // console.log('!!', item);
         return (
           <FormContainer key={`s${index}`}>
             {!selectItemsVisible[index] ? (

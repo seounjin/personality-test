@@ -1,6 +1,6 @@
 import React from 'react';
 import InputForm from '../../../../components/InputForm/InputForm';
-import { useParseItem } from '../../../personalityTest/personalityTest.hook';
+import { useParseItem } from '../../admin.hook';
 import { SelectItem } from '../../container/SelectCard/SelectCard.type';
 
 const MInputForm = React.memo(InputForm);

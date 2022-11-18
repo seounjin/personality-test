@@ -123,11 +123,11 @@ const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
 
   return (
     <Container>
-      {resultItems.map((data, index) => {
+      {resultItems.map((items, index) => {
         return (
           <MResultForm
             key={`r${index}`}
-            item={data[0]}
+            items={items}
             index={index}
             content={resultContent[index]}
             onChange={handleTextArea}
