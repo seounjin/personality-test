@@ -1,18 +1,18 @@
 import {
   ResultContent,
   ResultItem,
-} from '../../features/admin/container/ResultCard/ResultCard.type';
-import { SelectItem } from '../../features/admin/container/SelectCard/SelectCard.type';
+} from './container/ResultCard/ResultCard.type';
+import { SelectItem } from './container/SelectCard/SelectCard.type';
 
-type SelectItemCombine = {
+type CreateResultItem = {
   resultItems: Array<ResultItem>[];
   resultContent: ResultContent[];
 };
 
-export const selectItemCombine = (
+export const createResultItem = (
   itemLength: number,
   items: SelectItem[],
-): SelectItemCombine => {
+): CreateResultItem => {
   let cnt = -1;
   const tempArray = Array(itemLength)
     .fill(null)

@@ -9,7 +9,7 @@ import {
   handlerSelectInput,
   addSelectItem,
   approveSelectItem,
-  transSelectItem,
+  setSelectItemVisble,
   deleteSelectItem,
 } from '../../../../store/modules/admin';
 
@@ -20,11 +20,11 @@ const MTwoButton = React.memo(TwoButton);
 const SelectCard = (): JSX.Element => {
   const dispatch = useDispatch();
 
-  const { items, isResultScreen, isVisible } = useSelector(
+  const { items, isResultScreen, selectItemsVisible } = useSelector(
     (state: RootState) => ({
       items: state.admin.items,
       isResultScreen: state.admin.isResultScreen,
-      isVisible: state.admin.isVisible,
+      selectItemsVisible: state.admin.selectItemsVisible,
     }),
     shallowEqual,
   );
@@ -48,7 +48,8 @@ const SelectCard = (): JSX.Element => {
       return;
     }
 
-    dispatch(transSelectItem({ index }));
+    console.log('오키버튼');
+    dispatch(setSelectItemVisble({ index }));
   };
 
   const handleDelete = useCallback((index: number): void => {
@@ -59,23 +60,24 @@ const SelectCard = (): JSX.Element => {
     dispatch(addSelectItem());
   }, []);
 
-  const handleApprove = useCallback((): void => {
-    const isCheck = isVisible.filter((data) => data === true);
+  const isSelectItemsVisible = () =>
+    selectItemsVisible.every((data: boolean) => data);
 
-    if (isCheck.length) {
+  const handleApprove = useCallback((): void => {
+    if (!isSelectItemsVisible()) {
       alert('선택지 작성에서 확인버튼을 눌러주세요!!!');
       return;
     }
 
     dispatch(approveSelectItem());
-  }, []);
+  }, [selectItemsVisible]);
 
   return (
     <Container>
       {items.map((data, index) => {
         return (
           <FormContainer key={`s${index}`}>
-            {isVisible[index] ? (
+            {!selectItemsVisible[index] ? (
               <MWriteForm
                 item={data}
                 selectIndex={index}
@@ -90,7 +92,7 @@ const SelectCard = (): JSX.Element => {
                 <TwoButton
                   leftButton={() => handleOk(index)}
                   rightButton={() => handleDelete(index)}
-                  leftName={isVisible[index] ? '확인' : '수정'}
+                  leftName={!selectItemsVisible[index] ? '확인' : '수정'}
                   rightName={'삭제'}
                 />
               </TwoButtonWrapper>

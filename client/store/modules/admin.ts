@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AdminInitialState } from '../types';
 import fetcher from '../../api/fetcher';
-import { selectItemCombine } from '../../features/personalityTest/personalityTest.utils';
+import { createResultItem } from '../../features/admin/admin.utils';
 
 const initialState: AdminInitialState = {
   userItem: [
@@ -14,7 +14,7 @@ const initialState: AdminInitialState = {
     { question: '', select_1: '', select_2: '' },
     { question: '', select_1: '', select_2: '' },
   ],
-  isVisible: [true, true, true],
+  selectItemsVisible: [false, false, false],
   isResultScreen: false,
   resultItems: [],
   resultContent: [],
@@ -67,17 +67,16 @@ const adminSlice = createSlice({
       state.items[index][name] = value;
     },
 
-    transSelectItem: (state, action) => {
-      state.isVisible = state.isVisible.map((data, index) =>
-        index === action.payload.index ? !data : data,
-      );
+    setSelectItemVisble: (state, action) => {
+      state.selectItemsVisible[action.payload.index] =
+        !state.selectItemsVisible[action.payload.index];
     },
 
     deleteSelectItem: (state, action) => {
       state.items = state.items.filter(
         (_, index) => index !== action.payload.index,
       );
-      state.isVisible = state.isVisible.filter(
+      state.selectItemsVisible = state.selectItemsVisible.filter(
         (_, index) => index !== action.payload.index,
       );
     },
@@ -87,11 +86,11 @@ const adminSlice = createSlice({
         ...state.items,
         { question: '', select_1: '', select_2: '' },
       ];
-      state.isVisible = [...state.isVisible, true];
+      state.selectItemsVisible = [...state.selectItemsVisible, true];
     },
     approveSelectItem: (state) => {
       const itemLength = state.items.length;
-      const { resultItems, resultContent } = selectItemCombine(
+      const { resultItems, resultContent } = createResultItem(
         itemLength,
         state.items,
       );
@@ -107,7 +106,7 @@ const adminSlice = createSlice({
 
     excuteResultItem: (state) => {
       state.isResultScreen = !state.isResultScreen;
-      state.isVisible = state.isVisible.map(() => {
+      state.selectItemsVisible = state.selectItemsVisible.map(() => {
         return false;
       });
     },
@@ -115,7 +114,7 @@ const adminSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
       const { userItem, items, imgUrl, resultContent } = action.payload;
-      const { resultItems } = selectItemCombine(items.length, items);
+      const { resultItems } = createResultItem(items.length, items);
       state.userItem = state.userItem.map((data, index) => {
         return { ...data, defaultValue: userItem[data.type] };
       });
@@ -126,7 +125,7 @@ const adminSlice = createSlice({
       state.isResultScreen = true;
       state.resultItems = resultItems;
 
-      state.isVisible = [...Array(items.length)].map(() => {
+      state.selectItemsVisible = [...Array(items.length)].map(() => {
         return false;
       });
     });
@@ -136,7 +135,7 @@ const adminSlice = createSlice({
 export const {
   reSetAdminData,
   handlerSelectInput,
-  transSelectItem,
+  setSelectItemVisble,
   deleteSelectItem,
   handleUser,
   addSelectItem,
