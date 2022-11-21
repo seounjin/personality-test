@@ -20,12 +20,12 @@ interface ResultCardProps {
 const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { userItem, items, resultItems, resultContent } = useSelector(
+  const { userItem, items, resultItems, resultContents } = useSelector(
     (state: RootState) => ({
       userItem: state.admin.userItem,
       items: state.admin.items,
       resultItems: state.admin.resultItems,
-      resultContent: state.admin.resultContent,
+      resultContents: state.admin.resultContents,
     }),
     shallowEqual,
   );
@@ -50,7 +50,7 @@ const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
     !userItem[2].defaultValue;
 
   const isNotValidResultContent = (): boolean =>
-    resultContent.filter(({ who, content }) => !who || !content).length
+    resultContents.filter(({ who, content }) => !who || !content).length
       ? true
       : false;
 
@@ -69,7 +69,7 @@ const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
             },
       ),
     );
-    formData.append('results', JSON.stringify(resultContent));
+    formData.append('results', JSON.stringify(resultContents));
     formData.append('file', ImgFile);
     formData.append(
       'items',
@@ -129,7 +129,7 @@ const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
             key={`r${index}`}
             items={items}
             index={index}
-            content={resultContent[index]}
+            content={resultContents[index]}
             onChange={handleTextArea}
           />
         );

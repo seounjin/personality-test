@@ -1,69 +1,94 @@
-import _mapObject from '../../utils/_mapObject';
 import {
   ResultContent,
   ResultItem,
 } from './container/ResultCard/ResultCard.type';
 import { SelectItem } from './container/SelectCard/SelectCard.type';
 
-type CreateResultItem = {
-  resultItems: Array<ResultItem>[];
-  resultContent: ResultContent[];
+interface ParseSelectItems {
+  question: string;
+  questionvalue: string;
+  selected: string;
+  selectedvalue: string;
+}
+
+export const createResultItems = (
+  items: SelectItem[],
+  itemLength: number,
+): Array<ResultItem>[][] => {
+  const parsedSelectItems = parseSelectItemsToArray(items);
+  const res = setPermutation(itemLength);
+  return parseResultItems(res, parsedSelectItems);
 };
 
-export const createResultItem = (
-  itemLength: number,
+export const createResultContents = (itemLength: number): ResultContent[] => {
+  const res = setPermutation(itemLength);
+  return parseResultContents(res);
+};
+
+const parseSelectItemsToArray = (
   items: SelectItem[],
-): CreateResultItem => {
-  let cnt = -1;
-  const tempArray = Array(itemLength)
-    .fill(null)
-    .map(() => {
-      return [0, 0].map(() => {
-        cnt += 1;
-        return cnt;
-      });
-    });
+): Array<ParseSelectItems>[] =>
+  items.map(({ question, select_1, select_2 }, index) => [
+    {
+      question: `${index + 1}번질문에 대한`,
+      questionvalue: question,
+      selected: '1번선택',
+      selectedvalue: select_1,
+    },
+    {
+      question: `${index + 1}번질문에 대한`,
+      questionvalue: question,
+      selected: '2번선택',
+      selectedvalue: select_2,
+    },
+  ]);
 
-  const selectNumber = [];
-  const calc = (x, cnt, sum) => {
-    if (cnt == itemLength) {
-      const data = sum.map((data) => data);
-      selectNumber.push(data);
-      return;
-    }
+const setPermutation = (itemLength: number): number[][] => {
+  const res = [];
+  permutation(0, [], itemLength, res);
+  return res;
+};
 
-    for (let index = 0; index < 2; index++) {
-      sum.push(tempArray[x][index]);
-      calc(x + 1, cnt + 1, sum);
-      sum.pop();
-    }
-  };
-  calc(0, 0, []);
-  const resultItems = selectNumber.map((data) => {
-    return data.map((data2) => {
-      const questionNumber = Math.floor(data2 / 2);
-      const selectNumber = data2 % 2;
-      const select = selectNumber === 0 ? 'select_1' : 'select_2';
+const permutation = (
+  cnt: number,
+  array: number[],
+  itemLength: number,
+  resultArray: number[][],
+) => {
+  if (cnt === itemLength) {
+    resultArray.push([...array]);
+    return;
+  }
 
-      const content = items[questionNumber][select];
-      const question = items[Math.floor(data2 / 2)]['question'];
+  for (let index = 0; index < 2; index++) {
+    array.push(index);
+    permutation(cnt + 1, array, itemLength, resultArray);
+    array.pop();
+  }
+};
+
+const parseResultItems = (
+  permutation: number[][],
+  parsedSelectItems: Array<ParseSelectItems>[],
+): Array<ResultItem>[][] =>
+  permutation.map((numArray) =>
+    numArray.map((num, index) => {
+      const { question, questionvalue, selected, selectedvalue } =
+        parsedSelectItems[index][num];
 
       return [
-        {
-          label: `${questionNumber + 1}번 질문에 대한`,
-          defaultValue: question,
-        },
-        {
-          label: `${selectNumber + 1}번선택`,
-          defaultValue: content,
-        },
+        { label: question, defaultValue: questionvalue },
+        { label: selected, defaultValue: selectedvalue },
       ];
-    });
-  });
+    }),
+  );
 
-  const resultContent = selectNumber.map((data) => {
-    return { id: data.join(''), who: '', content: '' };
-  });
+const combineNum = (data: number[]): string =>
+  data.reduce((sum, num, index) => (sum += `${num + index * 2}`), '');
 
-  return { resultItems: resultItems, resultContent: resultContent };
-};
+const parseResultContents = (permutation: number[][]): ResultContent[] =>
+  permutation.map((data) => ({
+    id: combineNum(data),
+    who: '',
+    content: '',
+  }));

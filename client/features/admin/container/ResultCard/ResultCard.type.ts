@@ -4,7 +4,7 @@ export interface ResultItem {
 }
 
 export interface ResultContent {
-  id: number;
+  id: string;
   content: string;
   who: string;
 }

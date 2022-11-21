@@ -1,7 +1,10 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import { AdminInitialState } from '../types';
 import fetcher from '../../api/fetcher';
-import { createResultItem } from '../../features/admin/admin.utils';
+import {
+  createResultContents,
+  createResultItems,
+} from '../../features/admin/admin.utils';
 
 const initialState: AdminInitialState = {
   userItem: [
@@ -17,7 +20,7 @@ const initialState: AdminInitialState = {
   selectItemsVisible: [false, false, false],
   isResultScreen: false,
   resultItems: [],
-  resultContent: [],
+  resultContents: [],
   imgUrl: '',
 };
 
@@ -90,18 +93,19 @@ const adminSlice = createSlice({
     },
     approveSelectItem: (state) => {
       const itemLength = state.items.length;
-      const { resultItems, resultContent } = createResultItem(
-        itemLength,
-        state.items,
-      );
+
+      const resultItems = createResultItems(state.items, itemLength);
+      console.log('resultItems', resultItems);
+      const resultContents = createResultContents(itemLength);
+
       state.isResultScreen = !state.isResultScreen;
       state.resultItems = resultItems;
-      state.resultContent = resultContent;
+      state.resultContents = resultContents;
     },
 
     setResultContent: (state, action) => {
       const { index, name, value } = action.payload;
-      state.resultContent[index][name] = value;
+      state.resultContents[index][name] = value;
     },
 
     excuteResultItem: (state) => {
@@ -113,14 +117,14 @@ const adminSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
-      const { userItem, items, imgUrl, resultContent } = action.payload;
-      const { resultItems } = createResultItem(items.length, items);
+      const { userItem, items, imgUrl, resultContents } = action.payload;
+      const resultItems = createResultItems(items.length, items);
       state.userItem = state.userItem.map((data, index) => {
         return { ...data, defaultValue: userItem[data.type] };
       });
 
       state.items = items;
-      state.resultContent = resultContent;
+      state.resultContents = resultContents;
       state.imgUrl = imgUrl;
       state.isResultScreen = true;
       state.resultItems = resultItems;

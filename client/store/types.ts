@@ -10,7 +10,7 @@ export interface AdminInitialState {
   items: SelectItem[];
   selectItemsVisible: Array<boolean>;
   isResultScreen: boolean;
-  resultItems: Array<ResultItem>[];
-  resultContent?: ResultContent[];
+  resultItems: Array<ResultItem>[][];
+  resultContents?: ResultContent[];
   imgUrl?: string;
 }
