@@ -28,7 +28,7 @@
 
 코드 개선 및 기능 추가
 -----------
-[상세설명 링크](https://github.com/flylofty/personality-test-API-Server)  
+[상세설명 링크](https://cobalt-hide-2b2.notion.site/67b8f98235a14e09aab669121800cb73)  
 - 명확한 함수 네이밍 작성
 - memo, useCallback 을 사용하여 렌더링 최적화
 - 긴 함수를 분할하여 가독성 개선
