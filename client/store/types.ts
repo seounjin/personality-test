@@ -7,7 +7,7 @@ import { SelectItem } from '../features/admin/container/SelectCard/SelectCard.ty
 
 export interface AdminInitialState {
   userItem?: InputForm[];
-  items: SelectItem[];
+  selectItems: SelectItem[];
   selectItemsVisible: Array<boolean>;
   isResultScreen: boolean;
   resultItems: Array<ResultItem>[][];

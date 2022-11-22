@@ -20,9 +20,9 @@ const MTwoButton = React.memo(TwoButton);
 const SelectCard = (): JSX.Element => {
   const dispatch = useDispatch();
 
-  const { items, isResultScreen, selectItemsVisible } = useSelector(
+  const { selectItems, isResultScreen, selectItemsVisible } = useSelector(
     (state: RootState) => ({
-      items: state.admin.items,
+      selectItems: state.admin.selectItems,
       isResultScreen: state.admin.isResultScreen,
       selectItemsVisible: state.admin.selectItemsVisible,
     }),
@@ -42,7 +42,7 @@ const SelectCard = (): JSX.Element => {
   );
 
   const handleOk = (index: number): void => {
-    const { question, select_1, select_2 } = items[index];
+    const { question, select_1, select_2 } = selectItems[index];
     if (!question || !select_1 || !select_2) {
       alert('선택지를 채워주세요');
       return;
@@ -73,9 +73,7 @@ const SelectCard = (): JSX.Element => {
 
   return (
     <Container>
-      {items.map((data, index) => {
-        // const item = parseItem({ item: data, index });
-        // console.log('!!', item);
+      {selectItems.map((data, index) => {
         return (
           <FormContainer key={`s${index}`}>
             {!selectItemsVisible[index] ? (

@@ -12,7 +12,7 @@ const initialState: AdminInitialState = {
     { label: '아이디', type: 'id', defaultValue: '' },
     { label: '비밀번호', type: 'password', defaultValue: '' },
   ],
-  items: [
+  selectItems: [
     { question: '', select_1: '', select_2: '' },
     { question: '', select_1: '', select_2: '' },
     { question: '', select_1: '', select_2: '' },
@@ -67,7 +67,7 @@ const adminSlice = createSlice({
 
     handlerSelectInput: (state, action) => {
       const { index, name, value } = action.payload;
-      state.items[index][name] = value;
+      state.selectItems[index][name] = value;
     },
 
     setSelectItemVisble: (state, action) => {
@@ -76,7 +76,7 @@ const adminSlice = createSlice({
     },
 
     deleteSelectItem: (state, action) => {
-      state.items = state.items.filter(
+      state.selectItems = state.selectItems.filter(
         (_, index) => index !== action.payload.index,
       );
       state.selectItemsVisible = state.selectItemsVisible.filter(
@@ -85,17 +85,15 @@ const adminSlice = createSlice({
     },
 
     addSelectItem: (state) => {
-      state.items = [
-        ...state.items,
+      state.selectItems = [
+        ...state.selectItems,
         { question: '', select_1: '', select_2: '' },
       ];
       state.selectItemsVisible = [...state.selectItemsVisible, true];
     },
     approveSelectItem: (state) => {
-      const itemLength = state.items.length;
-
-      const resultItems = createResultItems(state.items, itemLength);
-      console.log('resultItems', resultItems);
+      const itemLength = state.selectItems.length;
+      const resultItems = createResultItems(state.selectItems, itemLength);
       const resultContents = createResultContents(itemLength);
 
       state.isResultScreen = !state.isResultScreen;
@@ -123,7 +121,7 @@ const adminSlice = createSlice({
         return { ...data, defaultValue: userItem[data.type] };
       });
 
-      state.items = items;
+      state.selectItems = items;
       state.resultContents = resultContents;
       state.imgUrl = imgUrl;
       state.isResultScreen = true;
