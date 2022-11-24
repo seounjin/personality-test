@@ -10,6 +10,10 @@ export const CardItem = styled.li`
   padding: 10px;
   display: inline-block;
 
+  a {
+    text-decoration: none;
+  }
+
   @media (max-width: 768px) {
     width: 50%;
   }
@@ -27,10 +31,6 @@ export const CardItemHeader = styled.div`
 
 export const CardItemBody = styled.div`
   color: black;
-`;
-
-export const StyledLink = styled.a`
-  text-decoration: none;
 `;
 
 export const Headline = styled.h1``;

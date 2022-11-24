@@ -4,7 +4,6 @@ import {
   CardItem,
   CardItemHeader,
   CardItemBody,
-  StyledLink,
   Headline,
   MoreOutlinedContainer,
 } from './CardList.style';
@@ -29,24 +28,22 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
             }}
             passHref
           >
-            <StyledLink>
-              <CardItemHeader>
-                <Image
-                  alt="card-img"
-                  src={imgUrl}
-                  width="100%"
-                  height="100%"
-                  layout="responsive"
-                />
-                <MoreOutlinedContainer>
-                  <MoreOutlined />
-                  <MultiList cardId={id} />
-                </MoreOutlinedContainer>
-              </CardItemHeader>
-              <CardItemBody>
-                <Headline>{title}</Headline>
-              </CardItemBody>
-            </StyledLink>
+            <CardItemHeader>
+              <Image
+                alt="card-img"
+                src={imgUrl}
+                width={100}
+                height={100}
+                layout="responsive"
+              />
+              <MoreOutlinedContainer>
+                <MoreOutlined />
+                <MultiList cardId={id} />
+              </MoreOutlinedContainer>
+            </CardItemHeader>
+            <CardItemBody>
+              <Headline>{title}</Headline>
+            </CardItemBody>
           </Link>
         </CardItem>
       ))}
