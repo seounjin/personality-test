@@ -9,8 +9,8 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { RootState } from '../store/modules';
 import { setIsOpenModal } from '../store/modules/home';
 import ModalPortal from '../portal/ModalPortal';
-import CardList from '../features/personalityTest/components/CardList/CardList';
-import { Card } from '../features/personalityTest/components/CardList/CardList.type';
+import CardList from '../features/home/components/CardList/CardList';
+import { Card } from '../features/home/components/CardList/CardList.type';
 
 const MCardList = React.memo(CardList);
 
