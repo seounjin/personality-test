@@ -89,7 +89,7 @@ const adminSlice = createSlice({
         ...state.selectItems,
         { question: '', select_1: '', select_2: '' },
       ];
-      state.selectItemsVisible = [...state.selectItemsVisible, true];
+      state.selectItemsVisible = [...state.selectItemsVisible, false];
     },
     approveSelectItem: (state) => {
       const itemLength = state.selectItems.length;
