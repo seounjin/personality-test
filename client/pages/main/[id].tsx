@@ -1,14 +1,34 @@
 import fetcher from '../../api/fetcher';
-import { MainProps, PersonalityTest, ResultData } from './types';
+import {
+  MainProps,
+  PersonalityTest,
+  ResultData,
+} from '../../features/personalityTest/personalityTest.types';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { useState } from 'react';
 import BackgroundImage from '../../features/personalityTest/components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../features/personalityTest/components/LastScreen/LastScreen';
-
-import { Wrapper, HiddenWrapper, SlideWrapper } from './style';
 import MainScreen from '../../features/personalityTest/components/MainScreen/MainScreen';
 import StartScreen from '../../features/personalityTest/components/StartScreen/StartScreen';
 import { useSlide } from '../../features/personalityTest/personalityTest.hook';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+`;
+
+const HiddenWrapper = styled.div`
+  overflow: hidden;
+`;
+
+const SlideWrapper = styled.div`
+  width: 375px;
+  display: flex;
+`;
 
 type Params = { id: string };
 
