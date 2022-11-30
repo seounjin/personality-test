@@ -10,6 +10,7 @@ import {
   Wrapper,
   Container,
 } from '../../features/admin/components/admin.styles';
+import TitleForm from '../../features/admin/container/TitleForm/TitleForm';
 
 const Admin = (): JSX.Element => {
   const { imgFile, isResultScreen, handleImgFile } = useAdmin();
@@ -23,6 +24,10 @@ const Admin = (): JSX.Element => {
 
         <AdminContent subtitle={'유저등록'}>
           <UserForm />
+        </AdminContent>
+
+        <AdminContent subtitle={'제목'}>
+          <TitleForm />
         </AdminContent>
 
         <AdminContent subtitle={'이미지 등록'}>

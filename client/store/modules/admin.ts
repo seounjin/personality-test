@@ -8,9 +8,12 @@ import {
 
 const initialState: AdminInitialState = {
   userItem: [
-    { label: '제목', type: 'title', defaultValue: '' },
     { label: '아이디', type: 'id', defaultValue: '' },
     { label: '비밀번호', type: 'password', defaultValue: '' },
+  ],
+  titleItems: [
+    { label: '제목', type: 'title', defaultValue: '' },
+    { label: '설명', type: 'explain', defaultValue: '' },
   ],
   selectItems: [
     { question: '', select_1: '', select_2: '' },
@@ -61,10 +64,16 @@ const adminSlice = createSlice({
     reSetAdminData: () => initialState,
 
     handleUser: (state, action) => {
-      const { index, name, value } = action.payload;
+      const { index, value } = action.payload;
       state.userItem[index] = { ...state.userItem[index], defaultValue: value };
     },
-
+    handleTitle: (state, action) => {
+      const { index, value } = action.payload;
+      state.userItem[index] = {
+        ...state.titleItems[index],
+        defaultValue: value,
+      };
+    },
     handlerSelectInput: (state, action) => {
       const { index, name, value } = action.payload;
       state.selectItems[index][name] = value;
@@ -140,6 +149,7 @@ export const {
   setSelectItemVisble,
   deleteSelectItem,
   handleUser,
+  handleTitle,
   addSelectItem,
   approveSelectItem,
   setResultContent,

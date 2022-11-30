@@ -6,7 +6,8 @@ import {
 import { SelectItem } from '../features/admin/container/SelectCard/SelectCard.type';
 
 export interface AdminInitialState {
-  userItem?: InputForm[];
+  userItem: InputForm[];
+  titleItems: InputForm[];
   selectItems: SelectItem[];
   selectItemsVisible: Array<boolean>;
   isResultScreen: boolean;
