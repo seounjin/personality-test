@@ -69,7 +69,7 @@ const adminSlice = createSlice({
     },
     handleTitle: (state, action) => {
       const { index, value } = action.payload;
-      state.userItem[index] = {
+      state.titleItems[index] = {
         ...state.titleItems[index],
         defaultValue: value,
       };
