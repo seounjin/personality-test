@@ -1,15 +1,14 @@
-import styled from 'styled-components';
 import ImageUpload from '../../features/admin/container/ImageUpload/ImageUpload';
 import ResultCard from '../../features/admin/container/ResultCard/ResultCard';
 import SelectCard from '../../features/admin/container/SelectCard/SelectCard';
 import UserForm from '../../features/admin/components/UserForm/UserForm';
 import { useAdmin } from '../../features/admin/admin.hook';
 import AdminContent from '../../features/admin/components/AdminContent/AdminContent';
-import { Container } from '../../components/InputForm/InputForm.style';
-import { Wrapper } from '../../components/Modal/Modal.style';
 import {
   TitleWrapper,
   Title,
+  Wrapper,
+  Container,
 } from '../../features/admin/components/admin.styles';
 
 const Admin = (): JSX.Element => {

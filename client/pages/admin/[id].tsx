@@ -7,11 +7,11 @@ import { GetServerSideProps } from 'next';
 import { wrapper } from '../../store';
 import AdminContent from '../../features/admin/components/AdminContent/AdminContent';
 import { useAdmin } from '../../features/admin/admin.hook';
-import { Container } from '../../components/InputForm/InputForm.style';
-import { Wrapper } from '../../components/Modal/Modal.style';
 import {
   TitleWrapper,
   Title,
+  Wrapper,
+  Container,
 } from '../../features/admin/components/admin.styles';
 
 const Admin = (): JSX.Element => {
