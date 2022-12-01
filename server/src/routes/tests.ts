@@ -38,13 +38,15 @@ const storage = multer.diskStorage({
   ) => {
     const imgFile = "imgfile" + Date.now() + path.extname(file.originalname);
     const cardData = getCards();
-    const user = JSON.parse(req.body.user);
+    const title = JSON.parse(req.body.title);
+    console.log("타이틀", title);
     setCards([
       ...cardData,
       {
-        id: cardData.length ? cardData[cardData.length - 1].id + 1 : 1,
+        id: cardData.length + 1,
         imgUrl: `http://localhost:8000/static/images/${imgFile}`,
-        title: user["title"],
+        title: title["title"],
+        explain: title["explain"],
       },
     ]);
     cb(null, imgFile);
