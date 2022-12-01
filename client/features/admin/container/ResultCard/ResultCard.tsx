@@ -69,7 +69,13 @@ const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
       ),
     );
 
-    formData.append('title', JSON.stringify(titleItems));
+    formData.append(
+      'title',
+      JSON.stringify({
+        title: titleItems[0].defaultValue,
+        explain: titleItems[1].defaultValue,
+      }),
+    );
     formData.append('results', JSON.stringify(resultContents));
     formData.append('file', ImgFile);
     formData.append(
