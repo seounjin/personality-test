@@ -20,15 +20,17 @@ interface ResultCardProps {
 const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { userItem, items, resultItems, resultContents } = useSelector(
-    (state: RootState) => ({
-      userItem: state.admin.userItem,
-      items: state.admin.items,
-      resultItems: state.admin.resultItems,
-      resultContents: state.admin.resultContents,
-    }),
-    shallowEqual,
-  );
+  const { userItem, titleItems, selectItems, resultItems, resultContents } =
+    useSelector(
+      (state: RootState) => ({
+        userItem: state.admin.userItem,
+        titleItems: state.admin.titleItems,
+        selectItems: state.admin.selectItems,
+        resultItems: state.admin.resultItems,
+        resultContents: state.admin.resultContents,
+      }),
+      shallowEqual,
+    );
 
   const handleTextArea = useCallback((event): void => {
     const {
@@ -45,9 +47,7 @@ const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
   };
 
   const isNotValidUserItem = (): boolean =>
-    !userItem[0].defaultValue ||
-    !userItem[1].defaultValue ||
-    !userItem[2].defaultValue;
+    !userItem[0].defaultValue || !userItem[1].defaultValue;
 
   const isNotValidResultContent = (): boolean =>
     resultContents.filter(({ who, content }) => !who || !content).length
@@ -63,18 +63,19 @@ const ResultCard = ({ ImgFile }: ResultCardProps): JSX.Element => {
         isId
           ? { title: userItem[0].defaultValue }
           : {
-              title: userItem[0].defaultValue,
-              id: userItem[1].defaultValue,
-              password: userItem[2].defaultValue,
+              id: userItem[0].defaultValue,
+              password: userItem[1].defaultValue,
             },
       ),
     );
+
+    formData.append('title', JSON.stringify(titleItems));
     formData.append('results', JSON.stringify(resultContents));
     formData.append('file', ImgFile);
     formData.append(
       'items',
       JSON.stringify(
-        items.map((data, index) => ({
+        selectItems.map((data, index) => ({
           ...data,
           select_1_id: index * 2,
           select_2_id: index * 2 + 1,
