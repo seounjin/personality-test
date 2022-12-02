@@ -6,10 +6,11 @@ import {
   CardItemBody,
   Headline,
   MoreOutlinedContainer,
+  CardImage,
+  CardImageWrapper,
 } from './CardList.style';
 import Link from 'next/link';
 import { Card } from './CardList.type';
-import Image from 'next/image';
 import MoreOutlined from '../MoreOutlined/MoreOutlined';
 import MultiList from '../Multilist/MultiList';
 
@@ -29,13 +30,14 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
             passHref
           >
             <CardItemHeader>
-              <Image
-                alt="card-img"
-                src={imgUrl}
-                width={100}
-                height={100}
-                layout="responsive"
-              />
+              <CardImageWrapper>
+                <CardImage
+                  alt="card-img"
+                  src={imgUrl}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </CardImageWrapper>
               <MoreOutlinedContainer>
                 <MoreOutlined />
                 <MultiList cardId={id} />

@@ -1,4 +1,14 @@
 import styled from 'styled-components';
+import Image from 'next/image';
+
+export const CardImageWrapper = styled.div`
+  position: relative;
+  padding-top: 75%;
+`;
+
+export const CardImage = styled(Image)`
+  border-radius: 4px;
+`;
 
 export const Wrapper = styled.ul`
   padding: 0;
@@ -9,7 +19,6 @@ export const CardItem = styled.li`
   list-style: none;
   padding: 10px;
   display: inline-block;
-
   a {
     text-decoration: none;
   }
