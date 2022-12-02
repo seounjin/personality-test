@@ -26,8 +26,10 @@ const ImgUpload = ({ handleImgFile }: ImgUploadProps): JSX.Element => {
   };
 
   const onImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setImgSrc(URL.createObjectURL(event.target.files[0]));
-    handleImgFile(event.target.files[0]);
+    if (event.target.files[0]) {
+      setImgSrc(URL.createObjectURL(event.target.files[0]));
+      handleImgFile(event.target.files[0]);
+    }
   };
 
   return (
