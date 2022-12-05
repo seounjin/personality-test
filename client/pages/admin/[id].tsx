@@ -12,7 +12,7 @@ import {
   Title,
   Wrapper,
   Container,
-} from '../../features/admin/components/admin.styles';
+} from '../../features/admin/admin.styles';
 
 const Admin = (): JSX.Element => {
   const { imgFile, isResultScreen, handleImgFile } = useAdmin();

@@ -16,6 +16,7 @@ export const Wrapper = styled.div`
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 754px;
+  height: 100%;
 `;
 
 export const Title = styled.h1`
