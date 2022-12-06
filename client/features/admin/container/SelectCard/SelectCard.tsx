@@ -6,16 +6,13 @@ import WriteForm from '../../components/WriteForm/WriteForm';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../../../store/modules';
 import {
-  handlerSelectInput,
-  addSelectItem,
-  approveSelectItem,
   setSelectItemVisble,
   deleteSelectItem,
+  handlerSelectInput,
 } from '../../../../store/modules/admin';
 
 const MWriteForm = React.memo(WriteForm);
 const MReadForm = React.memo(ReadForm);
-const MTwoButton = React.memo(TwoButton);
 
 const SelectCard = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -55,22 +52,6 @@ const SelectCard = (): JSX.Element => {
     dispatch(deleteSelectItem({ index }));
   }, []);
 
-  const handleAdd = useCallback((): void => {
-    dispatch(addSelectItem());
-  }, []);
-
-  const isSelectItemsVisible = () =>
-    selectItemsVisible.every((data: boolean) => data);
-
-  const handleApprove = useCallback((): void => {
-    if (!isSelectItemsVisible()) {
-      alert('선택지 작성에서 확인버튼을 눌러주세요!!!');
-      return;
-    }
-
-    dispatch(approveSelectItem());
-  }, [selectItemsVisible]);
-
   return (
     <Container>
       {selectItems.map((data, index) => {
@@ -99,14 +80,6 @@ const SelectCard = (): JSX.Element => {
           </FormContainer>
         );
       })}
-      {!isResultScreen && (
-        <MTwoButton
-          leftButton={handleAdd}
-          rightButton={handleApprove}
-          leftName={'추가'}
-          rightName={'완료'}
-        />
-      )}
     </Container>
   );
 };
