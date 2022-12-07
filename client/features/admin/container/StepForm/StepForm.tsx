@@ -4,6 +4,8 @@ import {
   CREATE_USER_ITEM_STEP,
   CREATE_SELECT_ITEMS_STEP,
   CREATE_RESULT_ITEMS_STEP,
+  CREATE_TITLE_ITEM_STEP,
+  IMAGE_UPLOAD_STEP,
 } from '../../admin.const';
 import {
   useImageUploadStep,
@@ -57,11 +59,15 @@ const StepForm = (): JSX.Element => {
     <Container>
       <SubTitle>{subTitle[step]}</SubTitle>
 
-      {step === 0 && <UserForm />}
-      {step === 1 && <TitleForm />}
-      {step === 2 && <ImageUpload handleImgFile={handleImgFile} />}
-      {step === 3 && <SelectCard />}
-      {step === 4 && <ResultCard onSubmit={handleSubmit} />}
+      {step === CREATE_USER_ITEM_STEP && <UserForm />}
+      {step === CREATE_TITLE_ITEM_STEP && <TitleForm />}
+      {step === IMAGE_UPLOAD_STEP && (
+        <ImageUpload handleImgFile={handleImgFile} />
+      )}
+      {step === CREATE_SELECT_ITEMS_STEP && <SelectCard />}
+      {step === CREATE_RESULT_ITEMS_STEP && (
+        <ResultCard onSubmit={handleSubmit} />
+      )}
 
       <ButtonWrapper>
         <TwoButton
@@ -69,6 +75,8 @@ const StepForm = (): JSX.Element => {
           rightButton={handleNext}
           leftName={'이전'}
           rightName={'다음'}
+          leftDisabled={step === CREATE_USER_ITEM_STEP ? true : false}
+          rightDisabled={step === CREATE_RESULT_ITEMS_STEP ? true : false}
         />
       </ButtonWrapper>
     </Container>

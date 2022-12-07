@@ -6,6 +6,8 @@ interface TwoButtonProps {
   rightButton: (...props) => void;
   leftName: string;
   rightName: string;
+  leftDisabled?: boolean;
+  rightDisabled?: boolean;
 }
 
 const TwoButton = ({
@@ -13,11 +15,17 @@ const TwoButton = ({
   rightButton,
   leftName,
   rightName,
+  leftDisabled = false,
+  rightDisabled = false,
 }: TwoButtonProps): JSX.Element => {
   return (
     <Wrapper>
-      <Button onClick={leftButton}>{leftName}</Button>
-      <Button onClick={rightButton}>{rightName}</Button>
+      <Button disabled={leftDisabled} onClick={leftButton}>
+        {leftName}
+      </Button>
+      <Button disabled={rightDisabled} onClick={rightButton}>
+        {rightName}
+      </Button>
     </Wrapper>
   );
 };

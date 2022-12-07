@@ -13,7 +13,7 @@ export const Button = styled.button`
   font-weight: 600;
   border-radius: 6px;
 
-  &: hover {
+  &:hover:enabled {
     cursor: pointer;
     background-color: #c0c0c5;
   }
