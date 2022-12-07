@@ -47,7 +47,6 @@ const StepForm = (): JSX.Element => {
     }
 
     if (step === CREATE_RESULT_ITEMS_STEP) {
-      handleSubmit();
       return;
     }
 
@@ -62,7 +61,7 @@ const StepForm = (): JSX.Element => {
       {step === 1 && <TitleForm />}
       {step === 2 && <ImageUpload handleImgFile={handleImgFile} />}
       {step === 3 && <SelectCard />}
-      {step === 4 && <ResultCard />}
+      {step === 4 && <ResultCard onSubmit={handleSubmit} />}
 
       <ButtonWrapper>
         <TwoButton

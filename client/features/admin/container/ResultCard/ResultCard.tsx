@@ -1,13 +1,18 @@
 import React, { useCallback } from 'react';
-import { Container } from './ResultCard.style';
+import { ButtonWrapper, Container } from './ResultCard.style';
 import ResultForm from '../../components/ResultForm/ResultForm';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { setResultContent } from '../../../../store/modules/admin';
 import { RootState } from '../../../../store/modules';
+import { Button } from '../../../../components/TwoButton/TwoButton.style';
 
 const MResultForm = React.memo(ResultForm);
 
-const ResultCard = (): JSX.Element => {
+interface ResultCardProps {
+  onSubmit: () => Promise<void>;
+}
+
+const ResultCard = ({ onSubmit }: ResultCardProps): JSX.Element => {
   const dispatch = useDispatch();
   const { resultItems, resultContents } = useSelector(
     (state: RootState) => ({
@@ -43,6 +48,10 @@ const ResultCard = (): JSX.Element => {
           />
         );
       })}
+
+      <ButtonWrapper>
+        <Button onClick={onSubmit}>등록</Button>
+      </ButtonWrapper>
     </Container>
   );
 };
