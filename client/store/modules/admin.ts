@@ -24,7 +24,7 @@ const initialState: AdminInitialState = {
   isResultScreen: false,
   resultItems: [],
   resultContents: [],
-  imgUrl: '',
+  imgUrl: 'imageholder.png',
 };
 
 interface FetchParms {
@@ -114,12 +114,14 @@ const adminSlice = createSlice({
       const { index, name, value } = action.payload;
       state.resultContents[index][name] = value;
     },
-
     excuteResultItem: (state) => {
       state.isResultScreen = !state.isResultScreen;
       state.selectItemsVisible = state.selectItemsVisible.map(() => {
         return false;
       });
+    },
+    setImageUrl: (state, action) => {
+      state.imgUrl = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -154,5 +156,6 @@ export const {
   approveSelectItem,
   setResultContent,
   excuteResultItem,
+  setImageUrl,
 } = adminSlice.actions;
 export default adminSlice.reducer;
