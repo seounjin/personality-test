@@ -21,9 +21,15 @@ export const Nav = styled.nav`
   height: 100%;
 `;
 
-export const NavContent = styled.div`
+interface NavLinkType {
+  isActive: boolean;
+}
+
+export const NavLink = styled.div<NavLinkType>`
   padding: 15px 20px;
   a {
+    color: ${({ theme, isActive }) =>
+      isActive ? theme.colors.black : theme.colors.lightGray};
     text-decoration: none;
   }
 `;
