@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
 import {
   CREATE_USER_ITEM_STEP,
@@ -20,8 +21,20 @@ import TitleForm from '../TitleForm/TitleForm';
 import { ButtonWrapper, Container, SubTitle } from './StepForm.style';
 import { SubTitleType } from './StepForm.type';
 
+const STEP_LABEL = [
+  { id: 'l1', label: '회원정보' },
+  { id: 'l2', label: '제목' },
+  { id: 'l3', label: '이미지 업로드' },
+  { id: 'l4', label: '선택지 만들기' },
+  { id: 'l5', label: '결과지 만들기' },
+];
+
 const StepForm = (): JSX.Element => {
   const [step, setStep] = useState<number>(0);
+  const [isStepActive, setIsStepActive] = useState(
+    STEP_LABEL.map((_, index) => (index === 0 ? true : false)),
+  );
+
   const [subTitle] = useState<SubTitleType>({
     0: '유저등록',
     1: '제목',
@@ -36,6 +49,10 @@ const StepForm = (): JSX.Element => {
 
   const handlePrev = () => {
     if (step === CREATE_USER_ITEM_STEP) return;
+
+    const rawArray = [...isStepActive];
+    rawArray[step] = false;
+    setIsStepActive(rawArray);
     setStep((step) => step - 1);
   };
 
@@ -52,12 +69,17 @@ const StepForm = (): JSX.Element => {
       return;
     }
 
+    const rawArray = [...isStepActive];
+    rawArray[step + 1] = true;
+    setIsStepActive(rawArray);
     setStep((step) => step + 1);
   };
 
   return (
     <Container>
       <SubTitle>{subTitle[step]}</SubTitle>
+
+      <StepIndicator isStepActive={isStepActive} stepLabel={STEP_LABEL} />
 
       {step === CREATE_USER_ITEM_STEP && <UserForm />}
       {step === CREATE_TITLE_ITEM_STEP && <TitleForm />}

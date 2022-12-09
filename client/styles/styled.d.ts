@@ -9,6 +9,8 @@ declare module 'styled-components' {
       orange: string;
       lightGray: string;
       gray_background: string;
+      progressBarColor: string;
+      stepColor: string;
     };
   }
 }
