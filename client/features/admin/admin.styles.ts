@@ -20,7 +20,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 1.8rem;
+  font-size: 2.2rem;
 `;
 
 export const TitleWrapper = styled.div`

@@ -20,11 +20,11 @@ export const StepWrapper = styled.div`
   align-items: center;
 `;
 
-interface StepType {
+interface StepActive {
   isStepActive: boolean;
 }
 
-export const Step = styled.div<StepType>`
+export const Step = styled.div<StepActive>`
   position: relative;
   display: flex;
   justify-content: center;
@@ -33,8 +33,9 @@ export const Step = styled.div<StepType>`
   height: 30px;
   border-radius: 50%;
   transition: 0.2s;
+  padding: 4px;
   background: ${({ theme, isStepActive }) =>
-    isStepActive ? theme.colors.stepColor : theme.colors.lightGray};
+    isStepActive ? theme.colors.progressBarColor : theme.colors.lightGray};
 `;
 
 const animate = keyframes`
@@ -46,7 +47,7 @@ const animate = keyframes`
 export const BasicBar = styled.div`
   position: absolute;
   height: 4px;
-  top: 25%;
+  top: 15px;
   left: calc(-50% + 20px);
   right: calc(50% + 20px);
   background: ${({ theme }) => theme.colors.lightGray};
@@ -62,7 +63,10 @@ export const ProgressBar = styled(BasicBar)`
   }
 `;
 
-export const Label = styled.label`
+export const Label = styled.label<StepActive>`
+  font-size: 1.4rem;
+  font-weight: bold;
   padding: 6px;
-  color: ${({ theme }) => theme.colors.lightGray};
+  color: ${({ theme, isStepActive }) =>
+    isStepActive ? theme.colors.black : theme.colors.lightGray};
 `;

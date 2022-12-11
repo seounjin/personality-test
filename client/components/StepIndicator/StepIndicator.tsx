@@ -1,4 +1,5 @@
 import React from 'react';
+import CheckIcon from '../CheckIcon/CheckIcon';
 import {
   Step,
   StepContainer,
@@ -9,14 +10,9 @@ import {
   StepWrapper,
 } from './StepIndicator.style';
 
-interface StepLabel {
-  id: string;
-  label: string;
-}
-
 interface StepIndicatorProps {
   isStepActive: Array<boolean>;
-  stepLabel: StepLabel[];
+  stepLabel: Array<string>;
 }
 
 const StepIndicator = ({
@@ -25,9 +21,9 @@ const StepIndicator = ({
 }: StepIndicatorProps): JSX.Element => {
   return (
     <Wrapper>
-      {stepLabel.map(({ id, label }, index) => {
+      {stepLabel.map((label, index) => {
         return (
-          <StepContainer key={id}>
+          <StepContainer key={`s${index}`}>
             {index !== 0 && (
               <>
                 <BasicBar />
@@ -37,8 +33,10 @@ const StepIndicator = ({
               </>
             )}
             <StepWrapper>
-              <Step isStepActive={isStepActive[index]} />
-              <Label>{label}</Label>
+              <Step isStepActive={isStepActive[index]}>
+                {isStepActive[index] && <CheckIcon />}
+              </Step>
+              <Label isStepActive={isStepActive[index]}>{label}</Label>
             </StepWrapper>
           </StepContainer>
         );
