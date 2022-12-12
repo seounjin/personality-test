@@ -13,11 +13,13 @@ import {
 interface StepIndicatorProps {
   isStepActive: Array<boolean>;
   stepLabel: Array<string>;
+  currentStep: number;
 }
 
 const StepIndicator = ({
   isStepActive,
   stepLabel,
+  currentStep,
 }: StepIndicatorProps): JSX.Element => {
   return (
     <Wrapper>
@@ -33,10 +35,13 @@ const StepIndicator = ({
               </>
             )}
             <StepWrapper>
-              <Step isStepActive={isStepActive[index]}>
-                {isStepActive[index] && <CheckIcon />}
+              <Step
+                isStepActive={isStepActive[index]}
+                isCurrentStep={currentStep === index}
+              >
+                {currentStep !== index && isStepActive[index] && <CheckIcon />}
               </Step>
-              <Label isStepActive={isStepActive[index]}>{label}</Label>
+              <Label isCurrentStep={currentStep === index}>{label}</Label>
             </StepWrapper>
           </StepContainer>
         );

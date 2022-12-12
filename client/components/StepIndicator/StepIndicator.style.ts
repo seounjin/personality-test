@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { StepProps, LabelProps } from './StepIndicator.type';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -20,22 +21,23 @@ export const StepWrapper = styled.div`
   align-items: center;
 `;
 
-interface StepActive {
-  isStepActive: boolean;
-}
-
-export const Step = styled.div<StepActive>`
+export const Step = styled.div<StepProps>`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  transition: 0.2s;
   padding: 4px;
-  background: ${({ theme, isStepActive }) =>
-    isStepActive ? theme.colors.progressBarColor : theme.colors.lightGray};
+  border-radius: 50%;
+  border: ${({ theme, isCurrentStep }) =>
+    isCurrentStep ? `4px solid ${theme.colors.progressBarColor}` : 'none'};
+  background: ${({ theme, isCurrentStep, isStepActive }) =>
+    isCurrentStep
+      ? theme.colors.white
+      : isStepActive
+      ? theme.colors.progressBarColor
+      : theme.colors.lightGray};
 `;
 
 const animate = keyframes`
@@ -63,10 +65,11 @@ export const ProgressBar = styled(BasicBar)`
   }
 `;
 
-export const Label = styled.label<StepActive>`
+export const Label = styled.label<LabelProps>`
+  text-align: center;
   font-size: 1.4rem;
   font-weight: bold;
   padding: 6px;
-  color: ${({ theme, isStepActive }) =>
-    isStepActive ? theme.colors.black : theme.colors.lightGray};
+  color: ${({ theme, isCurrentStep }) =>
+    isCurrentStep ? theme.colors.black : theme.colors.lightGray};
 `;

@@ -62,7 +62,11 @@ const StepForm = (): JSX.Element => {
   return (
     <Container>
       <SubTitle>{STEP_TITLE[step]}</SubTitle>
-      <StepIndicator isStepActive={isStepActive} stepLabel={STEP_TITLE} />
+      <StepIndicator
+        currentStep={step}
+        isStepActive={isStepActive}
+        stepLabel={STEP_TITLE}
+      />
       {step === CREATE_USER_ITEM_STEP && <UserForm />}
       {step === CREATE_TITLE_ITEM_STEP && <TitleForm />}
       {step === IMAGE_UPLOAD_STEP && (
