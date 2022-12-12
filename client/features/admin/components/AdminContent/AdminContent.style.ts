@@ -12,11 +12,6 @@ export const Container = styled.div`
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   border-radius: 8px;
   height: 100%;
-
-  @media (max-width: 640px) {
-    border-radius: 0;
-    box-shadow: none;
-  }
 `;
 
 export const SubTitle = styled.h2``;

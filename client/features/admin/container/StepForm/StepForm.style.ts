@@ -13,10 +13,10 @@ export const Container = styled.div`
   border-radius: 8px;
   height: 100%;
 
-  @media (max-width: 640px) {
-    border-radius: 0;
-    box-shadow: none;
-  }
+  ${({ theme }) =>
+    theme.device.mobile`
+border-radius: 0;
+box-shadow: none;`}
 `;
 
 export const ButtonWrapper = styled.div`

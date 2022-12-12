@@ -26,7 +26,7 @@ interface NavLinkType {
 }
 
 export const NavLink = styled.div<NavLinkType>`
-  padding: 15px 20px;
+  padding: 15px;
   a {
     color: ${({ theme, isActive }) =>
       isActive ? theme.colors.black : theme.colors.lightGray};

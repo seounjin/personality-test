@@ -11,6 +11,7 @@ import LastScreen from '../../features/personalityTest/components/LastScreen/Las
 import MainScreen from '../../features/personalityTest/components/MainScreen/MainScreen';
 import StartScreen from '../../features/personalityTest/components/StartScreen/StartScreen';
 import { useSlide } from '../../features/personalityTest/personalityTest.hook';
+import { SCREEN_WIDTH } from '../../features/personalityTest/personalityTest.const';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -26,7 +27,7 @@ const HiddenWrapper = styled.div`
 `;
 
 const SlideWrapper = styled.div`
-  width: 375px;
+  width: ${SCREEN_WIDTH};
   display: flex;
 `;
 

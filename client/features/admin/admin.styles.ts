@@ -7,10 +7,10 @@ export const Wrapper = styled.div`
   background-color: ${(props) => props.theme.colors.gray_background};
   padding: 10px;
 
-  @media (max-width: 640px) {
+  ${({ theme }) =>
+    theme.device.mobile`
     padding: 20px 0;
-    background-color: ${(props) => props.theme.colors.white};
-  }
+    background-color: ${theme.colors.white};`}
 `;
 
 export const Container = styled.div`

@@ -1,16 +1,18 @@
 import styled from 'styled-components';
+import { SCREEN_WIDTH } from '../../personalityTest.const';
 
 export const Wrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 375px;
+  width: ${SCREEN_WIDTH};
   height: 100%;
+  padding: 20px;
 `;
 
 export const Container = styled.div`
-  width: 336px;
+  width: 100%;
   height: 578px;
   border: solid;
   background-color: white;

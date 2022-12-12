@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { SCREEN_WIDTH } from '../../personalityTest.const';
 
 export const Container = styled.div`
-  width: 100%;
+  width: ${SCREEN_WIDTH};
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -42,7 +43,7 @@ export const RestartButton = styled.button`
 `;
 
 export const ContentWrapper = styled.div`
-  width: 34rem;
+  width: 100%;
   height: 44rem;
   background: url('/window-character.png') no-repeat;
   background-size: contain;

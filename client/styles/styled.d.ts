@@ -1,4 +1,4 @@
-import 'styled-components';
+import { CSSProp } from 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -11,6 +11,12 @@ declare module 'styled-components' {
       gray_background: string;
       progressBarColor: string;
       stepColor: string;
+    };
+
+    device: {
+      mobile: (literals: TemplateStringsArray, ...args: string[]) => CSSProp;
+      tablet: (literals: TemplateStringsArray, ...args: string[]) => CSSProp;
+      laptop: (literals: TemplateStringsArray, ...args: string[]) => CSSProp;
     };
   }
 }

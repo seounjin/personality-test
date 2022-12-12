@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { SCREEN_WIDTH } from '../../personalityTest.const';
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 375px;
+  width: ${SCREEN_WIDTH};
   height: 100%;
   font-size: 20px;
 `;

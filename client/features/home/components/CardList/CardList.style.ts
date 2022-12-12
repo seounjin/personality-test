@@ -23,13 +23,9 @@ export const CardItem = styled.li`
     text-decoration: none;
   }
 
-  @media (max-width: 768px) {
-    width: 50%;
-  }
-
-  @media (min-width: 768px) and (max-width: 1023px) {
-    width: 50%;
-  }
+  ${({ theme }) =>
+    theme.device.tablet`
+  width: 50%;`}
 `;
 
 export const CardItemHeader = styled.div`
