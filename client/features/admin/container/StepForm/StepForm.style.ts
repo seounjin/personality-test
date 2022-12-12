@@ -23,6 +23,4 @@ export const ButtonWrapper = styled.div`
   margin: 12px;
 `;
 
-export const SubTitle = styled.h2`
-  font-size: 1.8rem;
-`;
+export const StepTitle = styled.h1``;

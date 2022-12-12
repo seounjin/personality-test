@@ -1,9 +1,4 @@
-import {
-  TitleWrapper,
-  Title,
-  Wrapper,
-  Container,
-} from '../../features/admin/admin.styles';
+import { Wrapper, Container } from '../../features/admin/admin.styles';
 import { useEffect } from 'react';
 import StepForm from '../../features/admin/container/StepForm/StepForm';
 import { useDispatch } from 'react-redux';
@@ -21,9 +16,6 @@ const Admin = (): JSX.Element => {
   return (
     <Wrapper>
       <Container>
-        <TitleWrapper>
-          <Title>만들어 보아요</Title>
-        </TitleWrapper>
         <StepForm />
       </Container>
     </Wrapper>

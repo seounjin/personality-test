@@ -19,7 +19,7 @@ import ImageUpload from '../ImageUpload/ImageUpload';
 import ResultCard from '../ResultCard/ResultCard';
 import SelectCard from '../SelectCard/SelectCard';
 import TitleForm from '../TitleForm/TitleForm';
-import { ButtonWrapper, Container, SubTitle } from './StepForm.style';
+import { ButtonWrapper, Container, StepTitle } from './StepForm.style';
 
 const StepForm = (): JSX.Element => {
   const [step, setStep] = useState<number>(0);
@@ -61,7 +61,7 @@ const StepForm = (): JSX.Element => {
 
   return (
     <Container>
-      <SubTitle>{STEP_TITLE[step]}</SubTitle>
+      <StepTitle>{STEP_TITLE[step]}</StepTitle>
       <StepIndicator
         currentStep={step}
         isStepActive={isStepActive}

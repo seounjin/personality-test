@@ -18,14 +18,3 @@ export const Container = styled.div`
   max-width: 754px;
   height: 100%;
 `;
-
-export const Title = styled.h1`
-  font-size: 2.2rem;
-`;
-
-export const TitleWrapper = styled.div`
-  @media (max-width: 640px) {
-    display: flex;
-    justify-content: center;
-  }
-`;
