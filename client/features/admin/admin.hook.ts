@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { approveSelectItem } from '../../store/modules/admin';
+import { approveSelectItem, setSelectItems } from '../../store/modules/admin';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
 import { InputForm } from '../../components/InputForm/InputForm.type';
@@ -7,6 +7,7 @@ import _mapObject from '../../utils/_mapObject';
 import { SelectItem } from './container/SelectCard/SelectCard.type';
 import { useRouter } from 'next/router';
 import fetcher from '../../api/fetcher';
+import { MIN_NUMBER_OF_ITEMS_VALUE } from './admin.const';
 
 export const useImageUploadStep = () => {
   const [imgFile, setImgFile] = useState<File>(null);
@@ -157,4 +158,31 @@ export const useResultStep = (ImgFile: File) => {
     }
   };
   return { handleSubmit };
+};
+
+export const useSetSelectFormStep = () => {
+  const dispatch = useDispatch();
+
+  const [numberOfItems, setNumberOfItems] = useState<number>(
+    MIN_NUMBER_OF_ITEMS_VALUE,
+  );
+
+  const setSelectFromStep = () => {
+    dispatch(setSelectItems({ value: numberOfItems }));
+  };
+
+  const decreaseNumberOfItems = () => {
+    setNumberOfItems((numberOfItems) => numberOfItems - 1);
+  };
+
+  const inCreaseNumberofItems = () => {
+    setNumberOfItems((numberOfItems) => numberOfItems + 1);
+  };
+
+  return {
+    numberOfItems,
+    setSelectFromStep,
+    decreaseNumberOfItems,
+    inCreaseNumberofItems,
+  };
 };

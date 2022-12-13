@@ -15,11 +15,7 @@ const initialState: AdminInitialState = {
     { label: '제목', type: 'title', defaultValue: '' },
     { label: '설명', type: 'explain', defaultValue: '' },
   ],
-  selectItems: [
-    { question: '', select_1: '', select_2: '' },
-    { question: '', select_1: '', select_2: '' },
-    { question: '', select_1: '', select_2: '' },
-  ],
+  selectItems: [{ question: '', select_1: '', select_2: '' }],
   selectItemsVisible: [false, false, false],
   isResultScreen: false,
   resultItems: [],
@@ -93,12 +89,15 @@ const adminSlice = createSlice({
       );
     },
 
-    addSelectItem: (state) => {
-      state.selectItems = [
-        ...state.selectItems,
-        { question: '', select_1: '', select_2: '' },
-      ];
-      state.selectItemsVisible = [...state.selectItemsVisible, false];
+    setSelectItems: (state, action) => {
+      const value = action.payload.value;
+      state.selectItems = new Array(value).fill(0).map(() => ({
+        question: '',
+        select_1: '',
+        select_2: '',
+      }));
+
+      state.selectItemsVisible = new Array(value).map(() => false);
     },
     approveSelectItem: (state) => {
       const itemLength = state.selectItems.length;
@@ -152,7 +151,7 @@ export const {
   deleteSelectItem,
   handleUser,
   handleTitle,
-  addSelectItem,
+  setSelectItems,
   approveSelectItem,
   setResultContent,
   excuteResultItem,

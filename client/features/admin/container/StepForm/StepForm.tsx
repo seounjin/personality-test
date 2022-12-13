@@ -2,7 +2,7 @@ import { useState } from 'react';
 import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
 import {
-  CREATE_USER_ITEM_STEP,
+  SET_SELECT_FORM_ITEMS,
   CREATE_SELECT_ITEMS_STEP,
   CREATE_RESULT_ITEMS_STEP,
   CREATE_TITLE_ITEM_STEP,
@@ -13,11 +13,12 @@ import {
   useImageUploadStep,
   useResultStep,
   useSelectStep,
+  useSetSelectFormStep,
 } from '../../admin.hook';
-import UserForm from '../../components/UserForm/UserForm';
 import ImageUpload from '../ImageUpload/ImageUpload';
 import ResultCard from '../ResultCard/ResultCard';
 import SelectCard from '../SelectCard/SelectCard';
+import SetSelectFormSection from '../SetSelectFormSection/SetSelectFormSection';
 import TitleForm from '../TitleForm/TitleForm';
 import { ButtonWrapper, Container, StepTitle } from './StepForm.style';
 
@@ -28,11 +29,17 @@ const StepForm = (): JSX.Element => {
   );
 
   const { imgFile, handleImgFile } = useImageUploadStep();
+  const {
+    numberOfItems,
+    setSelectFromStep,
+    decreaseNumberOfItems,
+    inCreaseNumberofItems,
+  } = useSetSelectFormStep();
   const { isSelectItemsVisible, createResultItems } = useSelectStep();
   const { handleSubmit } = useResultStep(imgFile);
 
   const handlePrev = () => {
-    if (step === CREATE_USER_ITEM_STEP) return;
+    if (step === CREATE_TITLE_ITEM_STEP) return;
 
     const copyArray = [...isStepActive];
     copyArray[step] = false;
@@ -47,6 +54,10 @@ const StepForm = (): JSX.Element => {
         return;
       }
       createResultItems();
+    }
+
+    if (step === SET_SELECT_FORM_ITEMS) {
+      setSelectFromStep();
     }
 
     if (step === CREATE_RESULT_ITEMS_STEP) {
@@ -67,10 +78,16 @@ const StepForm = (): JSX.Element => {
         isStepActive={isStepActive}
         stepLabel={STEP_TITLE}
       />
-      {step === CREATE_USER_ITEM_STEP && <UserForm />}
       {step === CREATE_TITLE_ITEM_STEP && <TitleForm />}
       {step === IMAGE_UPLOAD_STEP && (
         <ImageUpload handleImgFile={handleImgFile} />
+      )}
+      {step === SET_SELECT_FORM_ITEMS && (
+        <SetSelectFormSection
+          numberOfItems={numberOfItems}
+          decreaseNumberOfItems={decreaseNumberOfItems}
+          inCreaseNumberofItems={inCreaseNumberofItems}
+        />
       )}
       {step === CREATE_SELECT_ITEMS_STEP && <SelectCard />}
       {step === CREATE_RESULT_ITEMS_STEP && (
@@ -83,7 +100,7 @@ const StepForm = (): JSX.Element => {
           rightButton={handleNext}
           leftName={'이전'}
           rightName={'다음'}
-          leftDisabled={step === CREATE_USER_ITEM_STEP}
+          leftDisabled={step === CREATE_TITLE_ITEM_STEP}
           rightDisabled={step === CREATE_RESULT_ITEMS_STEP}
         />
       </ButtonWrapper>
