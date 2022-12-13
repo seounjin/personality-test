@@ -33,7 +33,7 @@ export const useParseItem = ({
   const pretreatment = (key: string, items: SelectItem[], index: number) => ({
     label:
       key === 'question'
-        ? `${index + 1}번질문`
+        ? `질문`
         : key === 'select_1'
         ? '1번선택지'
         : '2번선택지',

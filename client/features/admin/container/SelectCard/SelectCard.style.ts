@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Wrapper = styled.div`
+  margin: 40px 0;
+`;
 
-export const FormContainer = styled.div``;
-
-export const TwoButtonWrapper = styled.div`
-  margin: 13px 0;
+export const Label = styled.label`
+  font-size: 18px;
 `;
