@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin: 40px 0;
 `;
 
 export const Container = styled.div`
@@ -16,7 +15,7 @@ export const Container = styled.div`
   align-items: center;
   font-size: 18px;
   width: 100%;
-  margin: 10px 0;
+  margin: 12px 0;
 `;
 
 interface ArrowIconProps {

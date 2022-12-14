@@ -7,7 +7,7 @@ import _mapObject from '../../utils/_mapObject';
 import { SelectItem } from './container/SelectCard/SelectCard.type';
 import { useRouter } from 'next/router';
 import fetcher from '../../api/fetcher';
-import { MIN_NUMBER_OF_ITEMS_VALUE } from './admin.const';
+import { MIN_NUMBER_OF_ITEMS_COUNT } from './admin.const';
 
 export const useImageUploadStep = () => {
   const [imgFile, setImgFile] = useState<File>(null);
@@ -164,7 +164,7 @@ export const useSetSelectFormStep = () => {
   const dispatch = useDispatch();
 
   const [numberOfItems, setNumberOfItems] = useState<number>(
-    MIN_NUMBER_OF_ITEMS_VALUE,
+    MIN_NUMBER_OF_ITEMS_COUNT,
   );
 
   const setSelectFromStep = () => {

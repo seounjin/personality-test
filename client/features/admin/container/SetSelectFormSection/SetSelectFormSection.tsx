@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  MIN_NUMBER_OF_ITEMS_VALUE,
-  MAX_NUMBER_OF_ITEMS_Value,
+  MIN_NUMBER_OF_ITEMS_COUNT,
+  MAX_NUMBER_OF_ITEMS_COUNT,
 } from '../../admin.const';
-import SetSlectForm from '../../components/SetSlectForm/SetSlectForm';
+import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
 
 interface SetSelectFormSectionProps {
   numberOfItems: number;
@@ -17,13 +17,13 @@ const SetSelectFormSection = ({
   inCreaseNumberofItems,
 }: SetSelectFormSectionProps): JSX.Element => {
   return (
-    <SetSlectForm
+    <SetCounterButton
       label={'문항수 설정'}
-      value={numberOfItems}
+      count={numberOfItems}
       onLeftButtonClick={decreaseNumberOfItems}
       onRightButtonClick={inCreaseNumberofItems}
-      minValue={MIN_NUMBER_OF_ITEMS_VALUE}
-      maxValue={MAX_NUMBER_OF_ITEMS_Value}
+      minCount={MIN_NUMBER_OF_ITEMS_COUNT}
+      maxCount={MAX_NUMBER_OF_ITEMS_COUNT}
     />
   );
 };

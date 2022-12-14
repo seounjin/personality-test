@@ -15,6 +15,15 @@ const initialState: AdminInitialState = {
     { label: '제목', type: 'title', defaultValue: '' },
     { label: '설명', type: 'explain', defaultValue: '' },
   ],
+  typeItems: [
+    {
+      firstLabel: '유형',
+      firstContent: '',
+      secondLabel: '설명',
+      secondContent: '',
+    },
+  ],
+  typeItemsCount: 1,
   selectItems: [{ question: '', select_1: '', select_2: '' }],
   selectItemsVisible: [false, false, false],
   isResultScreen: false,
@@ -122,6 +131,26 @@ const adminSlice = createSlice({
     setImageUrl: (state, action) => {
       state.imgUrl = action.payload;
     },
+    addTypeItems: (state) => {
+      state.typeItems = [
+        ...state.typeItems,
+        {
+          firstLabel: '유형',
+          firstContent: '',
+          secondLabel: '설명',
+          secondContent: '',
+        },
+      ];
+    },
+    removeTypeItems: (state) => {
+      const copyTypeItems = [...state.typeItems];
+      copyTypeItems.pop();
+      state.typeItems = copyTypeItems;
+    },
+    setTypeItems: (state, action) => {
+      const { index, name, value } = action.payload;
+      state.typeItems[index][name] = value;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
@@ -156,5 +185,8 @@ export const {
   setResultContent,
   excuteResultItem,
   setImageUrl,
+  addTypeItems,
+  removeTypeItems,
+  setTypeItems,
 } = adminSlice.actions;
 export default adminSlice.reducer;
