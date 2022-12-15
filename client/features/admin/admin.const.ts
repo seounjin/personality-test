@@ -18,3 +18,6 @@ export const MAX_NUMBER_OF_ITEMS_COUNT = 12;
 
 export const MIN_TYPE_ITEMS_COUNT = 1;
 export const MAX_TYPE_ITEMS_COUNT = 8;
+
+export const MIN_OPTION_ITEMS_COUNT = 1;
+export const MAX_OPTION_ITEMS_COUNT = 4;

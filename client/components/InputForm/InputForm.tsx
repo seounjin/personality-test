@@ -6,14 +6,16 @@ interface InputFormProps {
   type: string;
   defaultValue: string;
   index?: number;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  optionIndex?: number;
+  onChange: (props) => void;
 }
 
 const InputForm = ({
   label,
   type,
   defaultValue,
-  index,
+  index = 0,
+  optionIndex = 0,
   onChange,
 }: InputFormProps): JSX.Element => {
   return (
@@ -23,6 +25,7 @@ const InputForm = ({
         type={type}
         name={type}
         data-index={index}
+        data-option-index={optionIndex}
         onChange={onChange}
         defaultValue={defaultValue}
       />

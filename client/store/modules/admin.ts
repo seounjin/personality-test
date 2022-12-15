@@ -5,6 +5,10 @@ import {
   createResultContents,
   createResultItems,
 } from '../../features/admin/admin.utils';
+import {
+  MIN_NUMBER_OF_ITEMS_COUNT,
+  MIN_OPTION_ITEMS_COUNT,
+} from '../../features/admin/admin.const';
 
 const initialState: AdminInitialState = {
   userItem: [
@@ -23,12 +27,12 @@ const initialState: AdminInitialState = {
       secondContent: '',
     },
   ],
-  typeItemsCount: 1,
-  selectItems: [{ question: '', select_1: '', select_2: '' }],
-  selectItemsVisible: [false, false, false],
+  selectItems: [],
   isResultScreen: false,
   resultItems: [],
   resultContents: [],
+  optionItemsCount: MIN_OPTION_ITEMS_COUNT,
+  numberOfItemsCount: MIN_NUMBER_OF_ITEMS_COUNT,
   imgUrl: 'imageholder.png',
 };
 
@@ -80,33 +84,28 @@ const adminSlice = createSlice({
       };
     },
     handlerSelectInput: (state, action) => {
-      const { index, name, value } = action.payload;
-      state.selectItems[index][name] = value;
+      const { index, optionIndex, name, value } = action.payload;
+      if (name === 'question') {
+        state.selectItems[index][name] = value;
+      } else {
+        const optionItems = state.selectItems[index]['optionItems'];
+        optionItems[optionIndex]['option'] = value;
+      }
     },
 
-    setSelectItemVisble: (state, action) => {
-      state.selectItemsVisible[action.payload.index] =
-        !state.selectItemsVisible[action.payload.index];
-    },
-
-    deleteSelectItem: (state, action) => {
-      state.selectItems = state.selectItems.filter(
-        (_, index) => index !== action.payload.index,
-      );
-      state.selectItemsVisible = state.selectItemsVisible.filter(
-        (_, index) => index !== action.payload.index,
-      );
-    },
-
-    setSelectItems: (state, action) => {
-      const value = action.payload.value;
-      state.selectItems = new Array(value).fill(0).map(() => ({
+    createSelectItems: (state) => {
+      const numberOfItemsCount = state.numberOfItemsCount;
+      const optionItemsCount = state.optionItemsCount;
+      state.selectItems = new Array(numberOfItemsCount).fill(0).map(() => ({
+        type: 'question',
+        label: '질문',
         question: '',
-        select_1: '',
-        select_2: '',
+        optionItems: new Array(optionItemsCount).fill(0).map((_, index) => ({
+          type: `select_${index + 1}`,
+          label: `${index + 1}번 선택지`,
+          option: '',
+        })),
       }));
-
-      state.selectItemsVisible = new Array(value).map(() => false);
     },
     approveSelectItem: (state) => {
       const itemLength = state.selectItems.length;
@@ -124,9 +123,6 @@ const adminSlice = createSlice({
     },
     excuteResultItem: (state) => {
       state.isResultScreen = !state.isResultScreen;
-      state.selectItemsVisible = state.selectItemsVisible.map(() => {
-        return false;
-      });
     },
     setImageUrl: (state, action) => {
       state.imgUrl = action.payload;
@@ -151,12 +147,18 @@ const adminSlice = createSlice({
       const { index, name, value } = action.payload;
       state.typeItems[index][name] = value;
     },
+    setOptionCount: (state, action) => {
+      state.optionItemsCount += action.payload.count;
+    },
+    setNumberOfItemsCount: (state, action) => {
+      state.numberOfItemsCount += action.payload.count;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
       const { userItem, items, imgUrl, resultContents } = action.payload;
       const resultItems = createResultItems(items.length, items);
-      state.userItem = state.userItem.map((data, index) => {
+      state.userItem = state.userItem.map((data) => {
         return { ...data, defaultValue: userItem[data.type] };
       });
 
@@ -165,10 +167,6 @@ const adminSlice = createSlice({
       state.imgUrl = imgUrl;
       state.isResultScreen = true;
       state.resultItems = resultItems;
-
-      state.selectItemsVisible = [...Array(items.length)].map(() => {
-        return false;
-      });
     });
   },
 });
@@ -176,11 +174,9 @@ const adminSlice = createSlice({
 export const {
   reSetAdminData,
   handlerSelectInput,
-  setSelectItemVisble,
-  deleteSelectItem,
   handleUser,
   handleTitle,
-  setSelectItems,
+  createSelectItems,
   approveSelectItem,
   setResultContent,
   excuteResultItem,
@@ -188,5 +184,7 @@ export const {
   addTypeItems,
   removeTypeItems,
   setTypeItems,
+  setOptionCount,
+  setNumberOfItemsCount,
 } = adminSlice.actions;
 export default adminSlice.reducer;

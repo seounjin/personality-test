@@ -19,7 +19,7 @@ import {
 import ImageUpload from '../ImageUpload/ImageUpload';
 import ResultCard from '../ResultCard/ResultCard';
 import SelectCard from '../SelectCard/SelectCard';
-import SetSelectFormSection from '../SetSelectFormSection/SetSelectFormSection';
+import SetSelectFormSection from '../SetSelectForm/SetSelectForm';
 import TitleForm from '../TitleForm/TitleForm';
 import TypeForm from '../TypeFormSection/TypeFormSection';
 import { ButtonWrapper, Container, StepTitle } from './StepForm.style';
@@ -31,13 +31,8 @@ const StepForm = (): JSX.Element => {
   );
 
   const { imgFile, handleImgFile } = useImageUploadStep();
-  const {
-    numberOfItems,
-    setSelectFromStep,
-    decreaseNumberOfItems,
-    inCreaseNumberofItems,
-  } = useSetSelectFormStep();
-  const { isSelectItemsVisible, createResultItems } = useSelectStep();
+  const { setSelectFromStep } = useSetSelectFormStep();
+  const { createResultItems } = useSelectStep();
   const { handleSubmit } = useResultStep(imgFile);
 
   const handlePrev = () => {
@@ -51,10 +46,6 @@ const StepForm = (): JSX.Element => {
 
   const handleNext = () => {
     if (step === CREATE_SELECT_ITEMS_STEP) {
-      if (!isSelectItemsVisible()) {
-        alert('선택지 작성에서 확인버튼을 눌러주세요!!!');
-        return;
-      }
       createResultItems();
     }
 
@@ -85,13 +76,7 @@ const StepForm = (): JSX.Element => {
         <ImageUpload handleImgFile={handleImgFile} />
       )}
       {step === SET_TYPE_ITEMS && <TypeForm />}
-      {step === SET_SELECT_FORM_ITEMS && (
-        <SetSelectFormSection
-          numberOfItems={numberOfItems}
-          decreaseNumberOfItems={decreaseNumberOfItems}
-          inCreaseNumberofItems={inCreaseNumberofItems}
-        />
-      )}
+      {step === SET_SELECT_FORM_ITEMS && <SetSelectFormSection />}
       {step === CREATE_SELECT_ITEMS_STEP && <SelectCard />}
       {/* {step === CREATE_RESULT_ITEMS_STEP && (
         <ResultCard onSubmit={handleSubmit} />

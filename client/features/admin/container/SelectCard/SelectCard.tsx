@@ -22,9 +22,10 @@ const SelectCard = (): JSX.Element => {
       const {
         value,
         name,
-        dataset: { index },
+        dataset: { index, optionIndex },
       } = event.target;
-      dispatch(handlerSelectInput({ name, value, index }));
+
+      dispatch(handlerSelectInput({ name, value, index, optionIndex }));
     },
     [],
   );

@@ -1,13 +1,12 @@
 import { useState, useCallback } from 'react';
-import { approveSelectItem, setSelectItems } from '../../store/modules/admin';
+import {
+  approveSelectItem,
+  createSelectItems,
+} from '../../store/modules/admin';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
-import { InputForm } from '../../components/InputForm/InputForm.type';
-import _mapObject from '../../utils/_mapObject';
-import { SelectItem } from './container/SelectCard/SelectCard.type';
 import { useRouter } from 'next/router';
 import fetcher from '../../api/fetcher';
-import { MIN_NUMBER_OF_ITEMS_COUNT } from './admin.const';
 
 export const useImageUploadStep = () => {
   const [imgFile, setImgFile] = useState<File>(null);
@@ -19,50 +18,11 @@ export const useImageUploadStep = () => {
   return { imgFile, handleImgFile };
 };
 
-type ParseItem = InputForm;
-
-interface useParseItemProps {
-  item: SelectItem[];
-  index: number;
-}
-
-export const useParseItem = ({
-  item,
-  index,
-}: useParseItemProps): ParseItem[] => {
-  const pretreatment = (key: string, items: SelectItem[], index: number) => ({
-    label:
-      key === 'question'
-        ? `질문`
-        : key === 'select_1'
-        ? '1번선택지'
-        : '2번선택지',
-    type: key,
-    defaultValue: items[key],
-  });
-
-  const [parsetItem] = useState<ParseItem[]>(
-    _mapObject(pretreatment, item, index),
-  );
-
-  return parsetItem;
-};
-
 export const useSelectStep = () => {
   const dispatch = useDispatch();
-  const { selectItemsVisible } = useSelector(
-    (state: RootState) => ({
-      selectItemsVisible: state.admin.selectItemsVisible,
-    }),
-    shallowEqual,
-  );
-
-  const isSelectItemsVisible = () =>
-    selectItemsVisible.every((data: boolean) => data);
-
   const createResultItems = () => dispatch(approveSelectItem());
 
-  return { isSelectItemsVisible, createResultItems };
+  return { createResultItems };
 };
 
 export const useResultStep = (ImgFile: File) => {
@@ -163,26 +123,11 @@ export const useResultStep = (ImgFile: File) => {
 export const useSetSelectFormStep = () => {
   const dispatch = useDispatch();
 
-  const [numberOfItems, setNumberOfItems] = useState<number>(
-    MIN_NUMBER_OF_ITEMS_COUNT,
-  );
-
   const setSelectFromStep = () => {
-    dispatch(setSelectItems({ value: numberOfItems }));
-  };
-
-  const decreaseNumberOfItems = () => {
-    setNumberOfItems((numberOfItems) => numberOfItems - 1);
-  };
-
-  const inCreaseNumberofItems = () => {
-    setNumberOfItems((numberOfItems) => numberOfItems + 1);
+    dispatch(createSelectItems());
   };
 
   return {
-    numberOfItems,
     setSelectFromStep,
-    decreaseNumberOfItems,
-    inCreaseNumberofItems,
   };
 };

@@ -1,5 +1,12 @@
-export interface SelectItem {
+interface OptionItems {
+  type: string;
+  label: string;
+  option: string;
+}
+
+export interface SelectItems {
+  type: string;
+  label: string;
   question: string;
-  select_1: string;
-  select_2: string;
+  optionItems: OptionItems[];
 }
