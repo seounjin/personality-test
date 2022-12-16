@@ -36,17 +36,26 @@ const TypeFormSection = () => {
     setCount((count) => count + 1);
   };
 
-  const handleChange = useCallback(
-    (
-      event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-    ): void => {
+  const handleInput = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
       const {
         value,
-        name,
         dataset: { index },
       } = event.target;
 
-      dispatch(setTypeItems({ name, value, index }));
+      dispatch(setTypeItems({ key: 'typeContent', value, index }));
+    },
+    [],
+  );
+
+  const handleTextarea = useCallback(
+    (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+      const {
+        value,
+        dataset: { index },
+      } = event.target;
+
+      dispatch(setTypeItems({ key: 'explanationContent', value, index }));
     },
     [],
   );
@@ -63,14 +72,23 @@ const TypeFormSection = () => {
           maxCount={MAX_TYPE_ITEMS_COUNT}
         />
       </SetCounterButtonWrapper>
-      {typeItems.map((props, index) => (
-        <TypeForm
-          key={`t${index}`}
-          index={index}
-          {...props}
-          onChange={handleChange}
-        />
-      ))}
+      {typeItems.map(
+        (
+          { labelType, typeContent, labelExplanation, explanationContent },
+          index,
+        ) => (
+          <TypeForm
+            key={`t${index}`}
+            index={index}
+            firstLabel={labelType}
+            firstContent={typeContent}
+            secondLabel={labelExplanation}
+            secondContent={explanationContent}
+            handleInput={handleInput}
+            handleTextarea={handleTextarea}
+          />
+        ),
+      )}
     </Container>
   );
 };

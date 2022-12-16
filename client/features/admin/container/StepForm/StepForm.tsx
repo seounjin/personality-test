@@ -4,7 +4,6 @@ import TwoButton from '../../../../components/TwoButton/TwoButton';
 import {
   SET_SELECT_FORM_ITEMS,
   SET_TYPE_ITEMS,
-  CREATE_SELECT_ITEMS_STEP,
   CREATE_RESULT_ITEMS_STEP,
   CREATE_TITLE_ITEM_STEP,
   IMAGE_UPLOAD_STEP,
@@ -17,11 +16,9 @@ import {
   useSetSelectFormStep,
 } from '../../admin.hook';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import ResultCard from '../ResultCard/ResultCard';
-import SelectCard from '../SelectCard/SelectCard';
 import SetSelectFormSection from '../SetSelectForm/SetSelectForm';
 import TitleForm from '../TitleForm/TitleForm';
-import TypeForm from '../TypeFormSection/TypeFormSection';
+import TypeFormSection from '../TypeFormSection/TypeFormSection';
 import { ButtonWrapper, Container, StepTitle } from './StepForm.style';
 
 const StepForm = (): JSX.Element => {
@@ -45,10 +42,6 @@ const StepForm = (): JSX.Element => {
   };
 
   const handleNext = () => {
-    if (step === CREATE_SELECT_ITEMS_STEP) {
-      createResultItems();
-    }
-
     if (step === SET_SELECT_FORM_ITEMS) {
       setSelectFromStep();
     }
@@ -75,12 +68,8 @@ const StepForm = (): JSX.Element => {
       {step === IMAGE_UPLOAD_STEP && (
         <ImageUpload handleImgFile={handleImgFile} />
       )}
-      {step === SET_TYPE_ITEMS && <TypeForm />}
+      {step === SET_TYPE_ITEMS && <TypeFormSection />}
       {step === SET_SELECT_FORM_ITEMS && <SetSelectFormSection />}
-      {step === CREATE_SELECT_ITEMS_STEP && <SelectCard />}
-      {/* {step === CREATE_RESULT_ITEMS_STEP && (
-        <ResultCard onSubmit={handleSubmit} />
-      )} */}
 
       <ButtonWrapper>
         <TwoButton

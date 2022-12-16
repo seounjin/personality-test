@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../store/modules';
+import { useDispatch } from 'react-redux';
 import {
-  setNumberOfItemsCount,
-  setOptionCount,
+  addNumberOfItems,
+  removeNumberOfItems,
+  addOptionItems,
+  removeOptionItems,
 } from '../../../../store/modules/admin';
 import {
   MIN_NUMBER_OF_ITEMS_COUNT,
@@ -12,40 +13,41 @@ import {
   MAX_OPTION_ITEMS_COUNT,
 } from '../../admin.const';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
+import SelectCard from '../SelectCard/SelectCard';
 import { Container, SetCounterButtonWrapper } from './SetSelectForm.style';
 
-// interface SetSelectFormSectionProps {
-//   numberOfItems: number;
-//   decreaseNumberOfItems: () => void;
-//   inCreaseNumberofItems: () => void;
-// }
-
 const SetSelectForm = (): JSX.Element => {
-  const dispatch = useDispatch();
-  const { optionItemsCount, numberOfItemsCount } = useSelector(
-    (state: RootState) => ({
-      optionItemsCount: state.admin.optionItemsCount,
-      numberOfItemsCount: state.admin.numberOfItemsCount,
-    }),
-    shallowEqual,
+  const [numberOfItemsCount, setNumberOfItemsCount] = useState(
+    MIN_NUMBER_OF_ITEMS_COUNT,
+  );
+  const [optionItemsCount, setOptionItemsCount] = useState(
+    MIN_OPTION_ITEMS_COUNT,
   );
 
+  const dispatch = useDispatch();
+
   const decreaseNumberOfItems = () => {
-    dispatch(setNumberOfItemsCount({ count: -1 }));
+    if (MIN_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
+    dispatch(removeNumberOfItems());
+    setNumberOfItemsCount((numberOfItemsCount) => numberOfItemsCount - 1);
   };
 
   const inCreaseNumberofItems = () => {
-    dispatch(setNumberOfItemsCount({ count: 1 }));
+    if (MAX_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
+    dispatch(addNumberOfItems({ numberOfItemsCount: numberOfItemsCount + 1 }));
+    setNumberOfItemsCount((numberOfItemsCount) => numberOfItemsCount + 1);
   };
 
   const decreaeOptionItemsCount = () => {
     if (MIN_OPTION_ITEMS_COUNT === optionItemsCount) return;
-    dispatch(setOptionCount({ count: -1 }));
+    dispatch(removeOptionItems());
+    setOptionItemsCount((optionItemsCount) => optionItemsCount - 1);
   };
 
   const increaseOptionItemsCount = () => {
     if (MAX_OPTION_ITEMS_COUNT === optionItemsCount) return;
-    dispatch(setOptionCount({ count: 1 }));
+    dispatch(addOptionItems({ optionItemsCount: optionItemsCount + 1 }));
+    setOptionItemsCount((optionItemsCount) => optionItemsCount + 1);
   };
 
   return (
@@ -71,6 +73,8 @@ const SetSelectForm = (): JSX.Element => {
           maxCount={MAX_OPTION_ITEMS_COUNT}
         />
       </SetCounterButtonWrapper>
+
+      <SelectCard />
     </Container>
   );
 };

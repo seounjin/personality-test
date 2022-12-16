@@ -5,17 +5,18 @@ import {
   Input,
   Textarea,
   InputContainer,
-  HeaderWrapper,
   TextareaContainer,
   NumberLabel,
 } from './TypeForm.style';
-import { TypeItems } from './TypeForm.type';
 
-interface TypeFormProps extends TypeItems {
+interface TypeFormProps {
   index: number;
-  onChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
+  firstLabel: string;
+  firstContent: string;
+  secondLabel: string;
+  secondContent: string;
+  handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleTextarea: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const TypeForm = ({
@@ -24,7 +25,8 @@ const TypeForm = ({
   firstContent,
   secondLabel,
   secondContent,
-  onChange,
+  handleInput,
+  handleTextarea,
 }: TypeFormProps): JSX.Element => {
   return (
     <Container>
@@ -34,7 +36,7 @@ const TypeForm = ({
         <Input
           name={'firstContent'}
           data-index={index}
-          onChange={onChange}
+          onChange={handleInput}
           defaultValue={firstContent}
         />
       </InputContainer>
@@ -43,7 +45,7 @@ const TypeForm = ({
         <Textarea
           name={'secondContent'}
           data-index={index}
-          onChange={onChange}
+          onChange={handleTextarea}
           defaultValue={secondContent}
         />
       </TextareaContainer>

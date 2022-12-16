@@ -1,6 +1,6 @@
 export interface TypeItems {
-  firstLabel: string;
-  firstContent: string;
-  secondLabel: string;
-  secondContent: string;
+  labelType: string;
+  typeContent: string;
+  labelExplanation: string;
+  explanationContent: string;
 }

@@ -1,25 +1,29 @@
 import React from 'react';
 import InputForm from '../../../../components/InputForm/InputForm';
 import { SelectItems } from '../../container/SelectCard/SelectCard.type';
-import { Label, Container } from './WriteForm.style';
+import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
+import { TypeItems } from '../TypeForm/TypeForm.type';
+import { SubTitle, Container, InputFormWrapper } from './WriteForm.style';
 
 const MInputForm = React.memo(InputForm);
 
 interface WriteFormProps {
   item: SelectItems;
+  typeItems: TypeItems[];
   selectIndex: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const WriteForm = ({
   item,
+  typeItems,
   selectIndex,
   onChange,
 }: WriteFormProps): JSX.Element => {
   const { type, question, label, optionItems } = item;
   return (
     <Container>
-      <Label>{`${selectIndex + 1}번`}</Label>
+      <SubTitle>{`${selectIndex + 1}번`}</SubTitle>
       <MInputForm
         label={label}
         type={type}
@@ -28,15 +32,20 @@ const WriteForm = ({
         onChange={onChange}
       />
       {optionItems.map(({ label, type, option }, index) => (
-        <MInputForm
-          key={`i${index}`}
-          label={label}
-          type={type}
-          index={selectIndex}
-          optionIndex={index}
-          defaultValue={option}
-          onChange={onChange}
-        />
+        <React.Fragment key={`i${index}`}>
+          <InputFormWrapper>
+            <MInputForm
+              label={label}
+              type={type}
+              index={selectIndex}
+              optionIndex={index}
+              defaultValue={option}
+              onChange={onChange}
+            />
+          </InputFormWrapper>
+          <SubTitle>가중치 설정</SubTitle>
+          <CheckboxWithLabel items={typeItems} />
+        </React.Fragment>
       ))}
     </Container>
   );

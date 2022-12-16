@@ -1,14 +1,6 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import { AdminInitialState } from '../types';
 import fetcher from '../../api/fetcher';
-import {
-  createResultContents,
-  createResultItems,
-} from '../../features/admin/admin.utils';
-import {
-  MIN_NUMBER_OF_ITEMS_COUNT,
-  MIN_OPTION_ITEMS_COUNT,
-} from '../../features/admin/admin.const';
 
 const initialState: AdminInitialState = {
   userItem: [
@@ -21,18 +13,20 @@ const initialState: AdminInitialState = {
   ],
   typeItems: [
     {
-      firstLabel: '유형',
-      firstContent: '',
-      secondLabel: '설명',
-      secondContent: '',
+      labelType: '유형',
+      typeContent: '',
+      labelExplanation: '설명',
+      explanationContent: '',
     },
   ],
-  selectItems: [],
-  isResultScreen: false,
-  resultItems: [],
-  resultContents: [],
-  optionItemsCount: MIN_OPTION_ITEMS_COUNT,
-  numberOfItemsCount: MIN_NUMBER_OF_ITEMS_COUNT,
+  selectItems: [
+    {
+      type: 'question',
+      label: '질문',
+      question: '',
+      optionItems: [{ type: 'select_1', label: '1번선택지', option: '' }],
+    },
+  ],
   imgUrl: 'imageholder.png',
 };
 
@@ -93,37 +87,6 @@ const adminSlice = createSlice({
       }
     },
 
-    createSelectItems: (state) => {
-      const numberOfItemsCount = state.numberOfItemsCount;
-      const optionItemsCount = state.optionItemsCount;
-      state.selectItems = new Array(numberOfItemsCount).fill(0).map(() => ({
-        type: 'question',
-        label: '질문',
-        question: '',
-        optionItems: new Array(optionItemsCount).fill(0).map((_, index) => ({
-          type: `select_${index + 1}`,
-          label: `${index + 1}번 선택지`,
-          option: '',
-        })),
-      }));
-    },
-    approveSelectItem: (state) => {
-      const itemLength = state.selectItems.length;
-      const resultItems = createResultItems(state.selectItems, itemLength);
-      const resultContents = createResultContents(itemLength);
-
-      state.isResultScreen = !state.isResultScreen;
-      state.resultItems = resultItems;
-      state.resultContents = resultContents;
-    },
-
-    setResultContent: (state, action) => {
-      const { index, name, value } = action.payload;
-      state.resultContents[index][name] = value;
-    },
-    excuteResultItem: (state) => {
-      state.isResultScreen = !state.isResultScreen;
-    },
     setImageUrl: (state, action) => {
       state.imgUrl = action.payload;
     },
@@ -131,10 +94,10 @@ const adminSlice = createSlice({
       state.typeItems = [
         ...state.typeItems,
         {
-          firstLabel: '유형',
-          firstContent: '',
-          secondLabel: '설명',
-          secondContent: '',
+          labelType: '유형',
+          typeContent: '',
+          labelExplanation: '설명',
+          explanationContent: '',
         },
       ];
     },
@@ -144,29 +107,69 @@ const adminSlice = createSlice({
       state.typeItems = copyTypeItems;
     },
     setTypeItems: (state, action) => {
-      const { index, name, value } = action.payload;
-      state.typeItems[index][name] = value;
+      const { index, key, value } = action.payload;
+      state.typeItems[index][key] = value;
     },
-    setOptionCount: (state, action) => {
-      state.optionItemsCount += action.payload.count;
+
+    addNumberOfItems: (state, action) => {
+      const optionItemsCount = action.payload.optionItemsCount;
+
+      state.selectItems = [
+        ...state.selectItems,
+        {
+          type: 'question',
+          label: '질문',
+          question: '',
+          optionItems: new Array(optionItemsCount).fill(0).map((_, index) => ({
+            type: `select_${index + 1}`,
+            label: `${index + 1}번 선택지`,
+            option: '',
+          })),
+        },
+      ];
     },
-    setNumberOfItemsCount: (state, action) => {
-      state.numberOfItemsCount += action.payload.count;
+    removeNumberOfItems: (state) => {
+      const copyNumberOfItems = [...state.selectItems];
+      copyNumberOfItems.pop();
+      state.selectItems = copyNumberOfItems;
+    },
+
+    addOptionItems: (state, action) => {
+      const optionItemsCount = action.payload.optionItemsCount;
+      state.selectItems = state.selectItems.map((data) => {
+        return {
+          ...data,
+          optionItems: [
+            ...data.optionItems,
+            {
+              type: `select_${optionItemsCount}`,
+              label: `${optionItemsCount}번선택지`,
+              option: '',
+            },
+          ],
+        };
+      });
+    },
+    removeOptionItems: (state) => {
+      state.selectItems = state.selectItems.map((data) => {
+        const copyOptionItems = data.optionItems;
+        copyOptionItems.pop();
+        return {
+          ...data,
+          optionItems: [...copyOptionItems],
+        };
+      });
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
-      const { userItem, items, imgUrl, resultContents } = action.payload;
-      const resultItems = createResultItems(items.length, items);
+      const { userItem, items, imgUrl } = action.payload;
       state.userItem = state.userItem.map((data) => {
         return { ...data, defaultValue: userItem[data.type] };
       });
 
       state.selectItems = items;
-      state.resultContents = resultContents;
       state.imgUrl = imgUrl;
-      state.isResultScreen = true;
-      state.resultItems = resultItems;
     });
   },
 });
@@ -176,15 +179,13 @@ export const {
   handlerSelectInput,
   handleUser,
   handleTitle,
-  createSelectItems,
-  approveSelectItem,
-  setResultContent,
-  excuteResultItem,
   setImageUrl,
   addTypeItems,
   removeTypeItems,
   setTypeItems,
-  setOptionCount,
-  setNumberOfItemsCount,
+  addNumberOfItems,
+  removeNumberOfItems,
+  addOptionItems,
+  removeOptionItems,
 } = adminSlice.actions;
 export default adminSlice.reducer;

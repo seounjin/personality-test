@@ -10,9 +10,10 @@ const MWriteForm = React.memo(WriteForm);
 const SelectCard = (): JSX.Element => {
   const dispatch = useDispatch();
 
-  const { selectItems } = useSelector(
+  const { selectItems, typeItems } = useSelector(
     (state: RootState) => ({
       selectItems: state.admin.selectItems,
+      typeItems: state.admin.typeItems,
     }),
     shallowEqual,
   );
@@ -38,6 +39,7 @@ const SelectCard = (): JSX.Element => {
             key={`s${index}`}
             item={data}
             selectIndex={index}
+            typeItems={typeItems}
             onChange={handlechange}
           />
         );
