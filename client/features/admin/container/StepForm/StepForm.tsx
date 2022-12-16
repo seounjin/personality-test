@@ -1,22 +1,21 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
 import {
+  setTypeItemList,
+  setTypeItemsDictionary,
+} from '../../../../store/modules/admin';
+import {
   SET_SELECT_FORM_ITEMS,
   SET_TYPE_ITEMS,
-  CREATE_RESULT_ITEMS_STEP,
   CREATE_TITLE_ITEM_STEP,
   IMAGE_UPLOAD_STEP,
   STEP_TITLE,
 } from '../../admin.const';
-import {
-  useImageUploadStep,
-  useResultStep,
-  useSelectStep,
-  useSetSelectFormStep,
-} from '../../admin.hook';
+import { useImageUploadStep } from '../../admin.hook';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import SetSelectFormSection from '../SetSelectForm/SetSelectForm';
+import SetSelectForm from '../SetSelectForm/SetSelectForm';
 import TitleForm from '../TitleForm/TitleForm';
 import TypeFormSection from '../TypeFormSection/TypeFormSection';
 import { ButtonWrapper, Container, StepTitle } from './StepForm.style';
@@ -26,11 +25,9 @@ const StepForm = (): JSX.Element => {
   const [isStepActive, setIsStepActive] = useState(
     STEP_TITLE.map((_, index) => index === 0),
   );
+  const dispatch = useDispatch();
 
   const { imgFile, handleImgFile } = useImageUploadStep();
-  const { setSelectFromStep } = useSetSelectFormStep();
-  const { createResultItems } = useSelectStep();
-  const { handleSubmit } = useResultStep(imgFile);
 
   const handlePrev = () => {
     if (step === CREATE_TITLE_ITEM_STEP) return;
@@ -42,12 +39,9 @@ const StepForm = (): JSX.Element => {
   };
 
   const handleNext = () => {
-    if (step === SET_SELECT_FORM_ITEMS) {
-      setSelectFromStep();
-    }
-
-    if (step === CREATE_RESULT_ITEMS_STEP) {
-      return;
+    if (SET_TYPE_ITEMS === step) {
+      dispatch(setTypeItemsDictionary());
+      dispatch(setTypeItemList());
     }
 
     const copyArray = [...isStepActive];
@@ -69,7 +63,7 @@ const StepForm = (): JSX.Element => {
         <ImageUpload handleImgFile={handleImgFile} />
       )}
       {step === SET_TYPE_ITEMS && <TypeFormSection />}
-      {step === SET_SELECT_FORM_ITEMS && <SetSelectFormSection />}
+      {step === SET_SELECT_FORM_ITEMS && <SetSelectForm />}
 
       <ButtonWrapper>
         <TwoButton
@@ -78,7 +72,7 @@ const StepForm = (): JSX.Element => {
           leftName={'이전'}
           rightName={'다음'}
           leftDisabled={step === CREATE_TITLE_ITEM_STEP}
-          rightDisabled={step === CREATE_RESULT_ITEMS_STEP}
+          rightDisabled={step === SET_SELECT_FORM_ITEMS}
         />
       </ButtonWrapper>
     </Container>

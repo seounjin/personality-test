@@ -1,8 +1,4 @@
 import { useState, useCallback } from 'react';
-import {
-  approveSelectItem,
-  createSelectItems,
-} from '../../store/modules/admin';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
 import { useRouter } from 'next/router';
@@ -16,13 +12,6 @@ export const useImageUploadStep = () => {
   }, []);
 
   return { imgFile, handleImgFile };
-};
-
-export const useSelectStep = () => {
-  const dispatch = useDispatch();
-  const createResultItems = () => dispatch(approveSelectItem());
-
-  return { createResultItems };
 };
 
 export const useResultStep = (ImgFile: File) => {
@@ -118,16 +107,4 @@ export const useResultStep = (ImgFile: File) => {
     }
   };
   return { handleSubmit };
-};
-
-export const useSetSelectFormStep = () => {
-  const dispatch = useDispatch();
-
-  const setSelectFromStep = () => {
-    dispatch(createSelectItems());
-  };
-
-  return {
-    setSelectFromStep,
-  };
 };

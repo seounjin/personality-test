@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../store/modules';
 import {
   addNumberOfItems,
   removeNumberOfItems,
@@ -13,10 +14,14 @@ import {
   MAX_OPTION_ITEMS_COUNT,
 } from '../../admin.const';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
+import WeightedBoard from '../../components/WeightedBoard/WeightedBoard';
+import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
 import SelectCard from '../SelectCard/SelectCard';
 import { Container, SetCounterButtonWrapper } from './SetSelectForm.style';
 
 const SetSelectForm = (): JSX.Element => {
+  const dispatch = useDispatch();
+
   const [numberOfItemsCount, setNumberOfItemsCount] = useState(
     MIN_NUMBER_OF_ITEMS_COUNT,
   );
@@ -24,7 +29,13 @@ const SetSelectForm = (): JSX.Element => {
     MIN_OPTION_ITEMS_COUNT,
   );
 
-  const dispatch = useDispatch();
+  const { typeList, typeDictionary } = useSelector(
+    (state: RootState) => ({
+      typeList: state.admin.typeList,
+      typeDictionary: state.admin.typeDictionary,
+    }),
+    shallowEqual,
+  );
 
   const decreaseNumberOfItems = () => {
     if (MIN_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
@@ -32,7 +43,7 @@ const SetSelectForm = (): JSX.Element => {
     setNumberOfItemsCount((numberOfItemsCount) => numberOfItemsCount - 1);
   };
 
-  const inCreaseNumberofItems = () => {
+  const inCreaseNumberOfItems = () => {
     if (MAX_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
     dispatch(addNumberOfItems({ numberOfItemsCount: numberOfItemsCount + 1 }));
     setNumberOfItemsCount((numberOfItemsCount) => numberOfItemsCount + 1);
@@ -57,7 +68,7 @@ const SetSelectForm = (): JSX.Element => {
           label={'문항수 설정'}
           count={numberOfItemsCount}
           onLeftButtonClick={decreaseNumberOfItems}
-          onRightButtonClick={inCreaseNumberofItems}
+          onRightButtonClick={inCreaseNumberOfItems}
           minCount={MIN_NUMBER_OF_ITEMS_COUNT}
           maxCount={MAX_NUMBER_OF_ITEMS_COUNT}
         />
@@ -73,8 +84,11 @@ const SetSelectForm = (): JSX.Element => {
           maxCount={MAX_OPTION_ITEMS_COUNT}
         />
       </SetCounterButtonWrapper>
-
       <SelectCard />
+
+      <BoxShadowCard subtitle={'가중치'}>
+        <WeightedBoard items={typeList} dictionary={typeDictionary} />
+      </BoxShadowCard>
     </Container>
   );
 };

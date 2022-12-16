@@ -27,6 +27,8 @@ const initialState: AdminInitialState = {
       optionItems: [{ type: 'select_1', label: '1번선택지', option: '' }],
     },
   ],
+  typeDictionary: {},
+  typeList: [],
   imgUrl: 'imageholder.png',
 };
 
@@ -160,6 +162,17 @@ const adminSlice = createSlice({
         };
       });
     },
+    setTypeItemList: (state) => {
+      // const typeList = ['손흥민', '이강인', '메시'];
+      state.typeList = state.typeItems.map(({ typeContent }) => typeContent);
+    },
+    setTypeItemsDictionary: (state) => {
+      // const typeDictionary = { 손흥민: 1, 이강인: 2, 메시: 3 };
+      state.typeDictionary = state.typeItems.reduce(
+        (dic, { typeContent }) => ({ ...dic, [typeContent]: 0 }),
+        {},
+      );
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
@@ -187,5 +200,7 @@ export const {
   removeNumberOfItems,
   addOptionItems,
   removeOptionItems,
+  setTypeItemList,
+  setTypeItemsDictionary,
 } = adminSlice.actions;
 export default adminSlice.reducer;

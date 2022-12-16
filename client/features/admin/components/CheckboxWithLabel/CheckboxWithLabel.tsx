@@ -9,14 +9,6 @@ import {
   CheckboxWrapper,
 } from './CheckboxWithLabel.style';
 
-const DUMMY_DATA = [
-  {
-    type: '손흥민',
-  },
-  { type: '이강인' },
-  { type: '김민재' },
-];
-
 interface CheckboxWithLabelProps {
   items: TypeItems[];
 }

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Wrapper } from './SelectCard.style';
-import WriteForm from '../../components/WriteForm/WriteForm';
+import WriteForm from '../WriteForm/WriteForm';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../../../store/modules';
 import { handlerSelectInput } from '../../../../store/modules/admin';
@@ -33,17 +33,15 @@ const SelectCard = (): JSX.Element => {
 
   return (
     <Wrapper>
-      {selectItems.map((data, index) => {
-        return (
-          <MWriteForm
-            key={`s${index}`}
-            item={data}
-            selectIndex={index}
-            typeItems={typeItems}
-            onChange={handlechange}
-          />
-        );
-      })}
+      {selectItems.map((data, index) => (
+        <MWriteForm
+          key={`s${index}`}
+          item={data}
+          selectIndex={index}
+          typeItems={typeItems}
+          onChange={handlechange}
+        />
+      ))}
     </Wrapper>
   );
 };

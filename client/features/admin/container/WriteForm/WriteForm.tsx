@@ -1,9 +1,10 @@
 import React from 'react';
 import InputForm from '../../../../components/InputForm/InputForm';
-import { SelectItems } from '../../container/SelectCard/SelectCard.type';
-import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
-import { TypeItems } from '../TypeForm/TypeForm.type';
-import { SubTitle, Container, InputFormWrapper } from './WriteForm.style';
+import { SelectItems } from '../SelectCard/SelectCard.type';
+import CheckboxWithLabel from '../../components/CheckboxWithLabel/CheckboxWithLabel';
+import { TypeItems } from '../../components/TypeForm/TypeForm.type';
+import { SubTitle, InputFormWrapper } from './WriteForm.style';
+import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
 
 const MInputForm = React.memo(InputForm);
 
@@ -22,8 +23,7 @@ const WriteForm = ({
 }: WriteFormProps): JSX.Element => {
   const { type, question, label, optionItems } = item;
   return (
-    <Container>
-      <SubTitle>{`${selectIndex + 1}번`}</SubTitle>
+    <BoxShadowCard subtitle={`${selectIndex + 1}번`}>
       <MInputForm
         label={label}
         type={type}
@@ -47,7 +47,7 @@ const WriteForm = ({
           <CheckboxWithLabel items={typeItems} />
         </React.Fragment>
       ))}
-    </Container>
+    </BoxShadowCard>
   );
 };
 

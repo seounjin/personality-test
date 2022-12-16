@@ -11,13 +11,14 @@ export const Container = styled.div`
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   border-radius: 8px;
   margin-bottom: 40px;
-  padding: 40px 0;
+  padding: 20px 0;
+`;
+
+export const SubTitleWrapper = styled.div`
+  margin-bottom: 20px;
 `;
 
 export const SubTitle = styled.h2`
+  margin: 0;
   font-size: 1.5rem;
-`;
-
-export const InputFormWrapper = styled.div`
-  margin-bottom: 10px;
 `;

@@ -4,3 +4,7 @@ export interface TypeItems {
   labelExplanation: string;
   explanationContent: string;
 }
+
+export interface TypeDictionary {
+  [key: string]: string;
+}
