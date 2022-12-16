@@ -11,15 +11,23 @@ import {
 
 interface CheckboxWithLabelProps {
   items: TypeItems[];
+  onCheckbox: (event: any) => void;
 }
 
-const CheckboxWithLabel = ({ items }: CheckboxWithLabelProps): JSX.Element => {
+const CheckboxWithLabel = ({
+  items,
+  onCheckbox,
+}: CheckboxWithLabelProps): JSX.Element => {
   return (
     <Wrapper>
       {items.map(({ typeContent }, index) => (
         <Container key={`t${index}`}>
           <CheckboxWrapper>
-            <Checkbox type="checkbox" />
+            <Checkbox
+              type="checkbox"
+              value={typeContent}
+              onChange={onCheckbox}
+            />
           </CheckboxWrapper>
           <LabelWrapper>
             <Label>{typeContent}</Label>

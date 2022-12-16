@@ -3,7 +3,10 @@ import { Wrapper } from './SelectCard.style';
 import WriteForm from '../WriteForm/WriteForm';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../../../store/modules';
-import { handlerSelectInput } from '../../../../store/modules/admin';
+import {
+  handlerSelectInput,
+  setTypeItemsCount,
+} from '../../../../store/modules/admin';
 
 const MWriteForm = React.memo(WriteForm);
 
@@ -31,6 +34,12 @@ const SelectCard = (): JSX.Element => {
     [],
   );
 
+  const handleCheckbox = (event) => {
+    const checked = event.target.checked;
+    const key = event.target.value;
+    dispatch(setTypeItemsCount({ count: checked ? 1 : -1, key: key }));
+  };
+
   return (
     <Wrapper>
       {selectItems.map((data, index) => (
@@ -40,6 +49,7 @@ const SelectCard = (): JSX.Element => {
           selectIndex={index}
           typeItems={typeItems}
           onChange={handlechange}
+          handleCheckbox={handleCheckbox}
         />
       ))}
     </Wrapper>

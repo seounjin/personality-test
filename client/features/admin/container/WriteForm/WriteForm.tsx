@@ -12,6 +12,7 @@ interface WriteFormProps {
   item: SelectItems;
   typeItems: TypeItems[];
   selectIndex: number;
+  handleCheckbox: (event: any) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -20,6 +21,7 @@ const WriteForm = ({
   typeItems,
   selectIndex,
   onChange,
+  handleCheckbox,
 }: WriteFormProps): JSX.Element => {
   const { type, question, label, optionItems } = item;
   return (
@@ -44,7 +46,7 @@ const WriteForm = ({
             />
           </InputFormWrapper>
           <SubTitle>가중치 설정</SubTitle>
-          <CheckboxWithLabel items={typeItems} />
+          <CheckboxWithLabel items={typeItems} onCheckbox={handleCheckbox} />
         </React.Fragment>
       ))}
     </BoxShadowCard>

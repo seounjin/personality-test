@@ -163,15 +163,18 @@ const adminSlice = createSlice({
       });
     },
     setTypeItemList: (state) => {
-      // const typeList = ['손흥민', '이강인', '메시'];
       state.typeList = state.typeItems.map(({ typeContent }) => typeContent);
     },
     setTypeItemsDictionary: (state) => {
-      // const typeDictionary = { 손흥민: 1, 이강인: 2, 메시: 3 };
       state.typeDictionary = state.typeItems.reduce(
         (dic, { typeContent }) => ({ ...dic, [typeContent]: 0 }),
         {},
       );
+    },
+    setTypeItemsCount: (state, action) => {
+      const key = action.payload.key;
+      const count = action.payload.count;
+      state.typeDictionary[key] += count;
     },
   },
   extraReducers: (builder) => {
@@ -202,5 +205,6 @@ export const {
   removeOptionItems,
   setTypeItemList,
   setTypeItemsDictionary,
+  setTypeItemsCount,
 } = adminSlice.actions;
 export default adminSlice.reducer;
