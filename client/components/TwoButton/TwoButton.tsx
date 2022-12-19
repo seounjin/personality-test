@@ -20,10 +20,10 @@ const TwoButton = ({
 }: TwoButtonProps): JSX.Element => {
   return (
     <Wrapper>
-      <Button disabled={leftDisabled} onClick={leftButton}>
+      <Button type="button" disabled={leftDisabled} onClick={leftButton}>
         {leftName}
       </Button>
-      <Button disabled={rightDisabled} onClick={rightButton}>
+      <Button type="button" disabled={rightDisabled} onClick={rightButton}>
         {rightName}
       </Button>
     </Wrapper>

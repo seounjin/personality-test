@@ -24,3 +24,5 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const StepTitle = styled.h1``;
+
+export const Form = styled.form``;

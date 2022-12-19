@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
@@ -18,7 +19,21 @@ import ImageUpload from '../ImageUpload/ImageUpload';
 import SetSelectForm from '../SetSelectForm/SetSelectForm';
 import TitleForm from '../TitleForm/TitleForm';
 import TypeFormSection from '../TypeFormSection/TypeFormSection';
-import { ButtonWrapper, Container, StepTitle } from './StepForm.style';
+import { ButtonWrapper, Container, Form, StepTitle } from './StepForm.style';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const defaultValues = {
+  title: '',
+  explain: '',
+};
+
+const validationSchema = [
+  yup.object({
+    title: yup.string().required(),
+    explain: yup.string().required(),
+  }),
+];
 
 const StepForm = (): JSX.Element => {
   const [step, setStep] = useState<number>(0);
@@ -29,6 +44,15 @@ const StepForm = (): JSX.Element => {
 
   const { imgFile, handleImgFile } = useImageUploadStep();
 
+  const currentValidationSchema = validationSchema[step];
+
+  const methods = useForm({
+    defaultValues,
+    resolver: yupResolver(currentValidationSchema),
+    mode: 'onChange',
+  });
+  const { handleSubmit, trigger } = methods;
+
   const handlePrev = () => {
     if (step === CREATE_TITLE_ITEM_STEP) return;
 
@@ -38,16 +62,19 @@ const StepForm = (): JSX.Element => {
     setStep((step) => step - 1);
   };
 
-  const handleNext = () => {
-    if (SET_TYPE_ITEMS === step) {
-      dispatch(setTypeItemsDictionary());
-      dispatch(setTypeItemList());
-    }
+  const handleNext = async () => {
+    const isStepValid = await trigger();
+    console.log('확ㅇ린', isStepValid);
 
-    const copyArray = [...isStepActive];
-    copyArray[step + 1] = true;
-    setIsStepActive(copyArray);
-    setStep((step) => step + 1);
+    // if (SET_TYPE_ITEMS === step) {
+    //   dispatch(setTypeItemsDictionary());
+    //   dispatch(setTypeItemList());
+    // }
+
+    // const copyArray = [...isStepActive];
+    // copyArray[step + 1] = true;
+    // setIsStepActive(copyArray);
+    // setStep((step) => step + 1);
   };
 
   return (
@@ -58,13 +85,16 @@ const StepForm = (): JSX.Element => {
         isStepActive={isStepActive}
         stepLabel={STEP_TITLE}
       />
-      {step === CREATE_TITLE_ITEM_STEP && <TitleForm />}
-      {step === IMAGE_UPLOAD_STEP && (
-        <ImageUpload handleImgFile={handleImgFile} />
-      )}
-      {step === SET_TYPE_ITEMS && <TypeFormSection />}
-      {step === SET_SELECT_FORM_ITEMS && <SetSelectForm />}
-
+      <FormProvider {...methods}>
+        <Form>
+          {step === CREATE_TITLE_ITEM_STEP && <TitleForm />}
+          {step === IMAGE_UPLOAD_STEP && (
+            <ImageUpload handleImgFile={handleImgFile} />
+          )}
+          {step === SET_TYPE_ITEMS && <TypeFormSection />}
+          {step === SET_SELECT_FORM_ITEMS && <SetSelectForm />}
+        </Form>
+      </FormProvider>
       <ButtonWrapper>
         <TwoButton
           leftButton={handlePrev}

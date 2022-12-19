@@ -1,48 +1,27 @@
-import React, { useCallback } from 'react';
-import Container from './TitleForm.style';
-import InputForm from '../../../../components/InputForm/InputForm';
-import { handleTitle } from '../../../../store/modules/admin';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { RootState } from '../../../../store/modules';
+import React from 'react';
+import { Wrapper } from './TitleForm.style';
 
-const MInputForm = React.memo(InputForm);
+import { useFormContext } from 'react-hook-form';
+import TextFiled from '../../components/TextFiled/TextField';
 
 const TitleForm = (): JSX.Element => {
-  const { titleItems } = useSelector(
-    (state: RootState) => ({
-      titleItems: state.admin.titleItems,
-    }),
-    shallowEqual,
-  );
-
-  const dispatch = useDispatch();
-
-  const onChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>): void => {
-      const {
-        value,
-        name,
-        dataset: { index },
-      } = event.target;
-
-      dispatch(handleTitle({ value, name, index }));
-    },
-    [],
-  );
+  const { register } = useFormContext();
 
   return (
-    <Container>
-      {titleItems.map(({ label, type, defaultValue }, index) => (
-        <MInputForm
-          key={label + index}
-          label={label}
-          type={type}
-          defaultValue={defaultValue}
-          index={index}
-          onChange={onChange}
-        />
-      ))}
-    </Container>
+    <Wrapper>
+      <TextFiled
+        label={'제 목'}
+        errorText={'에러'}
+        name={'title'}
+        {...register('title')}
+      />
+      <TextFiled
+        label={'설 명'}
+        errorText={'에러'}
+        name={'explain'}
+        {...register('explain')}
+      />
+    </Wrapper>
   );
 };
 
