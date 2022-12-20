@@ -12,6 +12,7 @@ declare module 'styled-components' {
       progressBarColor: string;
       stepColor: string;
       buttonHoverColor: string;
+      helperTextColor: string;
     };
 
     device: {

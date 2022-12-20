@@ -17,6 +17,7 @@ export const theme: DefaultTheme = {
     progressBarColor: '#538AB9',
     stepColor: '#538AB9',
     buttonHoverColor: '#c0c0c5',
+    helperTextColor: '#f44336',
   },
 
   device: {

@@ -64,7 +64,6 @@ const StepForm = (): JSX.Element => {
 
   const handleNext = async () => {
     const isStepValid = await trigger();
-    console.log('확ㅇ린', isStepValid);
 
     // if (SET_TYPE_ITEMS === step) {
     //   dispatch(setTypeItemsDictionary());

@@ -1,29 +1,30 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
+import { useController } from 'react-hook-form';
 import {
-  RefCallBack,
-  RegisterOptions,
-  UseFormRegisterReturn,
-} from 'react-hook-form';
-import { Container, Label, Input } from './TextFiled.style';
+  Container,
+  Label,
+  Input,
+  HelperText,
+  HelperTextWrapper,
+} from './TextFiled.style';
 
-interface TextfieldProps {
+interface TextFieldProps {
   label: string;
   name: string;
-  errorText: string;
 }
 
-const TextFiled = forwardRef<
-  HTMLInputElement,
-  TextfieldProps | Partial<Exclude<UseFormRegisterReturn, { ref: RefCallBack }>>
->(({ label, name, errorText, ...props }: TextfieldProps, ref) => {
+const TextFiled = ({ label, name }: TextFieldProps): JSX.Element => {
+  const { field, fieldState } = useController({ name });
+
   return (
     <Container>
       <Label>{label}</Label>
-      <Input name={name} ref={ref} {...props} />
+      <Input name={name} {...field} />
+      <HelperTextWrapper>
+        <HelperText>{fieldState.error && fieldState.error.message}</HelperText>
+      </HelperTextWrapper>
     </Container>
   );
-});
-
-TextFiled.displayName = 'TextFiled';
+};
 
 export default TextFiled;

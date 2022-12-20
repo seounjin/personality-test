@@ -26,3 +26,14 @@ export const Input = styled.input`
   outline: none;
   border-radius: 2px;
 `;
+
+export const HelperTextWrapper = styled.div`
+  height: 1.3rem;
+  padding-left: 6px;
+`;
+
+export const HelperText = styled.p`
+  margin: 0;
+  font-size: 1.3rem;
+  color: ${({ theme }) => theme.colors.helperTextColor};
+`;
