@@ -22,16 +22,35 @@ import TypeFormSection from '../TypeFormSection/TypeFormSection';
 import { ButtonWrapper, Container, Form, StepTitle } from './StepForm.style';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { FormData } from './StepForm.type';
 
 const defaultValues = {
   title: '',
   explain: '',
+  typeFormItems: [
+    {
+      labelType: '유형',
+      typeContent: '',
+      labelExplanation: '설명',
+      explanationContent: '',
+    },
+  ],
 };
 
 const validationSchema = [
   yup.object({
     title: yup.string().required(),
     explain: yup.string().required(),
+  }),
+  yup.object({
+    typeFormItems: yup.array().of(
+      yup.object().shape({
+        labelType: yup.string().required(),
+        typeContent: yup.string().required(),
+        labelExplanation: yup.string().required(),
+        explanationContent: yup.string().required(),
+      }),
+    ),
   }),
 ];
 
@@ -46,7 +65,7 @@ const StepForm = (): JSX.Element => {
 
   const currentValidationSchema = validationSchema[step];
 
-  const methods = useForm({
+  const methods = useForm<FormData>({
     defaultValues,
     resolver: yupResolver(currentValidationSchema),
     mode: 'onChange',
@@ -63,7 +82,8 @@ const StepForm = (): JSX.Element => {
   };
 
   const handleNext = async () => {
-    const isStepValid = await trigger();
+    // const isStepValid = await trigger();
+    setStep((step) => step + 1);
 
     // if (SET_TYPE_ITEMS === step) {
     //   dispatch(setTypeItemsDictionary());
@@ -87,11 +107,11 @@ const StepForm = (): JSX.Element => {
       <FormProvider {...methods}>
         <Form>
           {step === CREATE_TITLE_ITEM_STEP && <TitleForm />}
-          {step === IMAGE_UPLOAD_STEP && (
+          {/* {step === IMAGE_UPLOAD_STEP && (
             <ImageUpload handleImgFile={handleImgFile} />
-          )}
-          {step === SET_TYPE_ITEMS && <TypeFormSection />}
-          {step === SET_SELECT_FORM_ITEMS && <SetSelectForm />}
+          )} */}
+          {step === 1 && <TypeFormSection />}
+          {step === 2 && <SetSelectForm />}
         </Form>
       </FormProvider>
       <ButtonWrapper>

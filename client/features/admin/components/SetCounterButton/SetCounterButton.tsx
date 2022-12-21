@@ -30,11 +30,19 @@ const SetCounterButton = ({
     <Wrapper>
       <Label>{label}</Label>
       <Container>
-        <Button onClick={onLeftButtonClick} disabled={count === minCount}>
+        <Button
+          type="button"
+          onClick={onLeftButtonClick}
+          disabled={count === minCount}
+        >
           <LeftArrowIcon $isDisabled={count === minCount} />
         </Button>
         <Input value={count} disabled />
-        <Button onClick={onRightButtonClick} disabled={count === maxCount}>
+        <Button
+          type="button"
+          onClick={onRightButtonClick}
+          disabled={count === maxCount}
+        >
           <RightArrowIcon $isDisabled={count === maxCount} />
         </Button>
       </Container>
