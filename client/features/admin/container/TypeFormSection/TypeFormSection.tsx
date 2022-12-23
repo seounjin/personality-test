@@ -48,18 +48,16 @@ const TypeFormSection = () => {
         (
           { id, labelType, typeContent, labelExplanation, explanationContent },
           index,
-        ) => {
-          return (
-            <TypeForm
-              key={id}
-              index={index}
-              firstLabel={labelType}
-              firstContent={typeContent}
-              secondLabel={labelExplanation}
-              secondContent={explanationContent}
-            />
-          );
-        },
+        ) => (
+          <TypeForm
+            key={id}
+            index={index}
+            firstLabel={labelType}
+            firstContent={typeContent}
+            secondLabel={labelExplanation}
+            secondContent={explanationContent}
+          />
+        ),
       )}
     </Container>
   );

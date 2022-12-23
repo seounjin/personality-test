@@ -35,7 +35,14 @@ const defaultValues = {
       explanationContent: '',
     },
   ],
+  selectItems: [{ question: '', optionItems: [{ option: '' }] }],
 };
+
+const optionItemsArray = yup.array().of(
+  yup.object().shape({
+    option: yup.string().required('1글자 이상 채워주세요'),
+  }),
+);
 
 const validationSchema = [
   yup.object({
@@ -45,10 +52,16 @@ const validationSchema = [
   yup.object({
     typeFormItems: yup.array().of(
       yup.object().shape({
-        labelType: yup.string().required(),
         typeContent: yup.string().required('1글자 이상 채워주세요'),
-        labelExplanation: yup.string().required(),
         explanationContent: yup.string().required('1글자 이상 채워주세요'),
+      }),
+    ),
+  }),
+  yup.object({
+    selectItems: yup.array().of(
+      yup.object().shape({
+        question: yup.string().required('1글자 이상 채워주세요'),
+        optionItems: optionItemsArray,
       }),
     ),
   }),

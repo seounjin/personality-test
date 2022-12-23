@@ -1,7 +1,7 @@
 import React from 'react';
 import TextAreaInput from '../TextAreaInput/TextAreaInput';
 import TextFiled from '../TextFiled/TextField';
-import { Container, InputContainer, NumberLabel } from './TypeForm.style';
+import { Container, TextFiledWrapper, NumberLabel } from './TypeForm.style';
 
 interface TypeFormProps {
   index: number;
@@ -19,12 +19,12 @@ const TypeForm = ({
   return (
     <Container>
       <NumberLabel>{`${index + 1}번`}</NumberLabel>
-      <InputContainer>
+      <TextFiledWrapper>
         <TextFiled
           label={firstLabel}
           name={`typeFormItems[${index}].typeContent`}
         />
-      </InputContainer>
+      </TextFiledWrapper>
       <TextAreaInput
         label={secondLabel}
         name={`typeFormItems[${index}].explanationContent`}

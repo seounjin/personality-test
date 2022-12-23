@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { shallowEqual, useSelector } from 'react-redux';
 import { RootState } from '../../../../store/modules';
-import {
-  addNumberOfItems,
-  removeNumberOfItems,
-  addOptionItems,
-  removeOptionItems,
-} from '../../../../store/modules/admin';
 import {
   MIN_NUMBER_OF_ITEMS_COUNT,
   MAX_NUMBER_OF_ITEMS_COUNT,
@@ -16,11 +11,16 @@ import {
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
 import WeightedBoard from '../../components/WeightedBoard/WeightedBoard';
 import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
-import SelectCard from '../SelectCard/SelectCard';
 import { Container, SetCounterButtonWrapper } from './SetSelectForm.style';
+import { FormData } from '../StepForm/StepForm.type';
+import TextFiled from '../../components/TextFiled/TextField';
 
 const SetSelectForm = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const { control, setValue, getValues } = useFormContext<FormData>();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'selectItems',
+  });
 
   const [numberOfItemsCount, setNumberOfItemsCount] = useState(
     MIN_NUMBER_OF_ITEMS_COUNT,
@@ -39,25 +39,50 @@ const SetSelectForm = (): JSX.Element => {
 
   const decreaseNumberOfItems = () => {
     if (MIN_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
-    dispatch(removeNumberOfItems());
+    remove(numberOfItemsCount - 1);
     setNumberOfItemsCount((numberOfItemsCount) => numberOfItemsCount - 1);
   };
 
   const inCreaseNumberOfItems = () => {
     if (MAX_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
-    dispatch(addNumberOfItems({ numberOfItemsCount: numberOfItemsCount + 1 }));
+    append({
+      question: '',
+      optionItems: [
+        ...new Array(optionItemsCount).fill(0).map(() => {
+          return {
+            option: '',
+          };
+        }),
+      ],
+    });
     setNumberOfItemsCount((numberOfItemsCount) => numberOfItemsCount + 1);
   };
 
   const decreaeOptionItemsCount = () => {
     if (MIN_OPTION_ITEMS_COUNT === optionItemsCount) return;
-    dispatch(removeOptionItems());
+    const selectItems = getValues('selectItems');
+
+    const removeOptionItems = selectItems.map((data) => {
+      return {
+        ...data,
+        optionItems: data.optionItems.slice(0, optionItemsCount - 1),
+      };
+    });
+
+    setValue('selectItems', removeOptionItems);
     setOptionItemsCount((optionItemsCount) => optionItemsCount - 1);
   };
 
   const increaseOptionItemsCount = () => {
     if (MAX_OPTION_ITEMS_COUNT === optionItemsCount) return;
-    dispatch(addOptionItems({ optionItemsCount: optionItemsCount + 1 }));
+
+    const selectItems = getValues('selectItems');
+
+    const addOptionItems = selectItems.map((data) => {
+      return { ...data, optionItems: [...data.optionItems, { option: '' }] };
+    });
+    setValue('selectItems', addOptionItems);
+
     setOptionItemsCount((optionItemsCount) => optionItemsCount + 1);
   };
 
@@ -84,7 +109,26 @@ const SetSelectForm = (): JSX.Element => {
           maxCount={MAX_OPTION_ITEMS_COUNT}
         />
       </SetCounterButtonWrapper>
-      <SelectCard />
+
+      {fields.map(({ id, optionItems }, numberOfItemsIndex) => {
+        return (
+          <BoxShadowCard key={id} subtitle={`${numberOfItemsIndex + 1}번`}>
+            <TextFiled
+              label={'질 문'}
+              name={`selectItems[${numberOfItemsIndex}].question`}
+            />
+            {optionItems.map((_, optionItemIndex) => {
+              return (
+                <TextFiled
+                  key={`n${optionItemIndex}`}
+                  label={`${optionItemIndex + 1}번 선택지`}
+                  name={`selectItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option`}
+                />
+              );
+            })}
+          </BoxShadowCard>
+        );
+      })}
 
       <BoxShadowCard subtitle={'가중치'}>
         <WeightedBoard items={typeList} dictionary={typeDictionary} />

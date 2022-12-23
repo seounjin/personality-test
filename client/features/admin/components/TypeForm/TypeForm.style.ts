@@ -29,7 +29,7 @@ export const HeaderWrapper = styled.div`
   margin: 4px 0;
 `;
 
-export const InputContainer = styled.div`
+export const TextFiledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 4px 0;

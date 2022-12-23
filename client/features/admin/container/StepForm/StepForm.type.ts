@@ -1,3 +1,5 @@
+import { SelectItems } from '../SelectCard/SelectCard.type';
+
 export interface TypeFormItem {
   labelType: string;
   typeContent: string;
@@ -9,4 +11,5 @@ export type FormData = {
   title: string;
   explain: string;
   typeFormItems: Array<TypeFormItem>;
+  selectItems: SelectItems[];
 };
