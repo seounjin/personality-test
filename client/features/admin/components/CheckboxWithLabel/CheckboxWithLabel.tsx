@@ -1,4 +1,5 @@
 import React from 'react';
+import { useController, useWatch } from 'react-hook-form';
 import { TypeItems } from '../TypeForm/TypeForm.type';
 import {
   Checkbox,
@@ -11,13 +12,29 @@ import {
 
 interface CheckboxWithLabelProps {
   items: TypeItems[];
-  onCheckbox: (event: any) => void;
+  name: string;
 }
 
 const CheckboxWithLabel = ({
   items,
-  onCheckbox,
+  name,
 }: CheckboxWithLabelProps): JSX.Element => {
+  const {
+    field: { onChange, ...rest },
+    fieldState,
+  } = useController({ name });
+
+  const checkboxItems = useWatch({ name }) || [];
+
+  const handleChange = (event, value) => {
+    const isChecked = event.target.checked;
+    const newArray = isChecked
+      ? [...checkboxItems, value]
+      : checkboxItems.filter((data) => data !== value);
+
+    onChange(newArray);
+  };
+
   return (
     <Wrapper>
       {items.map(({ typeContent }, index) => (
@@ -26,7 +43,8 @@ const CheckboxWithLabel = ({
             <Checkbox
               type="checkbox"
               value={typeContent}
-              onChange={onCheckbox}
+              {...rest}
+              onChange={(event) => handleChange(event, typeContent)}
             />
           </CheckboxWrapper>
           <LabelWrapper>
@@ -34,6 +52,7 @@ const CheckboxWithLabel = ({
           </LabelWrapper>
         </Container>
       ))}
+      <div>{fieldState.error && fieldState.error.message}</div>
     </Wrapper>
   );
 };

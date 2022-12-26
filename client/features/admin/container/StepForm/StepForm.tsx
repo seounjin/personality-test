@@ -35,12 +35,14 @@ const defaultValues = {
       explanationContent: '',
     },
   ],
-  selectItems: [{ question: '', optionItems: [{ option: '' }] }],
+  selectItems: [
+    { question: '', optionItems: [{ option: '' }], weightCheckboxes: [] },
+  ],
 };
 
 const optionItemsArray = yup.array().of(
   yup.object().shape({
-    option: yup.string().required('1글자 이상 채워주세요'),
+    option: yup.string().required('한글자 이상 채워주세요'),
   }),
 );
 
@@ -52,16 +54,20 @@ const validationSchema = [
   yup.object({
     typeFormItems: yup.array().of(
       yup.object().shape({
-        typeContent: yup.string().required('1글자 이상 채워주세요'),
-        explanationContent: yup.string().required('1글자 이상 채워주세요'),
+        typeContent: yup.string().required('한글자 이상 채워 주세요'),
+        explanationContent: yup.string().required('한글자 이상 채워 주세요'),
       }),
     ),
   }),
   yup.object({
     selectItems: yup.array().of(
       yup.object().shape({
-        question: yup.string().required('1글자 이상 채워주세요'),
+        question: yup.string().required('한글자 이상 채워 주세요'),
         optionItems: optionItemsArray,
+        weightCheckboxes: yup
+          .array()
+          .min(1, 'You didnt enter enough')
+          .required('Required'),
       }),
     ),
   }),
@@ -83,7 +89,7 @@ const StepForm = (): JSX.Element => {
     resolver: yupResolver(currentValidationSchema),
     mode: 'onChange',
   });
-  const { handleSubmit, trigger } = methods;
+  const { setValue, getValues, handleSubmit, trigger } = methods;
 
   const handlePrev = () => {
     if (step === CREATE_TITLE_ITEM_STEP) return;
@@ -96,6 +102,7 @@ const StepForm = (): JSX.Element => {
 
   const handleNext = async () => {
     // const isStepValid = await trigger();
+
     setStep((step) => step + 1);
 
     // if (SET_TYPE_ITEMS === step) {

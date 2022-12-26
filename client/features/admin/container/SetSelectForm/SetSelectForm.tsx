@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../../store/modules';
 import {
   MIN_NUMBER_OF_ITEMS_COUNT,
@@ -11,11 +11,18 @@ import {
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
 import WeightedBoard from '../../components/WeightedBoard/WeightedBoard';
 import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
-import { Container, SetCounterButtonWrapper } from './SetSelectForm.style';
+import {
+  Container,
+  SetCounterButtonWrapper,
+  SubTitle,
+} from './SetSelectForm.style';
 import { FormData } from '../StepForm/StepForm.type';
 import TextFiled from '../../components/TextFiled/TextField';
+import { setTypeItemsCount } from '../../../../store/modules/admin';
+import CheckboxWithLabel from '../../components/CheckboxWithLabel/CheckboxWithLabel';
 
 const SetSelectForm = (): JSX.Element => {
+  const dispatch = useDispatch();
   const { control, setValue, getValues } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -47,6 +54,7 @@ const SetSelectForm = (): JSX.Element => {
     if (MAX_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
     append({
       question: '',
+      weightCheckboxes: [],
       optionItems: [
         ...new Array(optionItemsCount).fill(0).map(() => {
           return {
@@ -84,6 +92,12 @@ const SetSelectForm = (): JSX.Element => {
     setValue('selectItems', addOptionItems);
 
     setOptionItemsCount((optionItemsCount) => optionItemsCount + 1);
+  };
+
+  const handleCheckbox = (event) => {
+    const checked = event.target.checked;
+    const key = event.target.value;
+    dispatch(setTypeItemsCount({ count: checked ? 1 : -1, key: key }));
   };
 
   return (
@@ -126,6 +140,12 @@ const SetSelectForm = (): JSX.Element => {
                 />
               );
             })}
+
+            <SubTitle>가중치 설정</SubTitle>
+            <CheckboxWithLabel
+              items={getValues('typeFormItems')}
+              name={`selectItems[${numberOfItemsIndex}].weightCheckboxes`}
+            />
           </BoxShadowCard>
         );
       })}
