@@ -3,19 +3,13 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
+import { setTypeItemsDictionary } from '../../../../store/modules/admin';
 import {
-  setTypeItemList,
-  setTypeItemsDictionary,
-} from '../../../../store/modules/admin';
-import {
-  SET_SELECT_FORM_ITEMS,
-  SET_TYPE_ITEMS,
-  CREATE_TITLE_ITEM_STEP,
-  IMAGE_UPLOAD_STEP,
+  SET_TITLE_ITEM_STEP,
+  SET_TYPE_ITEMS_STEP,
+  SET_SELECT_ITEMS_STEP,
   STEP_TITLE,
 } from '../../admin.const';
-import { useImageUploadStep } from '../../admin.hook';
-import ImageUpload from '../ImageUpload/ImageUpload';
 import SetSelectForm from '../SetSelectForm/SetSelectForm';
 import TitleForm from '../TitleForm/TitleForm';
 import TypeFormSection from '../TypeFormSection/TypeFormSection';
@@ -72,36 +66,35 @@ const validationSchema = [
 ];
 
 const StepForm = (): JSX.Element => {
-  const [step, setStep] = useState<number>(0);
-  const [isStepActive, setIsStepActive] = useState(
+  const [activeStep, setActiveStep] = useState<number>(0);
+  const [isActiveStep, setIsActiveStep] = useState(
     STEP_TITLE.map((_, index) => index === 0),
   );
   const dispatch = useDispatch();
 
-  const { imgFile, handleImgFile } = useImageUploadStep();
-
-  const currentValidationSchema = validationSchema[step];
+  const currentValidationSchema = validationSchema[activeStep];
 
   const methods = useForm<FormData>({
     defaultValues,
     resolver: yupResolver(currentValidationSchema),
     mode: 'onChange',
   });
-  const { setValue, getValues, handleSubmit, trigger } = methods;
+  const { getValues, handleSubmit, trigger } = methods;
 
   const handlePrev = () => {
-    if (step === CREATE_TITLE_ITEM_STEP) return;
+    if (activeStep === SET_TITLE_ITEM_STEP) return;
 
-    const copyArray = [...isStepActive];
-    copyArray[step] = false;
-    setIsStepActive(copyArray);
-    setStep((step) => step - 1);
+    const copyArray = [...isActiveStep];
+    copyArray[activeStep] = false;
+    setIsActiveStep(copyArray);
+    setActiveStep((activeStep) => activeStep - 1);
   };
 
   const handleNext = async () => {
-    // const isStepValid = await trigger();
+    const isStepValid = await trigger();
+    if (!isStepValid) return;
 
-    if (step === 1) {
+    if (activeStep === SET_TYPE_ITEMS_STEP) {
       dispatch(
         setTypeItemsDictionary({
           typeFormItems: getValues('typeFormItems').map(
@@ -111,36 +104,33 @@ const StepForm = (): JSX.Element => {
       );
     }
 
-    setStep((step) => step + 1);
+    const copyArray = [...isActiveStep];
+    copyArray[activeStep + 1] = true;
+    setIsActiveStep(copyArray);
+    setActiveStep((activeStep) => activeStep + 1);
+  };
 
-    // if (SET_TYPE_ITEMS === step) {
-    //   dispatch(setTypeItemsDictionary());
-    //   dispatch(setTypeItemList());
-    // }
-
-    // const copyArray = [...isStepActive];
-    // copyArray[step + 1] = true;
-    // setIsStepActive(copyArray);
-    // setStep((step) => step + 1);
+  const getStepContent = (step: number) => {
+    switch (step) {
+      case SET_TITLE_ITEM_STEP:
+        return <TitleForm />;
+      case SET_TYPE_ITEMS_STEP:
+        return <TypeFormSection />;
+      case SET_SELECT_ITEMS_STEP:
+        return <SetSelectForm />;
+    }
   };
 
   return (
     <Container>
-      <StepTitle>{STEP_TITLE[step]}</StepTitle>
+      <StepTitle>{STEP_TITLE[activeStep]}</StepTitle>
       <StepIndicator
-        currentStep={step}
-        isStepActive={isStepActive}
+        currentStep={activeStep}
+        isActiveStep={isActiveStep}
         stepLabel={STEP_TITLE}
       />
       <FormProvider {...methods}>
-        <Form>
-          {step === CREATE_TITLE_ITEM_STEP && <TitleForm />}
-          {/* {step === IMAGE_UPLOAD_STEP && (
-            <ImageUpload handleImgFile={handleImgFile} />
-          )} */}
-          {step === 1 && <TypeFormSection />}
-          {step === 2 && <SetSelectForm />}
-        </Form>
+        <Form>{getStepContent(activeStep)}</Form>
       </FormProvider>
       <ButtonWrapper>
         <TwoButton
@@ -148,8 +138,8 @@ const StepForm = (): JSX.Element => {
           rightButton={handleNext}
           leftName={'이전'}
           rightName={'다음'}
-          leftDisabled={step === CREATE_TITLE_ITEM_STEP}
-          rightDisabled={step === SET_SELECT_FORM_ITEMS}
+          leftDisabled={activeStep === SET_TITLE_ITEM_STEP}
+          rightDisabled={activeStep === SET_SELECT_ITEMS_STEP}
         />
       </ButtonWrapper>
     </Container>

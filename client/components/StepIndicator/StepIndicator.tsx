@@ -11,13 +11,13 @@ import {
 } from './StepIndicator.style';
 
 interface StepIndicatorProps {
-  isStepActive: Array<boolean>;
+  isActiveStep: Array<boolean>;
   stepLabel: Array<string>;
   currentStep: number;
 }
 
 const StepIndicator = ({
-  isStepActive,
+  isActiveStep,
   stepLabel,
   currentStep,
 }: StepIndicatorProps): JSX.Element => {
@@ -30,16 +30,16 @@ const StepIndicator = ({
               <>
                 <BasicBar />
                 <ProgressBar
-                  className={isStepActive[index - 1] ? 'active' : ''}
+                  className={isActiveStep[index - 1] ? 'active' : ''}
                 />
               </>
             )}
             <StepWrapper>
               <Step
-                isStepActive={isStepActive[index]}
+                isStepActive={isActiveStep[index]}
                 isCurrentStep={currentStep === index}
               >
-                {currentStep !== index && isStepActive[index] && <CheckIcon />}
+                {currentStep !== index && isActiveStep[index] && <CheckIcon />}
               </Step>
               <Label isCurrentStep={currentStep === index}>{label}</Label>
             </StepWrapper>
