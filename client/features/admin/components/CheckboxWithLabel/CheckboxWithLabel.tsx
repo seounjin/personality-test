@@ -1,5 +1,6 @@
 import React from 'react';
 import { useController, useWatch } from 'react-hook-form';
+import HelperText from '../HelperText/HelperText';
 import { TypeItems } from '../TypeForm/TypeForm.type';
 import {
   Checkbox,
@@ -52,7 +53,9 @@ const CheckboxWithLabel = ({
           </LabelWrapper>
         </Container>
       ))}
-      <div>{fieldState.error && fieldState.error.message}</div>
+      {fieldState.error && (
+        <HelperText text={fieldState.error.message}></HelperText>
+      )}
     </Wrapper>
   );
 };
