@@ -101,6 +101,16 @@ const StepForm = (): JSX.Element => {
   const handleNext = async () => {
     // const isStepValid = await trigger();
 
+    if (step === 1) {
+      dispatch(
+        setTypeItemsDictionary({
+          typeFormItems: getValues('typeFormItems').map(
+            ({ typeContent }) => typeContent,
+          ),
+        }),
+      );
+    }
+
     setStep((step) => step + 1);
 
     // if (SET_TYPE_ITEMS === step) {

@@ -165,9 +165,9 @@ const adminSlice = createSlice({
     setTypeItemList: (state) => {
       state.typeList = state.typeItems.map(({ typeContent }) => typeContent);
     },
-    setTypeItemsDictionary: (state) => {
-      state.typeDictionary = state.typeItems.reduce(
-        (dic, { typeContent }) => ({ ...dic, [typeContent]: 0 }),
+    setTypeItemsDictionary: (state, action) => {
+      state.typeDictionary = action.payload.typeFormItems.reduce(
+        (dic, type) => ({ ...dic, [type]: 0 }),
         {},
       );
     },

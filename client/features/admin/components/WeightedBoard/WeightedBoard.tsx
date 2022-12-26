@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
+import { RootState } from '../../../../store/modules';
 import {
   BoardContainer,
   BoardWrapper,
@@ -8,19 +10,19 @@ import {
   BoardItemWrapper,
 } from './WeightedBoard.style';
 
-interface Dictionary {
-  [key: string]: string;
-}
-
 interface WeightedBoardProps {
   items: Array<string>;
-  dictionary: Dictionary;
 }
 
-const WeightedBoard = ({
-  items,
-  dictionary,
-}: WeightedBoardProps): JSX.Element => {
+const WeightedBoard = ({ items }: WeightedBoardProps): JSX.Element => {
+  const { typeDictionary } = useSelector(
+    (state: RootState) => ({
+      typeList: state.admin.typeList,
+      typeDictionary: state.admin.typeDictionary,
+    }),
+    shallowEqual,
+  );
+
   return (
     <BoardContainer>
       {items.map((type, index) => (
@@ -30,7 +32,7 @@ const WeightedBoard = ({
               <Label>{type}</Label>
             </BoardItemWrapper>
             <BoardItemWrapper>
-              <Span>{dictionary[type]}</Span>
+              <Span>{typeDictionary[type]}</Span>
             </BoardItemWrapper>
           </Board>
         </BoardWrapper>

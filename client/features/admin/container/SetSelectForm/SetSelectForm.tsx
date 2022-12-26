@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../../store/modules';
 import {
   MIN_NUMBER_OF_ITEMS_COUNT,
   MAX_NUMBER_OF_ITEMS_COUNT,
@@ -18,11 +16,9 @@ import {
 } from './SetSelectForm.style';
 import { FormData } from '../StepForm/StepForm.type';
 import TextFiled from '../../components/TextFiled/TextField';
-import { setTypeItemsCount } from '../../../../store/modules/admin';
 import CheckboxWithLabel from '../../components/CheckboxWithLabel/CheckboxWithLabel';
 
 const SetSelectForm = (): JSX.Element => {
-  const dispatch = useDispatch();
   const { control, setValue, getValues } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -34,14 +30,6 @@ const SetSelectForm = (): JSX.Element => {
   );
   const [optionItemsCount, setOptionItemsCount] = useState(
     MIN_OPTION_ITEMS_COUNT,
-  );
-
-  const { typeList, typeDictionary } = useSelector(
-    (state: RootState) => ({
-      typeList: state.admin.typeList,
-      typeDictionary: state.admin.typeDictionary,
-    }),
-    shallowEqual,
   );
 
   const decreaseNumberOfItems = () => {
@@ -92,12 +80,6 @@ const SetSelectForm = (): JSX.Element => {
     setValue('selectItems', addOptionItems);
 
     setOptionItemsCount((optionItemsCount) => optionItemsCount + 1);
-  };
-
-  const handleCheckbox = (event) => {
-    const checked = event.target.checked;
-    const key = event.target.value;
-    dispatch(setTypeItemsCount({ count: checked ? 1 : -1, key: key }));
   };
 
   return (
@@ -151,7 +133,11 @@ const SetSelectForm = (): JSX.Element => {
       })}
 
       <BoxShadowCard subtitle={'가중치'}>
-        <WeightedBoard items={typeList} dictionary={typeDictionary} />
+        <WeightedBoard
+          items={getValues('typeFormItems').map(
+            ({ typeContent }) => typeContent,
+          )}
+        />
       </BoxShadowCard>
     </Container>
   );
