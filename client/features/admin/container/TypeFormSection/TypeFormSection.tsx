@@ -24,9 +24,7 @@ const TypeFormSection = () => {
   const handleIncrease = () => {
     if (MAX_TYPE_ITEMS_COUNT === count) return;
     append({
-      labelType: '유형',
       typeContent: '',
-      labelExplanation: '설명',
       explanationContent: '',
     });
     setCount((count) => count + 1);
@@ -44,21 +42,16 @@ const TypeFormSection = () => {
           maxCount={MAX_TYPE_ITEMS_COUNT}
         />
       </SetCounterButtonWrapper>
-      {fields.map(
-        (
-          { id, labelType, typeContent, labelExplanation, explanationContent },
-          index,
-        ) => (
-          <TypeForm
-            key={id}
-            index={index}
-            firstLabel={labelType}
-            firstContent={typeContent}
-            secondLabel={labelExplanation}
-            secondContent={explanationContent}
-          />
-        ),
-      )}
+      {fields.map(({ id, typeContent, explanationContent }, index) => (
+        <TypeForm
+          key={id}
+          index={index}
+          firstLabel={'유 형'}
+          firstContent={typeContent}
+          secondLabel={'설 명'}
+          secondContent={explanationContent}
+        />
+      ))}
     </Container>
   );
 };

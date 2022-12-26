@@ -29,9 +29,7 @@ const defaultValues = {
   explain: '',
   typeFormItems: [
     {
-      labelType: '유형',
       typeContent: '',
-      labelExplanation: '설명',
       explanationContent: '',
     },
   ],

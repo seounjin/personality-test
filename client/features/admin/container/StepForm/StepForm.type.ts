@@ -1,9 +1,7 @@
 import { SelectItems } from '../SelectCard/SelectCard.type';
 
 export interface TypeFormItem {
-  labelType: string;
   typeContent: string;
-  labelExplanation: string;
   explanationContent: string;
 }
 
