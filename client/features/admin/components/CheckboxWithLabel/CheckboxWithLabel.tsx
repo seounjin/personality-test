@@ -1,11 +1,8 @@
 import React from 'react';
 import { useController, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from '../../../../store/modules';
 import { setTypeItemsCount } from '../../../../store/modules/admin';
 import HelperText from '../HelperText/HelperText';
-import { TypeItems } from '../TypeForm/TypeForm.type';
 import {
   Checkbox,
   Wrapper,
@@ -14,9 +11,10 @@ import {
   LabelWrapper,
   CheckboxWrapper,
 } from './CheckboxWithLabel.style';
+import { WeightCheckboxes } from './CheckboxWithLabel.type';
 
 interface CheckboxWithLabelProps {
-  items: TypeItems[];
+  items: WeightCheckboxes[];
   name: string;
 }
 
@@ -25,12 +23,6 @@ const CheckboxWithLabel = ({
   name,
 }: CheckboxWithLabelProps): JSX.Element => {
   const dispatch = useDispatch();
-  const { typeDictionary } = useSelector(
-    (state: RootState) => ({
-      typeDictionary: state.admin.typeDictionary,
-    }),
-    shallowEqual,
-  );
 
   const {
     field: { onChange, ...rest },
@@ -41,9 +33,10 @@ const CheckboxWithLabel = ({
 
   const handleChange = (event, value) => {
     const isChecked = event.target.checked;
-    const newArray = isChecked
-      ? [...checkboxItems, value]
-      : checkboxItems.filter((data) => data !== value);
+    const newArray = checkboxItems.map((data) => ({
+      ...data,
+      isChecked: data.value === value ? isChecked : data.isChecked,
+    }));
 
     dispatch(setTypeItemsCount({ key: value, count: isChecked ? 1 : -1 }));
 
@@ -52,18 +45,19 @@ const CheckboxWithLabel = ({
 
   return (
     <Wrapper>
-      {items.map(({ typeContent }, index) => (
+      {items.map(({ isChecked, value }, index) => (
         <Container key={`t${index}`}>
           <CheckboxWrapper>
             <Checkbox
               type="checkbox"
-              value={typeContent}
+              value={value}
               {...rest}
-              onChange={(event) => handleChange(event, typeContent)}
+              onChange={(event) => handleChange(event, value)}
+              defaultChecked={isChecked}
             />
           </CheckboxWrapper>
           <LabelWrapper>
-            <Label>{typeContent}</Label>
+            <Label>{value}</Label>
           </LabelWrapper>
         </Container>
       ))}

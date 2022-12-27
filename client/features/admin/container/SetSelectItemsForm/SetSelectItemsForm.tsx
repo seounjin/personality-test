@@ -12,14 +12,17 @@ import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
 import {
   Container,
   SetCounterButtonWrapper,
+  SubmitButtonWrapper,
   SubTitle,
-} from './SetSelectForm.style';
+} from './SetSelectItemsForm.style';
 import { FormData } from '../StepForm/StepForm.type';
 import TextFiled from '../../components/TextFiled/TextField';
 import CheckboxWithLabel from '../../components/CheckboxWithLabel/CheckboxWithLabel';
+import { Button } from '../../../../components/TwoButton/TwoButton.style';
 
-const SetSelectForm = (): JSX.Element => {
-  const { control, setValue, getValues } = useFormContext<FormData>();
+const SetSelectItemsForm = (): JSX.Element => {
+  const { control, setValue, getValues, handleSubmit } =
+    useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'selectItems',
@@ -42,11 +45,13 @@ const SetSelectForm = (): JSX.Element => {
     if (MAX_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
     append({
       question: '',
-      weightCheckboxes: [],
       optionItems: [
         ...new Array(optionItemsCount).fill(0).map(() => {
           return {
             option: '',
+            weightCheckboxes: getValues('typeFormItems').map(
+              ({ typeContent }) => ({ isChecked: false, value: typeContent }),
+            ),
           };
         }),
       ],
@@ -74,12 +79,27 @@ const SetSelectForm = (): JSX.Element => {
 
     const selectItems = getValues('selectItems');
 
-    const addOptionItems = selectItems.map((data) => {
-      return { ...data, optionItems: [...data.optionItems, { option: '' }] };
+    const addOptionItems = selectItems.map((item) => {
+      return {
+        ...item,
+        optionItems: [
+          ...item.optionItems,
+          {
+            option: '',
+            weightCheckboxes: getValues('typeFormItems').map(
+              ({ typeContent }) => ({ isChecked: false, value: typeContent }),
+            ),
+          },
+        ],
+      };
     });
     setValue('selectItems', addOptionItems);
 
     setOptionItemsCount((optionItemsCount) => optionItemsCount + 1);
+  };
+
+  const onSubmit = (value) => {
+    console.log('값', value);
   };
 
   return (
@@ -113,21 +133,21 @@ const SetSelectForm = (): JSX.Element => {
               label={'질 문'}
               name={`selectItems[${numberOfItemsIndex}].question`}
             />
-            {optionItems.map((_, optionItemIndex) => {
+            {optionItems.map(({ weightCheckboxes }, optionItemIndex) => {
               return (
-                <TextFiled
-                  key={`n${optionItemIndex}`}
-                  label={`${optionItemIndex + 1}번 선택지`}
-                  name={`selectItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option`}
-                />
+                <React.Fragment key={`t${optionItemIndex}]`}>
+                  <TextFiled
+                    label={`${optionItemIndex + 1}번 선택지`}
+                    name={`selectItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option`}
+                  />
+                  <SubTitle>가중치 설정</SubTitle>
+                  <CheckboxWithLabel
+                    items={weightCheckboxes}
+                    name={`selectItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].weightCheckboxes`}
+                  />
+                </React.Fragment>
               );
             })}
-
-            <SubTitle>가중치 설정</SubTitle>
-            <CheckboxWithLabel
-              items={getValues('typeFormItems')}
-              name={`selectItems[${numberOfItemsIndex}].weightCheckboxes`}
-            />
           </BoxShadowCard>
         );
       })}
@@ -139,8 +159,12 @@ const SetSelectForm = (): JSX.Element => {
           )}
         />
       </BoxShadowCard>
+
+      <SubmitButtonWrapper>
+        <Button onClick={handleSubmit(onSubmit)}>등록</Button>
+      </SubmitButtonWrapper>
     </Container>
   );
 };
 
-export default SetSelectForm;
+export default SetSelectItemsForm;

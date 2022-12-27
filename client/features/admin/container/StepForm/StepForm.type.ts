@@ -1,4 +1,14 @@
-import { SelectItems } from '../SelectCard/SelectCard.type';
+import { WeightCheckboxes } from '../../components/CheckboxWithLabel/CheckboxWithLabel.type';
+
+interface OptionItems {
+  option: string;
+  weightCheckboxes: WeightCheckboxes[];
+}
+
+export interface SelectItems {
+  question: string;
+  optionItems: OptionItems[];
+}
 
 export interface TypeFormItem {
   typeContent: string;

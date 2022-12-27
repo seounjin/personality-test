@@ -10,10 +10,10 @@ import {
   SET_SELECT_ITEMS_STEP,
   STEP_TITLE,
 } from '../../admin.const';
-import SetSelectForm from '../SetSelectForm/SetSelectForm';
+import SetSelectItemsForm from '../SetSelectItemsForm/SetSelectItemsForm';
 import TitleForm from '../TitleForm/TitleForm';
 import TypeFormSection from '../TypeFormSection/TypeFormSection';
-import { ButtonWrapper, Container, Form, StepTitle } from './StepForm.style';
+import { TwoButtonWrapper, Container, Form, StepTitle } from './StepForm.style';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { FormData } from './StepForm.type';
@@ -28,13 +28,23 @@ const defaultValues = {
     },
   ],
   selectItems: [
-    { question: '', optionItems: [{ option: '' }], weightCheckboxes: [] },
+    { question: '', optionItems: [{ option: '', weightCheckboxes: [] }] },
   ],
 };
 
 const optionItemsArray = yup.array().of(
   yup.object().shape({
     option: yup.string().required('한글자 이상 채워주세요'),
+    weightCheckboxes: yup
+      .array()
+      .of(
+        yup.object().shape({
+          isChecked: yup.boolean(),
+        }),
+      )
+      .test('checkboxValidation', '하나 이상 체크해주세요', (items) => {
+        return items.some(({ isChecked }) => isChecked);
+      }),
   }),
 );
 
@@ -56,10 +66,6 @@ const validationSchema = [
       yup.object().shape({
         question: yup.string().required('한글자 이상 채워 주세요'),
         optionItems: optionItemsArray,
-        weightCheckboxes: yup
-          .array()
-          .min(1, 'You didnt enter enough')
-          .required('Required'),
       }),
     ),
   }),
@@ -79,7 +85,7 @@ const StepForm = (): JSX.Element => {
     resolver: yupResolver(currentValidationSchema),
     mode: 'onChange',
   });
-  const { getValues, handleSubmit, trigger } = methods;
+  const { getValues, setValue, trigger } = methods;
 
   const handlePrev = () => {
     if (activeStep === SET_TITLE_ITEM_STEP) return;
@@ -90,11 +96,31 @@ const StepForm = (): JSX.Element => {
     setActiveStep((activeStep) => activeStep - 1);
   };
 
+  const setWeightCheckboxes = () => {
+    const selectItems = getValues('selectItems')[0];
+    const optionItems = selectItems.optionItems[0];
+
+    setValue('selectItems', [
+      {
+        ...selectItems,
+        optionItems: [
+          {
+            ...optionItems,
+            weightCheckboxes: getValues('typeFormItems').map(
+              ({ typeContent }) => ({ isChecked: false, value: typeContent }),
+            ),
+          },
+        ],
+      },
+    ]);
+  };
+
   const handleNext = async () => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
 
     if (activeStep === SET_TYPE_ITEMS_STEP) {
+      setWeightCheckboxes();
       dispatch(
         setTypeItemsDictionary({
           typeFormItems: getValues('typeFormItems').map(
@@ -117,7 +143,7 @@ const StepForm = (): JSX.Element => {
       case SET_TYPE_ITEMS_STEP:
         return <TypeFormSection />;
       case SET_SELECT_ITEMS_STEP:
-        return <SetSelectForm />;
+        return <SetSelectItemsForm />;
     }
   };
 
@@ -132,7 +158,7 @@ const StepForm = (): JSX.Element => {
       <FormProvider {...methods}>
         <Form>{getStepContent(activeStep)}</Form>
       </FormProvider>
-      <ButtonWrapper>
+      <TwoButtonWrapper>
         <TwoButton
           leftButton={handlePrev}
           rightButton={handleNext}
@@ -141,7 +167,7 @@ const StepForm = (): JSX.Element => {
           leftDisabled={activeStep === SET_TITLE_ITEM_STEP}
           rightDisabled={activeStep === SET_SELECT_ITEMS_STEP}
         />
-      </ButtonWrapper>
+      </TwoButtonWrapper>
     </Container>
   );
 };

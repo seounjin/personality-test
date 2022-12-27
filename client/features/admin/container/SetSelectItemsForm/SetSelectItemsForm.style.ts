@@ -9,3 +9,11 @@ export const SetCounterButtonWrapper = styled.div`
 export const SubTitle = styled.h2`
   font-size: 1.5rem;
 `;
+
+export const SubmitButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  margin-bottom: 30px;
+  justify-content: center;
+  font-size: 1.4rem;
+`;

@@ -19,7 +19,7 @@ border-radius: 0;
 box-shadow: none;`}
 `;
 
-export const ButtonWrapper = styled.div`
+export const TwoButtonWrapper = styled.div`
   margin: 12px;
 `;
 
