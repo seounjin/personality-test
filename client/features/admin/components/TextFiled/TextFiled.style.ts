@@ -26,3 +26,10 @@ export const Input = styled.input`
   outline: none;
   border-radius: 2px;
 `;
+
+export const HelperTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  padding-left: 6px;
+`;

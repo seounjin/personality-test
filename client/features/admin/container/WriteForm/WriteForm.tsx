@@ -1,10 +1,10 @@
 import React from 'react';
 import InputForm from '../../../../components/InputForm/InputForm';
 import { SelectItems } from '../SelectCard/SelectCard.type';
-import CheckboxWithLabel from '../../components/CheckboxWithLabel/CheckboxWithLabel';
 import { TypeItems } from '../../components/TypeForm/TypeForm.type';
 import { SubTitle, InputFormWrapper } from './WriteForm.style';
 import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
+import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 
 const MInputForm = React.memo(InputForm);
 

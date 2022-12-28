@@ -34,7 +34,7 @@ const defaultValues = {
 
 const optionItemsArray = yup.array().of(
   yup.object().shape({
-    option: yup.string().required('한글자 이상 채워주세요'),
+    option: yup.string().required('한 글자 이상 채워주세요'),
     weightCheckboxes: yup
       .array()
       .of(
@@ -50,21 +50,21 @@ const optionItemsArray = yup.array().of(
 
 const validationSchema = [
   yup.object({
-    title: yup.string().required(),
-    explain: yup.string().required(),
+    title: yup.string().required('한 글자 이상 채워 주세요'),
+    explain: yup.string().required('한 글자 이상 채워 주세요'),
   }),
   yup.object({
     typeFormItems: yup.array().of(
       yup.object().shape({
-        typeContent: yup.string().required('한글자 이상 채워 주세요'),
-        explanationContent: yup.string().required('한글자 이상 채워 주세요'),
+        typeContent: yup.string().required('한 글자 이상 채워 주세요'),
+        explanationContent: yup.string().required('한 글자 이상 채워 주세요'),
       }),
     ),
   }),
   yup.object({
     selectItems: yup.array().of(
       yup.object().shape({
-        question: yup.string().required('한글자 이상 채워 주세요'),
+        question: yup.string().required('한 글자 이상 채워 주세요'),
         optionItems: optionItemsArray,
       }),
     ),

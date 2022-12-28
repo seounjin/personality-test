@@ -1,4 +1,4 @@
-import { WeightCheckboxes } from '../../components/CheckboxWithLabel/CheckboxWithLabel.type';
+import { WeightCheckboxes } from '../CheckboxWithLabel/CheckboxWithLabel.type';
 
 interface OptionItems {
   option: string;

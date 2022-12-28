@@ -17,8 +17,8 @@ import {
 } from './SetSelectItemsForm.style';
 import { FormData } from '../StepForm/StepForm.type';
 import TextFiled from '../../components/TextFiled/TextField';
-import CheckboxWithLabel from '../../components/CheckboxWithLabel/CheckboxWithLabel';
 import { Button } from '../../../../components/TwoButton/TwoButton.style';
+import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 
 const SetSelectItemsForm = (): JSX.Element => {
   const { control, setValue, getValues, handleSubmit } =

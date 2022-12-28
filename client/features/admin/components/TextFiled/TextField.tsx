@@ -1,7 +1,7 @@
 import React from 'react';
 import { useController } from 'react-hook-form';
 import HelperText from '../HelperText/HelperText';
-import { Container, Label, Input } from './TextFiled.style';
+import { Container, Label, Input, HelperTextWrapper } from './TextFiled.style';
 
 interface TextFieldProps {
   label: string;
@@ -15,9 +15,11 @@ const TextFiled = ({ label, name }: TextFieldProps): JSX.Element => {
     <Container>
       <Label>{label}</Label>
       <Input name={name} {...field} />
-      {fieldState.error && (
-        <HelperText text={fieldState.error.message}></HelperText>
-      )}
+      <HelperTextWrapper>
+        {fieldState.error && (
+          <HelperText text={fieldState.error.message}></HelperText>
+        )}
+      </HelperTextWrapper>
     </Container>
   );
 };

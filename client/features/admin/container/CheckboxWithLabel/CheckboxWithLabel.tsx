@@ -2,7 +2,8 @@ import React from 'react';
 import { useController, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { setTypeItemsCount } from '../../../../store/modules/admin';
-import HelperText from '../HelperText/HelperText';
+import HelperText from '../../components/HelperText/HelperText';
+import { HelperTextWrapper } from '../../components/TextFiled/TextFiled.style';
 import {
   Checkbox,
   Wrapper,
@@ -61,9 +62,11 @@ const CheckboxWithLabel = ({
           </LabelWrapper>
         </Container>
       ))}
-      {fieldState.error && (
-        <HelperText text={fieldState.error.message}></HelperText>
-      )}
+      <HelperTextWrapper>
+        {fieldState.error && (
+          <HelperText text={fieldState.error.message}></HelperText>
+        )}
+      </HelperTextWrapper>
     </Wrapper>
   );
 };
