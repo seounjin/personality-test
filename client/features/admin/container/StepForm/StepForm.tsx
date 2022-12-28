@@ -13,10 +13,17 @@ import {
 import SetSelectItemsForm from '../SetSelectItemsForm/SetSelectItemsForm';
 import TitleForm from '../TitleForm/TitleForm';
 import TypeFormSection from '../TypeFormSection/TypeFormSection';
-import { TwoButtonWrapper, Container, Form, StepTitle } from './StepForm.style';
+import {
+  TwoButtonWrapper,
+  Container,
+  Form,
+  StepTitle,
+  SubmitButtonWrapper,
+} from './StepForm.style';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { FormData } from './StepForm.type';
+import { Button } from '../../../../components/TwoButton/TwoButton.style';
 
 const defaultValues = {
   title: '',
@@ -85,7 +92,7 @@ const StepForm = (): JSX.Element => {
     resolver: yupResolver(currentValidationSchema),
     mode: 'onChange',
   });
-  const { getValues, setValue, trigger } = methods;
+  const { getValues, setValue, trigger, handleSubmit } = methods;
 
   const handlePrev = () => {
     if (activeStep === SET_TITLE_ITEM_STEP) return;
@@ -147,6 +154,10 @@ const StepForm = (): JSX.Element => {
     }
   };
 
+  const onSubmit = (value) => {
+    console.log('값', value);
+  };
+
   return (
     <Container>
       <StepTitle>{STEP_TITLE[activeStep]}</StepTitle>
@@ -157,6 +168,11 @@ const StepForm = (): JSX.Element => {
       />
       <FormProvider {...methods}>
         <Form>{getStepContent(activeStep)}</Form>
+        <SubmitButtonWrapper>
+          {SET_SELECT_ITEMS_STEP === activeStep && (
+            <Button onClick={handleSubmit(onSubmit)}>등록</Button>
+          )}
+        </SubmitButtonWrapper>
       </FormProvider>
       <TwoButtonWrapper>
         <TwoButton

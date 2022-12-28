@@ -12,12 +12,10 @@ import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
 import {
   Container,
   SetCounterButtonWrapper,
-  SubmitButtonWrapper,
   SubTitle,
 } from './SetSelectItemsForm.style';
 import { FormData } from '../StepForm/StepForm.type';
 import TextFiled from '../../components/TextFiled/TextField';
-import { Button } from '../../../../components/TwoButton/TwoButton.style';
 import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 
 const SetSelectItemsForm = (): JSX.Element => {
@@ -98,10 +96,6 @@ const SetSelectItemsForm = (): JSX.Element => {
     setOptionItemsCount((optionItemsCount) => optionItemsCount + 1);
   };
 
-  const onSubmit = (value) => {
-    console.log('값', value);
-  };
-
   return (
     <Container>
       <SetCounterButtonWrapper>
@@ -159,10 +153,6 @@ const SetSelectItemsForm = (): JSX.Element => {
           )}
         />
       </BoxShadowCard>
-
-      <SubmitButtonWrapper>
-        <Button onClick={handleSubmit(onSubmit)}>등록</Button>
-      </SubmitButtonWrapper>
     </Container>
   );
 };
