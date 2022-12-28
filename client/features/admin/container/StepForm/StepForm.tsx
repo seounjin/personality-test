@@ -37,6 +37,7 @@ const defaultValues = {
   selectItems: [
     { question: '', optionItems: [{ option: '', weightCheckboxes: [] }] },
   ],
+  typesDictionary: {},
 };
 
 const optionItemsArray = yup.array().of(
@@ -127,6 +128,13 @@ const StepForm = (): JSX.Element => {
     if (!isStepValid) return;
 
     if (activeStep === SET_TYPE_ITEMS_STEP) {
+      setValue(
+        'typesDictionary',
+        getValues('typeFormItems').reduce(
+          (dic, { typeContent }) => ({ ...dic, [typeContent]: 0 }),
+          {},
+        ),
+      );
       setWeightCheckboxes();
       dispatch(
         setTypeItemsDictionary({
@@ -154,8 +162,24 @@ const StepForm = (): JSX.Element => {
     }
   };
 
+  const duplicateCheckToWeight = (typesDictionary) => {
+    const set = new Set();
+    for (const key in typesDictionary) {
+      set.add(typesDictionary[key]);
+    }
+    return set.size !== Object.keys(typesDictionary).length;
+  };
+
   const onSubmit = (value) => {
-    console.log('값', value);
+    const { title, explain, selectItems, typeFormItems, typesDictionary } =
+      value;
+
+    if (duplicateCheckToWeight(typesDictionary)) {
+      alert('중복된 가중치 카운트가 있습니다.');
+      return;
+    }
+
+    console.log('value', value);
   };
 
   return (
@@ -168,11 +192,11 @@ const StepForm = (): JSX.Element => {
       />
       <FormProvider {...methods}>
         <Form>{getStepContent(activeStep)}</Form>
-        <SubmitButtonWrapper>
-          {SET_SELECT_ITEMS_STEP === activeStep && (
+        {SET_SELECT_ITEMS_STEP === activeStep && (
+          <SubmitButtonWrapper>
             <Button onClick={handleSubmit(onSubmit)}>등록</Button>
-          )}
-        </SubmitButtonWrapper>
+          </SubmitButtonWrapper>
+        )}
       </FormProvider>
       <TwoButtonWrapper>
         <TwoButton

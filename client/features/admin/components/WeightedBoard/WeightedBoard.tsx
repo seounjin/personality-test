@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from '../../../../store/modules';
+import { useWatch } from 'react-hook-form';
 import {
   BoardContainer,
   BoardWrapper,
@@ -15,13 +14,9 @@ interface WeightedBoardProps {
 }
 
 const WeightedBoard = ({ items }: WeightedBoardProps): JSX.Element => {
-  const { typeDictionary } = useSelector(
-    (state: RootState) => ({
-      typeList: state.admin.typeList,
-      typeDictionary: state.admin.typeDictionary,
-    }),
-    shallowEqual,
-  );
+  const typeDictionary = useWatch({
+    name: 'typesDictionary',
+  });
 
   return (
     <BoardContainer>

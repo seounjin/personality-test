@@ -20,4 +20,5 @@ export type FormData = {
   explain: string;
   typeFormItems: Array<TypeFormItem>;
   selectItems: SelectItems[];
+  typesDictionary: object;
 };

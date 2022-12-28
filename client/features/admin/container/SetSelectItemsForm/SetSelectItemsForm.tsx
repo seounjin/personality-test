@@ -19,8 +19,7 @@ import TextFiled from '../../components/TextFiled/TextField';
 import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 
 const SetSelectItemsForm = (): JSX.Element => {
-  const { control, setValue, getValues, handleSubmit } =
-    useFormContext<FormData>();
+  const { control, setValue, getValues } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'selectItems',
