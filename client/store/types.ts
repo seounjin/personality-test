@@ -1,16 +1,13 @@
-import { InputForm } from '../components/InputForm/InputForm.type';
-import { SelectItems } from '../features/admin/container/SelectCard/SelectCard.type';
 import {
-  TypeItems,
   TypeDictionary,
+  TypeFormItems,
 } from '../features/admin/components/TypeForm/TypeForm.type';
+import { SelectFormItems } from '../features/admin/container/SetSelectFormItems/SetSelectFormItems.type';
 
 export interface AdminInitialState {
-  userItem: InputForm[];
-  titleItems: InputForm[];
-  selectItems: SelectItems[];
-  imgUrl?: string;
-  typeItems: TypeItems[];
-  typeList: Array<string>;
+  title: string;
+  explain: string;
+  typeFormItems: TypeFormItems[];
   typeDictionary: TypeDictionary;
+  selectFormItems: SelectFormItems[];
 }

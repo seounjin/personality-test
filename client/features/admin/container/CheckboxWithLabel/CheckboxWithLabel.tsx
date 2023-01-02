@@ -1,8 +1,9 @@
 import React from 'react';
-import { useController, useFormContext, useWatch } from 'react-hook-form';
+import { useController, useWatch } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { handleChangeTypeDictionary } from '../../../../store/modules/admin';
 import HelperText from '../../components/HelperText/HelperText';
 import { HelperTextWrapper } from '../../components/TextFiled/TextFiled.style';
-import { FormData } from '../StepForm/StepForm.type';
 import {
   Checkbox,
   Wrapper,
@@ -22,7 +23,7 @@ const CheckboxWithLabel = ({
   items,
   name,
 }: CheckboxWithLabelProps): JSX.Element => {
-  const { setValue, getValues } = useFormContext<FormData>();
+  const dispatch = useDispatch();
 
   const {
     field: { onChange, ...rest },
@@ -38,14 +39,9 @@ const CheckboxWithLabel = ({
       isChecked: data.value === value ? isChecked : data.isChecked,
     }));
 
-    const typeDictionary = getValues('typesDictionary');
-
-    setValue('typesDictionary', {
-      ...typeDictionary,
-      [value]: isChecked
-        ? typeDictionary[value] + 1
-        : typeDictionary[value] - 1,
-    });
+    dispatch(
+      handleChangeTypeDictionary({ type: value, count: isChecked ? 1 : -1 }),
+    );
 
     onChange(newArray);
   };

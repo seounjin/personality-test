@@ -2,12 +2,15 @@ import React from 'react';
 import { Wrapper, Button } from './TwoButton.style';
 
 interface TwoButtonProps {
-  leftButton: (...props) => void;
-  rightButton: (...props) => void;
+  leftButton?: (...props) => void;
+  rightButton?: (...props) => void;
   leftName: string;
   rightName: string;
   leftDisabled?: boolean;
   rightDisabled?: boolean;
+  leftType?: 'button' | 'submit' | 'reset';
+  rightType?: 'button' | 'submit' | 'reset';
+  form?: string;
 }
 
 const TwoButton = ({
@@ -17,13 +20,26 @@ const TwoButton = ({
   rightName,
   leftDisabled = false,
   rightDisabled = false,
+  leftType = 'button',
+  rightType = 'button',
+  form = '',
 }: TwoButtonProps): JSX.Element => {
   return (
     <Wrapper>
-      <Button type="button" disabled={leftDisabled} onClick={leftButton}>
+      <Button
+        type={leftType}
+        form={form}
+        disabled={leftDisabled}
+        onClick={leftButton}
+      >
         {leftName}
       </Button>
-      <Button type="button" disabled={rightDisabled} onClick={rightButton}>
+      <Button
+        type={rightType}
+        form={form}
+        disabled={rightDisabled}
+        onClick={rightButton}
+      >
         {rightName}
       </Button>
     </Wrapper>

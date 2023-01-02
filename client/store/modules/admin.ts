@@ -3,33 +3,16 @@ import { AdminInitialState } from '../types';
 import fetcher from '../../api/fetcher';
 
 const initialState: AdminInitialState = {
-  userItem: [
-    { label: '아이디', type: 'id', defaultValue: '' },
-    { label: '비밀번호', type: 'password', defaultValue: '' },
-  ],
-  titleItems: [
-    { label: '제목', type: 'title', defaultValue: '' },
-    { label: '설명', type: 'explain', defaultValue: '' },
-  ],
-  typeItems: [
+  title: '',
+  explain: '',
+  typeFormItems: [
     {
-      labelType: '유형',
       typeContent: '',
-      labelExplanation: '설명',
       explanationContent: '',
     },
   ],
-  selectItems: [
-    {
-      type: 'question',
-      label: '질문',
-      question: '',
-      optionItems: [{ type: 'select_1', label: '1번선택지', option: '' }],
-    },
-  ],
+  selectFormItems: [],
   typeDictionary: {},
-  typeList: [],
-  imgUrl: 'imageholder.png',
 };
 
 interface FetchParms {
@@ -67,144 +50,62 @@ const adminSlice = createSlice({
   initialState,
   reducers: {
     reSetAdminData: () => initialState,
-
-    handleUser: (state, action) => {
-      const { index, value } = action.payload;
-      state.userItem[index] = { ...state.userItem[index], defaultValue: value };
+    setTitleFormItems: (state, action) => {
+      state.title = action.payload.title;
+      state.explain = action.payload.explain;
     },
-    handleTitle: (state, action) => {
-      const { index, value } = action.payload;
-      state.titleItems[index] = {
-        ...state.titleItems[index],
-        defaultValue: value,
-      };
+    setTypeFormItems: (state, action) => {
+      state.typeFormItems = action.payload.typeFormItems.map((data) => ({
+        ...data,
+      }));
     },
-    handlerSelectInput: (state, action) => {
-      const { index, optionIndex, name, value } = action.payload;
-      if (name === 'question') {
-        state.selectItems[index][name] = value;
-      } else {
-        const optionItems = state.selectItems[index]['optionItems'];
-        optionItems[optionIndex]['option'] = value;
-      }
-    },
-
-    setImageUrl: (state, action) => {
-      state.imgUrl = action.payload;
-    },
-    addTypeItems: (state) => {
-      state.typeItems = [
-        ...state.typeItems,
+    setSelctFormItems: (state, action) => {
+      const weightCheckboxes = action.payload.typeFormItems.map(
+        ({ typeContent }) => ({
+          isChecked: false,
+          value: typeContent,
+        }),
+      );
+      state.selectFormItems = [
         {
-          labelType: '유형',
-          typeContent: '',
-          labelExplanation: '설명',
-          explanationContent: '',
-        },
-      ];
-    },
-    removeTypeItems: (state) => {
-      const copyTypeItems = [...state.typeItems];
-      copyTypeItems.pop();
-      state.typeItems = copyTypeItems;
-    },
-    setTypeItems: (state, action) => {
-      const { index, key, value } = action.payload;
-      state.typeItems[index][key] = value;
-    },
-
-    addNumberOfItems: (state, action) => {
-      const optionItemsCount = action.payload.optionItemsCount;
-
-      state.selectItems = [
-        ...state.selectItems,
-        {
-          type: 'question',
-          label: '질문',
           question: '',
-          optionItems: new Array(optionItemsCount).fill(0).map((_, index) => ({
-            type: `select_${index + 1}`,
-            label: `${index + 1}번 선택지`,
-            option: '',
-          })),
+          optionItems: [
+            { option: '', weightCheckboxes: weightCheckboxes },
+            { option: '', weightCheckboxes: weightCheckboxes },
+          ],
         },
       ];
     },
-    removeNumberOfItems: (state) => {
-      const copyNumberOfItems = [...state.selectItems];
-      copyNumberOfItems.pop();
-      state.selectItems = copyNumberOfItems;
-    },
-
-    addOptionItems: (state, action) => {
-      const optionItemsCount = action.payload.optionItemsCount;
-      state.selectItems = state.selectItems.map((data) => {
-        return {
-          ...data,
-          optionItems: [
-            ...data.optionItems,
-            {
-              type: `select_${optionItemsCount}`,
-              label: `${optionItemsCount}번선택지`,
-              option: '',
-            },
-          ],
-        };
-      });
-    },
-    removeOptionItems: (state) => {
-      state.selectItems = state.selectItems.map((data) => {
-        const copyOptionItems = data.optionItems;
-        copyOptionItems.pop();
-        return {
-          ...data,
-          optionItems: [...copyOptionItems],
-        };
-      });
-    },
-    setTypeItemList: (state) => {
-      state.typeList = state.typeItems.map(({ typeContent }) => typeContent);
-    },
-    setTypeItemsDictionary: (state, action) => {
+    setTypeDictionary: (state, action) => {
       state.typeDictionary = action.payload.typeFormItems.reduce(
-        (dic, type) => ({ ...dic, [type]: 0 }),
+        (dic, { typeContent }) => ({ ...dic, [typeContent]: 0 }),
         {},
       );
     },
-    setTypeItemsCount: (state, action) => {
-      const key = action.payload.key;
+    handleChangeTypeDictionary: (state, action) => {
+      const type = action.payload.type;
       const count = action.payload.count;
-      state.typeDictionary[key] += count;
+      state.typeDictionary[type] += count;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
-      const { userItem, items, imgUrl } = action.payload;
-      state.userItem = state.userItem.map((data) => {
-        return { ...data, defaultValue: userItem[data.type] };
-      });
-
-      state.selectItems = items;
-      state.imgUrl = imgUrl;
+      // const { userItem, items, imgUrl } = action.payload;
+      // state.userItem = state.userItem.map((data) => {
+      //   return { ...data, defaultValue: userItem[data.type] };
+      // });
+      // state.selectItems = items;
+      // state.imgUrl = imgUrl;
     });
   },
 });
 
 export const {
   reSetAdminData,
-  handlerSelectInput,
-  handleUser,
-  handleTitle,
-  setImageUrl,
-  addTypeItems,
-  removeTypeItems,
-  setTypeItems,
-  addNumberOfItems,
-  removeNumberOfItems,
-  addOptionItems,
-  removeOptionItems,
-  setTypeItemList,
-  setTypeItemsDictionary,
-  setTypeItemsCount,
+  setTitleFormItems,
+  setTypeFormItems,
+  setSelctFormItems,
+  setTypeDictionary,
+  handleChangeTypeDictionary,
 } = adminSlice.actions;
 export default adminSlice.reducer;

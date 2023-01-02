@@ -5,10 +5,10 @@ interface OptionItems {
   weightCheckboxes: WeightCheckboxes[];
 }
 
-export interface SelectItems {
+export type SelectItems = {
   question: string;
   optionItems: OptionItems[];
-}
+};
 
 export interface TypeFormItem {
   typeContent: string;

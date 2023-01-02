@@ -1,5 +1,6 @@
 import React from 'react';
-import { useWatch } from 'react-hook-form';
+import { useSelector, shallowEqual } from 'react-redux';
+import { RootState } from '../../../../store/modules';
 import {
   BoardContainer,
   BoardWrapper,
@@ -9,25 +10,25 @@ import {
   BoardItemWrapper,
 } from './WeightedBoard.style';
 
-interface WeightedBoardProps {
-  items: Array<string>;
-}
-
-const WeightedBoard = ({ items }: WeightedBoardProps): JSX.Element => {
-  const typeDictionary = useWatch({
-    name: 'typesDictionary',
-  });
+const WeightedBoard = (): JSX.Element => {
+  const { typeFormItems, typeDictionary } = useSelector(
+    (state: RootState) => ({
+      typeFormItems: state.admin.typeFormItems,
+      typeDictionary: state.admin.typeDictionary,
+    }),
+    shallowEqual,
+  );
 
   return (
     <BoardContainer>
-      {items.map((type, index) => (
+      {typeFormItems.map(({ typeContent }, index) => (
         <BoardWrapper key={`b${index}`}>
           <Board>
             <BoardItemWrapper>
-              <Label>{type}</Label>
+              <Label>{typeContent}</Label>
             </BoardItemWrapper>
             <BoardItemWrapper>
-              <Span>{typeDictionary[type]}</Span>
+              <Span>{typeDictionary[typeContent]}</Span>
             </BoardItemWrapper>
           </Board>
         </BoardWrapper>
