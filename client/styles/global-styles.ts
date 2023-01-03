@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%;
     min-width: 320px;
+    height: 100%;
     font-family: 'NanumSquare', sans-serif; 
 
     button:hover{

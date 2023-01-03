@@ -6,9 +6,9 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 340px;
-  height: 300px;
+  height: 340px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    ${(props) => props.theme.colors.boxShadowBorderColor} 0px 0px 0px 2px;
   border-radius: 8px;
   margin-bottom: 40px;
 `;
@@ -34,4 +34,8 @@ export const TextFiledWrapper = styled.div`
   flex-direction: column;
   margin: 4px 0;
   font-size: 1.8rem;
+`;
+
+export const LabelWrapper = styled.div`
+  margin: 10px 0;
 `;

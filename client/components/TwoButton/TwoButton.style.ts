@@ -12,6 +12,12 @@ export const Button = styled.button`
   margin: 0 5px 0 5px;
   font-weight: 600;
   border-radius: 6px;
+  color: ${({ theme }) => theme.colors.buttonFontColor};
+  background-color: ${({ theme }) => theme.colors.buttonColor};
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.buttonDisabledColor};
+  }
 
   &:hover:enabled {
     cursor: pointer;

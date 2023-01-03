@@ -20,11 +20,15 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   width: 280px;
-  height: 28px;
+  height: 34px;
+  padding-left: 10px;
   margin: 4px 0 4px 0;
-  border: rgba(27, 31, 35, 0.15) solid 1.7px;
+  border: ${(props) => props.theme.colors.basicFontColor} solid 2px;
   outline: none;
-  border-radius: 2px;
+  border-radius: 4px;
+  &:focus {
+    border-color: ${(props) => props.theme.colors.textFiledFocusColor};
+  }
 `;
 
 export const HelperTextWrapper = styled.div`

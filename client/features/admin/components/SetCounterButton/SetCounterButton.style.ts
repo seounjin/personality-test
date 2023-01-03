@@ -24,7 +24,7 @@ interface ArrowIconProps {
 
 export const LeftArrowIcon = styled(leftArrowSvgIcon)<ArrowIconProps>`
   fill: ${({ theme, isDisabled }) =>
-    isDisabled ? theme.colors.buttonHoverColor : theme.colors.black};
+    isDisabled ? theme.colors.buttonHoverColor : theme.colors.buttonColor};
   &:hover {
     fill: ${({ theme }) => theme.colors.buttonHoverColor};
   }
@@ -32,7 +32,7 @@ export const LeftArrowIcon = styled(leftArrowSvgIcon)<ArrowIconProps>`
 
 export const RightArrowIcon = styled(rightArrowSvgIcon)<ArrowIconProps>`
   fill: ${({ theme, isDisabled }) =>
-    isDisabled ? theme.colors.buttonHoverColor : theme.colors.black};
+    isDisabled ? theme.colors.buttonHoverColor : theme.colors.buttonColor};
   &:hover {
     fill: ${({ theme }) => theme.colors.buttonHoverColor};
   }
@@ -52,6 +52,7 @@ export const Input = styled.input`
   margin: 0 4px;
   text-align: center;
   border: solid 2px black;
+  ${({ theme }) => theme.colors.buttonColor};
 `;
 
 export const Label = styled.label`

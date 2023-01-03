@@ -13,11 +13,24 @@ export const theme: DefaultTheme = {
     yellow: '#edb83c',
     orange: '#eb7952',
     lightGray: '#a2a2a2',
-    gray_background: '#f5f5f5',
-    progressBarColor: '#538AB9',
+    gray_background: '#F2F2F2',
+    progressBarColor: '#424874',
+    basicProgressBarColor: '#a2a2a2',
     stepColor: '#538AB9',
-    buttonHoverColor: '#c0c0c5',
     helperTextColor: '#f44336',
+    stepBackgroundColor: '#fff',
+    stepperColor: '#424874',
+    fillStepperColor: '#a2a2a2',
+    stepperFontColor: '#a2a2a2',
+    basicFontColor: '#1b300a',
+    buttonColor: '#424874',
+    buttonDisabledColor: '#A6B1E1',
+    buttonHoverColor: '#DCD6F7',
+    buttonFontColor: '#fff',
+    textFiledBorderColor: '#424874',
+    textFiledFocusColor: '#A6B1E1',
+    textAreaFocusColor: '#A6B1E1',
+    boxShadowBorderColor: '#424874',
   },
 
   device: {
@@ -40,4 +53,7 @@ export const theme: DefaultTheme = {
         }
       `,
   },
+  boxShadow: (): CSSProp =>
+    css`rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, ${(props) =>
+      props.theme.colors.boxShadowBorderColor} 0px 0px 0px 2px`,
 };

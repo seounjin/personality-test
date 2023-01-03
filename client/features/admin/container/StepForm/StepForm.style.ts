@@ -7,12 +7,11 @@ export const Container = styled.div`
   width: 100%;
   padding: 20px 0;
   margin: 20px 0;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.stepBackgroundColor};
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    ${(props) => props.theme.colors.boxShadowBorderColor} 0px 0px 0px 1px;
   border-radius: 8px;
-  height: 100%;
-
+  min-height: 100%;
   ${({ theme }) =>
     theme.device.mobile`
 border-radius: 0;

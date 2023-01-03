@@ -37,7 +37,7 @@ export const Step = styled.div<StepProps>`
       ? theme.colors.white
       : isStepActive
       ? theme.colors.progressBarColor
-      : theme.colors.lightGray};
+      : theme.colors.fillStepperColor};
 `;
 
 const animate = keyframes`
@@ -52,7 +52,7 @@ export const BasicBar = styled.div`
   top: 15px;
   left: calc(-50% + 20px);
   right: calc(50% + 20px);
-  background: ${({ theme }) => theme.colors.lightGray};
+  background: ${({ theme }) => theme.colors.basicProgressBarColor};
 `;
 
 export const ProgressBar = styled(BasicBar)`
@@ -71,5 +71,5 @@ export const Label = styled.label<LabelProps>`
   font-weight: bold;
   padding: 6px;
   color: ${({ theme, isCurrentStep }) =>
-    isCurrentStep ? theme.colors.black : theme.colors.lightGray};
+    isCurrentStep ? theme.colors.black : theme.colors.stepperFontColor};
 `;

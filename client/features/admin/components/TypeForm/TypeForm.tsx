@@ -1,7 +1,12 @@
 import React from 'react';
 import TextAreaInput from '../TextAreaInput/TextAreaInput';
 import TextFiled from '../TextFiled/TextField';
-import { Container, TextFiledWrapper, NumberLabel } from './TypeForm.style';
+import {
+  Container,
+  TextFiledWrapper,
+  NumberLabel,
+  LabelWrapper,
+} from './TypeForm.style';
 
 interface TypeFormProps {
   index: number;

@@ -10,9 +10,22 @@ declare module 'styled-components' {
       lightGray: string;
       gray_background: string;
       progressBarColor: string;
+      basicProgressBarColor: string;
       stepColor: string;
+      fillStepperColor: string;
+      stepperFontColor: string;
       buttonHoverColor: string;
       helperTextColor: string;
+      stepBackgroundColor: string;
+      stepperColor: string;
+      basicFontColor: string;
+      buttonColor: string;
+      buttonFontColor: string;
+      buttonDisabledColor: string;
+      textFiledBorderColor: string;
+      textFiledFocusColor: string;
+      textAreaFocusColor: string;
+      boxShadowBorderColor: string;
     };
 
     device: {
@@ -20,5 +33,6 @@ declare module 'styled-components' {
       tablet: (literals: TemplateStringsArray, ...args: string[]) => CSSProp;
       laptop: (literals: TemplateStringsArray, ...args: string[]) => CSSProp;
     };
+    boxShadow: () => CSSProp;
   }
 }
