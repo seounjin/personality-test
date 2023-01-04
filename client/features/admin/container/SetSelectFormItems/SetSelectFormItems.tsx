@@ -10,7 +10,6 @@ import SetCounterButton from '../../components/SetCounterButton/SetCounterButton
 import WeightedBoard from '../../components/WeightedBoard/WeightedBoard';
 import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
 import TextFiled from '../../components/TextFiled/TextField';
-import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 import {
   Form,
   Container,
@@ -44,9 +43,27 @@ const SetSelectFormItems = ({
     name: 'selectFormItems',
   });
 
+  const setWeightedScoreItems = () =>
+    typeFormItems.map(({ typeContent }) => ({
+      type: typeContent,
+      score: 0,
+    }));
+
+  const setWeightedScoreItemsOfSelectFormItem = () =>
+    fields.map((item) => ({
+      ...item,
+      optionItems: item.optionItems.map((optionItem) => ({
+        ...optionItem,
+        weightedScoreItems: setWeightedScoreItems(),
+      })),
+    }));
+
   useEffect(() => {
     if (!fields.length) {
       setValue('selectFormItems', selectFormItems);
+    } else {
+      const res = setWeightedScoreItemsOfSelectFormItem();
+      setValue('selectFormItems', res);
     }
   }, []);
 
@@ -71,10 +88,7 @@ const SetSelectFormItems = ({
         ...new Array(optionItemsCount).fill(0).map(() => {
           return {
             option: '',
-            weightedScoreItems: typeFormItems.map(({ typeContent }) => ({
-              type: typeContent,
-              score: 0,
-            })),
+            weightedScoreItems: setWeightedScoreItems(),
           };
         }),
       ],
@@ -109,10 +123,7 @@ const SetSelectFormItems = ({
           ...item.optionItems,
           {
             option: '',
-            weightedScoreItems: typeFormItems.map(({ typeContent }) => ({
-              type: typeContent,
-              score: 0,
-            })),
+            weightedScoreItems: setWeightedScoreItems(),
           },
         ],
       };

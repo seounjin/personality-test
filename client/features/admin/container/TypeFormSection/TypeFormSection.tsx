@@ -11,7 +11,6 @@ import {
 import {
   setSelctFormItems,
   setTypeFormItems,
-  setTypeDictionary,
   setTypeItemsCount,
 } from '../../../../store/modules/admin';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -58,7 +57,6 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
     const { typeFormItems } = data;
     dispatch(setTypeFormItems({ typeFormItems: [...typeFormItems] }));
     dispatch(setSelctFormItems({ typeFormItems: [...typeFormItems] }));
-    dispatch(setTypeDictionary({ typeFormItems: [...typeFormItems] }));
     handleNext();
   };
 
