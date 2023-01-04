@@ -49,12 +49,20 @@ const SetSelectFormItems = ({
       score: 0,
     }));
 
+  const beforeWeightedScoreItems = (item) =>
+    typeFormItems.map(({ typeContent }, index) => ({
+      type: typeContent,
+      score: item[index].score ? item[index].score : 0,
+    }));
+
   const setWeightedScoreItemsOfSelectFormItem = () =>
     fields.map((item) => ({
       ...item,
       optionItems: item.optionItems.map((optionItem) => ({
         ...optionItem,
-        weightedScoreItems: setWeightedScoreItems(),
+        weightedScoreItems: beforeWeightedScoreItems(
+          optionItem.weightedScoreItems,
+        ),
       })),
     }));
 
