@@ -26,3 +26,10 @@ export const LabelWrapper = styled.div`
 export const Label = styled.label`
   font-size: 1.5rem;
 `;
+
+export const HelperTextWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+`;

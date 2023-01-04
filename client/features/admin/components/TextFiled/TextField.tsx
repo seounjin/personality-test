@@ -16,9 +16,7 @@ const TextFiled = ({ label, name }: TextFieldProps): JSX.Element => {
       <Label>{label}</Label>
       <Input name={name} {...field} />
       <HelperTextWrapper>
-        {fieldState.error && (
-          <HelperText text={fieldState.error.message}></HelperText>
-        )}
+        {fieldState.error && <HelperText text={fieldState.error.message} />}
       </HelperTextWrapper>
     </Container>
   );

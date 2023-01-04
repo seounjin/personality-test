@@ -7,7 +7,6 @@ import {
   MAX_OPTION_ITEMS_COUNT,
 } from '../../admin.const';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
-import WeightedBoard from '../../components/WeightedBoard/WeightedBoard';
 import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
 import TextFiled from '../../components/TextFiled/TextField';
 import {
@@ -36,7 +35,8 @@ const SetSelectFormItems = ({
     shallowEqual,
   );
 
-  const { control, setValue, getValues } = useFormContext<SelectFormValues>();
+  const { control, setValue, getValues, handleSubmit, trigger } =
+    useFormContext<SelectFormValues>();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -133,8 +133,16 @@ const SetSelectFormItems = ({
     setOptionItemsCount((optionItemsCount) => optionItemsCount + 1);
   };
 
+  const onSubmit = async () => {
+    const isStepValid = await trigger();
+    console.log('isStepValid', isStepValid);
+    if (!isStepValid) return;
+
+    handleNext();
+  };
+
   return (
-    <Form id="selectForm">
+    <Form id="selectForm" onSubmit={handleSubmit(onSubmit)}>
       <Container>
         <SetCounterButtonWrapper>
           <SetCounterButton
@@ -186,10 +194,6 @@ const SetSelectFormItems = ({
             </BoxShadowCard>
           );
         })}
-
-        <BoxShadowCard subtitle={'가중치'}>
-          <WeightedBoard />
-        </BoxShadowCard>
       </Container>
     </Form>
   );

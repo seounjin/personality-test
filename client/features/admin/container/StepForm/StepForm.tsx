@@ -3,8 +3,8 @@ import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
 import {
   SET_TITLE_ITEM_STEP,
-  SET_SELECT_ITEMS_STEP,
   STEP_TITLE,
+  FINAL_CONFIRMATION,
 } from '../../admin.const';
 import { TwoButtonWrapper, Container, StepTitle } from './StepForm.style';
 import { useSteps } from '../../hooks/useSteps';
@@ -49,7 +49,7 @@ const StepForm = (): JSX.Element => {
           leftName={'이전'}
           rightName={'다음'}
           leftDisabled={activeStep === SET_TITLE_ITEM_STEP}
-          rightDisabled={activeStep === SET_SELECT_ITEMS_STEP}
+          rightDisabled={activeStep === FINAL_CONFIRMATION}
           leftType={'button'}
           rightType={'submit'}
           form={steps[activeStep].name}

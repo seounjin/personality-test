@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { Step } from '../admin.types';
+import FinalConfirmationForm from '../container/FinalConfirmationForm/FinalConfirmationForm';
 import SetSelectFormItems from '../container/SetSelectFormItems/SetSelectFormItems';
 import TitleForm from '../container/TitleForm/TitleForm';
 import TypeFormSection from '../container/TypeFormSection/TypeFormSection';
@@ -35,6 +36,11 @@ export const useSteps = () => {
             <SetSelectFormItems handleNext={handleNext} />
           </FormProvider>
         ),
+      },
+
+      {
+        name: 'resultForm',
+        Element: () => <FinalConfirmationForm />,
       },
     ],
     [selectFormItemsMethods, titleFormMethods, typeFormMethods],

@@ -3,4 +3,4 @@ export interface Step {
   Element: ({ handleNext }: StepComponentProps) => JSX.Element;
 }
 
-type StepComponentProps = { handleNext: () => void };
+type StepComponentProps = { handleNext?: () => void };

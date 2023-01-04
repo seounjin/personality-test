@@ -1,9 +1,9 @@
 export const SET_TITLE_ITEM_STEP = 0;
-// export const IMAGE_UPLOAD_STEP = 1;
 export const SET_TYPE_ITEMS_STEP = 1;
 export const SET_SELECT_ITEMS_STEP = 2;
+export const FINAL_CONFIRMATION = 3;
 
-export const STEP_TITLE = ['제목', '유형 설정', '선택지 설정'];
+export const STEP_TITLE = ['제목', '유형 설정', '선택지 설정', '최종 확인'];
 
 export const MIN_NUMBER_OF_ITEMS_COUNT = 1;
 export const MAX_NUMBER_OF_ITEMS_COUNT = 12;

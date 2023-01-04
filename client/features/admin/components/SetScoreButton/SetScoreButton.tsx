@@ -23,7 +23,7 @@ const SetScoreButton = ({
   maxScore,
   onLeftButtonClick,
   onRightButtonClick,
-}: SetScoreButtonProps): JSX.Element => {
+}: SetScoreButtonProps) => {
   return (
     <Wrapper>
       <Container>

@@ -1,11 +1,13 @@
 import React from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useController, useFormContext, useWatch } from 'react-hook-form';
+import HelperText from '../../components/HelperText/HelperText';
 import SetScoreButton from '../../components/SetScoreButton/SetScoreButton';
 import {
   Container,
   Label,
   LabelWrapper,
   Wrapper,
+  HelperTextWrapper,
 } from './SetWeightSection.style';
 
 interface SetWeightSectionRrops {
@@ -14,7 +16,7 @@ interface SetWeightSectionRrops {
 
 const SetWeightSection = ({ name }: SetWeightSectionRrops): JSX.Element => {
   const { control, setValue, getValues } = useFormContext();
-
+  const { fieldState } = useController({ name });
   const items = useWatch({ control, name: name });
 
   const getWeightedScoreItems = () => [...getValues(name)];
@@ -47,6 +49,9 @@ const SetWeightSection = ({ name }: SetWeightSectionRrops): JSX.Element => {
           />
         </Wrapper>
       ))}
+      <HelperTextWrapper>
+        {fieldState.error && <HelperText text={fieldState.error.message} />}
+      </HelperTextWrapper>
     </Container>
   );
 };
