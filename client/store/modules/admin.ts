@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import { AdminInitialState } from '../types';
 import fetcher from '../../api/fetcher';
-import { MIN_TYPE_ITEMS_COUNT } from '../../features/admin/admin.const';
+import {
+  MIN_NUMBER_OF_ITEMS_COUNT,
+  MIN_OPTION_ITEMS_COUNT,
+  MIN_TYPE_ITEMS_COUNT,
+} from '../../features/admin/admin.const';
 
 const initialState: AdminInitialState = {
   title: '',
@@ -15,6 +19,8 @@ const initialState: AdminInitialState = {
   selectFormItems: [],
   typeDictionary: {},
   typeItemsCount: MIN_TYPE_ITEMS_COUNT,
+  numberOfItemsCount: MIN_NUMBER_OF_ITEMS_COUNT,
+  optionItemsCount: MIN_OPTION_ITEMS_COUNT,
 };
 
 interface FetchParms {
@@ -92,6 +98,12 @@ const adminSlice = createSlice({
       const count = action.payload.count;
       state.typeDictionary[type] += count;
     },
+    setNumberOfItemsCount: (state, action) => {
+      state.numberOfItemsCount += action.payload.count;
+    },
+    setOptionItemsCount: (state, action) => {
+      state.optionItemsCount += action.payload.count;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
@@ -113,5 +125,7 @@ export const {
   setTypeDictionary,
   handleChangeTypeDictionary,
   setTypeItemsCount,
+  setNumberOfItemsCount,
+  setOptionItemsCount,
 } = adminSlice.actions;
 export default adminSlice.reducer;

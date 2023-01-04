@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import {
   MIN_NUMBER_OF_ITEMS_COUNT,
@@ -19,6 +19,11 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../../../store/modules';
 import { SelectFormValues } from './SetSelectFormItems.type';
 import SetWeightSection from '../SetWeightSection/SetWeightSection';
+import {
+  setNumberOfItemsCount,
+  setOptionItemsCount,
+} from '../../../../store/modules/admin';
+import { useDispatch } from 'react-redux';
 
 interface SetSelectItemsFormProps {
   handleNext: () => void;
@@ -27,10 +32,17 @@ interface SetSelectItemsFormProps {
 const SetSelectFormItems = ({
   handleNext,
 }: SetSelectItemsFormProps): JSX.Element => {
-  const { selectFormItems, typeFormItems } = useSelector(
+  const {
+    selectFormItems,
+    typeFormItems,
+    numberOfItemsCount,
+    optionItemsCount,
+  } = useSelector(
     (state: RootState) => ({
       typeFormItems: state.admin.typeFormItems,
       selectFormItems: state.admin.selectFormItems,
+      numberOfItemsCount: state.admin.numberOfItemsCount,
+      optionItemsCount: state.admin.optionItemsCount,
     }),
     shallowEqual,
   );
@@ -75,17 +87,12 @@ const SetSelectFormItems = ({
     }
   }, []);
 
-  const [numberOfItemsCount, setNumberOfItemsCount] = useState(
-    MIN_NUMBER_OF_ITEMS_COUNT,
-  );
-  const [optionItemsCount, setOptionItemsCount] = useState(
-    MIN_OPTION_ITEMS_COUNT,
-  );
+  const dispatch = useDispatch();
 
   const decreaseNumberOfItems = () => {
     if (MIN_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
     remove(numberOfItemsCount - 1);
-    setNumberOfItemsCount((numberOfItemsCount) => numberOfItemsCount - 1);
+    dispatch(setNumberOfItemsCount({ count: -1 }));
   };
 
   const inCreaseNumberOfItems = () => {
@@ -101,7 +108,7 @@ const SetSelectFormItems = ({
         }),
       ],
     });
-    setNumberOfItemsCount((numberOfItemsCount) => numberOfItemsCount + 1);
+    dispatch(setNumberOfItemsCount({ count: 1 }));
   };
 
   const decreaeOptionItemsCount = () => {
@@ -116,7 +123,7 @@ const SetSelectFormItems = ({
     });
 
     setValue('selectFormItems', removeOptionItems);
-    setOptionItemsCount((optionItemsCount) => optionItemsCount - 1);
+    dispatch(setOptionItemsCount({ count: -1 }));
   };
 
   const increaseOptionItemsCount = () => {
@@ -137,8 +144,7 @@ const SetSelectFormItems = ({
       };
     });
     setValue('selectFormItems', addOptionItems);
-
-    setOptionItemsCount((optionItemsCount) => optionItemsCount + 1);
+    dispatch(setOptionItemsCount({ count: 1 }));
   };
 
   const onSubmit = async () => {
