@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { MAX_TYPE_ITEMS_COUNT, MIN_TYPE_ITEMS_COUNT } from '../../admin.const';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
@@ -12,9 +12,11 @@ import {
   setSelctFormItems,
   setTypeFormItems,
   setTypeDictionary,
+  setTypeItemsCount,
 } from '../../../../store/modules/admin';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { TypeItemValues } from '../../components/TypeForm/TypeForm.type';
+import { RootState } from '../../../../store/modules';
 
 interface TypeFormSectionProps {
   handleNext: () => void;
@@ -26,25 +28,29 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
     control,
     name: 'typeFormItems',
   });
+  const { typeItemsCount } = useSelector(
+    (state: RootState) => ({
+      typeItemsCount: state.admin.typeItemsCount,
+    }),
+    shallowEqual,
+  );
 
-  const [count, setCount] = useState<number>(MIN_TYPE_ITEMS_COUNT);
+  const dispatch = useDispatch();
 
   const handleDecrease = () => {
-    if (MIN_TYPE_ITEMS_COUNT === count) return;
-    remove(count - 1);
-    setCount((count) => count - 1);
+    if (MIN_TYPE_ITEMS_COUNT === typeItemsCount) return;
+    dispatch(setTypeItemsCount({ count: -1 }));
+    remove(typeItemsCount - 1);
   };
 
   const handleIncrease = () => {
-    if (MAX_TYPE_ITEMS_COUNT === count) return;
+    if (MAX_TYPE_ITEMS_COUNT === typeItemsCount) return;
+    dispatch(setTypeItemsCount({ count: 1 }));
     append({
       typeContent: '',
       explanationContent: '',
     });
-    setCount((count) => count + 1);
   };
-
-  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     const isStepValid = await trigger();
@@ -66,7 +72,7 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
         <SetCounterButtonWrapper>
           <SetCounterButton
             label={'유형 수 설정'}
-            count={count}
+            count={typeItemsCount}
             onLeftButtonClick={handleDecrease}
             onRightButtonClick={handleIncrease}
             minCount={MIN_TYPE_ITEMS_COUNT}

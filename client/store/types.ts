@@ -8,6 +8,7 @@ export interface AdminInitialState {
   title: string;
   explain: string;
   typeFormItems: TypeFormItems[];
+  typeItemsCount: number;
   typeDictionary: TypeDictionary;
   selectFormItems: SelectFormItems[];
 }
