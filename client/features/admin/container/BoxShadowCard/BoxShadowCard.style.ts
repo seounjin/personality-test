@@ -19,5 +19,5 @@ export const SubTitleWrapper = styled.div`
 
 export const SubTitle = styled.h2`
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 `;

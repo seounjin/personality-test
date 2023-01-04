@@ -1,8 +1,11 @@
-import { WeightCheckboxes } from '../CheckboxWithLabel/CheckboxWithLabel.type';
+export interface WeightedScoreItem {
+  type: string;
+  score: number;
+}
 
 interface OptionItems {
   option: string;
-  weightCheckboxes: WeightCheckboxes[];
+  weightedScoreItems: WeightedScoreItem[];
 }
 
 export interface SelectFormItems {

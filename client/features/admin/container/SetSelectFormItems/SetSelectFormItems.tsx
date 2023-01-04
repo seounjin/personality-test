@@ -20,6 +20,7 @@ import {
 import { useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../../../store/modules';
 import { SelectFormValues } from './SetSelectFormItems.type';
+import SetWeightSection from '../SetWeightSection/SetWeightSection';
 
 interface SetSelectItemsFormProps {
   handleNext: () => void;
@@ -70,9 +71,9 @@ const SetSelectFormItems = ({
         ...new Array(optionItemsCount).fill(0).map(() => {
           return {
             option: '',
-            weightCheckboxes: typeFormItems.map(({ typeContent }) => ({
-              isChecked: false,
-              value: typeContent,
+            weightedScoreItems: typeFormItems.map(({ typeContent }) => ({
+              type: typeContent,
+              score: 0,
             })),
           };
         }),
@@ -108,9 +109,9 @@ const SetSelectFormItems = ({
           ...item.optionItems,
           {
             option: '',
-            weightCheckboxes: typeFormItems.map(({ typeContent }) => ({
-              isChecked: false,
-              value: typeContent,
+            weightedScoreItems: typeFormItems.map(({ typeContent }) => ({
+              type: typeContent,
+              score: 0,
             })),
           },
         ],
@@ -153,7 +154,7 @@ const SetSelectFormItems = ({
                 label={'질 문'}
                 name={`selectFormItems[${numberOfItemsIndex}].question`}
               />
-              {optionItems.map(({ weightCheckboxes }, optionItemIndex) => {
+              {optionItems.map((_, optionItemIndex) => {
                 return (
                   <React.Fragment key={`t${optionItemIndex}]`}>
                     <TextFiled
@@ -162,11 +163,10 @@ const SetSelectFormItems = ({
                         `selectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option` as const
                       }
                     />
-                    <SubTitle>가중치 설정</SubTitle>
-                    <CheckboxWithLabel
-                      items={weightCheckboxes}
+                    <SubTitle>유형별 가중치 설정</SubTitle>
+                    <SetWeightSection
                       name={
-                        `selectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].weightCheckboxes` as const
+                        `selectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].weightedScoreItems` as const
                       }
                     />
                   </React.Fragment>

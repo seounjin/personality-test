@@ -62,18 +62,18 @@ const adminSlice = createSlice({
       }));
     },
     setSelctFormItems: (state, action) => {
-      const weightCheckboxes = action.payload.typeFormItems.map(
+      const weightedScoreItems = action.payload.typeFormItems.map(
         ({ typeContent }) => ({
-          isChecked: false,
-          value: typeContent,
+          type: typeContent,
+          score: 0,
         }),
       );
       state.selectFormItems = [
         {
           question: '',
           optionItems: [
-            { option: '', weightCheckboxes: weightCheckboxes },
-            { option: '', weightCheckboxes: weightCheckboxes },
+            { option: '', weightedScoreItems: weightedScoreItems },
+            { option: '', weightedScoreItems: weightedScoreItems },
           ],
         },
       ];
