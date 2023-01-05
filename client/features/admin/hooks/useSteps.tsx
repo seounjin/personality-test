@@ -3,21 +3,24 @@ import { FormProvider } from 'react-hook-form';
 import { Step } from '../admin.types';
 import FinalConfirmationForm from '../container/FinalConfirmationForm/FinalConfirmationForm';
 import SetSelectFormItems from '../container/SetSelectFormItems/SetSelectFormItems';
-import TitleForm from '../container/TitleForm/TitleForm';
+import BasicInformationForm from '../container/BasicInformationForm/BasicInformationForm';
 import TypeFormSection from '../container/TypeFormSection/TypeFormSection';
 import { useFormMethods } from './useFormMethods';
 
 export const useSteps = () => {
-  const { titleFormMethods, typeFormMethods, selectFormItemsMethods } =
-    useFormMethods();
+  const {
+    basicInformationFormMethods,
+    typeFormMethods,
+    selectFormItemsMethods,
+  } = useFormMethods();
 
   const steps = useMemo<Step[]>(
     () => [
       {
-        name: 'titleForm',
+        name: 'basicInformationForm',
         Element: ({ handleNext }) => (
-          <FormProvider {...titleFormMethods}>
-            <TitleForm handleNext={handleNext} />
+          <FormProvider {...basicInformationFormMethods}>
+            <BasicInformationForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
@@ -42,7 +45,7 @@ export const useSteps = () => {
         Element: () => <FinalConfirmationForm />,
       },
     ],
-    [selectFormItemsMethods, titleFormMethods, typeFormMethods],
+    [selectFormItemsMethods, basicInformationFormMethods, typeFormMethods],
   );
 
   return { steps };

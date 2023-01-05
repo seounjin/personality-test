@@ -1,4 +1,4 @@
-export const SET_TITLE_ITEM_STEP = 0;
+export const BASIC_INFORMATION_FORM = 0;
 export const SET_TYPE_ITEMS_STEP = 1;
 export const SET_SELECT_ITEMS_STEP = 2;
 export const FINAL_CONFIRMATION = 3;

@@ -1,15 +1,17 @@
 import React from 'react';
-import { Form } from './TitleForm.style';
+import { Form } from './BasicInformationForm.style';
 import TextFiled from '../../components/TextFiled/TextField';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { setTitleFormItems } from '../../../../store/modules/admin';
+import { setBasicInformationForm } from '../../../../store/modules/admin';
 
-interface TitleForm {
+interface BasicInformationFormProps {
   handleNext: () => void;
 }
 
-const TitleForm = ({ handleNext }): JSX.Element => {
+const BasicInformationForm = ({
+  handleNext,
+}: BasicInformationFormProps): JSX.Element => {
   const { handleSubmit, trigger } = useFormContext();
   const dispatch = useDispatch();
 
@@ -17,16 +19,16 @@ const TitleForm = ({ handleNext }): JSX.Element => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
     const { title, explain } = data;
-    dispatch(setTitleFormItems({ title: title, explain: explain }));
+    dispatch(setBasicInformationForm({ title: title, explain: explain }));
     handleNext();
   };
 
   return (
-    <Form id="titleForm" onSubmit={handleSubmit(onSubmit)}>
+    <Form id="basicInformationForm" onSubmit={handleSubmit(onSubmit)}>
       <TextFiled label={'제 목'} name={'title'} />
       <TextFiled label={'설 명'} name={'explain'} />
     </Form>
   );
 };
 
-export default TitleForm;
+export default BasicInformationForm;

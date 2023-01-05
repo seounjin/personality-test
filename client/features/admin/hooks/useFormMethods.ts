@@ -17,7 +17,7 @@ export const useFormMethods = () => {
     shallowEqual,
   );
 
-  const titleFormMethods = useForm({
+  const basicInformationFormMethods = useForm({
     resolver: yupResolver(titleFormSchema),
     defaultValues: { title, explain },
     mode: 'onChange',
@@ -33,5 +33,9 @@ export const useFormMethods = () => {
     defaultValues: { selectFormItems: [...selectFormItems] },
   });
 
-  return { titleFormMethods, typeFormMethods, selectFormItemsMethods };
+  return {
+    basicInformationFormMethods,
+    typeFormMethods,
+    selectFormItemsMethods,
+  };
 };

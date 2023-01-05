@@ -58,7 +58,7 @@ const adminSlice = createSlice({
   initialState,
   reducers: {
     reSetAdminData: () => initialState,
-    setTitleFormItems: (state, action) => {
+    setBasicInformationForm: (state, action) => {
       state.title = action.payload.title;
       state.explain = action.payload.explain;
     },
@@ -122,7 +122,7 @@ const adminSlice = createSlice({
 
 export const {
   reSetAdminData,
-  setTitleFormItems,
+  setBasicInformationForm,
   setTypeFormItems,
   setSelctFormItems,
   setTypeDictionary,

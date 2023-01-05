@@ -2,7 +2,7 @@ import { useState } from 'react';
 import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
 import {
-  SET_TITLE_ITEM_STEP,
+  BASIC_INFORMATION_FORM,
   STEP_TITLE,
   FINAL_CONFIRMATION,
   FINAL_CONFIRMATION_FORM_ID,
@@ -24,7 +24,7 @@ const StepForm = (): JSX.Element => {
   );
 
   const handlePrev = () => {
-    if (activeStep === SET_TITLE_ITEM_STEP) return;
+    if (activeStep === BASIC_INFORMATION_FORM) return;
     const copyArray = [...isActiveStep];
     copyArray[activeStep] = false;
     setIsActiveStep(copyArray);
@@ -60,7 +60,7 @@ const StepForm = (): JSX.Element => {
           leftButton={handlePrev}
           leftName={'이전'}
           rightName={'다음'}
-          leftDisabled={activeStep === SET_TITLE_ITEM_STEP}
+          leftDisabled={activeStep === BASIC_INFORMATION_FORM}
           rightDisabled={activeStep === FINAL_CONFIRMATION}
           leftType={'button'}
           rightType={'submit'}
