@@ -12,11 +12,11 @@ import {
   Container,
   StepTitle,
   SubmitButtonWrapper,
-} from './StepForm.style';
+} from './Stepper.style';
 import { useSteps } from '../../hooks/useSteps';
 import SubmitButton from '../../components/SubmitButton/SubmitButton';
 
-const StepForm = (): JSX.Element => {
+const Stepper = (): JSX.Element => {
   const { steps } = useSteps();
   const [activeStep, setActiveStep] = useState<number>(0);
   const [isActiveStep, setIsActiveStep] = useState(
@@ -71,4 +71,4 @@ const StepForm = (): JSX.Element => {
   );
 };
 
-export default StepForm;
+export default Stepper;

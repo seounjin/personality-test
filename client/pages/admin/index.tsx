@@ -1,6 +1,6 @@
 import { Wrapper, Container } from '../../features/admin/admin.styles';
 import { useEffect } from 'react';
-import StepForm from '../../features/admin/container/StepForm/StepForm';
+import Stepper from '../../features/admin/container/Stepper/Stepper';
 import { useDispatch } from 'react-redux';
 import { reSetAdminData } from '../../store/modules/admin';
 
@@ -16,7 +16,7 @@ const Admin = (): JSX.Element => {
   return (
     <Wrapper>
       <Container>
-        <StepForm />
+        <Stepper />
       </Container>
     </Wrapper>
   );
