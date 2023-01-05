@@ -17,7 +17,7 @@ const TitleForm = ({ handleNext }): JSX.Element => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
     const { title, explain } = data;
-    dispatch(setTitleFormItems({ titlie: title, explain: explain }));
+    dispatch(setTitleFormItems({ title: title, explain: explain }));
     handleNext();
   };
 

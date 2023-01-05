@@ -5,17 +5,23 @@ import {
   SET_TITLE_ITEM_STEP,
   STEP_TITLE,
   FINAL_CONFIRMATION,
+  FINAL_CONFIRMATION_FORM_ID,
 } from '../../admin.const';
-import { TwoButtonWrapper, Container, StepTitle } from './StepForm.style';
+import {
+  TwoButtonWrapper,
+  Container,
+  StepTitle,
+  SubmitButtonWrapper,
+} from './StepForm.style';
 import { useSteps } from '../../hooks/useSteps';
+import SubmitButton from '../../components/SubmitButton/SubmitButton';
 
 const StepForm = (): JSX.Element => {
+  const { steps } = useSteps();
   const [activeStep, setActiveStep] = useState<number>(0);
   const [isActiveStep, setIsActiveStep] = useState(
-    STEP_TITLE.map((_, index) => index === 0),
+    steps.map((_, index) => index === 0),
   );
-
-  const { steps } = useSteps();
 
   const handlePrev = () => {
     if (activeStep === SET_TITLE_ITEM_STEP) return;
@@ -43,6 +49,12 @@ const StepForm = (): JSX.Element => {
 
       {steps[activeStep].Element({ handleNext })}
 
+      {activeStep === FINAL_CONFIRMATION && (
+        <SubmitButtonWrapper>
+          <SubmitButton formId={FINAL_CONFIRMATION_FORM_ID} />
+        </SubmitButtonWrapper>
+      )}
+
       <TwoButtonWrapper>
         <TwoButton
           leftButton={handlePrev}
@@ -52,7 +64,7 @@ const StepForm = (): JSX.Element => {
           rightDisabled={activeStep === FINAL_CONFIRMATION}
           leftType={'button'}
           rightType={'submit'}
-          form={steps[activeStep].name}
+          form={activeStep !== FINAL_CONFIRMATION ? steps[activeStep].name : ''}
         />
       </TwoButtonWrapper>
     </Container>

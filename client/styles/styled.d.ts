@@ -26,6 +26,7 @@ declare module 'styled-components' {
       textFiledFocusColor: string;
       textAreaFocusColor: string;
       boxShadowBorderColor: string;
+      textBoxBorderColor: string;
     };
 
     device: {

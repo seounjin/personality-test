@@ -31,6 +31,7 @@ export const theme: DefaultTheme = {
     textFiledFocusColor: '#A6B1E1',
     textAreaFocusColor: '#A6B1E1',
     boxShadowBorderColor: '#424874',
+    textBoxBorderColor: '#424874',
   },
 
   device: {

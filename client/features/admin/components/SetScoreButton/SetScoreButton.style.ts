@@ -46,11 +46,10 @@ export const Button = styled.button`
 `;
 
 export const ScoreWrapper = styled.div`
-  width: 28px;
+  width: 50px;
   margin: 0 6px;
   display: flex;
   justify-content: center;
-  padding-top: 4px;
 `;
 
 export const Score = styled.span`

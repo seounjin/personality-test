@@ -36,7 +36,7 @@ const SetWeightSection = ({ name }: SetWeightSectionRrops): JSX.Element => {
   return (
     <Container>
       {items.map(({ type, score }, index) => (
-        <Wrapper key={index}>
+        <Wrapper key={`t${index}`}>
           <LabelWrapper>
             <Label>{type}</Label>
           </LabelWrapper>

@@ -22,6 +22,7 @@ import SetWeightSection from '../SetWeightSection/SetWeightSection';
 import {
   setNumberOfItemsCount,
   setOptionItemsCount,
+  setSelectFormItems,
 } from '../../../../store/modules/admin';
 import { useDispatch } from 'react-redux';
 
@@ -111,9 +112,11 @@ const SetSelectFormItems = ({
     dispatch(setNumberOfItemsCount({ count: 1 }));
   };
 
+  const getSelectFormItems = () => getValues('selectFormItems');
+
   const decreaeOptionItemsCount = () => {
     if (MIN_OPTION_ITEMS_COUNT === optionItemsCount) return;
-    const selectItems = getValues('selectFormItems');
+    const selectItems = getSelectFormItems();
 
     const removeOptionItems = selectItems.map((data) => {
       return {
@@ -129,7 +132,7 @@ const SetSelectFormItems = ({
   const increaseOptionItemsCount = () => {
     if (MAX_OPTION_ITEMS_COUNT === optionItemsCount) return;
 
-    const selectItems = getValues('selectFormItems');
+    const selectItems = getSelectFormItems();
 
     const addOptionItems = selectItems.map((item) => {
       return {
@@ -149,9 +152,12 @@ const SetSelectFormItems = ({
 
   const onSubmit = async () => {
     const isStepValid = await trigger();
-    console.log('isStepValid', isStepValid);
     if (!isStepValid) return;
-
+    dispatch(
+      setSelectFormItems({
+        selectFormItems: [...getValues('selectFormItems')],
+      }),
+    );
     handleNext();
   };
 

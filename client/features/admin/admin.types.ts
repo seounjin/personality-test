@@ -1,5 +1,5 @@
 export interface Step {
-  name: string;
+  name?: string;
   Element: ({ handleNext }: StepComponentProps) => JSX.Element;
 }
 

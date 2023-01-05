@@ -16,11 +16,11 @@ export const Wrapper = styled.div`
 `;
 
 export const LabelWrapper = styled.div`
-  width: 130px;
-  display: flex;
-  justify-content: center;
+  width: 140px;
+  text-align: center;
   word-wrap: break-word;
   line-height: 20px;
+  font-size: 1.5rem;
 `;
 
 export const Label = styled.label`

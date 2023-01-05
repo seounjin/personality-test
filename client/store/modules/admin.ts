@@ -104,6 +104,9 @@ const adminSlice = createSlice({
     setOptionItemsCount: (state, action) => {
       state.optionItemsCount += action.payload.count;
     },
+    setSelectFormItems: (state, action) => {
+      state.selectFormItems = action.payload.selectFormItems;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
@@ -127,5 +130,6 @@ export const {
   setTypeItemsCount,
   setNumberOfItemsCount,
   setOptionItemsCount,
+  setSelectFormItems,
 } = adminSlice.actions;
 export default adminSlice.reducer;

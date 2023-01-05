@@ -37,9 +37,8 @@ export const useSteps = () => {
           </FormProvider>
         ),
       },
-
       {
-        name: 'resultForm',
+        name: 'finalConfirmationForm',
         Element: () => <FinalConfirmationForm />,
       },
     ],

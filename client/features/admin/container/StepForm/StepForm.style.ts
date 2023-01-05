@@ -24,8 +24,6 @@ export const TwoButtonWrapper = styled.div`
 
 export const StepTitle = styled.h1``;
 
-export const Form = styled.form``;
-
 export const SubmitButtonWrapper = styled.div`
   width: 100%;
   display: flex;
