@@ -15,6 +15,10 @@ const initialState: AdminInitialState = {
       typeContent: '',
       explanationContent: '',
     },
+    {
+      typeContent: '',
+      explanationContent: '',
+    },
   ],
   selectFormItems: [],
   typeDictionary: {},

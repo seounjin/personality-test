@@ -13,7 +13,7 @@ export const STEP_TITLE = [
 export const MIN_NUMBER_OF_ITEMS_COUNT = 1;
 export const MAX_NUMBER_OF_ITEMS_COUNT = 12;
 
-export const MIN_TYPE_ITEMS_COUNT = 1;
+export const MIN_TYPE_ITEMS_COUNT = 2;
 export const MAX_TYPE_ITEMS_COUNT = 8;
 
 export const MIN_OPTION_ITEMS_COUNT = 2;
