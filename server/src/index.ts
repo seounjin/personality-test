@@ -1,6 +1,6 @@
 import express from "express";
+import { initMongoDb } from "./config/connectDb";
 import cardsRoute from "./routes/cards";
-// import adminRoute from './routes/admin';
 import testRoute from "./routes/tests";
 import { CustomRoute } from "./types";
 
@@ -11,6 +11,7 @@ const session = require("express-session");
 
 const cookieParser = require("cookie-parser");
 
+initMongoDb();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
