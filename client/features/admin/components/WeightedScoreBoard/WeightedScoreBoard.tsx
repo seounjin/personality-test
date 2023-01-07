@@ -20,10 +20,10 @@ const WeightedScoreBoard = ({
 }: WeightedScoreBoardProps): JSX.Element => {
   return (
     <Wrapper>
-      {items.map(({ type, score }, index) => (
+      {items.map(({ typeContent, score }, index) => (
         <Container key={`w${index}`}>
           <LabelWrapper>
-            <Label>{type}</Label>
+            <Label>{typeContent}</Label>
           </LabelWrapper>
           <ScoreWrapper>
             <Score>{`${score} 점`}</Score>

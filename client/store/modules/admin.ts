@@ -74,7 +74,7 @@ const adminSlice = createSlice({
     setSelctFormItems: (state, action) => {
       const weightedScoreItems = action.payload.typeFormItems.map(
         ({ typeContent }) => ({
-          type: typeContent,
+          typeContent: typeContent,
           score: 0,
         }),
       );

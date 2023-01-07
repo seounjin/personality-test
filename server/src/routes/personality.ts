@@ -1,24 +1,16 @@
-import {
-  CustomRoute,
-  METHOD,
-  DBField,
-  User,
-  SelectItem,
-  ResultItem,
-  Card,
-} from "../types";
+import { CustomRoute, METHOD } from "../types";
 import express from "express";
-import { register } from "../controllers/tests.controller";
+import { register } from "../controllers/personality.controller";
 
-const testRoute: CustomRoute[] = [
+const personalityRoute: CustomRoute[] = [
   {
     method: METHOD.POST, //등록
-    route: "/api/v1/tests",
+    route: "/api/v1/personality",
     handler: register,
   },
 ];
 
-export default testRoute;
+export default personalityRoute;
 
 // import {
 //   CustomRoute,

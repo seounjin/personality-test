@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
+import fetcher from '../../../../api/fetcher';
 import { RootState } from '../../../../store/modules';
 import { FINAL_CONFIRMATION_FORM_ID } from '../../admin.const';
 import SubHeadlineLabel from '../../components/SubHeadlineLabel/SubHeadlineLabel';
@@ -24,8 +25,16 @@ const FinalConfirmationForm = () => {
 
   const setWeightedScoreBoard = (items) => <WeightedScoreBoard items={items} />;
 
-  const onSubmit = () => {
-    console.log('제출');
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      basicInformationItem: { title: title, explain: explain },
+      typeItems: typeFormItems,
+      selectItems: selectFormItems,
+    };
+
+    const res = await fetcher('post', `/personality`, { data });
+    console.log('res', res);
   };
 
   return (

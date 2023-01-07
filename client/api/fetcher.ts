@@ -1,10 +1,15 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig, Method } from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8000/api/v1';
 axios.defaults.withCredentials = true;
 
-const fetcher = async (method, url, ...rest) => {
+const fetcher = async (
+  method: Method,
+  url: string,
+  ...rest: AxiosRequestConfig[]
+) => {
   try {
+    console.log('rest', ...rest);
     const res = await axios[method](url, ...rest);
     console.log('status', res.status);
     if (res.status === 200 || res.status === 201) {

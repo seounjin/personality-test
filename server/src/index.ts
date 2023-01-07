@@ -1,7 +1,7 @@
 import express from "express";
-import { initMongoDb } from "./config/connectDb";
+import { initMongoDb } from "./config/connectDB";
 import cardsRoute from "./routes/cards";
-import testRoute from "./routes/tests";
+import personalityRoute from "./routes/personality";
 import { CustomRoute } from "./types";
 
 const cors = require("cors");
@@ -40,7 +40,7 @@ app.use(
 
 app.use("/static", express.static(__dirname + "/public"));
 
-const routes: CustomRoute[] = [...cardsRoute, ...testRoute];
+const routes: CustomRoute[] = [...cardsRoute, ...personalityRoute];
 
 routes.forEach(({ method, route, handler }) => {
   app[method](route, handler);

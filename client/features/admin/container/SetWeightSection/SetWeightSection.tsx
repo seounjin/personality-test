@@ -35,10 +35,10 @@ const SetWeightSection = ({ name }: SetWeightSectionRrops): JSX.Element => {
 
   return (
     <Container>
-      {items.map(({ type, score }, index) => (
+      {items.map(({ typeContent, score }, index) => (
         <Wrapper key={`t${index}`}>
           <LabelWrapper>
-            <Label>{type}</Label>
+            <Label>{typeContent}</Label>
           </LabelWrapper>
           <SetScoreButton
             score={score}

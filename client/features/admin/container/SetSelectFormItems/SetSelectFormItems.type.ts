@@ -1,5 +1,5 @@
 export interface WeightedScoreItem {
-  type: string;
+  typeContent: string;
   score: number;
 }
 
