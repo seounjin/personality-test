@@ -4,7 +4,11 @@ import {
   ResultItemsModel,
 } from "../models/personality.model";
 import { mongoose } from "@typegoose/typegoose";
-import { OptionValuesToSelect, ResultItem } from "../models/personality.type";
+import {
+  OptionValuesToSelect,
+  Personality,
+  ResultItem,
+} from "../models/personality.type";
 
 interface BasicInformationItem {
   title: string;
@@ -17,14 +21,12 @@ interface PersonalityItem {
   selectItems: OptionValuesToSelect[];
 }
 
-export const setPersonalityItems = async (
-  personalityItems: PersonalityItem
-) => {
+export const setPersonalityItems = async (personalityItem: PersonalityItem) => {
   const {
     basicInformationItem: { title, explain },
     typeItems,
     selectItems,
-  } = personalityItems;
+  } = personalityItem;
 
   const selectOptionItems = new SelectItemsModel({
     _id: new mongoose.Types.ObjectId(),
@@ -49,6 +51,19 @@ export const setPersonalityItems = async (
       await selectOptionItems.save(),
       await personality.save(),
     ]);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getAllPersonalityItems = async (): Promise<Personality[]> => {
+  try {
+    const res = await PersonalityModel.find(
+      {},
+      { _id: 0, selectItems: 0, resultItems: 0 }
+    );
+
+    return res;
   } catch (error) {
     return Promise.reject(error);
   }

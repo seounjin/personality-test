@@ -8,8 +8,8 @@ export interface ResultItem {
 export interface Personality {
   title: string;
   explain: string;
-  resultItems: Types.ObjectId;
-  SelectItems: Types.ObjectId;
+  resultItems?: Types.ObjectId;
+  SelectItems?: Types.ObjectId;
 }
 
 export interface OptionValuesToSelect {

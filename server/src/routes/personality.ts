@@ -1,12 +1,20 @@
 import { CustomRoute, METHOD } from "../types";
 import express from "express";
-import { register } from "../controllers/personality.controller";
+import {
+  setPersonality,
+  getPersonality,
+} from "../controllers/personality.controller";
 
 const personalityRoute: CustomRoute[] = [
   {
-    method: METHOD.POST, //등록
+    method: METHOD.POST,
     route: "/api/v1/personality",
-    handler: register,
+    handler: setPersonality,
+  },
+  {
+    method: METHOD.GET,
+    route: "/api/v1/personality",
+    handler: getPersonality,
   },
 ];
 
