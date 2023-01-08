@@ -3,9 +3,8 @@ import {
   SelectItemsModel,
   ResultItemsModel,
 } from "../models/personality.model";
-import mongoose from "mongoose";
-import { ResultItem } from "../types";
-import { OptionValuesToSelect } from "../models/personality.type";
+import { mongoose } from "@typegoose/typegoose";
+import { OptionValuesToSelect, ResultItem } from "../models/personality.type";
 
 interface BasicInformationItem {
   title: string;
@@ -46,9 +45,9 @@ export const setPersonalityItems = async (
 
   try {
     await Promise.all([
-      resultItems.save(),
-      selectOptionItems.save(),
-      personality.save(),
+      await resultItems.save(),
+      await selectOptionItems.save(),
+      await personality.save(),
     ]);
   } catch (error) {
     return Promise.reject(error);
