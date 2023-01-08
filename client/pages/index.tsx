@@ -62,7 +62,9 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const { cards, status } = await fetcher('get', '/cards');
+    // const { cards, status } = await fetcher('get', '/cards');
+    const { data, status } = await fetcher('get', '/personality');
+
     if (status >= 500) {
       return {
         props: {
@@ -74,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       };
     }
     return {
-      props: { cardItems: cards },
+      props: { cardItems: data },
     };
   } catch (error) {
     return {

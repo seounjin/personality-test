@@ -33,7 +33,7 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
               <CardImageWrapper>
                 <CardImage
                   alt="card-img"
-                  src={imgUrl}
+                  src={`/imageholder.png`}
                   layout="fill"
                   objectFit="cover"
                 />
