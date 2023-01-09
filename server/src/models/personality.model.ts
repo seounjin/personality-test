@@ -1,23 +1,11 @@
 import { AutoIncrementID } from "@typegoose/auto-increment";
-import { prop, plugin, mongoose, getModelForClass } from "@typegoose/typegoose";
-
-@plugin(AutoIncrementID, { field: "id", startAt: 1 })
-class Personality {
-  @prop({ unique: true })
-  id: number;
-
-  @prop({ required: true })
-  title: string;
-
-  @prop({ required: true })
-  explain: string;
-
-  @prop({ required: true })
-  selectItems: mongoose.Types.ObjectId;
-
-  @prop({ required: true })
-  resultItems: mongoose.Types.ObjectId;
-}
+import {
+  prop,
+  plugin,
+  mongoose,
+  getModelForClass,
+  Ref,
+} from "@typegoose/typegoose";
 
 class SelectItems {
   @prop({ required: true })
@@ -45,6 +33,24 @@ class ResultItems {
 
   @prop({ required: true })
   resultItems: { type: [{ typeContent: String; explanationContent: String }] };
+}
+
+@plugin(AutoIncrementID, { field: "id", startAt: 1 })
+class Personality {
+  @prop({ unique: true })
+  id: number;
+
+  @prop({ required: true })
+  title: string;
+
+  @prop({ required: true })
+  explain: string;
+
+  @prop({ required: true, ref: SelectItems })
+  selectItems: Ref<SelectItems>;
+
+  @prop({ required: true, ref: ResultItems })
+  resultItems: Ref<ResultItems>;
 }
 
 export const PersonalityModel = getModelForClass(Personality);

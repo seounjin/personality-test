@@ -68,3 +68,37 @@ export const getAllPersonalityItems = async (): Promise<Personality[]> => {
     return Promise.reject(error);
   }
 };
+
+export const getPersonalityItemById = async (
+  id: number
+): Promise<PersonalityItem> => {
+  try {
+    const res = await PersonalityModel.aggregate([
+      {
+        $match: { id: id },
+      },
+      {
+        $lookup: {
+          from: "selectitems",
+          let: { selectItemsId: "$selectItems" },
+          pipeline: [{ $project: { _id: 0, selectItems: 1 } }],
+          as: "items",
+        },
+      },
+
+      {
+        $project: {
+          _id: 0,
+          id: 1,
+          title: 1,
+          explain: 1,
+          items: 1,
+        },
+      },
+    ]);
+
+    return res[0];
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

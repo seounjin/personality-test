@@ -3,6 +3,7 @@ import express from "express";
 import {
   setPersonality,
   getPersonality,
+  getPersonalityItem,
 } from "../controllers/personality.controller";
 
 const personalityRoute: CustomRoute[] = [
@@ -15,6 +16,11 @@ const personalityRoute: CustomRoute[] = [
     method: METHOD.GET,
     route: "/api/v1/personality",
     handler: getPersonality,
+  },
+  {
+    method: METHOD.GET,
+    route: "/api/v1/personality/:id",
+    handler: getPersonalityItem,
   },
 ];
 
