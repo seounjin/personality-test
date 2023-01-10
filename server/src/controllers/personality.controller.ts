@@ -3,6 +3,7 @@ import {
   setPersonalityItems,
   getAllPersonalityItems,
   getPersonalityItemById,
+  getPersonalityTestResultByType,
 } from "../service/personality.service";
 
 export const setPersonality = async (
@@ -10,9 +11,7 @@ export const setPersonality = async (
   res: express.Response
 ): Promise<Response> => {
   const { data } = body;
-
   await setPersonalityItems(data);
-
   return res.status(201).json({ success: true });
 };
 
@@ -31,4 +30,14 @@ export const getPersonalityItem = async (
   const id = parseInt(req.params.id);
   const data = await getPersonalityItemById(id);
   return res.status(200).json({ data: data });
+};
+
+export const getPersonalityTestResult = async (
+  req: express.Request,
+  res: express.Response
+): Promise<Response> => {
+  const id = parseInt(req.params.id);
+  const type = req.params.type;
+  const data = await getPersonalityTestResultByType(id, type);
+  return res.status(200).json({ data });
 };

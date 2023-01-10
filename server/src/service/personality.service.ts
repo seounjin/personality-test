@@ -104,3 +104,47 @@ export const getPersonalityItemById = async (
     return Promise.reject(error);
   }
 };
+
+export const getPersonalityTestResultByType = async (
+  id: number,
+  type: string
+) => {
+  const res = await PersonalityModel.aggregate([
+    {
+      $match: { id: id },
+    },
+    {
+      $lookup: {
+        from: "resultitems",
+        let: { resultItemsId: "$resultItems" },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $eq: ["$_id", "$$resultItemsId"],
+              },
+            },
+          },
+        ],
+        as: "items",
+      },
+    },
+    {
+      $unwind: "$items",
+    },
+    {
+      $project: {
+        resultItems: {
+          $filter: {
+            input: "$items.resultItems",
+            cond: {
+              $eq: ["$$this.typeContent", type],
+            },
+          },
+        },
+        _id: 0,
+      },
+    },
+  ]);
+  return res[0];
+};
