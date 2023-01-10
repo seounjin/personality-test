@@ -1,7 +1,8 @@
 import fetcher from '../../api/fetcher';
 import {
-  PersonalityTest,
-  ResultData,
+  RawPersonalityItem,
+  ResultItems,
+  WeightedScore,
 } from '../../features/personalityTest/personalityTest.types';
 import { GetServerSideProps } from 'next';
 import { useState } from 'react';
@@ -12,7 +13,7 @@ import StartScreen from '../../features/personalityTest/components/StartScreen/S
 import { useSlide } from '../../features/personalityTest/personalityTest.hook';
 import { SCREEN_WIDTH } from '../../features/personalityTest/personalityTest.const';
 import styled from 'styled-components';
-import { SelectFormItems } from '../../types';
+import { SelectFormItems, WeightedScoreItem } from '../../types';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -31,10 +32,6 @@ const SlideWrapper = styled.div`
   display: flex;
 `;
 
-interface WeightedScore {
-  [key: string]: number;
-}
-
 interface MainPageProps {
   id: string;
   title: string;
@@ -50,24 +47,28 @@ const MainPage = ({
   weightedScoreDictionary,
   personalityItem,
 }: MainPageProps): JSX.Element => {
-  const [personalityTest] = useState(personalityItem);
+  const [personalityTest] = useState<SelectFormItems[]>(personalityItem);
   const [lastSlide] = useState<number>(personalityTest.length);
-  const [weightedScore, setWeightedScore] = useState(weightedScoreDictionary);
-  const [resultData, setResultData] = useState<ResultData | null>(null);
+  const [weightedScore, setWeightedScore] = useState<WeightedScore>(
+    weightedScoreDictionary,
+  );
+  const [resultItems, setResultItems] = useState<ResultItems | null>(null);
   const { slideRef, currentSlide, nextSlide, resetSlide } = useSlide();
 
   const startClick = (): void => {
     nextSlide();
   };
 
-  const raseScore = (weightedScoreItems) => {
+  const raseScore = (weightedScoreItems: WeightedScoreItem[]) => {
     for (const { typeContent, score } of weightedScoreItems) {
       weightedScore[typeContent] += score;
     }
     setWeightedScore({ ...weightedScore });
   };
 
-  const optionsButtonClick = (event, weightedScoreItems): void => {
+  const optionsButtonClick = (
+    weightedScoreItems: WeightedScoreItem[],
+  ): void => {
     raseScore(weightedScoreItems);
     if (currentSlide === lastSlide) {
       const res = getHighestScoreType();
@@ -94,8 +95,9 @@ const MainPage = ({
   };
 
   const requestResult = async (type: string) => {
-    const res = await fetcher('get', `/personality/${type}/results`);
-    // setResultData(res.resultData[0]);
+    const res = await fetcher('get', `/personality/${id}/results/${type}`);
+    const { resultItems } = res.data;
+    setResultItems(resultItems[0]);
     nextSlide();
   };
 
@@ -121,9 +123,9 @@ const MainPage = ({
               />
             </BackgroundImage>
           ))}
-          {resultData && (
+          {resultItems && (
             <BackgroundImage>
-              <LastScreen data={resultData} onClick={reStartClick} />
+              <LastScreen items={resultItems} onClick={reStartClick} />
             </BackgroundImage>
           )}
         </SlideWrapper>
@@ -132,11 +134,13 @@ const MainPage = ({
   );
 };
 
-const setWeightedScoreDictionary = (data) =>
+const setWeightedScoreDictionary = (
+  data: Array<WeightedScoreItem>,
+): WeightedScore =>
   data.reduce((dic, { typeContent }) => ({ ...dic, [typeContent]: 0 }), {});
 
-const parsedPersonalityItem = (data, id) => {
-  const { title, explain, items } = data;
+const parsedPersonalityItem = (data: RawPersonalityItem): MainPageProps => {
+  const { title, explain, items, id } = data;
   const { selectItems } = items[0];
 
   return {
@@ -156,7 +160,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   try {
     const { status, data } = await fetcher('get', `/personality/${id}`);
 
-    const res = parsedPersonalityItem(data, id);
+    const res = parsedPersonalityItem(data);
 
     if (status >= 500) {
       return {

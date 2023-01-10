@@ -1,20 +1,8 @@
-export interface PersonalityTest {
-  question: string;
-  select_1: string;
-  select_2: string;
-  select_1_id: number;
-  select_2_id: number;
-}
+import { SelectFormItems } from '../../types';
 
-export interface ResultData {
-  who: string;
-  content: string;
-}
-
-export interface MainStaticData {
-  testData: PersonalityTest[];
-  title: string;
-  id: string;
+export interface ResultItems {
+  typeContent: string;
+  explanationContent: string;
 }
 
 export interface Error {
@@ -22,7 +10,17 @@ export interface Error {
   message: string;
 }
 
-export interface MainProps {
-  data?: MainStaticData;
-  error?: Error;
+export interface WeightedScore {
+  [key: string]: number;
+}
+
+export interface RawPersonalityItem {
+  title: string;
+  explain: string;
+  id: string;
+  items: Array<SelectItems>;
+}
+
+export interface SelectItems {
+  selectItems: SelectFormItems[];
 }

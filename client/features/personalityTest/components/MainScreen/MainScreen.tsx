@@ -1,4 +1,5 @@
 import React from 'react';
+import { OptionItems, WeightedScoreItem } from '../../../../types';
 import {
   Container,
   QuestionWrapper,
@@ -11,8 +12,8 @@ import {
 
 interface MainProps {
   question: string;
-  optionItems: any;
-  onClick: (event, weightedScoreItems) => void;
+  optionItems: OptionItems[];
+  onClick: (weightedScoreItems: WeightedScoreItem[]) => void;
 }
 
 const MainScreen = ({
@@ -30,7 +31,7 @@ const MainScreen = ({
         <ButtonWrapper>
           {optionItems.map(({ option, weightedScoreItems }, index) => (
             <WhiteButton
-              onClick={(e) => onClick(e, weightedScoreItems)}
+              onClick={() => onClick(weightedScoreItems)}
               key={`o${index}`}
             >
               {option}

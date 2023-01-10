@@ -1,4 +1,5 @@
 import React from 'react';
+import { ResultItems } from '../../personalityTest.types';
 import {
   Container,
   Content,
@@ -8,26 +9,21 @@ import {
   TitleWrapper,
 } from './LastScreen.style';
 
-interface LastScreenData {
-  who: string;
-  content: string;
-}
-
 interface LastScreenProps {
-  data: LastScreenData;
+  items: ResultItems;
   onClick: () => void;
 }
 
-const LastScreen = ({ data, onClick }: LastScreenProps): JSX.Element => {
-  const { who, content } = data;
+const LastScreen = ({ items, onClick }: LastScreenProps): JSX.Element => {
+  const { typeContent, explanationContent } = items;
 
   return (
     <Container>
       <TitleWrapper>
-        <Title>{who}</Title>
+        <Title>{typeContent}</Title>
       </TitleWrapper>
       <ContentWrapper>
-        <Content> {content}</Content>
+        <Content> {explanationContent}</Content>
       </ContentWrapper>
       <RestartButton onClick={onClick} />
     </Container>
