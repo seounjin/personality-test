@@ -69,25 +69,39 @@ const MainPage = ({
 
   const optionsButtonClick = (event, weightedScoreItems): void => {
     raseScore(weightedScoreItems);
-    nextSlide();
-
     if (currentSlide === lastSlide) {
-      console.log('유형', weightedScore);
+      const res = getHighestScoreType();
+      requestResult(res);
+      return;
     }
+    nextSlide();
+  };
+  const getHighestScoreType = (): string => {
+    const sortedWeightScore = Object.entries(weightedScore).sort(
+      ([, a], [, b]) => (a > b ? -1 : 1),
+    );
+    const [, sortedValue] = sortedWeightScore[0];
+
+    const shuffleWeightScore = sortedWeightScore
+      .reduce(
+        (array, [key, value]) =>
+          sortedValue === value ? [...array, key] : array,
+        [],
+      )
+      .sort(() => Math.random() - 0.5);
+
+    return shuffleWeightScore[0];
   };
 
-  const requestResult = async (sumId: string) => {
-    try {
-      const res = await fetcher('get', `/tests/${id}/results/${sumId}`);
-      setResultData(res.resultData[0]);
-      nextSlide();
-    } catch (error) {
-      console.log('결과요청 페이지 에러', error);
-    }
+  const requestResult = async (type: string) => {
+    const res = await fetcher('get', `/personality/${type}/results`);
+    // setResultData(res.resultData[0]);
+    nextSlide();
   };
 
   const reStartClick = (): void => {
     resetSlide();
+    setWeightedScore(weightedScoreDictionary);
   };
 
   return (
