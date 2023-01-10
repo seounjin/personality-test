@@ -58,13 +58,13 @@ const SetSelectFormItems = ({
 
   const setWeightedScoreItems = () =>
     typeFormItems.map(({ typeContent }) => ({
-      type: typeContent,
+      typeContent: typeContent,
       score: 0,
     }));
 
   const beforeWeightedScoreItems = (item) =>
     typeFormItems.map(({ typeContent }, index) => ({
-      type: typeContent,
+      typeContent: typeContent,
       score: item[index].score ? item[index].score : 0,
     }));
 
@@ -152,7 +152,11 @@ const SetSelectFormItems = ({
 
   const onSubmit = async () => {
     const isStepValid = await trigger();
-    if (!isStepValid) return;
+
+    if (!isStepValid) {
+      alert('빈칸을 확인해 주세요');
+      return;
+    }
     dispatch(
       setSelectFormItems({
         selectFormItems: [...getValues('selectFormItems')],

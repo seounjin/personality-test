@@ -81,7 +81,10 @@ export const getPersonalityItemById = async (
         $lookup: {
           from: "selectitems",
           let: { selectItemsId: "$selectItems" },
-          pipeline: [{ $project: { _id: 0, selectItems: 1 } }],
+          pipeline: [
+            { $match: { $expr: { $eq: ["$_id", "$$selectItemsId"] } } },
+            { $project: { _id: 0 } },
+          ],
           as: "items",
         },
       },
@@ -96,7 +99,6 @@ export const getPersonalityItemById = async (
         },
       },
     ]);
-
     return res[0];
   } catch (error) {
     return Promise.reject(error);

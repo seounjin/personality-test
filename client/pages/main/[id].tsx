@@ -1,10 +1,9 @@
 import fetcher from '../../api/fetcher';
 import {
-  MainProps,
   PersonalityTest,
   ResultData,
 } from '../../features/personalityTest/personalityTest.types';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import BackgroundImage from '../../features/personalityTest/components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../features/personalityTest/components/LastScreen/LastScreen';
@@ -13,6 +12,7 @@ import StartScreen from '../../features/personalityTest/components/StartScreen/S
 import { useSlide } from '../../features/personalityTest/personalityTest.hook';
 import { SCREEN_WIDTH } from '../../features/personalityTest/personalityTest.const';
 import styled from 'styled-components';
+import { SelectFormItems } from '../../types';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -31,14 +31,28 @@ const SlideWrapper = styled.div`
   display: flex;
 `;
 
-type Params = { id: string };
+interface WeightedScore {
+  [key: string]: number;
+}
+
+interface MainPageProps {
+  id: string;
+  title: string;
+  explain: string;
+  weightedScoreDictionary: WeightedScore;
+  personalityItem: SelectFormItems[];
+}
 
 const MainPage = ({
-  data: { testData, title, id },
-}: MainProps): JSX.Element => {
-  const [personalityTest] = useState<PersonalityTest[]>(testData);
+  id,
+  title,
+  explain,
+  weightedScoreDictionary,
+  personalityItem,
+}: MainPageProps): JSX.Element => {
+  const [personalityTest] = useState(personalityItem);
   const [lastSlide] = useState<number>(personalityTest.length);
-  const [options, setOptions] = useState<string>('');
+  const [weightedScore, setWeightedScore] = useState(weightedScoreDictionary);
   const [resultData, setResultData] = useState<ResultData | null>(null);
   const { slideRef, currentSlide, nextSlide, resetSlide } = useSlide();
 
@@ -46,19 +60,19 @@ const MainPage = ({
     nextSlide();
   };
 
-  const combineOptions = (optionId: string) => {
-    return optionId === '1'
-      ? options + personalityTest[currentSlide - 1].select_1_id
-      : options + personalityTest[currentSlide - 1].select_2_id;
+  const raseScore = (weightedScoreItems) => {
+    for (const { typeContent, score } of weightedScoreItems) {
+      weightedScore[typeContent] += score;
+    }
+    setWeightedScore({ ...weightedScore });
   };
 
-  const optionsButtonClick = (event): void => {
-    const optionId: string = event.target.dataset.id;
-    const sumId: string = combineOptions(optionId);
-    setOptions(sumId);
+  const optionsButtonClick = (event, weightedScoreItems): void => {
+    raseScore(weightedScoreItems);
+    nextSlide();
 
     if (currentSlide === lastSlide) {
-      requestResult(sumId);
+      console.log('유형', weightedScore);
     }
   };
 
@@ -73,7 +87,6 @@ const MainPage = ({
   };
 
   const reStartClick = (): void => {
-    setOptions('');
     resetSlide();
   };
 
@@ -85,12 +98,11 @@ const MainPage = ({
             <StartScreen title={title} onClick={startClick} />
           </BackgroundImage>
 
-          {personalityTest.map((data: PersonalityTest, index: number) => (
+          {personalityTest.map(({ question, optionItems }, index: number) => (
             <BackgroundImage key={`p${index}`}>
               <MainScreen
-                question={data.question}
-                select_1={data.select_1}
-                select_2={data.select_2}
+                question={question}
+                optionItems={optionItems}
                 onClick={optionsButtonClick}
               />
             </BackgroundImage>
@@ -106,36 +118,52 @@ const MainPage = ({
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = Array(100)
-    .fill(0)
-    .map((_, index) => ({
-      params: { id: `${index + 1}` },
-    }));
-  return { paths, fallback: false };
+const setWeightedScoreDictionary = (data) =>
+  data.reduce((dic, { typeContent }) => ({ ...dic, [typeContent]: 0 }), {});
+
+const parsedPersonalityItem = (data, id) => {
+  const { title, explain, items } = data;
+  const { selectItems } = items[0];
+
+  return {
+    id: id,
+    title: title,
+    explain: explain,
+    weightedScoreDictionary: setWeightedScoreDictionary(
+      selectItems[0].optionItems[0].weightedScoreItems,
+    ),
+    personalityItem: [...selectItems],
+  };
 };
 
-export const getStaticProps: GetStaticProps<MainProps, Params> = async ({
+export const getServerSideProps: GetServerSideProps = async ({
   params: { id },
 }) => {
   try {
-    const res = await fetcher('get', `/tests/${id}`);
+    const { status, data } = await fetcher('get', `/personality/${id}`);
 
-    const { testData, title, status } = res;
-    if (status) {
+    const res = parsedPersonalityItem(data, id);
+
+    if (status >= 500) {
       return {
         props: {
-          error: { statusCode: status, message: 'Error!' },
+          error: {
+            statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
+            message: 'Error!',
+          },
         },
       };
     }
     return {
-      props: { data: { testData: testData, title: title, id } },
+      props: res,
     };
   } catch (error) {
     return {
       props: {
-        error: { statusCode: 500, message: 'Error!' },
+        error: {
+          statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
+          message: 'Error!',
+        },
       },
     };
   }

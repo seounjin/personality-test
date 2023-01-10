@@ -11,15 +11,13 @@ import {
 
 interface MainProps {
   question: string;
-  select_1: string;
-  select_2: string;
-  onClick: (event) => void;
+  optionItems: any;
+  onClick: (event, weightedScoreItems) => void;
 }
 
 const MainScreen = ({
   question,
-  select_1,
-  select_2,
+  optionItems,
   onClick,
 }: MainProps): JSX.Element => {
   return (
@@ -30,13 +28,14 @@ const MainScreen = ({
         </QuestionWrapper>
 
         <ButtonWrapper>
-          <WhiteButton data-id="1" onClick={onClick}>
-            {select_1}
-          </WhiteButton>
-
-          <BlueButton data-id="2" onClick={onClick}>
-            {select_2}
-          </BlueButton>
+          {optionItems.map(({ option, weightedScoreItems }, index) => (
+            <WhiteButton
+              onClick={(e) => onClick(e, weightedScoreItems)}
+              key={`o${index}`}
+            >
+              {option}
+            </WhiteButton>
+          ))}
         </ButtonWrapper>
       </Container>
     </Wrapper>

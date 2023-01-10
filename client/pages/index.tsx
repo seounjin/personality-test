@@ -62,7 +62,6 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    // const { cards, status } = await fetcher('get', '/cards');
     const { data, status } = await fetcher('get', '/personality');
 
     if (status >= 500) {
