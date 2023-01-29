@@ -19,8 +19,8 @@ export const TitleWrapper = styled.div`
   height: 4.4rem;
   margin-bottom: 15px;
 
-  background-color: #5963ff;
-  border: 2px solid;
+  background-color: ${({ theme }) => theme.colors.lastScreenTitleWrapperColor};
+  border: 3px solid;
   border-radius: 20px;
   text-align: center;
   font-size: 1.4rem;

@@ -27,6 +27,8 @@ declare module 'styled-components' {
       textAreaFocusColor: string;
       boxShadowBorderColor: string;
       textBoxBorderColor: string;
+      backgroundImageColor: string;
+      lastScreenTitleWrapperColor: string;
     };
 
     device: {
