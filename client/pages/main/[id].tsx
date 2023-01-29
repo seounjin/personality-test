@@ -5,7 +5,7 @@ import {
   WeightedScore,
 } from '../../features/personalityTest/personalityTest.types';
 import { GetServerSideProps } from 'next';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import BackgroundImage from '../../features/personalityTest/components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../features/personalityTest/components/LastScreen/LastScreen';
 import MainScreen from '../../features/personalityTest/components/MainScreen/MainScreen';
@@ -14,6 +14,7 @@ import { useSlide } from '../../features/personalityTest/personalityTest.hook';
 import { SCREEN_WIDTH } from '../../features/personalityTest/personalityTest.const';
 import styled from 'styled-components';
 import { SelectFormItems, WeightedScoreItem } from '../../types';
+import { throttle } from 'lodash';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -53,7 +54,7 @@ const MainPage = ({
     weightedScoreDictionary,
   );
   const [resultItems, setResultItems] = useState<ResultItems | null>(null);
-  const { slideRef, currentSlide, nextSlide, resetSlide } = useSlide();
+  const { slideRef, nextSlide, resetSlide } = useSlide();
 
   const startClick = (): void => {
     nextSlide();
@@ -66,17 +67,23 @@ const MainPage = ({
     setWeightedScore({ ...weightedScore });
   };
 
-  const optionsButtonClick = (
-    weightedScoreItems: WeightedScoreItem[],
-  ): void => {
-    raseScore(weightedScoreItems);
-    if (currentSlide === lastSlide) {
-      const res = getHighestScoreType();
-      requestResult(res);
-      return;
-    }
-    nextSlide();
-  };
+  const optionsButtonClick = useCallback(
+    throttle(
+      (weightedScoreItems: WeightedScoreItem[], currentSlide): void => {
+        raseScore(weightedScoreItems);
+        if (currentSlide === lastSlide) {
+          const res = getHighestScoreType();
+          requestResult(res);
+          return;
+        }
+        nextSlide();
+      },
+      1000,
+      { leading: true, trailing: false },
+    ),
+    [],
+  );
+
   const getHighestScoreType = (): string => {
     const sortedWeightScore = Object.entries(weightedScore).sort(
       ([, a], [, b]) => (a > b ? -1 : 1),
@@ -119,6 +126,7 @@ const MainPage = ({
               <MainScreen
                 question={question}
                 optionItems={optionItems}
+                slideIndex={index}
                 onClick={optionsButtonClick}
               />
             </BackgroundImage>

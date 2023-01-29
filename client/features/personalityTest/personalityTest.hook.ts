@@ -10,7 +10,7 @@ export const useSlide = () => {
   }, [currentSlide]);
 
   const nextSlide = () => {
-    setCurrentSlide(currentSlide + 1);
+    setCurrentSlide((currentSlide) => currentSlide + 1);
   };
 
   const resetSlide = () => {

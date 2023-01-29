@@ -13,12 +13,17 @@ import {
 interface MainProps {
   question: string;
   optionItems: OptionItems[];
-  onClick: (weightedScoreItems: WeightedScoreItem[]) => void;
+  slideIndex: number;
+  onClick: (
+    weightedScoreItems: WeightedScoreItem[],
+    slideIndex: number,
+  ) => void;
 }
 
 const MainScreen = ({
   question,
   optionItems,
+  slideIndex,
   onClick,
 }: MainProps): JSX.Element => {
   return (
@@ -31,7 +36,7 @@ const MainScreen = ({
         <ButtonWrapper>
           {optionItems.map(({ option, weightedScoreItems }, index) => (
             <WhiteButton
-              onClick={() => onClick(weightedScoreItems)}
+              onClick={() => onClick(weightedScoreItems, slideIndex + 1)}
               key={`o${index}`}
             >
               {option}
