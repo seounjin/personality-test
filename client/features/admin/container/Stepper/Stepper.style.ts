@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,4 +31,10 @@ export const SubmitButtonWrapper = styled.div`
   margin-bottom: 30px;
   justify-content: center;
   font-size: 1.4rem;
+`;
+
+export const QuestionMarkButtonWrapper = styled.div`
+  position: absolute;
+  top: 30px;
+  right: 40px;
 `;

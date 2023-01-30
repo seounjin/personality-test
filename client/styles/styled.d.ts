@@ -1,4 +1,6 @@
 import { CSSProp } from 'styled-components';
+import { isArgumentsObject } from 'util/types';
+import { string } from 'yup';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -29,6 +31,9 @@ declare module 'styled-components' {
       textBoxBorderColor: string;
       backgroundImageColor: string;
       lastScreenTitleWrapperColor: string;
+      angleRightSolidColor: string;
+      angleLeftSolidColor: string;
+      questionMarkColor: string;
     };
 
     device: {

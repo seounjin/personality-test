@@ -12,9 +12,13 @@ import {
   Container,
   StepTitle,
   SubmitButtonWrapper,
+  QuestionMarkButtonWrapper,
 } from './Stepper.style';
 import { useSteps } from '../../hooks/useSteps';
 import SubmitButton from '../../components/SubmitButton/SubmitButton';
+import Modal from '../../../../components/Modal/Modal';
+import ManualModal from '../ManualModal/ManualModal';
+import QuestionMarkButton from '../../components/QuestionMarkButton/QuestionMarkButton';
 
 const Stepper = (): JSX.Element => {
   const { steps } = useSteps();
@@ -22,6 +26,7 @@ const Stepper = (): JSX.Element => {
   const [isActiveStep, setIsActiveStep] = useState(
     steps.map((_, index) => index === 0),
   );
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handlePrev = () => {
     if (activeStep === BASIC_INFORMATION_FORM) return;
@@ -38,8 +43,22 @@ const Stepper = (): JSX.Element => {
     setActiveStep((activeStep) => activeStep + 1);
   };
 
+  const handleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const QuestionMarkClick = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <Container>
+      {isModalOpen && (
+        <Modal onClose={handleModal}>
+          <ManualModal activeStep={activeStep} />
+        </Modal>
+      )}
+
       <StepTitle>{STEP_TITLE[activeStep]}</StepTitle>
       <StepIndicator
         currentStep={activeStep}
@@ -67,6 +86,10 @@ const Stepper = (): JSX.Element => {
           form={activeStep !== FINAL_CONFIRMATION ? steps[activeStep].name : ''}
         />
       </TwoButtonWrapper>
+
+      <QuestionMarkButtonWrapper>
+        <QuestionMarkButton onClick={QuestionMarkClick} />
+      </QuestionMarkButtonWrapper>
     </Container>
   );
 };

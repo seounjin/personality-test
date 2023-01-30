@@ -34,6 +34,9 @@ export const theme: DefaultTheme = {
     textBoxBorderColor: '#424874',
     backgroundImageColor: '#FFFBE9',
     lastScreenTitleWrapperColor: '#AD8B73',
+    angleLeftSolidColor: '#424874',
+    angleRightSolidColor: '#424874',
+    questionMarkColor: '#424874',
   },
 
   device: {

@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 `;
 
 export const Overlay = styled.div`
@@ -26,6 +27,6 @@ export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: #fff;
 `;
