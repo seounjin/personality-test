@@ -35,7 +35,3 @@ export const TextFiledWrapper = styled.div`
   margin: 4px 0;
   font-size: 1.8rem;
 `;
-
-export const LabelWrapper = styled.div`
-  margin: 10px 0;
-`;

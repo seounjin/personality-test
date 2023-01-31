@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import fetcher from '../../../../api/fetcher';
@@ -25,6 +26,8 @@ const FinalConfirmationForm = () => {
 
   const setWeightedScoreBoard = (items) => <WeightedScoreBoard items={items} />;
 
+  const router = useRouter();
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = {
@@ -34,7 +37,9 @@ const FinalConfirmationForm = () => {
     };
 
     const res = await fetcher('post', `/personality`, { data });
-    console.log('res', res);
+    if (res.success) {
+      router.push('/');
+    }
   };
 
   return (
