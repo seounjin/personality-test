@@ -29,4 +29,5 @@ export const ModalContent = styled.div`
   align-items: center;
   border-radius: 8px;
   background-color: #fff;
+  margin: 0 8px;
 `;

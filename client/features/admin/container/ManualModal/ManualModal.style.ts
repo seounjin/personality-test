@@ -43,7 +43,7 @@ export const PrevIcon = styled(prevIcon)<PrevIconProps>`
   fill: ${({ theme, $isDisabled }) =>
     $isDisabled
       ? theme.colors.buttonHoverColor
-      : theme.colors.angleRightSolidColor};
+      : theme.colors.angleLeftSolidColor};
 
   &:hover {
     fill: ${({ theme }) => theme.colors.buttonHoverColor};
@@ -60,7 +60,10 @@ export const NextIcon = styled(nextIcon)<NextIconProps>`
   fill: ${({ theme, $isDisabled }) =>
     $isDisabled
       ? theme.colors.buttonHoverColor
-      : theme.colors.angleLeftSolidColor};
+      : theme.colors.angleRightSolidColor};
+  &:hover {
+    fill: ${({ theme }) => theme.colors.buttonHoverColor};
+  }
 `;
 
 export const Button = styled.button`
