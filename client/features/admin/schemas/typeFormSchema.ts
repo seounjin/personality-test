@@ -7,6 +7,7 @@ export const typeFormSchema = yup.object({
       yup.object().shape({
         typeContent: yup
           .string()
+          .trim()
           .required('한 글자 이상 채워 주세요')
           .max(10, '최대 10글자 이하로 입력해 주세요'),
         explanationContent: yup
