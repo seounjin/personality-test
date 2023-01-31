@@ -24,7 +24,6 @@ const initialState: AdminInitialState = {
   typeDictionary: {},
   typeItemsCount: MIN_TYPE_ITEMS_COUNT,
   numberOfItemsCount: MIN_NUMBER_OF_ITEMS_COUNT,
-  optionItemsCount: MIN_OPTION_ITEMS_COUNT,
 };
 
 interface FetchParms {
@@ -105,9 +104,6 @@ const adminSlice = createSlice({
     setNumberOfItemsCount: (state, action) => {
       state.numberOfItemsCount += action.payload.count;
     },
-    setOptionItemsCount: (state, action) => {
-      state.optionItemsCount += action.payload.count;
-    },
     setSelectFormItems: (state, action) => {
       state.selectFormItems = action.payload.selectFormItems;
     },
@@ -133,7 +129,6 @@ export const {
   handleChangeTypeDictionary,
   setTypeItemsCount,
   setNumberOfItemsCount,
-  setOptionItemsCount,
   setSelectFormItems,
 } = adminSlice.actions;
 export default adminSlice.reducer;

@@ -14,6 +14,7 @@ import {
   Container,
   SetCounterButtonWrapper,
   SubTitle,
+  TwoButtonWrapper,
 } from './SetSelectFormItems.style';
 import { useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../../../store/modules';
@@ -21,10 +22,10 @@ import { SelectFormValues } from './SetSelectFormItems.type';
 import SetWeightSection from '../SetWeightSection/SetWeightSection';
 import {
   setNumberOfItemsCount,
-  setOptionItemsCount,
   setSelectFormItems,
 } from '../../../../store/modules/admin';
 import { useDispatch } from 'react-redux';
+import TwoButton from '../../../../components/TwoButton/TwoButton';
 
 interface SetSelectItemsFormProps {
   handleNext: () => void;
@@ -33,17 +34,11 @@ interface SetSelectItemsFormProps {
 const SetSelectFormItems = ({
   handleNext,
 }: SetSelectItemsFormProps): JSX.Element => {
-  const {
-    selectFormItems,
-    typeFormItems,
-    numberOfItemsCount,
-    optionItemsCount,
-  } = useSelector(
+  const { selectFormItems, typeFormItems, numberOfItemsCount } = useSelector(
     (state: RootState) => ({
       typeFormItems: state.admin.typeFormItems,
       selectFormItems: state.admin.selectFormItems,
       numberOfItemsCount: state.admin.numberOfItemsCount,
-      optionItemsCount: state.admin.optionItemsCount,
     }),
     shallowEqual,
   );
@@ -101,7 +96,7 @@ const SetSelectFormItems = ({
     append({
       question: '',
       optionItems: [
-        ...new Array(optionItemsCount).fill(0).map(() => {
+        ...new Array(2).fill(0).map(() => {
           return {
             option: '',
             weightedScoreItems: setWeightedScoreItems(),
@@ -113,42 +108,6 @@ const SetSelectFormItems = ({
   };
 
   const getSelectFormItems = () => getValues('selectFormItems');
-
-  const decreaeOptionItemsCount = () => {
-    if (MIN_OPTION_ITEMS_COUNT === optionItemsCount) return;
-    const selectItems = getSelectFormItems();
-
-    const removeOptionItems = selectItems.map((data) => {
-      return {
-        ...data,
-        optionItems: data.optionItems.slice(0, optionItemsCount - 1),
-      };
-    });
-
-    setValue('selectFormItems', removeOptionItems);
-    dispatch(setOptionItemsCount({ count: -1 }));
-  };
-
-  const increaseOptionItemsCount = () => {
-    if (MAX_OPTION_ITEMS_COUNT === optionItemsCount) return;
-
-    const selectItems = getSelectFormItems();
-
-    const addOptionItems = selectItems.map((item) => {
-      return {
-        ...item,
-        optionItems: [
-          ...item.optionItems,
-          {
-            option: '',
-            weightedScoreItems: setWeightedScoreItems(),
-          },
-        ],
-      };
-    });
-    setValue('selectFormItems', addOptionItems);
-    dispatch(setOptionItemsCount({ count: 1 }));
-  };
 
   const onSubmit = async () => {
     const isStepValid = await trigger();
@@ -165,6 +124,46 @@ const SetSelectFormItems = ({
     handleNext();
   };
 
+  const increaseOptionItems = (numberOfItemsIndex) => {
+    const selectItems = getSelectFormItems();
+    const optionItemsCount = selectItems[numberOfItemsIndex].optionItems.length;
+
+    if (MAX_OPTION_ITEMS_COUNT === optionItemsCount) return;
+
+    const addOptionItems = selectItems.map((item, index) => {
+      return numberOfItemsIndex === index
+        ? {
+            ...item,
+            optionItems: [
+              ...item.optionItems,
+              {
+                option: '',
+                weightedScoreItems: setWeightedScoreItems(),
+              },
+            ],
+          }
+        : { ...item };
+    });
+    setValue('selectFormItems', addOptionItems);
+  };
+
+  const decreaeOptionItems = (numberOfItemsIndex) => {
+    const selectItems = getSelectFormItems();
+    const optionItemsCount = selectItems[numberOfItemsIndex].optionItems.length;
+    if (MIN_OPTION_ITEMS_COUNT === optionItemsCount) return;
+
+    const removeOptionItems = selectItems.map((item, index) => {
+      return numberOfItemsIndex === index
+        ? {
+            ...item,
+            optionItems: item.optionItems.slice(0, optionItemsCount - 1),
+          }
+        : { ...item };
+    });
+
+    setValue('selectFormItems', removeOptionItems);
+  };
+
   return (
     <Form id="selectForm" onSubmit={handleSubmit(onSubmit)}>
       <Container>
@@ -176,17 +175,6 @@ const SetSelectFormItems = ({
             onRightButtonClick={inCreaseNumberOfItems}
             minCount={MIN_NUMBER_OF_ITEMS_COUNT}
             maxCount={MAX_NUMBER_OF_ITEMS_COUNT}
-          />
-        </SetCounterButtonWrapper>
-
-        <SetCounterButtonWrapper>
-          <SetCounterButton
-            label={'선택지 수 설정'}
-            count={optionItemsCount}
-            onLeftButtonClick={decreaeOptionItemsCount}
-            onRightButtonClick={increaseOptionItemsCount}
-            minCount={MIN_OPTION_ITEMS_COUNT}
-            maxCount={MAX_OPTION_ITEMS_COUNT}
           />
         </SetCounterButtonWrapper>
 
@@ -215,6 +203,18 @@ const SetSelectFormItems = ({
                   </React.Fragment>
                 );
               })}
+              <TwoButtonWrapper>
+                <TwoButton
+                  leftName="삭제"
+                  leftType="button"
+                  leftDisabled={MIN_OPTION_ITEMS_COUNT === optionItems.length}
+                  leftButton={() => decreaeOptionItems(numberOfItemsIndex)}
+                  rightName="추가"
+                  rightType="button"
+                  rightDisabled={MAX_OPTION_ITEMS_COUNT === optionItems.length}
+                  rightButton={() => increaseOptionItems(numberOfItemsIndex)}
+                />
+              </TwoButtonWrapper>
             </BoxShadowCard>
           );
         })}

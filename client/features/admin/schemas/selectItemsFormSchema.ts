@@ -13,7 +13,7 @@ const optionItemsArray = yup.array().of(
           score: yup.number(),
         }),
       )
-      .test('weightedScoreValidation', '하나 이상 점수를 주세요', (items) =>
+      .test('weightedScoreValidation', '하나 이상 가중치를 주세요', (items) =>
         items.some(({ score }) => score),
       ),
   }),
