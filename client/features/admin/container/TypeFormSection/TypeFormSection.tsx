@@ -61,6 +61,7 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
   };
 
   const onError = (errors) => {
+    if (!errors.typeFormItems.message) return;
     alert(errors.typeFormItems.message);
   };
 
