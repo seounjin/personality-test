@@ -22,15 +22,16 @@ jobs:
           cd client
           npm install
           npm run build
+          ls -al
 
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.2
+      # - name: Deploy to Netlify
+      #   uses: nwtgck/actions-netlify@v1.2
 
-        with:
-          publish-dir: "./client/.next"
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     publish-dir: "./client/.next"
+      #     production-branch: main
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
 
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
