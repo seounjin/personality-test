@@ -20,8 +20,6 @@ jobs:
       - name: Install and Build
         run: |
           cd client
-          # npm install
-          # npm run build
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
