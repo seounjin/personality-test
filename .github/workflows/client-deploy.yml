@@ -27,7 +27,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
 
         with:
-          publish-dir: "./client/.next"
+          publish-dir: ".next"
           production-branch: main
           netlify-config-path: "./client/netlify.toml"
           production-deploy: true;
