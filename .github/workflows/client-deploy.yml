@@ -15,10 +15,11 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: "16.x"
 
       - name: Install and Build
         run: |
+          cd client
           npm install
           npm run build
 
@@ -26,7 +27,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
 
         with:
-          publish-dir: './out'
+          publish-dir: "./client/out"
           production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
