@@ -5,6 +5,7 @@
 //   return withBundleAnalyzer(defaultConfig);
 // };
 module.exports = {
+  distDir: 'build',
   reactStrictMode: true,
   webpack: (config) => {
     config.module.rules.push({
