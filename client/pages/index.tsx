@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from '../components/Modal/Modal';
-import UserModalForm from '../components/UserModalForm/UserModalForm';
 import fetcher from '../api/fetcher';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
@@ -48,13 +47,6 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
     <HomeBody>
       {cards && <MCardList cardItems={cards} />}
 
-      {isOpenModal && (
-        <ModalPortal>
-          <Modal onClose={closeModal}>
-            <UserModalForm onClose={closeModal} />
-          </Modal>
-        </ModalPortal>
-      )}
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
     </HomeBody>
   );
