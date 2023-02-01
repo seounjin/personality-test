@@ -28,7 +28,7 @@ jobs:
 
         with:
           publish-dir: "./.next"
-          production-branch: master
+          production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
         env:
