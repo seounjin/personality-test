@@ -27,7 +27,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
 
         with:
-          publish-dir: ".next"
+          publish-dir: "client/.next"
           production-branch: main
           production-deploy: true;
           github-token: ${{ secrets.GITHUB_TOKEN }}
