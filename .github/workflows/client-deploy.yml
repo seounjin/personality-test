@@ -28,6 +28,7 @@ jobs:
 
         with:
           publish-dir: "./client/build"
+          netlify-config-path: "./client/netlify.toml"
           production-branch: main
           production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
