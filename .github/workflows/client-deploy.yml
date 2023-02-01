@@ -30,6 +30,7 @@ jobs:
           publish-dir: "./client/.next"
           production-branch: main
           netlify-config-path: "./client/netlify.toml"
+          production-deploy: true;
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
         env:
