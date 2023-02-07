@@ -1,27 +1,29 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import TextFiled from '../../../../components/TextFiled/TextField';
-import { signupFormSchema } from '../../Schema/SignupFormSchema';
 import { Form } from './SignupForm.style';
 
 interface SignupFormProps {
-  onSubmit: () => void;
+  onSubmit: (data: {
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }) => void;
 }
 
 const SignupForm = ({ onSubmit }: SignupFormProps): JSX.Element => {
-  const signupFormMethods = useForm({
-    resolver: yupResolver(signupFormSchema),
-    mode: 'onChange',
-  });
+  const { handleSubmit } = useFormContext();
 
   return (
-    <FormProvider {...signupFormMethods}>
-      <Form id="signupForm" onSubmit={onSubmit}>
-        <TextFiled label={'이메일'} name={'email'} />
-        <TextFiled label={'비밀번호'} name={'password'} />
-      </Form>
-    </FormProvider>
+    <Form id="signupForm" onSubmit={handleSubmit(onSubmit)}>
+      <TextFiled label={'이메일'} name={'email'} />
+      <TextFiled type={'password'} label={'비밀번호'} name={'password'} />
+      <TextFiled
+        type={'password'}
+        label={'비밀번호 확인'}
+        name={'passwordConfirm'}
+      />
+    </Form>
   );
 };
 

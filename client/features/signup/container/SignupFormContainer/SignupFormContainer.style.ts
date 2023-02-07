@@ -20,3 +20,5 @@ export const LoginLinkWrapper = styled.div`
   font-size: 1.5rem;
   text-align: center;
 `;
+
+export const Text = styled.span``;

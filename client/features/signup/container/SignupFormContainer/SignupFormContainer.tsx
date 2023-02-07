@@ -1,7 +1,12 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import fetcher from '../../../../api/fetcher';
 import { LoginFormButton } from '../../../../components/LoginModalForm/LoginModalForm.style';
 import SignupForm from '../../components/SignupForm/SignupForm';
+import { signupFormSchema } from '../../Schema/SignupFormSchema';
+import { useRouter } from 'next/router';
 
 import {
   Container,
@@ -9,11 +14,27 @@ import {
   TitleWrapper,
   Title,
   LoginLinkWrapper,
+  Text,
 } from './SignupFormContainer.style';
 
 const SignupFormContainer = () => {
-  const handleSubmit = () => {
-    console.log('회원가입 제출');
+  const signupFormMethods = useForm({
+    resolver: yupResolver(signupFormSchema),
+    defaultValues: { email: '', password: '', passwordConfirm: '' },
+    mode: 'onChange',
+  });
+
+  const router = useRouter();
+
+  const onSubmit = async (data: {
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }) => {
+    const res = await fetcher('post', `/user/signup`, { data });
+    if (res.success) {
+      router.push('/');
+    }
   };
 
   return (
@@ -22,10 +43,14 @@ const SignupFormContainer = () => {
         <TitleWrapper>
           <Title>회원가입</Title>
         </TitleWrapper>
-        <SignupForm onSubmit={handleSubmit} />
-        <LoginFormButton>회원가입</LoginFormButton>
+        <FormProvider {...signupFormMethods}>
+          <SignupForm onSubmit={onSubmit} />
+        </FormProvider>
+
+        <LoginFormButton form="signupForm">회원가입</LoginFormButton>
+
         <LoginLinkWrapper>
-          <span>이미 가입 하셨나요?&nbsp;&nbsp;</span>
+          <Text>이미 가입 하셨나요?&nbsp;&nbsp;</Text>
           <Link href="/login">로그인</Link>
         </LoginLinkWrapper>
       </SignupFormWrapper>
