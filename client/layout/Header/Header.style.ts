@@ -19,6 +19,7 @@ export const Nav = styled.nav`
   max-width: 1060px;
   margin: 0 auto;
   height: 100%;
+  justify-content: space-between;
 `;
 
 interface NavLinkType {
@@ -32,4 +33,14 @@ export const NavLink = styled.div<NavLinkType>`
       isActive ? theme.colors.black : theme.colors.lightGray};
     text-decoration: none;
   }
+`;
+
+export const LeftMenu = styled.div`
+  display: flex;
+`;
+
+export const LoginButton = styled.button`
+  border: none;
+  padding: 0;
+  background-color: ${({ theme }) => theme.colors.white};
 `;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useController, useFormContext, useWatch } from 'react-hook-form';
-import HelperText from '../../components/HelperText/HelperText';
+import HelperText from '../../../../components/HelperText/HelperText';
 import SetScoreButton from '../../components/SetScoreButton/SetScoreButton';
 import {
   Container,

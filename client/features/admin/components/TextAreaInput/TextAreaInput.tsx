@@ -1,7 +1,7 @@
 import React from 'react';
 import { useController } from 'react-hook-form';
-import HelperText from '../HelperText/HelperText';
-import { HelperTextWrapper } from '../TextFiled/TextFiled.style';
+import HelperText from '../../../../components/HelperText/HelperText';
+import { HelperTextWrapper } from '../../../../components/TextFiled/TextFiled.style';
 import { Container, Label, Textarea } from './TextAreaInput.style';
 
 interface TextFieldProps {

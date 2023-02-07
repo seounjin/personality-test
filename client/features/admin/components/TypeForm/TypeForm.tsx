@@ -1,6 +1,6 @@
 import React from 'react';
 import TextAreaInput from '../TextAreaInput/TextAreaInput';
-import TextFiled from '../TextFiled/TextField';
+import TextFiled from '../../../../components/TextFiled/TextField';
 import { Container, TextFiledWrapper, NumberLabel } from './TypeForm.style';
 
 interface TypeFormProps {

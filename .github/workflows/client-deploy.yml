@@ -1,38 +1,38 @@
-name: Build and Deploy to Netlify
+# name: Build and Deploy to Netlify
 
-on:
-  push:
-    branches: main
+# on:
+#   push:
+#     branches: main
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
+#       - name: Set up Node.js version
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: "16.x"
 
-      - name: Install and Build
-        run: |
-          npm install
-          npm run build
-        working-directory: ./client
+#       - name: Install and Build
+#         run: |
+#           npm install
+#           npm run build
+#         working-directory: ./client
 
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.2
+#       - name: Deploy to Netlify
+#         uses: nwtgck/actions-netlify@v1.2
 
-        with:
-          publish-dir: "./client/build"
-          netlify-config-path: "./client/netlify.toml"
-          production-branch: main
-          production-deploy: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           publish-dir: "./client/build"
+#           netlify-config-path: "./client/netlify.toml"
+#           production-branch: main
+#           production-deploy: true
+#           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+#         env:
+#           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

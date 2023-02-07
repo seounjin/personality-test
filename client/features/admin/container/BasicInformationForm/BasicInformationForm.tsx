@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from './BasicInformationForm.style';
-import TextFiled from '../../components/TextFiled/TextField';
+import TextFiled from '../../../../components/TextFiled/TextField';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { setBasicInformationForm } from '../../../../store/modules/admin';

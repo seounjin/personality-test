@@ -37,6 +37,9 @@ export const theme: DefaultTheme = {
     angleLeftSolidColor: '#594545',
     angleRightSolidColor: '#594545',
     questionMarkColor: '#594545',
+    loginFormButtonColor: '#594545',
+    loginFormLinkTextColor: '#333333',
+    loginFormLinkTextHoverColor: '#9E7676',
   },
 
   device: {

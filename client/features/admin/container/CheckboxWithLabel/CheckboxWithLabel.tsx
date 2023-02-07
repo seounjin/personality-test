@@ -2,8 +2,8 @@ import React from 'react';
 import { useController, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { handleChangeTypeDictionary } from '../../../../store/modules/admin';
-import HelperText from '../../components/HelperText/HelperText';
-import { HelperTextWrapper } from '../../components/TextFiled/TextFiled.style';
+import HelperText from '../../../../components/HelperText/HelperText';
+import { HelperTextWrapper } from '../../../../components/TextFiled/TextFiled.style';
 import {
   Checkbox,
   Wrapper,

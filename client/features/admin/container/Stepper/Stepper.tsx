@@ -53,11 +53,11 @@ const Stepper = (): JSX.Element => {
 
   return (
     <Container>
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Modal onClose={handleModal}>
           <ManualModal activeStep={activeStep} />
         </Modal>
-      )}
+      )} */}
 
       <StepTitle>{STEP_TITLE[activeStep]}</StepTitle>
       <StepIndicator

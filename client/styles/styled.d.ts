@@ -34,6 +34,9 @@ declare module 'styled-components' {
       angleRightSolidColor: string;
       angleLeftSolidColor: string;
       questionMarkColor: string;
+      loginFormButtonColor: string;
+      loginFormLinkTextColor: string;
+      loginFormLinkTextHoverColor: string;
     };
 
     device: {
