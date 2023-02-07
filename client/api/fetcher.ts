@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, Method } from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8000/api/v1';
+axios.defaults.baseURL = 'http://localhost:8080/api/v1';
 axios.defaults.withCredentials = true;
 
 const fetcher = async (
@@ -9,7 +9,6 @@ const fetcher = async (
   ...rest: AxiosRequestConfig[]
 ) => {
   try {
-    console.log('rest', ...rest);
     const res = await axios[method](url, ...rest);
     console.log('status', res.status);
     if (res.status === 200 || res.status === 201) {

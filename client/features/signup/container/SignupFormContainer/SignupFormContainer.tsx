@@ -26,14 +26,18 @@ const SignupFormContainer = () => {
 
   const router = useRouter();
 
-  const onSubmit = async (data: {
+  const onSubmit = async ({email, password}: {
     email: string;
     password: string;
     passwordConfirm: string;
   }) => {
+    const data = { email, password };
     const res = await fetcher('post', `/user/signup`, { data });
     if (res.success) {
       router.push('/');
+      alert('회원가입이 되었습니다')
+    } else {
+      alert(res.status === 409 ? '이미 존재하는 이메일입니다' : '서버 점검 중입니다')
     }
   };
 
