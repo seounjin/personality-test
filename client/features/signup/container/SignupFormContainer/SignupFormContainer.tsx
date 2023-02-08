@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import fetcher from '../../../../api/fetcher';
-import { LoginFormButton } from '../../../../components/LoginModalForm/LoginModalForm.style';
+import { LoginFormButton } from '../../../../components/LoginModal/LoginModal.style';
 import SignupForm from '../../components/SignupForm/SignupForm';
 import { signupFormSchema } from '../../Schema/SignupFormSchema';
 import { useRouter } from 'next/router';
@@ -26,7 +26,10 @@ const SignupFormContainer = () => {
 
   const router = useRouter();
 
-  const onSubmit = async ({email, password}: {
+  const onSubmit = async ({
+    email,
+    password,
+  }: {
     email: string;
     password: string;
     passwordConfirm: string;
@@ -35,9 +38,13 @@ const SignupFormContainer = () => {
     const res = await fetcher('post', `/user/signup`, { data });
     if (res.success) {
       router.push('/');
-      alert('회원가입이 되었습니다')
+      alert('회원가입이 되었습니다');
     } else {
-      alert(res.status === 409 ? '이미 존재하는 이메일입니다' : '서버 점검 중입니다')
+      alert(
+        res.status === 409
+          ? '이미 존재하는 이메일입니다'
+          : '서버 점검 중입니다',
+      );
     }
   };
 

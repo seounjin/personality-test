@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import LoginModalForm from '../../components/LoginModalForm/LoginModalForm';
+import LoginModal from '../../components/LoginModal/LoginModal';
 import Logo from '../../components/Logo/Logo';
 import Modal from '../../components/Modal/Modal';
 import { Container, LeftMenu, LoginButton, Nav, NavLink } from './Header.style';
@@ -48,7 +48,7 @@ const Header = (): JSX.Element => {
 
       {isModalOpen && (
         <Modal onClose={handleModal}>
-          <LoginModalForm />
+          <LoginModal />
         </Modal>
       )}
     </Container>

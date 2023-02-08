@@ -1,40 +1,19 @@
-import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import TextFiled from '../TextFiled/TextField';
-import { FormProvider, useForm } from 'react-hook-form';
-import { Bottom, Form, Link, LoginFormButton } from './LoginModalForm.style';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { Form } from './LoginModalForm.style';
 
-const loginFormSchema = yup.object({
-  email: yup.string().required('한 글자 이상 채워 주세요'),
-  password: yup.string().required('한 글자 이상 채워 주세요'),
-});
+interface LoginModalFormProps {
+  onSubmit: () => void;
+}
 
-const LoginModalForm = () => {
-  const handleSubmit = () => {
-    console.log('제출');
-  };
-
-  const loginModalFormMethods = useForm({
-    resolver: yupResolver(loginFormSchema),
-    mode: 'onChange',
-  });
+const LoginModalForm = ({ onSubmit }: LoginModalFormProps): JSX.Element => {
+  const { handleSubmit } = useFormContext();
 
   return (
-    <FormProvider {...loginModalFormMethods}>
-      <Form id="loginModalForm" onSubmit={handleSubmit}>
-        <TextFiled label={'이메일'} name={'email'} />
-        <TextFiled label={'비밀번호'} name={'password'} />
-      </Form>
-
-      <LoginFormButton>로그인</LoginFormButton>
-
-      <Bottom>
-        <Link>아이디 찾기</Link>
-        <Link>비밀번호 찾기</Link>
-        <Link>회원 가입</Link>
-      </Bottom>
-    </FormProvider>
+    <Form id="loginModalForm" onSubmit={handleSubmit(onSubmit)}>
+      <TextFiled label={'이메일'} name={'email'} />
+      <TextFiled type="password" label={'비밀번호'} name={'password'} />
+    </Form>
   );
 };
 
