@@ -11,6 +11,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import LoginModalForm from '../LoginModalForm/LoginModalForm';
+import fetcher from '../../api/fetcher';
 
 const loginFormSchema = yup.object({
   email: yup
@@ -21,12 +22,18 @@ const loginFormSchema = yup.object({
 });
 
 const LoginModal = () => {
-  const onSubmit = () => {
-    console.log('제출');
+  const onSubmit = async (data: { email: string; password: string }) => {
+    const res = await fetcher('post', '/user/login', { data });
+    if (res.success) {
+      alert('로그인 성공');
+    } else {
+      alert('아이디 또는 비밀번호가 일치하지 않습니다');
+    }
   };
 
   const loginModalFormMethods = useForm({
     resolver: yupResolver(loginFormSchema),
+    defaultValues: { email: '', password: '' },
     mode: 'onChange',
   });
 

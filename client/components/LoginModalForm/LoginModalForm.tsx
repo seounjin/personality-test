@@ -3,7 +3,7 @@ import TextFiled from '../TextFiled/TextField';
 import { Form } from './LoginModalForm.style';
 
 interface LoginModalFormProps {
-  onSubmit: () => void;
+  onSubmit: (data: { email: string; password: string }) => void;
 }
 
 const LoginModalForm = ({ onSubmit }: LoginModalFormProps): JSX.Element => {
