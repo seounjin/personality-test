@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import LoginModalForm from '../LoginModalForm/LoginModalForm';
 import fetcher from '../../api/fetcher';
+import { useRouter } from 'next/router';
 
 const loginFormSchema = yup.object({
   email: yup
@@ -22,10 +23,17 @@ const loginFormSchema = yup.object({
 });
 
 const LoginModal = () => {
+  const router = useRouter();
   const onSubmit = async (data: { email: string; password: string }) => {
     const res = await fetcher('post', '/user/login', { data });
     if (res.success) {
       alert('로그인 성공');
+      const redirect = router.query.redirect;
+      if (redirect) {
+        router.replace(`/${redirect}`);
+      } else {
+        router.replace(`/`);
+      }
     } else {
       alert('아이디 또는 비밀번호가 일치하지 않습니다');
     }

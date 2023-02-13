@@ -1,18 +1,9 @@
 import { Wrapper, Container } from '../../features/admin/admin.styles';
-import { useEffect } from 'react';
 import Stepper from '../../features/admin/container/Stepper/Stepper';
-import { useDispatch } from 'react-redux';
-import { reSetAdminData } from '../../store/modules/admin';
+import { GetServerSideProps } from 'next';
+import withAuth from '../../hoc/withAuth';
 
 const Admin = (): JSX.Element => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    return () => {
-      dispatch(reSetAdminData());
-    };
-  }, []);
-
   return (
     <Wrapper>
       <Container>
@@ -21,5 +12,16 @@ const Admin = (): JSX.Element => {
     </Wrapper>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = withAuth({
+  callback: async (auth: boolean) => {
+    if (auth) {
+      return { props: {} };
+    }
+    return {
+      redirect: { destination: '/login?redirect=admin', permanent: false },
+    };
+  },
+});
 
 export default Admin;

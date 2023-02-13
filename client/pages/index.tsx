@@ -10,6 +10,7 @@ import { setIsOpenModal } from '../store/modules/home';
 import ModalPortal from '../portal/ModalPortal';
 import CardList from '../features/home/components/CardList/CardList';
 import { Card } from '../features/home/components/CardList/CardList.type';
+import withAuth from '../hoc/withAuth';
 
 const MCardList = React.memo(CardList);
 
@@ -52,11 +53,25 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const { data, status } = await fetcher('get', '/personality');
+export const getServerSideProps: GetServerSideProps = withAuth({
+  callback: async () => {
+    try {
+      const { data, status } = await fetcher('get', '/personality');
 
-    if (status >= 500) {
+      if (status >= 500) {
+        return {
+          props: {
+            error: {
+              statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
+              message: 'Error!',
+            },
+          },
+        };
+      }
+      return {
+        props: { cardItems: data },
+      };
+    } catch (error) {
       return {
         props: {
           error: {
@@ -66,19 +81,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         },
       };
     }
-    return {
-      props: { cardItems: data },
-    };
-  } catch (error) {
-    return {
-      props: {
-        error: {
-          statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
-          message: 'Error!',
-        },
-      },
-    };
-  }
-};
+  },
+});
 
 export default Home;

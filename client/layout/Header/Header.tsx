@@ -1,49 +1,37 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import fetcher from '../../api/fetcher';
+import LeftMenu from '../../components/LeftMenu/LeftMenu';
 import LoginModal from '../../components/LoginModal/LoginModal';
-import Logo from '../../components/Logo/Logo';
 import Modal from '../../components/Modal/Modal';
-import { Container, LeftMenu, LoginButton, Nav, NavLink } from './Header.style';
-
-const ROUTES = [
-  { id: 'n1', url: '/', content: '성향 테스트', pathName: '/' },
-  {
-    id: 'n2',
-    url: '/admin',
-    content: '성향 테스트 만들기',
-    pathName: '/admin',
-  },
-];
+import RightMenu from '../../components/RightMenu/RightMenu';
+import { Container, Nav } from './Header.style';
 
 const Header = (): JSX.Element => {
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleLogout = async () => {
+    const res = await fetcher('get', '/user/logout');
+    console.log('res', res);
+    if (res.success) {
+      alert('로그아웃 되었습니다');
+      router.reload();
+    } else {
+      alert('로그아웃을 실패 하셨습니다');
+      router.reload();
+    }
+  };
+
   return (
     <Container>
       <Nav>
-        <LeftMenu>
-          <Logo />
-
-          {ROUTES.map((data) => {
-            return (
-              <NavLink
-                key={data.id}
-                isActive={router.pathname === data.pathName}
-              >
-                <Link href={data.url}>{data.content}</Link>
-              </NavLink>
-            );
-          })}
-        </LeftMenu>
-        <NavLink isActive={true}>
-          <LoginButton onClick={handleModal}>로그인</LoginButton>
-        </NavLink>
+        <LeftMenu />
+        <RightMenu handleModal={handleModal} handleLogout={handleLogout} />
       </Nav>
 
       {isModalOpen && (

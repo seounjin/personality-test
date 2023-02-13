@@ -4,12 +4,14 @@ interface CommonState {
   selectCard: string;
   selectAction: string;
   isOpenModal: boolean;
+  isLogin: boolean;
 }
 
 const initialState: CommonState = {
   selectCard: '',
   selectAction: '',
   isOpenModal: false,
+  isLogin: false,
 };
 
 export const homeSlice = createSlice({
@@ -25,9 +27,12 @@ export const homeSlice = createSlice({
     setIsOpenModal: (state: CommonState, action: PayloadAction<boolean>) => {
       state.isOpenModal = action.payload;
     },
+    setIsAuth: (state: CommonState, action: PayloadAction<boolean>) => {
+      state.isLogin = action.payload;
+    },
   },
 });
 
-export const { setSelectCard, setSelectAction, setIsOpenModal } =
+export const { setSelectCard, setSelectAction, setIsOpenModal, setIsAuth } =
   homeSlice.actions;
 export default homeSlice.reducer;
