@@ -13,12 +13,17 @@ import Link from 'next/link';
 import { Card } from './CardList.type';
 import MoreOutlined from '../MoreOutlined/MoreOutlined';
 import MultiList from '../Multilist/MultiList';
+import Image from 'next/image';
 
 type CardListProps = {
   cardItems: Card[];
 };
 
 const CardList = ({ cardItems }: CardListProps): JSX.Element => {
+  const loaderProp = ({ src }) => {
+    return src;
+  };
+
   return (
     <Wrapper>
       {cardItems.map(({ title, id, imgUrl }) => (
@@ -31,17 +36,17 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
           >
             <CardItemHeader>
               <CardImageWrapper>
-                <CardImage
+                <Image
                   alt="card-img"
-                  src={`/imageholder.png`}
-                  layout="fill"
-                  objectFit="cover"
+                  src={'/images/imageholder.png'}
+                  fill
+                  loader={loaderProp}
                 />
               </CardImageWrapper>
-              <MoreOutlinedContainer>
+              {/* <MoreOutlinedContainer>
                 <MoreOutlined />
                 <MultiList cardId={id} />
-              </MoreOutlinedContainer>
+              </MoreOutlinedContainer> */}
             </CardItemHeader>
             <CardItemBody>
               <Headline>{title}</Headline>

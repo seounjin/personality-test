@@ -39,6 +39,13 @@ const FinalConfirmationForm = () => {
     const res = await fetcher('post', `/personality`, { data });
     if (res.success) {
       router.push('/');
+    } else {
+      if (res.status === 401) {
+        alert('로그인 유효시간이 만료 되었습니다 \n다시 로그인해 주세요');
+        router.push('/login?redirect=admin');
+      } else {
+        alert('서버 점검중입니다.');
+      }
     }
   };
 

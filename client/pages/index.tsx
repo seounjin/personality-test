@@ -32,7 +32,7 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
   );
 
   const getCards = async () => {
-    const res = await fetcher('get', '/cards');
+    const res = await fetcher('get', '/personality');
     setCards([...cards, ...res]);
   };
 

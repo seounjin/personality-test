@@ -18,16 +18,16 @@ const RightMenu = ({
   handleModal,
   handleLogout,
 }: RightMenuProps): JSX.Element => {
-  const { isLogin } = useSelector(
+  const { isAuth } = useSelector(
     (state: RootState) => ({
-      isLogin: state.home.isLogin,
+      isAuth: state.home.isAuth,
     }),
     shallowEqual,
   );
 
   return (
     <Wrapper>
-      {isLogin ? (
+      {isAuth ? (
         <>
           <NavLink isActive={false}>
             <MypageButton>마이페이지</MypageButton>
