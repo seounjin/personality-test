@@ -16,7 +16,7 @@ export const Container = styled(Header)``;
 
 export const Nav = styled.nav`
   display: flex;
-  max-width: 1060px;
+  max-width: 1280px;
   margin: 0 auto;
   height: 100%;
   justify-content: space-between;

@@ -46,7 +46,7 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 
   return (
     <HomeBody>
-      {cards && <MCardList cardItems={cards} />}
+      {cards && <MCardList cardItems={cards} type="home" />}
 
       {/* <div ref={target} style={{ height: '1px' }}></div> */}
     </HomeBody>

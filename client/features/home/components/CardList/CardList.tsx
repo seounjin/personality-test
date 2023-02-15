@@ -5,21 +5,27 @@ import {
   CardItemHeader,
   CardItemBody,
   Headline,
-  MoreOutlinedContainer,
-  CardImage,
   CardImageWrapper,
 } from './CardList.style';
 import Link from 'next/link';
 import { Card } from './CardList.type';
-import MoreOutlined from '../MoreOutlined/MoreOutlined';
-import MultiList from '../Multilist/MultiList';
+
 import Image from 'next/image';
+import TwoButton from '../../../../components/TwoButton/TwoButton';
 
 type CardListProps = {
   cardItems: Card[];
+  handleLeftButton?: (event: React.MouseEvent, id: string) => void;
+  handleRightButton?: (event: React.MouseEvent, id: string) => void;
+  type?: string;
 };
 
-const CardList = ({ cardItems }: CardListProps): JSX.Element => {
+const CardList = ({
+  cardItems,
+  handleLeftButton,
+  handleRightButton,
+  type = 'home',
+}: CardListProps): JSX.Element => {
   const loaderProp = ({ src }) => {
     return src;
   };
@@ -43,13 +49,19 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
                   loader={loaderProp}
                 />
               </CardImageWrapper>
-              {/* <MoreOutlinedContainer>
-                <MoreOutlined />
-                <MultiList cardId={id} />
-              </MoreOutlinedContainer> */}
             </CardItemHeader>
             <CardItemBody>
               <Headline>{title}</Headline>
+              {type === 'mypage' && (
+                <TwoButton
+                  leftName="삭제"
+                  leftButton={(event) => handleLeftButton(event, id)}
+                  rightButton={(event) => handleRightButton(event, id)}
+                  leftType="button"
+                  rightType="button"
+                  rightName="수정"
+                />
+              )}
             </CardItemBody>
           </Link>
         </CardItem>

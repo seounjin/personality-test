@@ -1,13 +1,8 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 
 export const CardImageWrapper = styled.div`
   position: relative;
   padding-top: 75%;
-`;
-
-export const CardImage = styled(Image)`
-  border-radius: 4px;
 `;
 
 export const Wrapper = styled.ul`
