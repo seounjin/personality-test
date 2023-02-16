@@ -6,10 +6,10 @@ import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import HomeBody from '../layout/Homebody/HomeBody';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { RootState } from '../store/modules';
-import { setIsOpenModal } from '../store/modules/home';
+import { setIsAuth, setIsOpenModal } from '../store/modules/home';
 import ModalPortal from '../portal/ModalPortal';
-import CardList from '../features/home/components/CardList/CardList';
-import { Card } from '../features/home/components/CardList/CardList.type';
+import CardList from '../components/CardList/CardList';
+import { Card } from '../components/CardList/CardList.type';
 import withAuth from '../hoc/withAuth';
 
 const MCardList = React.memo(CardList);
@@ -54,7 +54,11 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth({
-  callback: async () => {
+  callback: async ({ auth, store }) => {
+    if (auth) {
+      store.dispatch(setIsAuth(true));
+    }
+
     try {
       const { data, status } = await fetcher('get', '/personality');
 

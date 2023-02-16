@@ -17,7 +17,6 @@ const Header = (): JSX.Element => {
 
   const handleLogout = async () => {
     const res = await fetcher('get', '/user/logout');
-    console.log('res', res);
     if (res.success) {
       alert('로그아웃 되었습니다');
       router.reload();
@@ -36,7 +35,7 @@ const Header = (): JSX.Element => {
 
       {isModalOpen && (
         <Modal onClose={handleModal}>
-          <LoginModal />
+          <LoginModal onClose={handleModal} />
         </Modal>
       )}
     </Container>

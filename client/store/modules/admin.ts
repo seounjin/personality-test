@@ -3,11 +3,11 @@ import { AdminInitialState } from '../types';
 import fetcher from '../../api/fetcher';
 import {
   MIN_NUMBER_OF_ITEMS_COUNT,
-  MIN_OPTION_ITEMS_COUNT,
   MIN_TYPE_ITEMS_COUNT,
 } from '../../features/admin/admin.const';
 
 const initialState: AdminInitialState = {
+  mode: 'create',
   title: '',
   explain: '',
   typeFormItems: [
@@ -61,6 +61,9 @@ const adminSlice = createSlice({
   initialState,
   reducers: {
     reSetAdminData: () => initialState,
+    setMode: (state, action) => {
+      state.mode = action.payload.mode;
+    },
     setBasicInformationForm: (state, action) => {
       state.title = action.payload.title;
       state.explain = action.payload.explain;
@@ -107,6 +110,12 @@ const adminSlice = createSlice({
     setSelectFormItems: (state, action) => {
       state.selectFormItems = action.payload.selectFormItems;
     },
+    setPersonalityTestItems: (state, action) => {
+      state.title = action.payload.title;
+      state.explain = action.payload.explain;
+      state.typeFormItems = action.payload.typeFormItems;
+      state.selectFormItems = action.payload.selectFormItems;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
@@ -121,6 +130,7 @@ const adminSlice = createSlice({
 });
 
 export const {
+  setMode,
   reSetAdminData,
   setBasicInformationForm,
   setTypeFormItems,
@@ -130,5 +140,6 @@ export const {
   setTypeItemsCount,
   setNumberOfItemsCount,
   setSelectFormItems,
+  setPersonalityTestItems,
 } = adminSlice.actions;
 export default adminSlice.reducer;

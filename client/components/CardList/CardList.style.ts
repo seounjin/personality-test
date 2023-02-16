@@ -7,6 +7,7 @@ export const CardImageWrapper = styled.div`
 
 export const Wrapper = styled.ul`
   padding: 0;
+  margin: 0;
 `;
 
 export const CardItem = styled.li`

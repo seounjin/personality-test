@@ -12,4 +12,5 @@ export interface AdminInitialState {
   typeDictionary: TypeDictionary;
   selectFormItems: SelectFormItems[];
   numberOfItemsCount: number;
+  mode: string;
 }

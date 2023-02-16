@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { Card } from './CardList.type';
 
 import Image from 'next/image';
-import TwoButton from '../../../../components/TwoButton/TwoButton';
+import TwoButton from '../TwoButton/TwoButton';
 
 type CardListProps = {
   cardItems: Card[];

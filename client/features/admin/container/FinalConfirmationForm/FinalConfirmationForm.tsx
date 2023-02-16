@@ -14,8 +14,9 @@ import WeightedScoreBoardSection from '../WeightedScoreBoardSection/WeightedScor
 import { Form } from './FinalConfirmationForm.style';
 
 const FinalConfirmationForm = () => {
-  const { title, explain, typeFormItems, selectFormItems } = useSelector(
+  const { mode, title, explain, typeFormItems, selectFormItems } = useSelector(
     (state: RootState) => ({
+      mode: state.admin.mode,
       title: state.admin.title,
       explain: state.admin.explain,
       typeFormItems: state.admin.typeFormItems,
@@ -28,16 +29,10 @@ const FinalConfirmationForm = () => {
 
   const router = useRouter();
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const data = {
-      basicInformationItem: { title: title, explain: explain },
-      typeItems: typeFormItems,
-      selectItems: selectFormItems,
-    };
-
+  const requestRegister = async (data) => {
     const res = await fetcher('post', `/personality`, { data });
     if (res.success) {
+      alert('성향 테스트가 등록 되었습니다');
       router.push('/');
     } else {
       if (res.status === 401) {
@@ -46,6 +41,39 @@ const FinalConfirmationForm = () => {
       } else {
         alert('서버 점검중입니다.');
       }
+    }
+  };
+
+  const requestUpdate = async (data) => {
+    const id = router.query.id;
+    const res = await fetcher('put', `/personality/detail-personality/${id}`, {
+      data,
+    });
+    if (res.success) {
+      alert('해당 테스트가 업데이트 되었습니다');
+      router.push('/mypage');
+    } else {
+      if (res.status === 401) {
+        alert('로그인 유효시간이 만료 되었습니다 \n다시 로그인해 주세요');
+        router.push('/login?redirect=mypage');
+      } else {
+        alert('서버 점검중입니다.');
+      }
+    }
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      basicInformationItem: { title: title, explain: explain },
+      typeItems: typeFormItems,
+      selectItems: selectFormItems,
+    };
+
+    if (mode === 'create') {
+      requestRegister(data);
+    } else {
+      requestUpdate(data);
     }
   };
 

@@ -22,7 +22,11 @@ const loginFormSchema = yup.object({
   password: yup.string().required('비밀번호를 입력해주세요'),
 });
 
-const LoginModal = () => {
+interface LoginModalProps {
+  onClose?: () => void;
+}
+
+const LoginModal = ({ onClose }: LoginModalProps): JSX.Element => {
   const router = useRouter();
   const onSubmit = async (data: { email: string; password: string }) => {
     const res = await fetcher('post', '/user/login', { data });
@@ -32,7 +36,11 @@ const LoginModal = () => {
       if (redirect) {
         router.replace(`/${redirect}`);
       } else {
-        router.replace(`/`);
+        if (onClose) {
+          onClose();
+          router.reload();
+        }
+        router.replace('/');
       }
     } else {
       alert('아이디 또는 비밀번호가 일치하지 않습니다');

@@ -2,8 +2,9 @@ import { Wrapper, Container } from '../../features/admin/admin.styles';
 import Stepper from '../../features/admin/container/Stepper/Stepper';
 import { GetServerSideProps } from 'next';
 import withAuth from '../../hoc/withAuth';
+import { setIsAuth } from '../../store/modules/home';
 
-const Admin = (): JSX.Element => {
+const AdminPage = (): JSX.Element => {
   return (
     <Wrapper>
       <Container>
@@ -14,8 +15,10 @@ const Admin = (): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth({
-  callback: async (auth: boolean) => {
+  callback: async ({ auth, store }) => {
     if (auth) {
+      store.dispatch(setIsAuth(true));
+
       return { props: {} };
     }
     return {
@@ -24,4 +27,4 @@ export const getServerSideProps: GetServerSideProps = withAuth({
   },
 });
 
-export default Admin;
+export default AdminPage;
