@@ -1,28 +1,31 @@
-import React from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from '../../../../store/modules';
+import { useRouter, withRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import SignoutForm from '../../components/SignoutForm/SignoutForm';
 import CardItems from '../CardItems/CardItems';
 import { Container } from './TabPanel.style';
 
 const TebPanel = (): JSX.Element => {
-  const { currentPanel } = useSelector(
-    (state: RootState) => ({
-      currentPanel: state.mypage.currentPanel,
-    }),
-    shallowEqual,
-  );
+  const router = useRouter();
 
-  const panelList = (currentPanel) => {
-    switch (currentPanel) {
-      case 0:
+  useEffect(() => {
+    if (router.asPath === '/mypage') {
+      router.replace('/mypage?menu=my-personality', undefined, {
+        shallow: true,
+      });
+    }
+  }, []);
+
+  const panelList = () => {
+    const { menu } = router.query;
+    switch (menu) {
+      case 'my-personality':
         return <CardItems />;
-      case 1:
+      case 'signout':
         return <SignoutForm />;
     }
   };
 
-  return <Container>{panelList(currentPanel)}</Container>;
+  return <Container>{panelList()}</Container>;
 };
 
-export default TebPanel;
+export default withRouter(TebPanel);

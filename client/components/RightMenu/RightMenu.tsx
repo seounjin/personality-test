@@ -1,23 +1,14 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import fetcher from '../../api/fetcher';
 import { RootState } from '../../store/modules';
 import { NavLink } from '../NavLink/NavLink';
-import {
-  LoginButton,
-  LogoutButton,
-  MypageButton,
-  Wrapper,
-} from './RightMenu.style';
+import { LoginButton, LogoutButton, Wrapper } from './RightMenu.style';
 
-interface RightMenuProps {
-  handleModal: () => void;
-  handleLogout: () => void;
-}
-
-const RightMenu = ({
-  handleModal,
-  handleLogout,
-}: RightMenuProps): JSX.Element => {
+const RightMenu = (): JSX.Element => {
+  const router = useRouter();
   const { isAuth } = useSelector(
     (state: RootState) => ({
       isAuth: state.home.isAuth,
@@ -25,12 +16,27 @@ const RightMenu = ({
     shallowEqual,
   );
 
+  const handleLogin = () => {
+    router.push('/login');
+  };
+
+  const handleLogout = async () => {
+    const res = await fetcher('get', '/user/logout');
+    if (res.success) {
+      alert('로그아웃 되었습니다');
+      router.reload();
+    } else {
+      alert('로그아웃을 실패 하셨습니다');
+      router.reload();
+    }
+  };
+
   return (
     <Wrapper>
       {isAuth ? (
         <>
-          <NavLink isActive={false}>
-            <MypageButton>마이페이지</MypageButton>
+          <NavLink isActive={router.pathname === '/mypage'}>
+            <Link href="/mypage?menu=my-personality">마이페이지</Link>
           </NavLink>
 
           <NavLink isActive={false}>
@@ -39,7 +45,7 @@ const RightMenu = ({
         </>
       ) : (
         <NavLink isActive={false}>
-          <LoginButton onClick={handleModal}>로그인</LoginButton>
+          <LoginButton onClick={handleLogin}>로그인</LoginButton>
         </NavLink>
       )}
     </Wrapper>

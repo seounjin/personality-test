@@ -1,31 +1,35 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setCurrentPanel } from '../../../../store/modules/mypage';
-import Sidebar from '../../components/SideBar/Sidebar';
+import { useRouter } from 'next/router';
+import React from 'react';
+import TabList from '../../components/TabList/TabList';
 import { Container } from './Aside.style';
 
-const SIDEBAR_MENU = [
-  { id: 's1', text: '내가 만든 테스트', isActive: true },
-  { id: 's2', text: '회원탈퇴', isActive: false },
+const TAB_List = [
+  {
+    id: 's1',
+    text: '내가 만든 테스트',
+    type: 'button',
+    asPath: '/mypage?menu=my-personality',
+    subMenu: [],
+  },
+  {
+    id: 's2',
+    text: '회원탈퇴',
+    type: 'button',
+    asPath: '/mypage?menu=signout',
+    subMenu: [],
+  },
 ];
 
 const Aside = () => {
-  const [sidebarMenu, setSidebarMenu] = useState(SIDEBAR_MENU);
-  const dispatch = useDispatch();
+  const router = useRouter();
 
-  const handleClick = (currentIndex: number) => {
-    const newSidebarMenu = sidebarMenu.map((data, index) => ({
-      ...data,
-      isActive: index === currentIndex,
-    }));
-
-    dispatch(setCurrentPanel(currentIndex));
-    setSidebarMenu(newSidebarMenu);
+  const handleClick = (asPath: string) => {
+    router.push(asPath, undefined, { shallow: true });
   };
 
   return (
     <Container>
-      <Sidebar handleClick={handleClick} sidebarMenu={sidebarMenu} />
+      <TabList onClick={handleClick} tabList={TAB_List} />
     </Container>
   );
 };

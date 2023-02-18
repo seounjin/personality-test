@@ -5,7 +5,7 @@ export const Header = styled.header`
   top: 0;
   width: 100%;
   height: 50px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   border-bottom: 1px solid #e4e4e4;
   z-index: 1000;
@@ -19,5 +19,7 @@ export const Nav = styled.nav`
   max-width: 1280px;
   margin: 0 auto;
   height: 100%;
+  align-items: center;
   justify-content: space-between;
+  padding: 0 15px;
 `;

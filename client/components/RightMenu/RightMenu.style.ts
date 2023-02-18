@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
+
+  ${({ theme }) =>
+    theme.device.laptop`
+  display: none;`}
 `;
 
 const Button = styled.button`
@@ -13,5 +17,3 @@ const Button = styled.button`
 export const LoginButton = styled(Button)``;
 
 export const LogoutButton = styled(Button)``;
-
-export const MypageButton = styled(Button)``;
