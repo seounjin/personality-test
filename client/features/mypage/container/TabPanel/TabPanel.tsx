@@ -1,7 +1,7 @@
 import { useRouter, withRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import SignoutForm from '../../components/SignoutForm/SignoutForm';
 import CardItems from '../CardItems/CardItems';
+import SignoutContainer from '../SignoutContainer/SignoutContainer';
 import { Container } from './TabPanel.style';
 
 const TebPanel = (): JSX.Element => {
@@ -21,7 +21,7 @@ const TebPanel = (): JSX.Element => {
       case 'my-personality':
         return <CardItems />;
       case 'signout':
-        return <SignoutForm />;
+        return <SignoutContainer />;
     }
   };
 

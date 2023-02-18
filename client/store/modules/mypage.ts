@@ -3,10 +3,12 @@ import { Card } from '../../components/CardList/CardList.type';
 
 interface CommonState {
   cards: Card[];
+  user: string;
 }
 
 const initialState: CommonState = {
   cards: [],
+  user: '',
 };
 
 export const myPageSlice = createSlice({
@@ -16,8 +18,11 @@ export const myPageSlice = createSlice({
     setCards: (state: CommonState, action: PayloadAction<Card[]>) => {
       state.cards = action.payload;
     },
+    setUser: (state: CommonState, action: PayloadAction<string>) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { setCards } = myPageSlice.actions;
+export const { setCards, setUser } = myPageSlice.actions;
 export default myPageSlice.reducer;

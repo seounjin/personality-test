@@ -19,7 +19,12 @@ const TextFiled = ({
   return (
     <Container>
       <Label>{label}</Label>
-      <Input type={type} name={name} {...field} />
+      <Input
+        type={type}
+        name={name}
+        {...field}
+        autoComplete={type === 'password' ? 'new-password' : 'on'}
+      />
       <HelperTextWrapper>
         {fieldState.error && <HelperText text={fieldState.error.message} />}
       </HelperTextWrapper>

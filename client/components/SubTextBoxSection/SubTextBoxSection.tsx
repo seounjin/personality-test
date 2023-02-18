@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Container } from './SubTextBoxSection.style';
+import { Wrapper } from './SubTextBoxSection.style';
 
 interface SubTextBoxSectionProps {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface SubTextBoxSectionProps {
 const SubTextBoxSection = ({
   children,
 }: SubTextBoxSectionProps): JSX.Element => {
-  return <Container>{children}</Container>;
+  return <Wrapper>{children}</Wrapper>;
 };
 
 export default SubTextBoxSection;

@@ -11,5 +11,6 @@ export const Wrapper = styled.div<WrapperProps>`
 `;
 
 export const Label = styled.label`
+  font-weight: bold;
   font-size: 1.5rem;
 `;
