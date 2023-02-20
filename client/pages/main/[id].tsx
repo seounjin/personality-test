@@ -163,25 +163,47 @@ const parsedPersonalityItem = (data: RawPersonalityItem): MainPageProps => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({
+  req,
   params: { id },
 }) => {
   try {
-    const { status, data } = await fetcher('get', `/personality/${id}`);
+    const cookie = req.headers.cookie;
+    const headers = cookie
+      ? {
+          Cookie: cookie,
+        }
+      : {};
 
-    const res = parsedPersonalityItem(data);
+    const { status, data } = await fetcher('get', `/personality/${id}`, {
+      headers,
+    });
 
-    if (status >= 500) {
+    if (status === 401) {
       return {
         props: {
           error: {
-            statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
+            statusCode: '접근할 수 없는 페이지입니다',
             message: 'Error!',
           },
         },
       };
     }
+
+    if (status === 404) {
+      return {
+        props: {
+          error: {
+            statusCode: '찾으시려는 페이지는 없는 페이지입니다',
+            message: 'Error!',
+          },
+        },
+      };
+    }
+
+    const parsedItem = parsedPersonalityItem(data);
+
     return {
-      props: res,
+      props: parsedItem,
     };
   } catch (error) {
     return {
