@@ -43,6 +43,7 @@ export const getServerSideProps: GetServerSideProps = withAuth({
             explain: basicInformationItems.explain,
             typeFormItems: [...resultItems],
             selectFormItems: [...selectItems],
+            isPublic: basicInformationItems.isPublic,
           }),
         );
       }

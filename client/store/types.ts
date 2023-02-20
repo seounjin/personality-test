@@ -13,4 +13,5 @@ export interface AdminInitialState {
   selectFormItems: SelectFormItems[];
   numberOfItemsCount: number;
   mode: string;
+  isPublic: boolean;
 }

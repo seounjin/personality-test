@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import fetcher from '../../../../api/fetcher';
 import { RootState } from '../../../../store/modules';
@@ -12,18 +12,22 @@ import SubTextBoxSection from '../../../../components/SubTextBoxSection/SubTextB
 import TextBoxSection from '../TextBoxSection/TextBoxSection';
 import WeightedScoreBoardSection from '../WeightedScoreBoardSection/WeightedScoreBoardSection';
 import { Form } from './FinalConfirmationForm.style';
+import Radio from '../../../../components/Radio/Radio';
+import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
 
 const FinalConfirmationForm = () => {
-  const { mode, title, explain, typeFormItems, selectFormItems } = useSelector(
-    (state: RootState) => ({
-      mode: state.admin.mode,
-      title: state.admin.title,
-      explain: state.admin.explain,
-      typeFormItems: state.admin.typeFormItems,
-      selectFormItems: state.admin.selectFormItems,
-    }),
-    shallowEqual,
-  );
+  const { mode, title, explain, typeFormItems, selectFormItems, isPublic } =
+    useSelector(
+      (state: RootState) => ({
+        mode: state.admin.mode,
+        title: state.admin.title,
+        explain: state.admin.explain,
+        typeFormItems: state.admin.typeFormItems,
+        selectFormItems: state.admin.selectFormItems,
+        isPublic: state.admin.isPublic,
+      }),
+      shallowEqual,
+    );
 
   const setWeightedScoreBoard = (items) => <WeightedScoreBoard items={items} />;
 
@@ -62,12 +66,18 @@ const FinalConfirmationForm = () => {
     }
   };
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
+    const isPublic =
+      (event.target as HTMLFormElement).contact.value === 'public'
+        ? true
+        : false;
+
     const data = {
       basicInformationItem: { title: title, explain: explain },
       typeItems: typeFormItems,
       selectItems: selectFormItems,
+      isPublic: isPublic,
     };
 
     if (mode === 'create') {
@@ -136,6 +146,17 @@ const FinalConfirmationForm = () => {
             </TextBoxSection>
           </React.Fragment>
         ))}
+      </BoxShadowCard>
+
+      <BoxShadowCard subtitle="공개 하시겠습니까?">
+        <RadioGroup>
+          <Radio name="contact" value="public" defaultChecked={isPublic}>
+            공개
+          </Radio>
+          <Radio name="contact" value="private" defaultChecked={!isPublic}>
+            비공개
+          </Radio>
+        </RadioGroup>
       </BoxShadowCard>
     </Form>
   );

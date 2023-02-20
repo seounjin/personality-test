@@ -24,6 +24,7 @@ const initialState: AdminInitialState = {
   typeDictionary: {},
   typeItemsCount: MIN_TYPE_ITEMS_COUNT,
   numberOfItemsCount: MIN_NUMBER_OF_ITEMS_COUNT,
+  isPublic: true,
 };
 
 interface FetchParms {
@@ -115,6 +116,7 @@ const adminSlice = createSlice({
       state.explain = action.payload.explain;
       state.typeFormItems = action.payload.typeFormItems;
       state.selectFormItems = action.payload.selectFormItems;
+      state.isPublic = action.payload.isPublic;
     },
   },
   extraReducers: (builder) => {
