@@ -11,6 +11,7 @@ import ModalPortal from '../portal/ModalPortal';
 import CardList from '../components/CardList/CardList';
 import { Card } from '../components/CardList/CardList.type';
 import withAuth from '../hoc/withAuth';
+import Layout from '../layout/Layout/Layout';
 
 const MCardList = React.memo(CardList);
 
@@ -45,11 +46,13 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
   }, [Intersecting]);
 
   return (
-    <HomeBody>
-      {cards && <MCardList cardItems={cards} type="home" />}
+    <Layout>
+      <HomeBody>
+        {cards && <MCardList cardItems={cards} type="home" />}
 
-      {/* <div ref={target} style={{ height: '1px' }}></div> */}
-    </HomeBody>
+        {/* <div ref={target} style={{ height: '1px' }}></div> */}
+      </HomeBody>
+    </Layout>
   );
 };
 

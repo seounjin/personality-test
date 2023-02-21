@@ -38,7 +38,8 @@ const CardList = ({
             href={{
               pathname: `/main/${id}`,
             }}
-            passHref
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <CardItemHeader>
               <CardImageWrapper>

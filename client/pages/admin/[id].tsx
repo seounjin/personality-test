@@ -5,14 +5,17 @@ import withAuth from '../../hoc/withAuth';
 import fetcher from '../../api/fetcher';
 import { setIsAuth } from '../../store/modules/home';
 import { setMode, setPersonalityTestItems } from '../../store/modules/admin';
+import Layout from '../../layout/Layout/Layout';
 
 const AdminPage = (): JSX.Element => {
   return (
-    <Wrapper>
-      <Container>
-        <Stepper />
-      </Container>
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <Container>
+          <Stepper />
+        </Container>
+      </Wrapper>
+    </Layout>
   );
 };
 

@@ -4,6 +4,7 @@ import fetcher from '../../api/fetcher';
 import Aside from '../../features/mypage/container/Aside/Aside';
 import TebPanel from '../../features/mypage/container/TabPanel/TabPanel';
 import withAuth from '../../hoc/withAuth';
+import Layout from '../../layout/Layout/Layout';
 import { setIsAuth } from '../../store/modules/home';
 import { setCards, setUser } from '../../store/modules/mypage';
 
@@ -22,12 +23,14 @@ export const Container = styled.div`
 
 const MyPage = () => {
   return (
-    <Wrapper>
-      <Container>
-        <Aside />
-        <TebPanel />
-      </Container>
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <Container>
+          <Aside />
+          <TebPanel />
+        </Container>
+      </Wrapper>
+    </Layout>
   );
 };
 

@@ -3,14 +3,17 @@ import Stepper from '../../features/admin/container/Stepper/Stepper';
 import { GetServerSideProps } from 'next';
 import withAuth from '../../hoc/withAuth';
 import { setIsAuth } from '../../store/modules/home';
+import Layout from '../../layout/Layout/Layout';
 
 const AdminPage = (): JSX.Element => {
   return (
-    <Wrapper>
-      <Container>
-        <Stepper />
-      </Container>
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <Container>
+          <Stepper />
+        </Container>
+      </Wrapper>
+    </Layout>
   );
 };
 
