@@ -2,6 +2,9 @@ import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import { AdminInitialState } from '../types';
 import fetcher from '../../api/fetcher';
 import {
+  MBTI_DATA,
+  MBTI_SELECT_COUNT,
+  MBTI_TYPE_FORM_ITEMS,
   MIN_NUMBER_OF_ITEMS_COUNT,
   MIN_TYPE_ITEMS_COUNT,
 } from '../../features/admin/admin.const';
@@ -25,6 +28,10 @@ const initialState: AdminInitialState = {
   typeItemsCount: MIN_TYPE_ITEMS_COUNT,
   numberOfItemsCount: MIN_NUMBER_OF_ITEMS_COUNT,
   isPublic: true,
+  testType: '',
+  isSelectedTest: false,
+  mbtiTypeFormItems: MBTI_TYPE_FORM_ITEMS,
+  mbtiSelectFormItems: [],
 };
 
 interface FetchParms {
@@ -74,6 +81,13 @@ const adminSlice = createSlice({
         ...data,
       }));
     },
+    setMbtiTypeFormItems: (state, action) => {
+      state.mbtiTypeFormItems = action.payload.mbtiTypeFormItems.map(
+        (data) => ({
+          ...data,
+        }),
+      );
+    },
     setSelctFormItems: (state, action) => {
       const weightedScoreItems = action.payload.typeFormItems.map(
         ({ typeContent }) => ({
@@ -118,7 +132,98 @@ const adminSlice = createSlice({
       state.selectFormItems = action.payload.selectFormItems;
       state.isPublic = action.payload.isPublic;
     },
+    setScoreTypeTestItems: (state, action) => {
+      const {
+        basicInformationItems: { title, explain },
+        selectItems,
+        resultItems,
+        isPublic,
+        testType,
+      } = action.payload.data;
+
+      state.title = title;
+      state.explain = explain;
+      state.typeFormItems = resultItems;
+      state.selectFormItems = selectItems;
+      state.isPublic = isPublic;
+      state.testType = testType;
+    },
+    setMbtiTypeTestItems: (state, action) => {
+      const {
+        basicInformationItems: { title, explain },
+        selectItems,
+        resultItems,
+        isPublic,
+        testType,
+      } = action.payload.data;
+
+      state.title = title;
+      state.explain = explain;
+      state.mbtiTypeFormItems = resultItems;
+      state.mbtiSelectFormItems = selectItems;
+      state.isPublic = isPublic;
+      state.testType = testType;
+    },
+    setTestType: (state, action) => {
+      state.testType = action.payload.testType;
+    },
+    setIsSelectedTest: (state, action) => {
+      state.isSelectedTest = action.payload.isSelectedTest;
+    },
+    setMbtiSelctFormItems: (state) => {
+      const weightedScoreItems = (array, score) =>
+        array.map((item, index) => ({
+          typeContent: item,
+          score: score[index],
+        }));
+
+      const setRadioButtonItems = (array, mbtiItemsIndex) => {
+        return array.map((item, index) => {
+          const first = index === 0 ? array[0] : array[1];
+          const second = index === 0 ? array[1] : array[0];
+          return {
+            text: `1번에 (${first}가중치 1) 2번에 (${second}가중치 1)`,
+            id: `${first + second}${mbtiItemsIndex}`,
+            htmlFor: `${first + second}${mbtiItemsIndex}`,
+          };
+        });
+      };
+
+      state.mbtiSelectFormItems = Array(MBTI_SELECT_COUNT)
+        .fill(0)
+        .map((_, index) => {
+          return {
+            question: '',
+            radioButtonItems: setRadioButtonItems(
+              MBTI_DATA[Math.floor(index / 3)],
+              index,
+            ),
+            radioButtonIndex: '0',
+            optionItems: [
+              {
+                option: '',
+                weightedScoreItems: weightedScoreItems(
+                  MBTI_DATA[Math.floor(index / 3)],
+                  [1, 0],
+                ),
+              },
+              {
+                option: '',
+                weightedScoreItems: weightedScoreItems(
+                  MBTI_DATA[Math.floor(index / 3)],
+                  [0, 1],
+                ),
+              },
+            ],
+          };
+        });
+    },
+
+    setFinalMbtiSelctFormItems: (state, action) => {
+      state.mbtiSelectFormItems = action.payload.mbtiSelectFormItems;
+    },
   },
+
   extraReducers: (builder) => {
     builder.addCase(fetchAdminData.fulfilled, (state, action) => {
       // const { userItem, items, imgUrl } = action.payload;
@@ -143,5 +248,12 @@ export const {
   setNumberOfItemsCount,
   setSelectFormItems,
   setPersonalityTestItems,
+  setTestType,
+  setIsSelectedTest,
+  setMbtiSelctFormItems,
+  setFinalMbtiSelctFormItems,
+  setScoreTypeTestItems,
+  setMbtiTypeTestItems,
+  setMbtiTypeFormItems,
 } = adminSlice.actions;
 export default adminSlice.reducer;

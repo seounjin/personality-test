@@ -35,12 +35,11 @@ const SignoutContainer = () => {
       alert('회원탈퇴가 정상적으로 이루어졌습니다.');
       router.replace('/');
     } else {
-      console.log('확인', res.status);
-      if (res.status === 401) {
+      if (res.status === 400) {
         alert('비밀번호가 일치하지 않습니다');
         return;
       }
-      alert('서버 에러. 잠시 후 다시 시도해주세요');
+      alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
     }
   };
 

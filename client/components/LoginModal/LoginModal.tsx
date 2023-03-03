@@ -22,11 +22,7 @@ const loginFormSchema = yup.object({
   password: yup.string().required('비밀번호를 입력해주세요'),
 });
 
-interface LoginModalProps {
-  onClose?: () => void;
-}
-
-const LoginModal = ({ onClose }: LoginModalProps): JSX.Element => {
+const LoginModal = (): JSX.Element => {
   const router = useRouter();
   const onSubmit = async (data: { email: string; password: string }) => {
     const res = await fetcher('post', '/user/login', { data });
@@ -36,10 +32,6 @@ const LoginModal = ({ onClose }: LoginModalProps): JSX.Element => {
       if (redirect) {
         router.replace(`/${redirect}`);
       } else {
-        if (onClose) {
-          onClose();
-          router.reload();
-        }
         router.replace('/');
       }
     } else {

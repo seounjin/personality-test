@@ -21,7 +21,7 @@ const SetWeightSection = ({ name }: SetWeightSectionRrops): JSX.Element => {
 
   const getWeightedScoreItems = () => [...getValues(name)];
 
-  const inCreaseScore = (index: number) => {
+  const increaseScore = (index: number) => {
     const weightedScoreItems = getWeightedScoreItems();
     weightedScoreItems[index].score += 1;
     setValue(name, weightedScoreItems);
@@ -45,7 +45,7 @@ const SetWeightSection = ({ name }: SetWeightSectionRrops): JSX.Element => {
             minScore={0}
             maxScore={10}
             onLeftButtonClick={() => decreaseScore(index)}
-            onRightButtonClick={() => inCreaseScore(index)}
+            onRightButtonClick={() => increaseScore(index)}
           />
         </Wrapper>
       ))}

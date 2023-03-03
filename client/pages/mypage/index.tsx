@@ -47,10 +47,20 @@ export const getServerSideProps: GetServerSideProps = withAuth({
       store.dispatch(setIsAuth(true));
 
       const res = await getCards(cookie);
-      store.dispatch(setCards(res.data));
-      store.dispatch(setUser(res.user));
-
-      return { props: {} };
+      if (res.success) {
+        store.dispatch(setCards(res.data));
+        store.dispatch(setUser(res.user));
+        return { props: {} };
+      } else {
+        return {
+          props: {
+            error: {
+              statusCode: '서버 점검중입니다. 잠시 후 다시 이용해 주세요.',
+              message: 'Error!',
+            },
+          },
+        };
+      }
     }
     return {
       redirect: { destination: '/login?redirect=mypage', permanent: false },

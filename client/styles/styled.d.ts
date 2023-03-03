@@ -39,6 +39,7 @@ declare module 'styled-components' {
       loginFormLinkTextHoverColor: string;
       mypageBackgroundColor: string;
       sideBarMenuButtonColor: string;
+      TestTypeButtonColor: string;
     };
 
     device: {

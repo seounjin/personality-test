@@ -8,10 +8,14 @@ export interface AdminInitialState {
   title: string;
   explain: string;
   typeFormItems: TypeFormItems[];
+  mbtiTypeFormItems: TypeFormItems[];
   typeItemsCount: number;
   typeDictionary: TypeDictionary;
   selectFormItems: SelectFormItems[];
   numberOfItemsCount: number;
   mode: string;
   isPublic: boolean;
+  testType: string;
+  isSelectedTest: boolean;
+  mbtiSelectFormItems: any;
 }

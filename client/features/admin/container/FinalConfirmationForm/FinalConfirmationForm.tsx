@@ -7,7 +7,7 @@ import { FINAL_CONFIRMATION_FORM_ID } from '../../admin.const';
 import SubHeadlineLabel from '../../../../components/SubHeadlineLabel/SubHeadlineLabel';
 import TextBox from '../../../../components/TextBox/TextBox';
 import WeightedScoreBoard from '../../components/WeightedScoreBoard/WeightedScoreBoard';
-import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
+import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
 import SubTextBoxSection from '../../../../components/SubTextBoxSection/SubTextBoxSection';
 import TextBoxSection from '../TextBoxSection/TextBoxSection';
 import WeightedScoreBoardSection from '../WeightedScoreBoardSection/WeightedScoreBoardSection';
@@ -16,25 +16,33 @@ import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
 
 const FinalConfirmationForm = () => {
-  const { mode, title, explain, typeFormItems, selectFormItems, isPublic } =
-    useSelector(
-      (state: RootState) => ({
-        mode: state.admin.mode,
-        title: state.admin.title,
-        explain: state.admin.explain,
-        typeFormItems: state.admin.typeFormItems,
-        selectFormItems: state.admin.selectFormItems,
-        isPublic: state.admin.isPublic,
-      }),
-      shallowEqual,
-    );
+  const {
+    testType,
+    mode,
+    title,
+    explain,
+    typeFormItems,
+    selectFormItems,
+    isPublic,
+  } = useSelector(
+    (state: RootState) => ({
+      testType: state.admin.testType,
+      mode: state.admin.mode,
+      title: state.admin.title,
+      explain: state.admin.explain,
+      typeFormItems: state.admin.typeFormItems,
+      selectFormItems: state.admin.selectFormItems,
+      isPublic: state.admin.isPublic,
+    }),
+    shallowEqual,
+  );
 
   const setWeightedScoreBoard = (items) => <WeightedScoreBoard items={items} />;
 
   const router = useRouter();
 
   const requestRegister = async (data) => {
-    const res = await fetcher('post', `/personality`, { data });
+    const res = await fetcher('post', `/personality/${testType}`, { data });
     if (res.success) {
       alert('성향 테스트가 등록 되었습니다');
       router.push('/');
@@ -43,14 +51,14 @@ const FinalConfirmationForm = () => {
         alert('로그인 유효시간이 만료 되었습니다 \n다시 로그인해 주세요');
         router.push('/login?redirect=admin');
       } else {
-        alert('서버 점검중입니다.');
+        alert('서버 점검중입니다\n잠시 후 다시 시도해주세요');
       }
     }
   };
 
   const requestUpdate = async (data) => {
-    const id = router.query.id;
-    const res = await fetcher('put', `/personality/detail-personality/${id}`, {
+    const id = router.query.slug[0];
+    const res = await fetcher('put', `/personality/${testType}/${id}`, {
       data,
     });
     if (res.success) {
@@ -61,7 +69,7 @@ const FinalConfirmationForm = () => {
         alert('로그인 유효시간이 만료 되었습니다 \n다시 로그인해 주세요');
         router.push('/login?redirect=mypage');
       } else {
-        alert('서버 점검중입니다.');
+        alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
       }
     }
   };
@@ -78,6 +86,7 @@ const FinalConfirmationForm = () => {
       typeItems: typeFormItems,
       selectItems: selectFormItems,
       isPublic: isPublic,
+      testType: testType,
     };
 
     if (mode === 'create') {

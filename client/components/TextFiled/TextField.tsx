@@ -7,12 +7,14 @@ interface TextFieldProps {
   label: string;
   name: string;
   type?: string;
+  disabled?: boolean;
 }
 
 const TextFiled = ({
   type = 'text',
   label,
   name,
+  disabled = false,
 }: TextFieldProps): JSX.Element => {
   const { field, fieldState } = useController({ name });
 
@@ -24,6 +26,7 @@ const TextFiled = ({
         name={name}
         {...field}
         autoComplete={type === 'password' ? 'new-password' : 'on'}
+        disabled={disabled}
       />
       <HelperTextWrapper>
         {fieldState.error && <HelperText text={fieldState.error.message} />}

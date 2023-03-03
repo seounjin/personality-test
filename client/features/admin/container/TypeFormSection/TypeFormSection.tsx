@@ -86,6 +86,7 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
             firstContent={typeContent}
             secondLabel={'설 명'}
             secondContent={explanationContent}
+            name={'typeFormItems'}
           />
         ))}
       </Container>

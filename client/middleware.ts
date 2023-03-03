@@ -14,11 +14,4 @@ export function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL('/', req.url));
     }
   }
-
-  if (req.nextUrl.pathname.startsWith('/mypage')) {
-    const cookies = req.cookies.get('accessToken');
-    if (!cookies) {
-      return NextResponse.redirect(new URL('/', req.url));
-    }
-  }
 }

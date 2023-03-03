@@ -3,7 +3,7 @@ export interface WeightedScoreItem {
   score: number;
 }
 
-interface OptionItems {
+export interface OptionItems {
   option: string;
   weightedScoreItems: WeightedScoreItem[];
 }

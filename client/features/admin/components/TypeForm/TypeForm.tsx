@@ -7,14 +7,18 @@ interface TypeFormProps {
   index: number;
   firstLabel: string;
   firstContent: string;
+  firstInputDisalbed?: boolean;
   secondLabel: string;
   secondContent: string;
+  name: string;
 }
 
 const TypeForm = ({
   index,
   firstLabel,
   secondLabel,
+  firstInputDisalbed = false,
+  name,
 }: TypeFormProps): JSX.Element => {
   return (
     <Container>
@@ -22,12 +26,13 @@ const TypeForm = ({
       <TextFiledWrapper>
         <TextFiled
           label={firstLabel}
-          name={`typeFormItems[${index}].typeContent`}
+          name={`${name}[${index}].typeContent`}
+          disabled={firstInputDisalbed}
         />
       </TextFiledWrapper>
       <TextAreaInput
         label={secondLabel}
-        name={`typeFormItems[${index}].explanationContent`}
+        name={`${name}[${index}].explanationContent`}
       />
     </Container>
   );

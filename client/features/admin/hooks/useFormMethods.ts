@@ -2,17 +2,28 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import { RootState } from '../../../store/modules';
+import { mbtiSelectItemsFormSchema } from '../schemas/mbtiSelectItemsFormSchema';
+import { mbtiTypeFormSchema } from '../schemas/mbtiTypeFormSchema';
 import { selectItemsFormSchema } from '../schemas/selectItemsFormSchema';
 import { titleFormSchema } from '../schemas/titleFormSchema';
 import { typeFormSchema } from '../schemas/typeFormSchema';
 
 export const useFormMethods = () => {
-  const { title, explain, typeFormItems, selectFormItems } = useSelector(
+  const {
+    title,
+    explain,
+    typeFormItems,
+    selectFormItems,
+    mbtiTypeFormItems,
+    mbtiSelectFormItems,
+  } = useSelector(
     (state: RootState) => ({
       title: state.admin.title,
       explain: state.admin.explain,
       typeFormItems: state.admin.typeFormItems,
       selectFormItems: state.admin.selectFormItems,
+      mbtiTypeFormItems: state.admin.mbtiTypeFormItems,
+      mbtiSelectFormItems: state.admin.mbtiSelectFormItems,
     }),
     shallowEqual,
   );
@@ -22,6 +33,7 @@ export const useFormMethods = () => {
     defaultValues: { title, explain },
     mode: 'onChange',
   });
+
   const typeFormMethods = useForm({
     resolver: yupResolver(typeFormSchema),
     defaultValues: { typeFormItems: [...typeFormItems] },
@@ -31,11 +43,26 @@ export const useFormMethods = () => {
   const selectFormItemsMethods = useForm({
     resolver: yupResolver(selectItemsFormSchema),
     defaultValues: { selectFormItems: [...selectFormItems] },
+    mode: 'onChange',
+  });
+
+  const mbtiTypeFormMethods = useForm({
+    resolver: yupResolver(mbtiTypeFormSchema),
+    defaultValues: { mbtiTypeFormItems: [...mbtiTypeFormItems] },
+    mode: 'onChange',
+  });
+
+  const mbtiSelectFormItemsMethods = useForm({
+    resolver: yupResolver(mbtiSelectItemsFormSchema),
+    defaultValues: { mbtiSelectFormItems: [...mbtiSelectFormItems] },
+    mode: 'onChange',
   });
 
   return {
     basicInformationFormMethods,
     typeFormMethods,
     selectFormItemsMethods,
+    mbtiTypeFormMethods,
+    mbtiSelectFormItemsMethods,
   };
 };

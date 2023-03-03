@@ -103,9 +103,13 @@ const MainPage = ({
 
   const requestResult = async (type: string) => {
     const res = await fetcher('get', `/personality/${id}/results/${type}`);
-    const { resultItems } = res.data;
-    setResultItems(resultItems[0]);
-    nextSlide();
+    if (res.success) {
+      const { resultItems } = res.data;
+      setResultItems(resultItems[0]);
+      nextSlide();
+    } else {
+      alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
+    }
   };
 
   const reStartClick = (): void => {
@@ -178,7 +182,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       headers,
     });
 
-    if (status === 401) {
+    if (status === 401 || status === 403) {
       return {
         props: {
           error: {

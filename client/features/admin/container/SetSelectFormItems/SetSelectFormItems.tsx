@@ -7,7 +7,7 @@ import {
   MAX_OPTION_ITEMS_COUNT,
 } from '../../admin.const';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
-import BoxShadowCard from '../BoxShadowCard/BoxShadowCard';
+import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
 import TextFiled from '../../../../components/TextFiled/TextField';
 import {
   Form,
@@ -91,7 +91,7 @@ const SetSelectFormItems = ({
     dispatch(setNumberOfItemsCount({ count: -1 }));
   };
 
-  const inCreaseNumberOfItems = () => {
+  const increaseNumberOfItems = () => {
     if (MAX_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
     append({
       question: '',
@@ -172,7 +172,7 @@ const SetSelectFormItems = ({
             label={'문항수 설정'}
             count={numberOfItemsCount}
             onLeftButtonClick={decreaseNumberOfItems}
-            onRightButtonClick={inCreaseNumberOfItems}
+            onRightButtonClick={increaseNumberOfItems}
             minCount={MIN_NUMBER_OF_ITEMS_COUNT}
             maxCount={MAX_NUMBER_OF_ITEMS_COUNT}
           />

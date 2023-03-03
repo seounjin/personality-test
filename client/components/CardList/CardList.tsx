@@ -15,8 +15,16 @@ import TwoButton from '../TwoButton/TwoButton';
 
 type CardListProps = {
   cardItems: Card[];
-  handleLeftButton?: (event: React.MouseEvent, id: string) => void;
-  handleRightButton?: (event: React.MouseEvent, id: string) => void;
+  handleLeftButton?: (
+    event: React.MouseEvent,
+    id: string,
+    testType: string,
+  ) => void;
+  handleRightButton?: (
+    event: React.MouseEvent,
+    id: string,
+    testType: string,
+  ) => void;
   type?: string;
 };
 
@@ -32,7 +40,7 @@ const CardList = ({
 
   return (
     <Wrapper>
-      {cardItems.map(({ title, id, imgUrl }) => (
+      {cardItems.map(({ title, id, testType }) => (
         <CardItem key={id}>
           <Link
             href={{
@@ -56,8 +64,10 @@ const CardList = ({
               {type === 'mypage' && (
                 <TwoButton
                   leftName="삭제"
-                  leftButton={(event) => handleLeftButton(event, id)}
-                  rightButton={(event) => handleRightButton(event, id)}
+                  leftButton={(event) => handleLeftButton(event, id, testType)}
+                  rightButton={(event) =>
+                    handleRightButton(event, id, testType)
+                  }
                   leftType="button"
                   rightType="button"
                   rightName="수정"

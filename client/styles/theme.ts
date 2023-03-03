@@ -42,6 +42,7 @@ export const theme: DefaultTheme = {
     loginFormLinkTextHoverColor: '#9E7676',
     mypageBackgroundColor: '#f8f9fd',
     sideBarMenuButtonColor: '#DDDDDD',
+    TestTypeButtonColor: '#9E7676',
   },
 
   device: {

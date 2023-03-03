@@ -57,26 +57,22 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth({
-  callback: async ({ auth, store }) => {
-    if (auth) {
-      store.dispatch(setIsAuth(true));
-    }
-
+  callback: async ({ auth, store, status }) => {
     try {
-      const { data, status } = await fetcher('get', '/personality');
-
-      if (status >= 500) {
-        return {
-          props: {
-            error: {
-              statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
-              message: 'Error!',
-            },
-          },
-        };
+      if (auth) {
+        store.dispatch(setIsAuth(true));
       }
+
+      if (status === 503) throw new Error('server time out');
+
+      const res = await fetcher('get', '/personality');
+
       return {
-        props: { cardItems: data },
+        props: { cardItems: res.data },
+      };
+
+      return {
+        props: {},
       };
     } catch (error) {
       return {

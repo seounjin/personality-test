@@ -13,6 +13,7 @@ import { setCards } from '../../../../store/modules/mypage';
 const CardItems = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [personalityId, setPersonalityId] = useState<string>('');
+  const [testType, setTestType] = useState<string>('');
   const { cards } = useSelector(
     (state: RootState) => ({
       cards: state.mypage.cards,
@@ -23,30 +24,43 @@ const CardItems = () => {
   const router = useRouter();
 
   const requestDelete = async () => {
-    const res = await fetcher('delete', `/personality/${personalityId}`);
+    const res = await fetcher(
+      'delete',
+      `/personality/${testType}/${personalityId}`,
+    );
     if (res.success) {
       alert('해당 테스트가 삭제되었습니다');
       const newCards = cards.filter((data) => data.id !== personalityId);
       dispatch(setCards(newCards));
+      setIsModalOpen(false);
     } else {
       if (res.status === 401) {
         alert('로그인 유효시간이 만료 되었습니다 \n다시 로그인해 주세요');
         router.push('/login?redirect=mypage');
       } else {
-        alert('서버 점검중입니다.');
+        alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
       }
     }
   };
 
-  const deleteButtonClick = (event: React.MouseEvent, id: string) => {
+  const deleteButtonClick = (
+    event: React.MouseEvent,
+    id: string,
+    testType: string,
+  ) => {
     event.preventDefault();
     setIsModalOpen(true);
     setPersonalityId(id);
+    setTestType(testType);
   };
 
-  const updateButtonClick = async (event: React.MouseEvent, id: string) => {
+  const updateButtonClick = async (
+    event: React.MouseEvent,
+    id: string,
+    testType: string,
+  ) => {
     event.preventDefault();
-    router.push(`/admin/${id}`);
+    router.push(`/admin/${id}?test=${testType}`);
   };
 
   const handleClose = () => {
