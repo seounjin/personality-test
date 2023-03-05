@@ -70,10 +70,6 @@ export const getServerSideProps: GetServerSideProps = withAuth({
       return {
         props: { cardItems: res.data },
       };
-
-      return {
-        props: {},
-      };
     } catch (error) {
       return {
         props: {

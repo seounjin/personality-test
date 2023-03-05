@@ -45,6 +45,7 @@ const CardList = ({
           <Link
             href={{
               pathname: `/main/${id}`,
+              query: { test: testType },
             }}
             rel="noopener noreferrer"
             target="_blank"

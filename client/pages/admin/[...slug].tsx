@@ -25,6 +25,9 @@ const AdminPage = ({ testType }: AdminPageProps): JSX.Element => {
   );
 };
 
+const checkTestType = (testType) =>
+  testType === 'score' || testType === 'mbti' || testType === 'true-or-false';
+
 export const getServerSideProps: GetServerSideProps = withAuth({
   callback: async ({ auth, params, query, cookie, store }) => {
     if (auth) {
@@ -32,13 +35,23 @@ export const getServerSideProps: GetServerSideProps = withAuth({
       const id = params.slug[0];
       const testType = query.test;
 
+      if (!checkTestType(testType)) {
+        return {
+          props: {
+            error: {
+              statusCode: '404',
+              message: '해당 페이지를 찾을 수 없습니다',
+            },
+          },
+        };
+      }
+
       const res = await fetcher('get', `/personality/${testType}/${id}`, {
         headers: { Cookie: cookie },
       });
 
       if (res.success) {
         store.dispatch(setMode({ mode: 'update' }));
-        console.log('데이터!!!', res.data);
         if (testType === 'score') {
           store.dispatch(setScoreTypeTestItems({ data: res.data }));
         } else if (testType === 'mbti') {

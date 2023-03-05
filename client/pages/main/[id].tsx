@@ -1,175 +1,55 @@
 import fetcher from '../../api/fetcher';
 import {
-  RawPersonalityItem,
-  ResultItems,
-  WeightedScore,
+  MbtiTestItems,
+  ScoreTestItems,
 } from '../../features/personalityTest/personalityTest.types';
 import { GetServerSideProps } from 'next';
-import { useCallback, useState } from 'react';
-import BackgroundImage from '../../features/personalityTest/components/BackgroundImage/BackgroundImage';
-import LastScreen from '../../features/personalityTest/components/LastScreen/LastScreen';
-import MainScreen from '../../features/personalityTest/components/MainScreen/MainScreen';
-import StartScreen from '../../features/personalityTest/components/StartScreen/StartScreen';
-import { useSlide } from '../../features/personalityTest/personalityTest.hook';
-import { SCREEN_WIDTH } from '../../features/personalityTest/personalityTest.const';
-import styled from 'styled-components';
-import { SelectFormItems, WeightedScoreItem } from '../../types';
-import { throttle } from 'lodash';
-
-const Wrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-`;
-
-const HiddenWrapper = styled.div`
-  overflow: hidden;
-`;
-
-const SlideWrapper = styled.div`
-  width: ${SCREEN_WIDTH};
-  display: flex;
-`;
+import { MBTI_TEST_TYPE_CONTENT } from '../../features/personalityTest/personalityTest.const';
+import MbtiTestType from '../../features/personalityTest/container/MbtiTypeTest/MbtiTestType';
+import ScoreTypeTest from '../../features/personalityTest/container/ScoreTypeTest/ScoreTypeTest';
+import MainPageLayout from '../../layout/MainPageLayout/MainPageLayout';
 
 interface MainPageProps {
-  id: string;
-  title: string;
-  explain: string;
-  weightedScoreDictionary: WeightedScore;
-  personalityItem: SelectFormItems[];
+  testItems: ScoreTestItems | MbtiTestItems;
 }
 
-const MainPage = ({
-  id,
-  title,
-  explain,
-  weightedScoreDictionary,
-  personalityItem,
-}: MainPageProps): JSX.Element => {
-  const [personalityTest] = useState<SelectFormItems[]>(personalityItem);
-  const [lastSlide] = useState<number>(personalityTest.length);
-  const [weightedScore, setWeightedScore] = useState<WeightedScore>(
-    weightedScoreDictionary,
-  );
-  const [resultItems, setResultItems] = useState<ResultItems | null>(null);
-  const { slideRef, nextSlide, resetSlide } = useSlide();
+const testList = (testType, testItems) => {
+  switch (testType) {
+    case 'score':
+      return <ScoreTypeTest testItems={testItems} />;
+    case 'mbti':
+      return <MbtiTestType testItems={testItems} />;
+  }
+};
 
-  const startClick = (): void => {
-    nextSlide();
-  };
-
-  const raseScore = (weightedScoreItems: WeightedScoreItem[]) => {
-    for (const { typeContent, score } of weightedScoreItems) {
-      weightedScore[typeContent] += score;
-    }
-    setWeightedScore({ ...weightedScore });
-  };
-
-  const optionsButtonClick = useCallback(
-    throttle(
-      (weightedScoreItems: WeightedScoreItem[], currentSlide): void => {
-        raseScore(weightedScoreItems);
-        if (currentSlide === lastSlide) {
-          const res = getHighestScoreType();
-          requestResult(res);
-          return;
-        }
-        nextSlide();
-      },
-      1000,
-      { leading: true, trailing: false },
-    ),
-    [],
-  );
-
-  const getHighestScoreType = (): string => {
-    const sortedWeightScore = Object.entries(weightedScore).sort(
-      ([, a], [, b]) => (a > b ? -1 : 1),
-    );
-    const [, sortedValue] = sortedWeightScore[0];
-
-    const shuffleWeightScore = sortedWeightScore
-      .reduce(
-        (array, [key, value]) =>
-          sortedValue === value ? [...array, key] : array,
-        [],
-      )
-      .sort(() => Math.random() - 0.5);
-
-    return shuffleWeightScore[0];
-  };
-
-  const requestResult = async (type: string) => {
-    const res = await fetcher('get', `/personality/${id}/results/${type}`);
-    if (res.success) {
-      const { resultItems } = res.data;
-      setResultItems(resultItems[0]);
-      nextSlide();
-    } else {
-      alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
-    }
-  };
-
-  const reStartClick = (): void => {
-    resetSlide();
-    setWeightedScore(weightedScoreDictionary);
-  };
-
+const MainPage = ({ testItems }: MainPageProps): JSX.Element => {
   return (
-    <Wrapper>
-      <HiddenWrapper>
-        <SlideWrapper ref={slideRef}>
-          <BackgroundImage>
-            <StartScreen title={title} onClick={startClick} />
-          </BackgroundImage>
-
-          {personalityTest.map(({ question, optionItems }, index: number) => (
-            <BackgroundImage key={`p${index}`}>
-              <MainScreen
-                question={question}
-                optionItems={optionItems}
-                slideIndex={index}
-                onClick={optionsButtonClick}
-              />
-            </BackgroundImage>
-          ))}
-          {resultItems && (
-            <BackgroundImage>
-              <LastScreen items={resultItems} onClick={reStartClick} />
-            </BackgroundImage>
-          )}
-        </SlideWrapper>
-      </HiddenWrapper>
-    </Wrapper>
+    <MainPageLayout>{testList(testItems.testType, testItems)}</MainPageLayout>
   );
 };
 
-const setWeightedScoreDictionary = (
-  data: Array<WeightedScoreItem>,
-): WeightedScore =>
+const setWeightedScoreDictionary = (data) =>
   data.reduce((dic, { typeContent }) => ({ ...dic, [typeContent]: 0 }), {});
 
-const parsedPersonalityItem = (data: RawPersonalityItem): MainPageProps => {
-  const { title, explain, items, id } = data;
-  const { selectItems } = items[0];
-
-  return {
-    id: id,
-    title: title,
-    explain: explain,
-    weightedScoreDictionary: setWeightedScoreDictionary(
+const weightedScoreDictionary = (testType, selectItems) => {
+  if (testType === 'score') {
+    return setWeightedScoreDictionary(
       selectItems[0].optionItems[0].weightedScoreItems,
-    ),
-    personalityItem: [...selectItems],
-  };
+    );
+  } else if (testType === 'mbti') {
+    return setWeightedScoreDictionary(MBTI_TEST_TYPE_CONTENT);
+  }
+  return {};
 };
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
-  params: { id },
+  query,
 }) => {
+  // 이상한 쿼리 차단
+  console.log('쿼리', query);
+
+  const { test, id: parmsId } = query;
   try {
     const cookie = req.headers.cookie;
     const headers = cookie
@@ -178,9 +58,15 @@ export const getServerSideProps: GetServerSideProps = async ({
         }
       : {};
 
-    const { status, data } = await fetcher('get', `/personality/${id}`, {
-      headers,
-    });
+    const { status, data } = await fetcher(
+      'get',
+      `/personality/${parmsId}?test=${test}`,
+      {
+        headers,
+      },
+    );
+
+    console.log('상태', status);
 
     if (status === 401 || status === 403) {
       return {
@@ -203,11 +89,27 @@ export const getServerSideProps: GetServerSideProps = async ({
         },
       };
     }
-
-    const parsedItem = parsedPersonalityItem(data);
+    const {
+      basicInformationItems: { title, explain },
+      id: testTypeId,
+      testType,
+      selectItems,
+    } = data;
 
     return {
-      props: parsedItem,
+      props: {
+        testItems: {
+          id: testTypeId,
+          title: title,
+          explain: explain,
+          testType: testType,
+          personalityItems: [...selectItems],
+          weightedScoreDictionary: weightedScoreDictionary(
+            testType,
+            selectItems,
+          ),
+        },
+      },
     };
   } catch (error) {
     return {

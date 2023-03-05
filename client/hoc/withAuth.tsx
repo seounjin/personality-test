@@ -27,7 +27,6 @@ const authorize = async ({ context, store, callback }: AuthorizeProps) => {
   const { req, res, params, query } = context;
   const cookie = req.headers.cookie;
 
-  console.log('화인요', params);
   if (req && cookie) {
     const headers = {
       Cookie: cookie,
@@ -36,7 +35,6 @@ const authorize = async ({ context, store, callback }: AuthorizeProps) => {
       headers,
     });
 
-    // 200 401 400 500
     if (authResponse.success) {
       return callback({
         auth: true,
