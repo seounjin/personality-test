@@ -32,8 +32,8 @@ export const theme: DefaultTheme = {
     textAreaFocusColor: '#E3CAA5',
     boxShadowBorderColor: '#594545',
     textBoxBorderColor: '#594545',
-    backgroundImageColor: '#FFFBE9',
-    lastScreenTitleWrapperColor: '#AD8B73',
+    lastScreenTitleColor: '#FF9494',
+    lastScreenContentColor: '#FFE3E1',
     angleLeftSolidColor: '#594545',
     angleRightSolidColor: '#594545',
     questionMarkColor: '#594545',
@@ -42,7 +42,11 @@ export const theme: DefaultTheme = {
     loginFormLinkTextHoverColor: '#9E7676',
     mypageBackgroundColor: '#f8f9fd',
     sideBarMenuButtonColor: '#DDDDDD',
-    TestTypeButtonColor: '#9E7676',
+    testTypeButtonColor: '#9E7676',
+    startButtonColor: '#FF9494',
+    backgroundImageColor: '#FFF5E4',
+    mainPageSubColor: '#ffd1d1',
+    ovalButtonHoverColor: '#ffd1d1',
   },
 
   device: {

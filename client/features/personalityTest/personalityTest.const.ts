@@ -1,4 +1,4 @@
-export const SCREEN_WIDTH = '375px';
+export const SCREEN_WIDTH = '475px';
 
 export const MBTI_TEST_TYPE = [
   ['E', 'I'],

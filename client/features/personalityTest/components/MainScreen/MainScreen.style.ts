@@ -1,42 +1,37 @@
 import styled from 'styled-components';
-import { SCREEN_WIDTH } from '../../personalityTest.const';
+import qSolidSvgIcon from '../../../../assets/icons/q-solid.svg';
 
 export const Wrapper = styled.div`
+  width: 100%;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${SCREEN_WIDTH};
   height: 100%;
   padding: 20px;
 `;
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
   width: 100%;
-  height: 578px;
+  height: 100%;
   border: solid;
   background-color: white;
-  font-size: 1.6rem;
+  font-size: 20px;
 `;
 
 export const QuestionWrapper = styled.div`
-  position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translate(-50%, 0%);
+  display: flex;
+  align-items: center;
 `;
 
-export const Question = styled.div`
-  width: 276px;
-  text-align: center;
-  padding: 40px 40px 0 40px;
-`;
+export const Question = styled.span``;
 
 export const ButtonWrapper = styled.div`
-  position: absolute;
-  bottom: 90px;
-  left: 50%;
-  transform: translate(-50%, 0%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,12 +45,15 @@ const Button = styled.button`
   border-radius: 22px;
 `;
 
-export const WhiteButton = styled(Button)`
+export const OptionButton = styled(Button)`
   background-color: #f1f1f1;
   margin-bottom: 20px;
 `;
 
-export const BlueButton = styled(Button)`
-  background-color: #5963ff;
-  color: white;
+export const QuestionIconWrapper = styled.div`
+  margin-right: 10px;
+`;
+export const QuestionIcon = styled(qSolidSvgIcon)`
+  width: 20px;
+  hegiht: 20px;
 `;

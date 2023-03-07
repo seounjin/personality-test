@@ -1,5 +1,11 @@
-import { Wrapper, Button, Headline } from './StartScreen.style';
+import {
+  Wrapper,
+  Headline,
+  SubTitle,
+  ButtonWrapper,
+} from './StartScreen.style';
 import Image from 'next/image';
+import OvalButton from '../OvalButton/OvalButton';
 
 interface EntranceProps {
   title: string;
@@ -9,15 +15,19 @@ interface EntranceProps {
 const StartScreen = ({ title, onClick }: EntranceProps): JSX.Element => {
   return (
     <Wrapper>
+      <SubTitle>성격 유형 테스트</SubTitle>
       <Headline>{title}</Headline>
       <Image
         alt="poster-img"
-        src="/poster.png"
-        width={250}
-        height={250}
+        src="/images/rabbit.png"
+        width={118}
+        height={221}
+        loader={({ src }) => src}
         priority
       />
-      <Button onClick={onClick}>테스트 시작하기</Button>
+      <ButtonWrapper>
+        <OvalButton text={'테스트 시작하기'} onClick={onClick} />
+      </ButtonWrapper>
     </Wrapper>
   );
 };

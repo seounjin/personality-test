@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import BackButton from '../../components/BackButton/BackButton';
 
 export const Header = styled.header`
   position: fixed;
@@ -22,4 +23,11 @@ export const Nav = styled.nav`
   align-items: center;
   justify-content: space-between;
   padding: 0 15px;
+
+  .back_button {
+    display: none;
+    ${({ theme }) =>
+      theme.device.laptop`
+display: inline;`}
+  }
 `;

@@ -30,7 +30,8 @@ declare module 'styled-components' {
       boxShadowBorderColor: string;
       textBoxBorderColor: string;
       backgroundImageColor: string;
-      lastScreenTitleWrapperColor: string;
+      lastScreenTitleColor: string;
+      lastScreenContentColor: string;
       angleRightSolidColor: string;
       angleLeftSolidColor: string;
       questionMarkColor: string;
@@ -39,7 +40,10 @@ declare module 'styled-components' {
       loginFormLinkTextHoverColor: string;
       mypageBackgroundColor: string;
       sideBarMenuButtonColor: string;
-      TestTypeButtonColor: string;
+      testTypeButtonColor: string;
+      startButtonColor: string;
+      mainPageSubColor: string;
+      ovalButtonHoverColor: string;
     };
 
     device: {

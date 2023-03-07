@@ -1,59 +1,44 @@
 import styled from 'styled-components';
-import { SCREEN_WIDTH } from '../../personalityTest.const';
 
 export const Container = styled.div`
-  width: ${SCREEN_WIDTH};
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 17px;
 `;
 
-export const TitleWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.8rem;
-  height: 4.4rem;
-  margin-bottom: 15px;
-
-  background-color: ${({ theme }) => theme.colors.lastScreenTitleWrapperColor};
-  border: 3px solid;
-  border-radius: 20px;
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: bold;
-`;
-
 export const Title = styled.span`
-  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.lastScreenTitleColor};
+  box-shadow: inset 0 -20px 0 ${({ theme }) => theme.colors.mainPageSubColor};
 `;
 
-export const RestartButton = styled.button`
-  width: 27.8rem;
-  height: 4.9rem;
-  border: none;
-  background: url('/restart-button.png') no-repeat;
-  background-position: center;
-  background-size: contain;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+export const Content = styled.div`
+  font-size: 18px;
+  line-height: 1.3;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 20px;
 `;
 
 export const ContentWrapper = styled.div`
   width: 100%;
-  height: 44rem;
-  background: url('/window-character.png') no-repeat;
-  background-size: contain;
-  margin-bottom: 2.5rem;
-  padding: 0 10px 0;
-`;
+  max-width: 420px;
+  height: 500px;
+  padding: 40px;
+  margin: 20px 0;
+  border-radius: 20px;
+  background-color: ${({ theme }) => theme.colors.lastScreenContentColor};
 
-export const Content = styled.div`
-  margin-top: 4rem;
-  padding: 0 6px 0;
-  font-size: 1.3rem;
-  line-height: 1.3;
+  ${({ theme }) =>
+    theme.device.mobile`
+  height: 420px;`}
 `;

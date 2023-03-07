@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import { Wrapper, AngleLeftSolidIcon } from './BackButton.style';
+import { Button, AngleLeftSolidIcon } from './BackButton.style';
 
 const BackButton = (): JSX.Element => {
   const router = useRouter();
@@ -8,9 +8,9 @@ const BackButton = (): JSX.Element => {
     router.back();
   };
   return (
-    <Wrapper onClick={handleClick}>
+    <Button className="back_button" onClick={handleClick}>
       <AngleLeftSolidIcon />
-    </Wrapper>
+    </Button>
   );
 };
 export default BackButton;

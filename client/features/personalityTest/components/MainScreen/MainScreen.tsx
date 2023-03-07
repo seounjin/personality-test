@@ -5,9 +5,10 @@ import {
   QuestionWrapper,
   Question,
   ButtonWrapper,
-  BlueButton,
-  WhiteButton,
+  OptionButton,
   Wrapper,
+  QuestionIcon,
+  QuestionIconWrapper,
 } from './MainScreen.style';
 
 interface MainProps {
@@ -30,17 +31,20 @@ const MainScreen = ({
     <Wrapper>
       <Container>
         <QuestionWrapper>
+          <QuestionIconWrapper>
+            <QuestionIcon />
+          </QuestionIconWrapper>
           <Question>{question}</Question>
         </QuestionWrapper>
 
         <ButtonWrapper>
           {optionItems.map(({ option, weightedScoreItems }, index) => (
-            <WhiteButton
+            <OptionButton
               onClick={() => onClick(weightedScoreItems, slideIndex + 1)}
               key={`o${index}`}
             >
               {option}
-            </WhiteButton>
+            </OptionButton>
           ))}
         </ButtonWrapper>
       </Container>

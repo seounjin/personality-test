@@ -16,4 +16,10 @@ export const GlobalStyle = createGlobalStyle`
     button:hover{
       cursor: pointer;
     }
+    body {
+      height:100%;
+    }
+    #__next {
+      height: 100%;
+    }
 }`;
