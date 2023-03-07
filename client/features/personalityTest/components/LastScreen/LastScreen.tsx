@@ -11,10 +11,15 @@ import {
 
 interface LastScreenProps {
   items: ResultItems;
+  isPublic: boolean;
   onClick: () => void;
 }
 
-const LastScreen = ({ items, onClick }: LastScreenProps): JSX.Element => {
+const LastScreen = ({
+  items,
+  isPublic,
+  onClick,
+}: LastScreenProps): JSX.Element => {
   const { typeContent, explanationContent } = items;
 
   const copyURL = () => {
@@ -36,7 +41,7 @@ const LastScreen = ({ items, onClick }: LastScreenProps): JSX.Element => {
         <Content> {explanationContent}</Content>
       </ContentWrapper>
       <ButtonWrapper>
-        <OvalButton text={'공유하기'} onClick={copyURL} />
+        {isPublic && <OvalButton text={'공유하기'} onClick={copyURL} />}
         <OvalButton text={'테스트 다시하기'} onClick={onClick} />
         <OvalButton text={'나가기'} onClick={() => window.close()} />
       </ButtonWrapper>

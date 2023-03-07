@@ -19,8 +19,14 @@ interface ScoreTypeTestProps {
 }
 
 const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
-  const { id, title, explain, weightedScoreDictionary, personalityItems } =
-    testItems;
+  const {
+    id,
+    title,
+    explain,
+    isPublic,
+    weightedScoreDictionary,
+    personalityItems,
+  } = testItems;
 
   const [personalityTest] = useState<SelectFormItems[]>(personalityItems);
   const [lastSlide] = useState<number>(personalityTest.length);
@@ -109,7 +115,11 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
       ))}
       {resultItems && (
         <BackgroundImage>
-          <LastScreen items={resultItems} onClick={reStartClick} />
+          <LastScreen
+            items={resultItems}
+            isPublic={isPublic}
+            onClick={reStartClick}
+          />
         </BackgroundImage>
       )}
     </SlideWrapper>

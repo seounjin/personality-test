@@ -12,6 +12,7 @@ import CardList from '../components/CardList/CardList';
 import { Card } from '../components/CardList/CardList.type';
 import withAuth from '../hoc/withAuth';
 import Layout from '../layout/Layout/Layout';
+import axiosServer from '../api/axiosServer';
 
 const MCardList = React.memo(CardList);
 
@@ -57,15 +58,13 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth({
-  callback: async ({ auth, store, status }) => {
+  callback: async ({ auth, store }) => {
     try {
       if (auth) {
         store.dispatch(setIsAuth(true));
       }
 
-      if (status === 503) throw new Error('server time out');
-
-      const res = await fetcher('get', '/personality');
+      const res = await axiosServer('get', '/personality');
 
       return {
         props: { cardItems: res.data },

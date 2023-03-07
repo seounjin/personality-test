@@ -2,7 +2,6 @@ import { Container } from '../../features/admin/admin.styles';
 import StepperContainer from '../../features/admin/container/StepperContainer/StepperContainer';
 import { GetServerSideProps } from 'next';
 import withAuth from '../../hoc/withAuth';
-import fetcher from '../../api/fetcher';
 import { setIsAuth } from '../../store/modules/home';
 import {
   setMbtiTypeTestItems,
@@ -10,6 +9,9 @@ import {
   setScoreTypeTestItems,
 } from '../../store/modules/admin';
 import Layout from '../../layout/Layout/Layout';
+import { checkTestType } from '../../types/checkTestType';
+import axiosServer from '../../api/axiosServer';
+import { CustomError } from '../../errors';
 
 interface AdminPageProps {
   testType: string;
@@ -25,9 +27,6 @@ const AdminPage = ({ testType }: AdminPageProps): JSX.Element => {
   );
 };
 
-const checkTestType = (testType) =>
-  testType === 'score' || testType === 'mbti' || testType === 'true-or-false';
-
 export const getServerSideProps: GetServerSideProps = withAuth({
   callback: async ({ auth, params, query, cookie, store }) => {
     if (auth) {
@@ -35,55 +34,35 @@ export const getServerSideProps: GetServerSideProps = withAuth({
       const id = params.slug[0];
       const testType = query.test;
 
-      if (!checkTestType(testType)) {
-        return {
-          props: {
-            error: {
-              statusCode: '404',
-              message: '해당 페이지를 찾을 수 없습니다',
-            },
-          },
-        };
-      }
-
-      const res = await fetcher('get', `/personality/${testType}/${id}`, {
-        headers: { Cookie: cookie },
-      });
-
-      if (res.success) {
-        store.dispatch(setMode({ mode: 'update' }));
-        if (testType === 'score') {
-          store.dispatch(setScoreTypeTestItems({ data: res.data }));
-        } else if (testType === 'mbti') {
-          store.dispatch(setMbtiTypeTestItems({ data: res.data }));
+      try {
+        if (!checkTestType(testType)) {
+          throw new CustomError('잘못된 요청입니다', 400);
         }
+        const res = await axiosServer('get', `/personality/${testType}/${id}`, {
+          headers: { Cookie: cookie },
+        });
 
-        return { props: { testType: testType } };
-      }
+        if (res.success) {
+          store.dispatch(setMode({ mode: 'update' }));
+          if (testType === 'score') {
+            store.dispatch(setScoreTypeTestItems({ data: res.data }));
+          } else if (testType === 'mbti') {
+            store.dispatch(setMbtiTypeTestItems({ data: res.data }));
+          }
 
-      if (res.status === 403) {
+          return { props: { testType: testType } };
+        }
+      } catch (error) {
+        const { message, statusCode } = error;
         return {
           props: {
             error: {
-              statusCode: '죄송합니다. 접근할 수 없는 페이지입니다.',
-              message: 'Error!',
+              statusCode: statusCode || 'error',
+              message: statusCode ? message : '잠시 후 다시 이용해주세요',
             },
           },
         };
       }
-
-      if (res.status >= 500) {
-        return {
-          props: {
-            error: {
-              statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
-              message: 'Error!',
-            },
-          },
-        };
-      }
-
-      return { props: {} };
     }
     return {
       redirect: { destination: '/login?redirect=admin', permanent: false },

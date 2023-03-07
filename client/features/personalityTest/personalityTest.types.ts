@@ -19,6 +19,7 @@ interface BaseTestItems {
   explain: string;
   id: string;
   testType: string;
+  isPublic: boolean;
 }
 
 export type PersonalityItems = SelectFormItems;

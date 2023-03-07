@@ -1,4 +1,3 @@
-import fetcher from '../../api/fetcher';
 import {
   MbtiTestItems,
   ScoreTestItems,
@@ -8,6 +7,9 @@ import { MBTI_TEST_TYPE_CONTENT } from '../../features/personalityTest/personali
 import MbtiTestType from '../../features/personalityTest/container/MbtiTypeTest/MbtiTestType';
 import ScoreTypeTest from '../../features/personalityTest/container/ScoreTypeTest/ScoreTypeTest';
 import MainPageLayout from '../../layout/MainPageLayout/MainPageLayout';
+import axiosServer from '../../api/axiosServer';
+import { checkTestType } from '../../types/checkTestType';
+import { CustomError } from '../../errors';
 
 interface MainPageProps {
   testItems: ScoreTestItems | MbtiTestItems;
@@ -46,11 +48,11 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
 }) => {
-  // 이상한 쿼리 차단
-  console.log('쿼리', query);
-
   const { test, id: parmsId } = query;
   try {
+    if (!checkTestType(test)) {
+      throw new CustomError('잘못된 요청입니다', 400);
+    }
     const cookie = req.headers.cookie;
     const headers = cookie
       ? {
@@ -58,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         }
       : {};
 
-    const { status, data } = await fetcher(
+    const res = await axiosServer(
       'get',
       `/personality/${parmsId}?test=${test}`,
       {
@@ -66,57 +68,41 @@ export const getServerSideProps: GetServerSideProps = async ({
       },
     );
 
-    console.log('상태', status);
+    if (res.success) {
+      const {
+        basicInformationItems: { title, explain },
+        id: testTypeId,
+        testType,
+        selectItems,
+        isPublic,
+      } = res.data;
 
-    if (status === 401 || status === 403) {
       return {
         props: {
-          error: {
-            statusCode: '접근할 수 없는 페이지입니다',
-            message: 'Error!',
+          testItems: {
+            id: testTypeId,
+            title: title,
+            explain: explain,
+            testType: testType,
+            isPublic: isPublic,
+            personalityItems: [...selectItems],
+            weightedScoreDictionary: weightedScoreDictionary(
+              testType,
+              selectItems,
+            ),
           },
         },
       };
     }
-
-    if (status === 404) {
-      return {
-        props: {
-          error: {
-            statusCode: '찾으시려는 페이지는 없는 페이지입니다',
-            message: 'Error!',
-          },
-        },
-      };
-    }
-    const {
-      basicInformationItems: { title, explain },
-      id: testTypeId,
-      testType,
-      selectItems,
-    } = data;
-
-    return {
-      props: {
-        testItems: {
-          id: testTypeId,
-          title: title,
-          explain: explain,
-          testType: testType,
-          personalityItems: [...selectItems],
-          weightedScoreDictionary: weightedScoreDictionary(
-            testType,
-            selectItems,
-          ),
-        },
-      },
-    };
+    return { props: {} };
   } catch (error) {
+    const { message, statusCode } = error;
+
     return {
       props: {
         error: {
-          statusCode: '죄송합니다. 잠시 후 다시 이용해 주세요.',
-          message: 'Error!',
+          statusCode: statusCode || 'error',
+          message: statusCode ? message : '잠시 후 다시 이용해주세요',
         },
       },
     };
