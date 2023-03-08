@@ -17,6 +17,7 @@ import SubmitButton from '../../components/SubmitButton/SubmitButton';
 import Modal from '../../../../components/Modal/Modal';
 import ManualModal from '../ManualModal/ManualModal';
 import QuestionMarkButton from '../../components/QuestionMarkButton/QuestionMarkButton';
+import ScrollTop from '../../components/ScrollTop/ScrollTop';
 
 interface StepperProps {
   testType: string;
@@ -59,6 +60,7 @@ const Stepper = ({ testType }: StepperProps): JSX.Element => {
 
   return (
     <Container>
+      <ScrollTop activeStep={activeStep} />
       {isModalOpen && (
         <Modal onClose={handleModal}>
           <ManualModal activeStep={activeStep} />
