@@ -1,20 +1,13 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   display: none;
   position: relative;
-  // padding-right: 15px;
 
   ${({ theme }) =>
     theme.device.laptop`
   display: inline;
   `}
-`;
-
-export const SideBarWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
 `;
 
 export const Overlay = styled.div`
@@ -33,4 +26,24 @@ export const Wrapper = styled.div`
   right: 0;
   bottom: 0;
   display: flex;
+`;
+
+const slide = keyframes`
+  0% {
+    transform: translate(100%, 0);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+`;
+
+export const SideBarWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  .sidebar {
+    animation: ${slide} 0.5s ease-in-out;
+  }
 `;

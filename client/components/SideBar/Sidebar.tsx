@@ -18,8 +18,8 @@ const Sidebar = ({ onClick, sidebarMenu }: SidebarProps): JSX.Element => {
   const router = useRouter();
 
   return (
-    <Wrapper>
-      <MenuWrapper>
+    <Wrapper className="sidebar">
+      <MenuWrapper className="menu_wrapper">
         {sidebarMenu.map((item) => {
           {
             return item.type === 'button' ? (

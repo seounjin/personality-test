@@ -24,6 +24,10 @@ export const Nav = styled.nav`
   justify-content: space-between;
   padding: 0 15px;
 
+  .menu_wrapper {
+    border-bottom-left-radius: 10px;
+  }
+
   .back_button {
     display: none;
     ${({ theme }) =>

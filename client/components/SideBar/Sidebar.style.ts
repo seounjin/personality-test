@@ -59,8 +59,3 @@ export const SubMenu = styled(MenuButton)`
   }
   }
 `;
-
-// background-color: ${({ theme, isActive }) =>
-// isActive ? theme.colors.buttonColor : theme.colors.white};
-// color: ${({ theme, isActive }) =>
-//   isActive ? theme.colors.white : theme.colors.black};
