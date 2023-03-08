@@ -43,3 +43,5 @@ export const MoreOutlinedContainer = styled.div`
     }
   }
 `;
+
+export const TagsWrapper = styled.div``;

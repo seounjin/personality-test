@@ -48,6 +48,8 @@ export const theme: DefaultTheme = {
     mainPageSubColor: '#ffd1d1',
     ovalButtonHoverColor: '#ffd1d1',
     optionButtonColor: '#f1f1f1',
+    scoreTypeTagBgColor: '#ffd1d1',
+    mbtiTypeTagBgColor: '#FFF5E4',
   },
 
   device: {

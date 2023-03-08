@@ -6,12 +6,14 @@ import {
   CardItemBody,
   Headline,
   CardImageWrapper,
+  TagsWrapper,
 } from './CardList.style';
 import Link from 'next/link';
 import { Card } from './CardList.type';
 
 import Image from 'next/image';
 import TwoButton from '../TwoButton/TwoButton';
+import Tag from '../Tag/Tag';
 
 type CardListProps = {
   cardItems: Card[];
@@ -62,6 +64,12 @@ const CardList = ({
             </CardItemHeader>
             <CardItemBody>
               <Headline>{title}</Headline>
+              <TagsWrapper>
+                <Tag
+                  name={`${testType}유형`}
+                  backgroundColor={`${testType}TypeTagBgColor`}
+                />
+              </TagsWrapper>
               {type === 'mypage' && (
                 <TwoButton
                   leftName="삭제"
