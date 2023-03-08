@@ -1,10 +1,10 @@
 import {
   TypeDictionary,
   TypeFormItems,
-} from '../features/admin/components/TypeForm/TypeForm.type';
-import { SelectFormItems } from '../features/admin/container/SetSelectFormItems/SetSelectFormItems.type';
+} from '../features/tests/components/TypeForm/TypeForm.type';
+import { SelectFormItems } from '../features/tests/container/SetSelectFormItems/SetSelectFormItems.type';
 
-export interface AdminInitialState {
+export interface TestsInitialState {
   title: string;
   subTitle: string;
   explain: string;

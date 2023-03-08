@@ -62,7 +62,7 @@ export const LOGIN_MENU = [
     key: 5,
     type: 'button',
     text: '성향테스트 만들기',
-    asPath: '/admin',
+    asPath: '/tests',
     subMenu: [],
   },
   {

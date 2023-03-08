@@ -60,7 +60,7 @@ const CardItems = () => {
     testType: string,
   ) => {
     event.preventDefault();
-    router.push(`/admin/${id}?test=${testType}`);
+    router.push(`/tests/${id}?test=${testType}`);
   };
 
   const handleClose = () => {

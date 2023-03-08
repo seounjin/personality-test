@@ -9,9 +9,9 @@ const LEFT_MENU = [
   { id: 'n1', url: '/', content: '성향 테스트', pathName: '/' },
   {
     id: 'n2',
-    url: '/admin',
+    url: '/tests',
     content: '성향 테스트 만들기',
-    pathName: '/admin',
+    pathName: '/tests',
   },
 ];
 

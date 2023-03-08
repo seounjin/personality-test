@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import admin from './admin';
+import tests from './tests';
 import home from './home';
 import mypage from './mypage';
 
@@ -9,7 +9,7 @@ const rootReducer = (state, action) => {
     return { ...state, ...action.payload };
   }
   return combineReducers({
-    admin,
+    tests,
     home,
     mypage,
   })(state, action);
