@@ -47,6 +47,7 @@ export const theme: DefaultTheme = {
     backgroundImageColor: '#FFF5E4',
     mainPageSubColor: '#ffd1d1',
     ovalButtonHoverColor: '#ffd1d1',
+    optionButtonColor: '#f1f1f1',
   },
 
   device: {

@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 20px;
+  padding: 30px 20px;
 `;
 
 export const Container = styled.div`
@@ -20,16 +20,20 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   border: solid;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
   font-size: 20px;
 `;
 
 export const QuestionWrapper = styled.div`
+  width: 280px;
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
-export const Question = styled.span``;
+export const Question = styled.span`
+  line-height: normal;
+`;
 
 export const ButtonWrapper = styled.div`
   display: flex;
@@ -46,14 +50,25 @@ const Button = styled.button`
 `;
 
 export const OptionButton = styled(Button)`
-  background-color: #f1f1f1;
+  background-color: ${({ theme }) => theme.colors.optionButtonColor};
   margin-bottom: 20px;
 `;
 
 export const QuestionIconWrapper = styled.div`
-  margin-right: 10px;
+  margin: 20px 0;
+  font-size: 30px;
+  .question_icon {
+    margin-right: 4px;
+  }
 `;
 export const QuestionIcon = styled(qSolidSvgIcon)`
   width: 20px;
   hegiht: 20px;
+`;
+
+export const TopSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

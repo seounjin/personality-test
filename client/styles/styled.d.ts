@@ -44,6 +44,7 @@ declare module 'styled-components' {
       startButtonColor: string;
       mainPageSubColor: string;
       ovalButtonHoverColor: string;
+      optionButtonColor: string;
     };
 
     device: {

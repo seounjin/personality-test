@@ -100,6 +100,7 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
             question={question}
             optionItems={optionItems}
             slideIndex={index}
+            totalStep={personalityTest.length}
             onClick={optionsButtonClick}
           />
         </BackgroundImage>

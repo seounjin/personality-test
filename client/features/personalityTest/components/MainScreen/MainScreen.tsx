@@ -1,5 +1,6 @@
 import React from 'react';
 import { OptionItems, WeightedScoreItem } from '../../../../types';
+import ProgressBar from '../ProgressBar/ProgressBar';
 import {
   Container,
   QuestionWrapper,
@@ -9,12 +10,14 @@ import {
   Wrapper,
   QuestionIcon,
   QuestionIconWrapper,
+  TopSection,
 } from './MainScreen.style';
 
 interface MainProps {
   question: string;
   optionItems: OptionItems[];
   slideIndex: number;
+  totalStep: number;
   onClick: (
     weightedScoreItems: WeightedScoreItem[],
     slideIndex: number,
@@ -25,17 +28,23 @@ const MainScreen = ({
   question,
   optionItems,
   slideIndex,
+  totalStep,
   onClick,
 }: MainProps): JSX.Element => {
   return (
     <Wrapper>
       <Container>
-        <QuestionWrapper>
+        <TopSection>
+          <ProgressBar totalStep={totalStep} activeStep={slideIndex + 1} />
           <QuestionIconWrapper>
-            <QuestionIcon />
+            <QuestionIcon className="question_icon" />
+            {slideIndex + 1}
+            {'.'}
           </QuestionIconWrapper>
-          <Question>{question}</Question>
-        </QuestionWrapper>
+          <QuestionWrapper>
+            <Question>{question}</Question>
+          </QuestionWrapper>
+        </TopSection>
 
         <ButtonWrapper>
           {optionItems.map(({ option, weightedScoreItems }, index) => (
