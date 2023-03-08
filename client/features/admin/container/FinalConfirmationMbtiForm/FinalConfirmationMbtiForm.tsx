@@ -1,7 +1,5 @@
-import { useRouter } from 'next/router';
 import React, { FormEvent } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import fetcher from '../../../../api/fetcher';
 import { RootState } from '../../../../store/modules';
 import { FINAL_CONFIRMATION_FORM_ID } from '../../admin.const';
 import SubHeadlineLabel from '../../../../components/SubHeadlineLabel/SubHeadlineLabel';
@@ -14,6 +12,7 @@ import WeightedScoreBoardSection from '../WeightedScoreBoardSection/WeightedScor
 import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
 import { Form } from '../BasicInformationForm/BasicInformationForm.style';
+import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 
 const FinalConfirmationMbtiForm = () => {
   const {
@@ -37,42 +36,9 @@ const FinalConfirmationMbtiForm = () => {
     shallowEqual,
   );
 
+  const { requestRegister, requestUpdate } = useFinalConfirmationForm();
+
   const setWeightedScoreBoard = (items) => <WeightedScoreBoard items={items} />;
-
-  const router = useRouter();
-
-  const requestRegister = async (data) => {
-    const res = await fetcher('post', `/personality/${testType}`, { data });
-    if (res.success) {
-      alert('성향 테스트가 등록 되었습니다');
-      router.push('/');
-    } else {
-      if (res.status === 401) {
-        alert('로그인 유효시간이 만료 되었습니다 \n다시 로그인해 주세요');
-        router.push('/login?redirect=admin');
-      } else {
-        alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
-      }
-    }
-  };
-
-  const requestUpdate = async (data) => {
-    const id = router.query.id;
-    const res = await fetcher('put', `/personality/detail-personality/${id}`, {
-      data,
-    });
-    if (res.success) {
-      alert('해당 테스트가 업데이트 되었습니다');
-      router.push('/mypage');
-    } else {
-      if (res.status === 401) {
-        alert('로그인 유효시간이 만료 되었습니다 \n다시 로그인해 주세요');
-        router.push('/login?redirect=mypage');
-      } else {
-        alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
-      }
-    }
-  };
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
@@ -90,7 +56,7 @@ const FinalConfirmationMbtiForm = () => {
     };
 
     if (mode === 'create') {
-      requestRegister(data);
+      requestRegister(data, testType);
     } else {
       requestUpdate(data);
     }

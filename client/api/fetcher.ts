@@ -9,9 +9,7 @@ const fetcher = async (
   try {
     const res = await axiosClient[method](url, ...rest);
     console.log('status!!', res.status);
-    if (res.status >= 200) {
-      return res.data;
-    }
+    return res.data;
   } catch (error) {
     if (error.response) {
       console.log('fetcher 에러', error.response.data);

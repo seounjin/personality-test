@@ -6,8 +6,7 @@ import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import HomeBody from '../layout/Homebody/HomeBody';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { RootState } from '../store/modules';
-import { setIsAuth, setIsOpenModal } from '../store/modules/home';
-import ModalPortal from '../portal/ModalPortal';
+import { setIsAuth } from '../store/modules/home';
 import CardList from '../components/CardList/CardList';
 import { Card } from '../components/CardList/CardList.type';
 import withAuth from '../hoc/withAuth';
@@ -33,18 +32,14 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
     shallowEqual,
   );
 
-  const getCards = async () => {
-    const res = await fetcher('get', '/personality');
-    setCards([...cards, ...res]);
-  };
+  // const getCards = async () => {
+  //   const res = await fetcher('get', '/personality');
+  //   setCards([...cards, ...res]);
+  // };
 
-  const closeModal = () => {
-    dispatch(setIsOpenModal(false));
-  };
-
-  useEffect(() => {
-    if (Intersecting) getCards();
-  }, [Intersecting]);
+  // useEffect(() => {
+  //   if (Intersecting) getCards();
+  // }, [Intersecting]);
 
   return (
     <Layout>

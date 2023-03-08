@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import styled from 'styled-components';
-import fetcher from '../../api/fetcher';
+import axiosServer from '../../api/axiosServer';
 import Aside from '../../features/mypage/container/Aside/Aside';
 import TebPanel from '../../features/mypage/container/TabPanel/TabPanel';
 import withAuth from '../../hoc/withAuth';
@@ -38,7 +38,7 @@ const getCards = async (cookie) => {
   const headers = {
     Cookie: cookie,
   };
-  return await fetcher('get', '/personality/my-personality', { headers });
+  return await axiosServer('get', '/personality/my-personality', { headers });
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth({
@@ -46,17 +46,20 @@ export const getServerSideProps: GetServerSideProps = withAuth({
     if (auth) {
       store.dispatch(setIsAuth(true));
 
-      const res = await getCards(cookie);
-      if (res.success) {
-        store.dispatch(setCards(res.data));
-        store.dispatch(setUser(res.user));
+      try {
+        const res = await getCards(cookie);
+        if (res.success) {
+          store.dispatch(setCards(res.data));
+          store.dispatch(setUser(res.user));
+        }
         return { props: {} };
-      } else {
+      } catch (error) {
+        const { message, statusCode } = error;
         return {
           props: {
             error: {
-              statusCode: '서버 점검중입니다. 잠시 후 다시 이용해 주세요.',
-              message: 'Error!',
+              statusCode: statusCode || 'error',
+              message: statusCode ? message : '잠시 후 다시 이용해주세요',
             },
           },
         };
