@@ -12,6 +12,7 @@ import {
 const initialState: AdminInitialState = {
   mode: 'create',
   title: '',
+  subTitle: '',
   explain: '',
   typeFormItems: [
     {
@@ -74,6 +75,7 @@ const adminSlice = createSlice({
     },
     setBasicInformationForm: (state, action) => {
       state.title = action.payload.title;
+      state.subTitle = action.payload.subTitle;
       state.explain = action.payload.explain;
     },
     setTypeFormItems: (state, action) => {
@@ -127,6 +129,7 @@ const adminSlice = createSlice({
     },
     setPersonalityTestItems: (state, action) => {
       state.title = action.payload.title;
+      state.subTitle = action.payload.subTitle;
       state.explain = action.payload.explain;
       state.typeFormItems = action.payload.typeFormItems;
       state.selectFormItems = action.payload.selectFormItems;
@@ -134,7 +137,7 @@ const adminSlice = createSlice({
     },
     setScoreTypeTestItems: (state, action) => {
       const {
-        basicInformationItems: { title, explain },
+        basicInformationItems: { title, subTitle, explain },
         selectItems,
         resultItems,
         isPublic,
@@ -142,6 +145,7 @@ const adminSlice = createSlice({
       } = action.payload.data;
 
       state.title = title;
+      state.subTitle = subTitle;
       state.explain = explain;
       state.typeFormItems = resultItems;
       state.selectFormItems = selectItems;
@@ -150,7 +154,7 @@ const adminSlice = createSlice({
     },
     setMbtiTypeTestItems: (state, action) => {
       const {
-        basicInformationItems: { title, explain },
+        basicInformationItems: { title, subTitle, explain },
         selectItems,
         resultItems,
         isPublic,
@@ -158,6 +162,7 @@ const adminSlice = createSlice({
       } = action.payload.data;
 
       state.title = title;
+      state.subTitle = subTitle;
       state.explain = explain;
       state.mbtiTypeFormItems = resultItems;
       state.mbtiSelectFormItems = selectItems;

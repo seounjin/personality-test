@@ -6,6 +6,7 @@ import { SelectFormItems } from '../features/admin/container/SetSelectFormItems/
 
 export interface AdminInitialState {
   title: string;
+  subTitle: string;
   explain: string;
   typeFormItems: TypeFormItems[];
   mbtiTypeFormItems: TypeFormItems[];

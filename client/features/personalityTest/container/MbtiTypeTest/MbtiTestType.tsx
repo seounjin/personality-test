@@ -23,6 +23,7 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
   const {
     id,
     title,
+    subTitle,
     explain,
     isPublic,
     weightedScoreDictionary,
@@ -91,7 +92,7 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
   return (
     <SlideWrapper ref={slideRef}>
       <BackgroundImage>
-        <StartScreen title={title} onClick={startClick} />
+        <StartScreen title={title} subTitle={subTitle} onClick={startClick} />
       </BackgroundImage>
 
       {personalityTest.map(({ question, optionItems }, index: number) => (

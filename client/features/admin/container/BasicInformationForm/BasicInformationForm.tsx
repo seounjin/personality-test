@@ -18,14 +18,21 @@ const BasicInformationForm = ({
   const onSubmit = async (data) => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
-    const { title, explain } = data;
-    dispatch(setBasicInformationForm({ title: title, explain: explain }));
+    const { title, subTitle, explain } = data;
+    dispatch(
+      setBasicInformationForm({
+        title: title,
+        subTitle: subTitle,
+        explain: explain,
+      }),
+    );
     handleNext();
   };
 
   return (
     <Form id="basicInformationForm" onSubmit={handleSubmit(onSubmit)}>
       <TextFiled label={'제 목'} name={'title'} />
+      <TextFiled label={'부제목'} name={'subTitle'} />
       <TextFiled label={'설 명'} name={'explain'} />
     </Form>
   );

@@ -70,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     if (res.success) {
       const {
-        basicInformationItems: { title, explain },
+        basicInformationItems: { title, subTitle, explain },
         id: testTypeId,
         testType,
         selectItems,
@@ -82,6 +82,7 @@ export const getServerSideProps: GetServerSideProps = async ({
           testItems: {
             id: testTypeId,
             title: title,
+            subTitle: subTitle,
             explain: explain,
             testType: testType,
             isPublic: isPublic,

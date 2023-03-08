@@ -19,6 +19,7 @@ const FinalConfirmationForm = () => {
     testType,
     mode,
     title,
+    subTitle,
     explain,
     typeFormItems,
     selectFormItems,
@@ -28,6 +29,7 @@ const FinalConfirmationForm = () => {
       testType: state.admin.testType,
       mode: state.admin.mode,
       title: state.admin.title,
+      subTitle: state.admin.subTitle,
       explain: state.admin.explain,
       typeFormItems: state.admin.typeFormItems,
       selectFormItems: state.admin.selectFormItems,
@@ -48,7 +50,11 @@ const FinalConfirmationForm = () => {
         : false;
 
     const data = {
-      basicInformationItem: { title: title, explain: explain },
+      basicInformationItem: {
+        title: title,
+        subTitle: subTitle,
+        explain: explain,
+      },
       typeItems: typeFormItems,
       selectItems: selectFormItems,
       isPublic: isPublic,
@@ -68,6 +74,11 @@ const FinalConfirmationForm = () => {
         <SubTextBoxSection>
           <SubHeadlineLabel label="제 목" subTitleLocation="start" />
           <TextBox text={title} />
+        </SubTextBoxSection>
+
+        <SubTextBoxSection>
+          <SubHeadlineLabel label="부제목" subTitleLocation="start" />
+          <TextBox text={subTitle} />
         </SubTextBoxSection>
 
         <SubTextBoxSection>

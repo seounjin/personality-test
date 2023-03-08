@@ -19,6 +19,7 @@ const FinalConfirmationMbtiForm = () => {
     testType,
     mode,
     title,
+    subTitle,
     explain,
     mbtiTypeFormItems,
     mbtiSelectFormItems,
@@ -28,6 +29,7 @@ const FinalConfirmationMbtiForm = () => {
       testType: state.admin.testType,
       mode: state.admin.mode,
       title: state.admin.title,
+      subTitle: state.admin.subTitle,
       explain: state.admin.explain,
       mbtiTypeFormItems: state.admin.mbtiTypeFormItems,
       mbtiSelectFormItems: state.admin.mbtiSelectFormItems,
@@ -48,7 +50,11 @@ const FinalConfirmationMbtiForm = () => {
         : false;
 
     const data = {
-      basicInformationItem: { title: title, explain: explain },
+      basicInformationItem: {
+        title: title,
+        subTitle: subTitle,
+        explain: explain,
+      },
       mbtiTypeItems: mbtiTypeFormItems,
       mbtiSelectItems: mbtiSelectFormItems,
       isPublic: isPublic,
@@ -68,6 +74,11 @@ const FinalConfirmationMbtiForm = () => {
         <SubTextBoxSection>
           <SubHeadlineLabel label="제 목" subTitleLocation="start" />
           <TextBox text={title} />
+        </SubTextBoxSection>
+
+        <SubTextBoxSection>
+          <SubHeadlineLabel label="부제목" subTitleLocation="start" />
+          <TextBox text={subTitle} />
         </SubTextBoxSection>
 
         <SubTextBoxSection>

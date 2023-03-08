@@ -16,6 +16,7 @@ export interface WeightedScore {
 
 interface BaseTestItems {
   title: string;
+  subTitle: string;
   explain: string;
   id: string;
   testType: string;
