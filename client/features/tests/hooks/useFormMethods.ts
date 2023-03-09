@@ -11,6 +11,7 @@ import { typeFormSchema } from '../schemas/typeFormSchema';
 export const useFormMethods = () => {
   const {
     title,
+    subTitle,
     explain,
     typeFormItems,
     selectFormItems,
@@ -19,6 +20,7 @@ export const useFormMethods = () => {
   } = useSelector(
     (state: RootState) => ({
       title: state.tests.title,
+      subTitle: state.tests.subTitle,
       explain: state.tests.explain,
       typeFormItems: state.tests.typeFormItems,
       selectFormItems: state.tests.selectFormItems,
@@ -30,7 +32,7 @@ export const useFormMethods = () => {
 
   const basicInformationFormMethods = useForm({
     resolver: yupResolver(titleFormSchema),
-    defaultValues: { title, explain },
+    defaultValues: { title, explain, subTitle },
     mode: 'onChange',
   });
 

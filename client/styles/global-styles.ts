@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
+import { pretendardFonts } from '../public/fonts/Pretendard/pretendardFonts';
 
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
@@ -11,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     min-width: 320px;
     height: 100%;
-    font-family: 'NanumSquare', sans-serif; 
+    font-family: ${pretendardFonts.style.fontFamily}, sans-serif; 
 
     button:hover{
       cursor: pointer;

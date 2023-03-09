@@ -3,7 +3,6 @@ import { GlobalStyle } from '../styles/global-styles';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../styles/theme';
 import Error from 'next/error';
-import '../public/fonts/style.css';
 import { wrapper } from '../store';
 
 function MyApp({ Component, pageProps }: AppProps) {

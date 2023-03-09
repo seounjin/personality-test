@@ -7,6 +7,7 @@ import {
   Headline,
   CardImageWrapper,
   TagsWrapper,
+  TwoButtonWrapper,
 } from './CardList.style';
 import Link from 'next/link';
 import { Card } from './CardList.type';
@@ -71,16 +72,20 @@ const CardList = ({
                 />
               </TagsWrapper>
               {type === 'mypage' && (
-                <TwoButton
-                  leftName="삭제"
-                  leftButton={(event) => handleLeftButton(event, id, testType)}
-                  rightButton={(event) =>
-                    handleRightButton(event, id, testType)
-                  }
-                  leftType="button"
-                  rightType="button"
-                  rightName="수정"
-                />
+                <TwoButtonWrapper>
+                  <TwoButton
+                    leftName="삭제"
+                    leftButton={(event) =>
+                      handleLeftButton(event, id, testType)
+                    }
+                    rightButton={(event) =>
+                      handleRightButton(event, id, testType)
+                    }
+                    leftType="button"
+                    rightType="button"
+                    rightName="수정"
+                  />
+                </TwoButtonWrapper>
               )}
             </CardItemBody>
           </Link>

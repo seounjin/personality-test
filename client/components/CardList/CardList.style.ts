@@ -45,3 +45,7 @@ export const MoreOutlinedContainer = styled.div`
 `;
 
 export const TagsWrapper = styled.div``;
+
+export const TwoButtonWrapper = styled.div`
+  margin-top: 10px;
+`;

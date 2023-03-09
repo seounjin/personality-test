@@ -5,6 +5,9 @@
 //   return withBundleAnalyzer(defaultConfig);
 // };
 module.exports = {
+  compiler: {
+    styledComponents: true,
+  },
   distDir: 'build',
   reactStrictMode: true,
   webpack: (config) => {
