@@ -52,7 +52,7 @@ const SetSelectFormItems = ({
     name: 'selectFormItems',
   });
 
-  const { setTestsItems } = useStorage();
+  const { setTestItems } = useStorage();
 
   const setWeightedScoreItems = () =>
     typeFormItems.map(({ typeContent }) => ({
@@ -60,12 +60,12 @@ const SetSelectFormItems = ({
       score: 0,
     }));
 
-  const beforeWeightedScoreItems = (item) =>
-    typeFormItems.map(({ typeContent }, index) => ({
+  const beforeWeightedScoreItems = (item) => {
+    return typeFormItems.map(({ typeContent, score }, index) => ({
       typeContent: typeContent,
-      score: item[index].score ? item[index].score : 0,
+      score: 0,
     }));
-
+  };
   const setWeightedScoreItemsOfSelectFormItem = () =>
     fields.map((item) => ({
       ...item,
@@ -120,8 +120,7 @@ const SetSelectFormItems = ({
       return;
     }
     const { selectFormItems } = data;
-    console.log('데이터', data);
-    setTestsItems({ selectItems: selectFormItems });
+    setTestItems({ selectItems: selectFormItems });
     dispatch(setSelectFormItems(data));
     handleNext();
   };

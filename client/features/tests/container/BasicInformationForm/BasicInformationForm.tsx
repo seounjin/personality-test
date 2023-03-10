@@ -15,14 +15,14 @@ const BasicInformationForm = ({
 }: BasicInformationFormProps): JSX.Element => {
   const { handleSubmit, trigger } = useFormContext();
   const dispatch = useDispatch();
-  const { setTestsItems } = useStorage();
+  const { setTestItems } = useStorage();
 
   const onSubmit = async (data) => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
     const { title, subTitle, explain } = data;
 
-    setTestsItems({ basicInformationItems: data });
+    setTestItems({ basicInformationItems: data });
 
     dispatch(
       setBasicInformationForm({

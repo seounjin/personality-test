@@ -13,10 +13,10 @@ import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
 import { Form } from '../BasicInformationForm/BasicInformationForm.style';
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
+import useStorage from '../../hooks/useStorage';
 
 const FinalConfirmationMbtiForm = () => {
   const {
-    testType,
     mode,
     title,
     subTitle,
@@ -26,7 +26,6 @@ const FinalConfirmationMbtiForm = () => {
     isPublic,
   } = useSelector(
     (state: RootState) => ({
-      testType: state.tests.testType,
       mode: state.tests.mode,
       title: state.tests.title,
       subTitle: state.tests.subTitle,
@@ -42,8 +41,12 @@ const FinalConfirmationMbtiForm = () => {
 
   const setWeightedScoreBoard = (items) => <WeightedScoreBoard items={items} />;
 
+  const { removeTestItems } = useStorage();
+
   const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
+    removeTestItems();
+
     const isPublic =
       (event.target as HTMLFormElement).contact.value === 'public'
         ? true
@@ -58,11 +61,11 @@ const FinalConfirmationMbtiForm = () => {
       mbtiTypeItems: mbtiTypeFormItems,
       mbtiSelectItems: mbtiSelectFormItems,
       isPublic: isPublic,
-      testType: testType,
+      testType: 'mbti',
     };
 
     if (mode === 'create') {
-      requestRegister(data, testType);
+      requestRegister(data);
     } else {
       requestUpdate(data);
     }

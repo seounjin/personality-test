@@ -15,16 +15,16 @@ interface StepperContainerProps {
 }
 
 const StepperContainer = ({ testType }: StepperContainerProps): JSX.Element => {
-  const { getTestsItems } = useStorage();
+  const { getTestItems } = useStorage();
   const [isOpenStepper, setIsOpenStepper] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [testsItems, setTestsItems] = useState(null);
+  const [testsItems, setTestItems] = useState(null);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    const items = getTestsItems();
+    const items = getTestItems();
     if (items) {
-      setTestsItems(items);
+      setTestItems(items);
       setIsOpenModal(true);
       return;
     } else {

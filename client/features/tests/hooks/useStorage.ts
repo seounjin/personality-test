@@ -10,21 +10,26 @@ const useStorage = () => {
     return key;
   };
 
-  const setTestsItems = (items) => {
+  const setTestItems = (items) => {
     const key = getKey();
-    const testsItems = getTestsItems();
-    if (!testsItems) {
+    const testItems = getTestItems();
+    if (!testItems) {
       localStorage.setItem(key, JSON.stringify(items));
     }
-    localStorage.setItem(key, JSON.stringify({ ...testsItems, ...items }));
+    localStorage.setItem(key, JSON.stringify({ ...testItems, ...items }));
   };
 
-  const getTestsItems = () => {
+  const getTestItems = () => {
     const key = getKey();
     return JSON.parse(localStorage.getItem(key));
   };
 
-  return { setTestsItems, getTestsItems };
+  const removeTestItems = () => {
+    const key = getKey();
+    localStorage.removeItem(key);
+  };
+
+  return { setTestItems, getTestItems, removeTestItems };
 };
 
 export default useStorage;

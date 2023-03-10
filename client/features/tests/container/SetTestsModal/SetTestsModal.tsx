@@ -18,10 +18,8 @@ const SetTestsModal = ({
       <TwoButtonWrapper>
         <TwoButton
           leftButton={handleCheckButton}
-          leftType="button"
           leftName={'예'}
           rightButton={handleCloseModal}
-          rightType="button"
           rightName={'아니오'}
         />
       </TwoButtonWrapper>

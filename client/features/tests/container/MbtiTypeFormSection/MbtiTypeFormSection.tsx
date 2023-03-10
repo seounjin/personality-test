@@ -28,7 +28,7 @@ const MbtiTypeFormSection = ({
     name: 'mbtiTypeFormItems',
   });
 
-  const { setTestsItems } = useStorage();
+  const { setTestItems } = useStorage();
 
   const dispatch = useDispatch();
 
@@ -37,7 +37,7 @@ const MbtiTypeFormSection = ({
     if (!isStepValid) return;
     const { mbtiTypeFormItems } = data;
 
-    setTestsItems({ resultItems: mbtiTypeFormItems });
+    setTestItems({ resultItems: mbtiTypeFormItems });
     dispatch(
       setMbtiTypeFormItems({ mbtiTypeFormItems: [...mbtiTypeFormItems] }),
     );

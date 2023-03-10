@@ -38,31 +38,10 @@ const SetMbtiSelectFormItems = ({
     name: 'mbtiSelectFormItems',
   });
 
-  const { setTestsItems } = useStorage();
-  ////  요기 확인해봐야함 item[index].score ? item[index].score : 0,
-  // const beforeWeightedScoreItems = (item) =>
-  //   typeFormItems.map(({ typeContent }, index) => ({
-  //     typeContent: typeContent,
-  //     score: 0,
-  //   }));
-
-  // const setWeightedScoreItemsOfSelectFormItem = () => {
-  //   return fields.map((item) => ({
-  //     ...item,
-  //     optionItems: item.optionItems.map((optionItem) => ({
-  //       ...optionItem,
-  //       weightedScoreItems: beforeWeightedScoreItems(
-  //         optionItem.weightedScoreItems,
-  //       ),
-  //     })),
-  //   }));
-  // };
+  const { setTestItems } = useStorage();
   useEffect(() => {
     if (!fields.length) {
       setValue('mbtiSelectFormItems', mbtiSelectFormItems);
-    } else {
-      // const res = setWeightedScoreItemsOfSelectFormItem();
-      // setValue('selectFormItems', res);
     }
   }, []);
 
@@ -77,7 +56,7 @@ const SetMbtiSelectFormItems = ({
     }
 
     const { mbtiSelectFormItems } = data;
-    setTestsItems({ selectItems: mbtiSelectFormItems });
+    setTestItems({ selectItems: mbtiSelectFormItems });
     dispatch(setFinalMbtiSelctFormItems(data));
     handleNext();
   };

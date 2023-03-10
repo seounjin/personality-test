@@ -25,7 +25,7 @@ export const theme: DefaultTheme = {
     basicFontColor: '#1b300a',
     buttonColor: '#594545',
     buttonDisabledColor: '#E3CAA5',
-    buttonHoverColor: '#9E7676',
+    buttonHoverColor: '#7e5e5e',
     buttonFontColor: '#fff',
     textFiledBorderColor: '#594545',
     textFiledFocusColor: '#E3CAA5',
@@ -50,6 +50,8 @@ export const theme: DefaultTheme = {
     optionButtonColor: '#f1f1f1',
     scoreTypeTagBgColor: '#ffd1d1',
     mbtiTypeTagBgColor: '#FFF5E4',
+    noButtonColor: '#cebaba',
+    noButtonHoverColor: '#c4acac',
   },
 
   device: {

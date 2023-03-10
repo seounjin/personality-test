@@ -13,4 +13,11 @@ export const Text = styled.h3`
 
 export const TwoButtonWrapper = styled.div`
   margin-top: 40px;
+  button:last-child {
+    background-color: ${({ theme }) => theme.colors.noButtonColor};
+
+    &: hover {
+      background-color: ${({ theme }) => theme.colors.noButtonHoverColor};
+    }
+  }
 `;

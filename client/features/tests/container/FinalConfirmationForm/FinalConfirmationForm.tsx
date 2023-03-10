@@ -13,10 +13,10 @@ import { Form } from './FinalConfirmationForm.style';
 import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
+import useStorage from '../../hooks/useStorage';
 
 const FinalConfirmationForm = () => {
   const {
-    testType,
     mode,
     title,
     subTitle,
@@ -26,7 +26,6 @@ const FinalConfirmationForm = () => {
     isPublic,
   } = useSelector(
     (state: RootState) => ({
-      testType: state.tests.testType,
       mode: state.tests.mode,
       title: state.tests.title,
       subTitle: state.tests.subTitle,
@@ -42,8 +41,12 @@ const FinalConfirmationForm = () => {
 
   const setWeightedScoreBoard = (items) => <WeightedScoreBoard items={items} />;
 
+  const { removeTestItems } = useStorage();
+
   const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
+
+    removeTestItems();
     const isPublic =
       (event.target as HTMLFormElement).contact.value === 'public'
         ? true
@@ -58,11 +61,11 @@ const FinalConfirmationForm = () => {
       typeItems: typeFormItems,
       selectItems: selectFormItems,
       isPublic: isPublic,
-      testType: testType,
+      testType: 'score',
     };
 
     if (mode === 'create') {
-      requestRegister(data, testType);
+      requestRegister(data);
     } else {
       requestUpdate(data);
     }

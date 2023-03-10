@@ -47,6 +47,8 @@ declare module 'styled-components' {
       optionButtonColor: string;
       scoreTypeTagBgColor: string;
       mbtiTypeTagBgColor: string;
+      noButtonColor: string;
+      noButtonHoverColor: string;
     };
 
     device: {

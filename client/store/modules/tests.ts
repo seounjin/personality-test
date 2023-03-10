@@ -147,8 +147,8 @@ const testsSlice = createSlice({
       state.title = title;
       state.subTitle = subTitle;
       state.explain = explain;
-      state.typeFormItems = resultItems;
-      state.selectFormItems = selectItems;
+      state.typeFormItems = resultItems ? resultItems : state.typeFormItems;
+      state.selectFormItems = selectItems ? selectItems : state.selectFormItems;
       state.isPublic = isPublic;
       state.testType = testType;
     },
@@ -164,8 +164,12 @@ const testsSlice = createSlice({
       state.title = title;
       state.subTitle = subTitle;
       state.explain = explain;
-      state.mbtiTypeFormItems = resultItems;
-      state.mbtiSelectFormItems = selectItems;
+      state.mbtiTypeFormItems = resultItems
+        ? resultItems
+        : state.mbtiTypeFormItems;
+      state.mbtiSelectFormItems = selectItems
+        ? selectItems
+        : state.mbtiSelectFormItems;
       state.isPublic = isPublic;
       state.testType = testType;
     },

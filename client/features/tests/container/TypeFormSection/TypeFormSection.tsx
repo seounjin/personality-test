@@ -34,7 +34,7 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
     }),
     shallowEqual,
   );
-  const { setTestsItems } = useStorage();
+  const { setTestItems } = useStorage();
 
   const dispatch = useDispatch();
 
@@ -58,7 +58,7 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
     if (!isStepValid) return;
     const { typeFormItems } = data;
 
-    setTestsItems({ resultItems: typeFormItems });
+    setTestItems({ resultItems: typeFormItems });
     dispatch(setTypeFormItems({ typeFormItems: [...typeFormItems] }));
     dispatch(setSelctFormItems({ typeFormItems: [...typeFormItems] }));
     handleNext();
