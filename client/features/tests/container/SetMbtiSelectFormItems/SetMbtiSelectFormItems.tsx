@@ -9,15 +9,12 @@ import {
 } from '../SetSelectFormItems/SetSelectFormItems.style';
 import { useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../../../store/modules';
-import { SelectFormValues } from '../SetSelectFormItems/SetSelectFormItems.type';
-import {
-  setFinalMbtiSelctFormItems,
-  setSelectFormItems,
-} from '../../../../store/modules/tests';
+import { setFinalMbtiSelctFormItems } from '../../../../store/modules/tests';
 import { useDispatch } from 'react-redux';
 import TextRadioButtonGroup from '../TextRadioButtonGroup/TextRadioButtonGroup';
 import { MBTI_DATA } from '../../tests.const';
 import { MbtiSelectFormItemsType } from './SetMbtiSelectFormItems.type';
+import useStorage from '../../hooks/useStorage';
 
 interface SetMbtiSelectFormItemsProps {
   handleNext: () => void;
@@ -41,6 +38,7 @@ const SetMbtiSelectFormItems = ({
     name: 'mbtiSelectFormItems',
   });
 
+  const { setTestsItems } = useStorage();
   ////  요기 확인해봐야함 item[index].score ? item[index].score : 0,
   // const beforeWeightedScoreItems = (item) =>
   //   typeFormItems.map(({ typeContent }, index) => ({
@@ -70,7 +68,7 @@ const SetMbtiSelectFormItems = ({
 
   const dispatch = useDispatch();
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     const isStepValid = await trigger();
 
     if (!isStepValid) {
@@ -78,11 +76,9 @@ const SetMbtiSelectFormItems = ({
       return;
     }
 
-    dispatch(
-      setFinalMbtiSelctFormItems({
-        mbtiSelectFormItems: [...getValues('mbtiSelectFormItems')],
-      }),
-    );
+    const { mbtiSelectFormItems } = data;
+    setTestsItems({ selectItems: mbtiSelectFormItems });
+    dispatch(setFinalMbtiSelctFormItems(data));
     handleNext();
   };
 

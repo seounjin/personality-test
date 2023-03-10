@@ -8,6 +8,7 @@ import {
 } from '../../../../store/modules/tests';
 import { useDispatch } from 'react-redux';
 import { TypeFormItems } from '../../components/TypeForm/TypeForm.type';
+import useStorage from '../../hooks/useStorage';
 
 type MbtiTypeItemValues = {
   mbtiTypeFormItems: TypeFormItems[];
@@ -27,12 +28,16 @@ const MbtiTypeFormSection = ({
     name: 'mbtiTypeFormItems',
   });
 
+  const { setTestsItems } = useStorage();
+
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
     const { mbtiTypeFormItems } = data;
+
+    setTestsItems({ resultItems: mbtiTypeFormItems });
     dispatch(
       setMbtiTypeFormItems({ mbtiTypeFormItems: [...mbtiTypeFormItems] }),
     );

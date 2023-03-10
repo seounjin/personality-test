@@ -26,6 +26,7 @@ import {
 } from '../../../../store/modules/tests';
 import { useDispatch } from 'react-redux';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
+import useStorage from '../../hooks/useStorage';
 
 interface SetSelectItemsFormProps {
   handleNext: () => void;
@@ -50,6 +51,8 @@ const SetSelectFormItems = ({
     control,
     name: 'selectFormItems',
   });
+
+  const { setTestsItems } = useStorage();
 
   const setWeightedScoreItems = () =>
     typeFormItems.map(({ typeContent }) => ({
@@ -109,18 +112,17 @@ const SetSelectFormItems = ({
 
   const getSelectFormItems = () => getValues('selectFormItems');
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     const isStepValid = await trigger();
 
     if (!isStepValid) {
       alert('빈칸을 확인해 주세요');
       return;
     }
-    dispatch(
-      setSelectFormItems({
-        selectFormItems: [...getValues('selectFormItems')],
-      }),
-    );
+    const { selectFormItems } = data;
+    console.log('데이터', data);
+    setTestsItems({ selectItems: selectFormItems });
+    dispatch(setSelectFormItems(data));
     handleNext();
   };
 

@@ -16,6 +16,7 @@ import {
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { TypeItemValues } from '../../components/TypeForm/TypeForm.type';
 import { RootState } from '../../../../store/modules';
+import useStorage from '../../hooks/useStorage';
 
 interface TypeFormSectionProps {
   handleNext: () => void;
@@ -33,6 +34,7 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
     }),
     shallowEqual,
   );
+  const { setTestsItems } = useStorage();
 
   const dispatch = useDispatch();
 
@@ -55,6 +57,8 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
     const { typeFormItems } = data;
+
+    setTestsItems({ resultItems: typeFormItems });
     dispatch(setTypeFormItems({ typeFormItems: [...typeFormItems] }));
     dispatch(setSelctFormItems({ typeFormItems: [...typeFormItems] }));
     handleNext();

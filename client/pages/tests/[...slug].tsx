@@ -1,5 +1,4 @@
-import { Container } from '../../features/tests/tests.styles';
-import StepperContainer from '../../features/tests/container/StepperContainer/StepperContainer';
+import { Container, Wrapper } from '../../features/tests/tests.styles';
 import { GetServerSideProps } from 'next';
 import withAuth from '../../hoc/withAuth';
 import { setIsAuth } from '../../store/modules/home';
@@ -12,6 +11,7 @@ import Layout from '../../layout/Layout/Layout';
 import { checkTestType } from '../../types/checkTestType';
 import axiosServer from '../../api/axiosServer';
 import { CustomError } from '../../errors';
+import Stepper from '../../features/tests/container/Stepper/Stepper';
 
 interface TestsPageProps {
   testType: string;
@@ -21,7 +21,9 @@ const TestsPage = ({ testType }: TestsPageProps): JSX.Element => {
   return (
     <Layout>
       <Container>
-        <StepperContainer testType={testType} />
+        <Wrapper>
+          <Stepper testType={testType} />
+        </Wrapper>
       </Container>
     </Layout>
   );

@@ -4,6 +4,7 @@ import TextFiled from '../../../../components/TextFiled/TextField';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { setBasicInformationForm } from '../../../../store/modules/tests';
+import useStorage from '../../hooks/useStorage';
 
 interface BasicInformationFormProps {
   handleNext: () => void;
@@ -14,11 +15,15 @@ const BasicInformationForm = ({
 }: BasicInformationFormProps): JSX.Element => {
   const { handleSubmit, trigger } = useFormContext();
   const dispatch = useDispatch();
+  const { setTestsItems } = useStorage();
 
   const onSubmit = async (data) => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
     const { title, subTitle, explain } = data;
+
+    setTestsItems({ basicInformationItems: data });
+
     dispatch(
       setBasicInformationForm({
         title: title,
