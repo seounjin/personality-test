@@ -11,17 +11,22 @@ export const Wrapper = styled.ul`
 `;
 
 export const CardItem = styled.li`
+  position: relative;
+  overflow: hidden;
   width: 25%;
   list-style: none;
   padding: 10px;
   display: inline-block;
-  a {
-    text-decoration: none;
-  }
 
   ${({ theme }) =>
     theme.device.tablet`
   width: 50%;`}
+
+  &: hover {
+    .card_hover_wrapper {
+      opacity: 1;
+    }
+  }
 `;
 
 export const CardItemHeader = styled.div`
@@ -34,7 +39,9 @@ export const CardItemBody = styled.div`
   color: black;
 `;
 
-export const Headline = styled.h1``;
+export const Headline = styled.h3`
+  font-size: 18px;
+`;
 
 export const MoreOutlinedContainer = styled.div`
   &:hover {
@@ -48,4 +55,49 @@ export const TagsWrapper = styled.div``;
 
 export const TwoButtonWrapper = styled.div`
   margin-top: 10px;
+`;
+
+export const CardHoverWrapper = styled.div`
+  position: absolute;
+  width: calc(100% - 20px);
+  height: 100%;
+  z-index: 10;
+  opacity: 0;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: rgba(0, 0, 0, 0.7);
+
+  font-size: 18px;
+  font-weight: 500;
+
+  a {
+    position: absolute;
+    padding: 20px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #fff;
+    text-decoration: none;
+
+    &: hover {
+      .card_hover_title {
+        bottom: 70%;
+      }
+      .card_hover_explain {
+        top: 30%;
+      }
+    }
+  }
+`;
+
+export const CardHoverTitle = styled.h3`
+  position: absolute;
+  bottom: 150%;
+  transition: all 0.4s;
+`;
+
+export const CardHoverExplain = styled.p`
+  position: absolute;
+  top: 150%;
+  transition: all 0.4s;
 `;
