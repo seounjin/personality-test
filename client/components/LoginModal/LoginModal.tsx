@@ -56,8 +56,7 @@ const LoginModal = (): JSX.Element => {
       <LoginFormButton form="loginModalForm">로그인</LoginFormButton>
 
       <Bottom>
-        <Link>아이디 찾기</Link>
-        <Link>비밀번호 찾기</Link>
+        <Link href="/">홈으로</Link>
         <Link href="/signup">회원 가입</Link>
       </Bottom>
     </Container>
