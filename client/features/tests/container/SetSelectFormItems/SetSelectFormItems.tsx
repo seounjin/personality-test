@@ -35,14 +35,16 @@ interface SetSelectItemsFormProps {
 const SetSelectFormItems = ({
   handleNext,
 }: SetSelectItemsFormProps): JSX.Element => {
-  const { selectFormItems, typeFormItems, numberOfItemsCount } = useSelector(
-    (state: RootState) => ({
-      typeFormItems: state.tests.typeFormItems,
-      selectFormItems: state.tests.selectFormItems,
-      numberOfItemsCount: state.tests.numberOfItemsCount,
-    }),
-    shallowEqual,
-  );
+  const { mode, selectFormItems, typeFormItems, numberOfItemsCount } =
+    useSelector(
+      (state: RootState) => ({
+        mode: state.tests.mode,
+        typeFormItems: state.tests.typeFormItems,
+        selectFormItems: state.tests.selectFormItems,
+        numberOfItemsCount: state.tests.numberOfItemsCount,
+      }),
+      shallowEqual,
+    );
 
   const { control, setValue, getValues, handleSubmit, trigger } =
     useFormContext<SelectFormValues>();
@@ -120,7 +122,9 @@ const SetSelectFormItems = ({
       return;
     }
     const { selectFormItems } = data;
-    setTestItems({ selectItems: selectFormItems });
+    if (mode === 'create') {
+      setTestItems({ selectItems: selectFormItems });
+    }
     dispatch(setSelectFormItems(data));
     handleNext();
   };

@@ -21,7 +21,7 @@ const useFinalConfirmationForm = () => {
   };
 
   const requestUpdate = async (data) => {
-    const id = router.query.id;
+    const id = router.query.slug[0];
     const res = await fetcher('put', `/personality/detail-personality/${id}`, {
       data,
     });

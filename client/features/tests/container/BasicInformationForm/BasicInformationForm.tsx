@@ -2,9 +2,10 @@ import React from 'react';
 import { Form } from './BasicInformationForm.style';
 import TextFiled from '../../../../components/TextFiled/TextField';
 import { useFormContext } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { setBasicInformationForm } from '../../../../store/modules/tests';
 import useStorage from '../../hooks/useStorage';
+import { RootState } from '../../../../store/modules';
 
 interface BasicInformationFormProps {
   handleNext: () => void;
@@ -16,13 +17,20 @@ const BasicInformationForm = ({
   const { handleSubmit, trigger } = useFormContext();
   const dispatch = useDispatch();
   const { setTestItems } = useStorage();
-
+  const { mode } = useSelector(
+    (state: RootState) => ({
+      mode: state.tests.mode,
+    }),
+    shallowEqual,
+  );
   const onSubmit = async (data) => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
     const { title, subTitle, explain } = data;
 
-    setTestItems({ basicInformationItems: data });
+    if (mode === 'create') {
+      setTestItems({ basicInformationItems: data });
+    }
 
     dispatch(
       setBasicInformationForm({

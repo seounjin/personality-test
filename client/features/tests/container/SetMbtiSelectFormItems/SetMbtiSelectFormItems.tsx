@@ -23,8 +23,9 @@ interface SetMbtiSelectFormItemsProps {
 const SetMbtiSelectFormItems = ({
   handleNext,
 }: SetMbtiSelectFormItemsProps): JSX.Element => {
-  const { mbtiSelectFormItems } = useSelector(
+  const { mode, mbtiSelectFormItems } = useSelector(
     (state: RootState) => ({
+      mode: state.tests.mode,
       mbtiSelectFormItems: state.tests.mbtiSelectFormItems,
     }),
     shallowEqual,
@@ -54,9 +55,10 @@ const SetMbtiSelectFormItems = ({
       alert('빈칸을 확인해 주세요');
       return;
     }
-
     const { mbtiSelectFormItems } = data;
-    setTestItems({ selectItems: mbtiSelectFormItems });
+    if (mode === 'create') {
+      setTestItems({ selectItems: mbtiSelectFormItems });
+    }
     dispatch(setFinalMbtiSelctFormItems(data));
     handleNext();
   };

@@ -6,9 +6,10 @@ import {
   setMbtiSelctFormItems,
   setMbtiTypeFormItems,
 } from '../../../../store/modules/tests';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { TypeFormItems } from '../../components/TypeForm/TypeForm.type';
 import useStorage from '../../hooks/useStorage';
+import { RootState } from '../../../../store/modules';
 
 type MbtiTypeItemValues = {
   mbtiTypeFormItems: TypeFormItems[];
@@ -32,12 +33,22 @@ const MbtiTypeFormSection = ({
 
   const dispatch = useDispatch();
 
+  const { mode } = useSelector(
+    (state: RootState) => ({
+      mode: state.tests.mode,
+    }),
+    shallowEqual,
+  );
+
   const onSubmit = async (data) => {
     const isStepValid = await trigger();
     if (!isStepValid) return;
     const { mbtiTypeFormItems } = data;
 
-    setTestItems({ resultItems: mbtiTypeFormItems });
+    if (mode === 'create') {
+      setTestItems({ resultItems: mbtiTypeFormItems });
+    }
+
     dispatch(
       setMbtiTypeFormItems({ mbtiTypeFormItems: [...mbtiTypeFormItems] }),
     );

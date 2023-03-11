@@ -28,8 +28,9 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
     control,
     name: 'typeFormItems',
   });
-  const { typeItemsCount } = useSelector(
+  const { typeItemsCount, mode } = useSelector(
     (state: RootState) => ({
+      mode: state.tests.mode,
       typeItemsCount: state.tests.typeItemsCount,
     }),
     shallowEqual,
@@ -58,7 +59,10 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
     if (!isStepValid) return;
     const { typeFormItems } = data;
 
-    setTestItems({ resultItems: typeFormItems });
+    if (mode === 'create') {
+      setTestItems({ resultItems: typeFormItems });
+    }
+
     dispatch(setTypeFormItems({ typeFormItems: [...typeFormItems] }));
     dispatch(setSelctFormItems({ typeFormItems: [...typeFormItems] }));
     handleNext();
