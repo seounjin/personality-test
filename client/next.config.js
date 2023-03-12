@@ -18,9 +18,9 @@ module.exports = {
     });
     return config;
   },
-  images: {
-    loader: 'akamai',
-    path: 'http://localhost:3000',
-    domains: ['localhost'],
-  },
+  // images: {
+  //   loader: 'akamai',
+  //   path: 'http://localhost:3000',
+  //   domains: ['localhost'],
+  // },
 };

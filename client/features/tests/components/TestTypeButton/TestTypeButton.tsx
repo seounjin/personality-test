@@ -26,13 +26,7 @@ const TestTypeButton = ({
   return (
     <Button onClick={() => onClick(testType)}>
       <NextImageWrapper>
-        <NextImage
-          alt="card-img"
-          src={imgSrc}
-          loader={({ src }) => src}
-          fill
-          priority
-        />
+        <NextImage alt="card-img" src={imgSrc} fill priority />
       </NextImageWrapper>
       <Content>
         <Headline>{title}</Headline>

@@ -27,7 +27,6 @@ const StartScreen = ({
         src="/images/rabbit.png"
         width={118}
         height={221}
-        loader={({ src }) => src}
         priority
       />
       <ButtonWrapper>
