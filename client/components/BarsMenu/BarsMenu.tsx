@@ -11,7 +11,7 @@ import fetcher from '../../api/fetcher';
 const BarsMenu = (): JSX.Element => {
   const { isAuth } = useSelector(
     (state: RootState) => ({
-      isAuth: state.home.isAuth,
+      isAuth: state.auth.isAuth,
     }),
     shallowEqual,
   );

@@ -1,7 +1,7 @@
 import { Container, Wrapper } from '../../features/tests/tests.styles';
 import { GetServerSideProps } from 'next';
 import withAuth from '../../hoc/withAuth';
-import { setIsAuth } from '../../store/modules/home';
+import { setIsAuth } from '../../store/modules/auth';
 import {
   setMbtiTypeTestItems,
   setMode,
@@ -30,9 +30,9 @@ const TestsPage = ({ testType }: TestsPageProps): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth({
-  callback: async ({ auth, params, query, cookie, store }) => {
+  callback: async ({ auth, params, query, cookie, store, userId }) => {
     if (auth) {
-      store.dispatch(setIsAuth(true));
+      store.dispatch(setIsAuth({ isAuth: true, userId: userId }));
       const id = params.slug[0];
       const testType = query.test;
 

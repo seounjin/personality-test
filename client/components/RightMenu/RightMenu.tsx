@@ -11,7 +11,7 @@ const RightMenu = (): JSX.Element => {
   const router = useRouter();
   const { isAuth } = useSelector(
     (state: RootState) => ({
-      isAuth: state.home.isAuth,
+      isAuth: state.auth.isAuth,
     }),
     shallowEqual,
   );

@@ -6,7 +6,7 @@ import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import HomeBody from '../layout/Homebody/HomeBody';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { RootState } from '../store/modules';
-import { setIsAuth } from '../store/modules/home';
+import { setIsAuth } from '../store/modules/auth';
 import CardList from '../components/CardList/CardList';
 import { Card } from '../components/CardList/CardList.type';
 import withAuth from '../hoc/withAuth';
@@ -23,14 +23,6 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
   const [cards, setCards] = useState<Card[]>(cardItems);
   const target = useRef(null);
   const Intersecting = useInfiniteScroll(target);
-
-  const dispatch = useDispatch();
-  const { isOpenModal } = useSelector(
-    (state: RootState) => ({
-      isOpenModal: state.home.isOpenModal,
-    }),
-    shallowEqual,
-  );
 
   // const getCards = async () => {
   //   const res = await fetcher('get', '/personality');
@@ -53,10 +45,10 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth({
-  callback: async ({ auth, store }) => {
+  callback: async ({ auth, store, userId }) => {
     try {
       if (auth) {
-        store.dispatch(setIsAuth(true));
+        store.dispatch(setIsAuth({ isAuth: true, userId: userId }));
       }
 
       const res = await axiosServer('get', '/personality');

@@ -1,7 +1,7 @@
 import { Container } from '../../features/tests/tests.styles';
 import { GetServerSideProps } from 'next';
 import withAuth from '../../hoc/withAuth';
-import { setIsAuth } from '../../store/modules/home';
+import { setIsAuth } from '../../store/modules/auth';
 import Layout from '../../layout/Layout/Layout';
 import SelectTestType from '../../features/tests/container/SelectTestType/SelectTestType';
 import StepperContainer from '../../features/tests/container/StepperContainer/StepperContainer';
@@ -25,9 +25,9 @@ const TestsPage = (): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth({
-  callback: async ({ auth, store, query }) => {
+  callback: async ({ auth, store, query, userId }) => {
     if (auth) {
-      store.dispatch(setIsAuth(true));
+      store.dispatch(setIsAuth({ isAuth: true, userId: userId }));
 
       if (query.test) {
         store.dispatch(setIsSelectedTest({ isSelectedTest: true }));

@@ -42,6 +42,7 @@ const authorize = async ({ context, store, callback }: AuthorizeProps) => {
         store,
         params,
         query,
+        userId: authResponse.data.userId,
       });
     }
 
@@ -60,7 +61,6 @@ const authorize = async ({ context, store, callback }: AuthorizeProps) => {
       { headers },
     );
 
-    // 200 401 400 500
     if (refreshTokenResponse.status === 200) {
       const setCookie = refreshTokenResponse.headers['set-cookie'];
       res.setHeader('set-cookie', refreshTokenResponse.headers['set-cookie']);
@@ -71,6 +71,7 @@ const authorize = async ({ context, store, callback }: AuthorizeProps) => {
         cookie: setCookie,
         params,
         query,
+        userId: authResponse.data.userId,
       });
     }
   }

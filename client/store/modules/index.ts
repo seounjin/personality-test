@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import tests from './tests';
-import home from './home';
+import auth from './auth';
 import mypage from './mypage';
 
 const rootReducer = (state, action) => {
@@ -10,7 +10,7 @@ const rootReducer = (state, action) => {
   }
   return combineReducers({
     tests,
-    home,
+    auth,
     mypage,
   })(state, action);
 };

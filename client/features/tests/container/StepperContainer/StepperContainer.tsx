@@ -15,7 +15,7 @@ interface StepperContainerProps {
 }
 
 const StepperContainer = ({ testType }: StepperContainerProps): JSX.Element => {
-  const { getTestItems } = useStorage();
+  const { getTestItems, getKey } = useStorage();
   const [isOpenStepper, setIsOpenStepper] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [testsItems, setTestItems] = useState(null);
@@ -26,7 +26,6 @@ const StepperContainer = ({ testType }: StepperContainerProps): JSX.Element => {
     if (items) {
       setTestItems(items);
       setIsOpenModal(true);
-      return;
     } else {
       setIsOpenStepper(true);
     }
@@ -44,7 +43,8 @@ const StepperContainer = ({ testType }: StepperContainerProps): JSX.Element => {
   };
 
   const handleCloseModal = () => {
-    localStorage.removeItem(testType);
+    const key = getKey();
+    localStorage.removeItem(key);
     setIsOpenModal(false);
     setIsOpenStepper(true);
   };

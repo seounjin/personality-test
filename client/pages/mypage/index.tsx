@@ -5,7 +5,7 @@ import Aside from '../../features/mypage/container/Aside/Aside';
 import TebPanel from '../../features/mypage/container/TabPanel/TabPanel';
 import withAuth from '../../hoc/withAuth';
 import Layout from '../../layout/Layout/Layout';
-import { setIsAuth } from '../../store/modules/home';
+import { setIsAuth } from '../../store/modules/auth';
 import { setCards, setUser } from '../../store/modules/mypage';
 
 export const Wrapper = styled.section`
@@ -42,9 +42,9 @@ const getCards = async (cookie) => {
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth({
-  callback: async ({ auth, store, cookie }) => {
+  callback: async ({ auth, store, cookie, userId }) => {
     if (auth) {
-      store.dispatch(setIsAuth(true));
+      store.dispatch(setIsAuth({ isAuth: true, userId: userId }));
 
       try {
         const res = await getCards(cookie);
