@@ -3,5 +3,5 @@ export interface Card {
   title: string;
   explain: string;
   testType: string;
-  imgUrl?: string;
+  thumbnailImgUrl?: string;
 }

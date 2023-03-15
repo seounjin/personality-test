@@ -19,4 +19,8 @@ export interface TestsInitialState {
   testType: string;
   isSelectedTest: boolean;
   mbtiSelectFormItems: any;
+  thumbnailImgUrl: string;
+  imageData: string;
+  isChangeImage: boolean;
+  isOpenCancleButton: boolean;
 }

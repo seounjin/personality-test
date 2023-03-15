@@ -16,6 +16,10 @@ export const FINAL_CONFIRMATION_FORM_ID = 'finalConfirmationForm';
 
 export const MBTI_SELECT_COUNT = 12;
 
+export const IMAGE_HOLDER_PATH = '/images/imageholder.png';
+
+export const MAX_FILE_SIZE = 2 * 1024 * 1024;
+
 export const MBTI_DATA = [
   ['E', 'I'],
   ['N', 'S'],

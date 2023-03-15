@@ -14,6 +14,7 @@ import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
 import { Form } from '../BasicInformationForm/BasicInformationForm.style';
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 import useStorage from '../../hooks/useStorage';
+import PrivewImage from '../../components/PrivewImage/PrivewImage';
 
 const FinalConfirmationMbtiForm = () => {
   const {
@@ -24,6 +25,9 @@ const FinalConfirmationMbtiForm = () => {
     mbtiTypeFormItems,
     mbtiSelectFormItems,
     isPublic,
+    imageData,
+    thumbnailImgUrl,
+    isChangeImage,
   } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
@@ -33,6 +37,9 @@ const FinalConfirmationMbtiForm = () => {
       mbtiTypeFormItems: state.tests.mbtiTypeFormItems,
       mbtiSelectFormItems: state.tests.mbtiSelectFormItems,
       isPublic: state.tests.isPublic,
+      thumbnailImgUrl: state.tests.thumbnailImgUrl,
+      imageData: state.tests.imageData,
+      isChangeImage: state.tests.isChangeImage,
     }),
     shallowEqual,
   );
@@ -57,11 +64,14 @@ const FinalConfirmationMbtiForm = () => {
         title: title,
         subTitle: subTitle,
         explain: explain,
+        imageData: isChangeImage ? JSON.stringify({ imageData }) : '',
       },
       mbtiTypeItems: mbtiTypeFormItems,
       mbtiSelectItems: mbtiSelectFormItems,
       isPublic: isPublic,
       testType: 'mbti',
+      isChangeImage: isChangeImage,
+      thumbnailImgUrl: thumbnailImgUrl,
     };
 
     if (mode === 'create') {
@@ -88,6 +98,10 @@ const FinalConfirmationMbtiForm = () => {
           <SubHeadlineLabel label="설 명" subTitleLocation="start" />
           <TextBox text={explain} />
         </SubTextBoxSection>
+      </BoxShadowCard>
+
+      <BoxShadowCard subtitle="썸네일">
+        <PrivewImage imgUrl={thumbnailImgUrl} />
       </BoxShadowCard>
 
       <BoxShadowCard subtitle="유형 설정">

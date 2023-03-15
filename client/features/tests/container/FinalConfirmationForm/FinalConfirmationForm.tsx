@@ -14,6 +14,8 @@ import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 import useStorage from '../../hooks/useStorage';
+import PrivewImage from '../../components/PrivewImage/PrivewImage';
+import sizeof from 'object-sizeof';
 
 const FinalConfirmationForm = () => {
   const {
@@ -24,6 +26,9 @@ const FinalConfirmationForm = () => {
     typeFormItems,
     selectFormItems,
     isPublic,
+    thumbnailImgUrl,
+    imageData,
+    isChangeImage,
   } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
@@ -33,6 +38,9 @@ const FinalConfirmationForm = () => {
       typeFormItems: state.tests.typeFormItems,
       selectFormItems: state.tests.selectFormItems,
       isPublic: state.tests.isPublic,
+      thumbnailImgUrl: state.tests.thumbnailImgUrl,
+      imageData: state.tests.imageData,
+      isChangeImage: state.tests.isChangeImage,
     }),
     shallowEqual,
   );
@@ -57,13 +65,15 @@ const FinalConfirmationForm = () => {
         title: title,
         subTitle: subTitle,
         explain: explain,
+        imageData: isChangeImage ? JSON.stringify({ imageData }) : '',
       },
       typeItems: typeFormItems,
       selectItems: selectFormItems,
       isPublic: isPublic,
       testType: 'score',
+      isChangeImage: isChangeImage,
+      thumbnailImgUrl: thumbnailImgUrl,
     };
-
     if (mode === 'create') {
       requestRegister(data);
     } else {
@@ -88,6 +98,10 @@ const FinalConfirmationForm = () => {
           <SubHeadlineLabel label="설 명" subTitleLocation="start" />
           <TextBox text={explain} />
         </SubTextBoxSection>
+      </BoxShadowCard>
+
+      <BoxShadowCard subtitle="썸네일">
+        <PrivewImage imgUrl={thumbnailImgUrl} />
       </BoxShadowCard>
 
       <BoxShadowCard subtitle="유형 설정">

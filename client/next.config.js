@@ -18,9 +18,18 @@ module.exports = {
     });
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8080',
+      },
+    ],
+  },
   // images: {
-  //   loader: 'akamai',
-  //   path: 'http://localhost:3000',
+  //   // loader: 'akamai',
+  //   path: 'http://localhost:8080',
   //   domains: ['localhost'],
   // },
 };

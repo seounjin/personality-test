@@ -52,6 +52,7 @@ export const theme: DefaultTheme = {
     mbtiTypeTagBgColor: '#FFF5E4',
     noButtonColor: '#cebaba',
     noButtonHoverColor: '#c4acac',
+    previewButtonColor: '#808080',
   },
 
   device: {

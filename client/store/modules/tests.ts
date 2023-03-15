@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import { TestsInitialState } from '../types';
-import fetcher from '../../api/fetcher';
 import {
+  IMAGE_HOLDER_PATH,
   MBTI_DATA,
   MBTI_SELECT_COUNT,
   MBTI_TYPE_FORM_ITEMS,
@@ -33,37 +33,11 @@ const initialState: TestsInitialState = {
   isSelectedTest: false,
   mbtiTypeFormItems: MBTI_TYPE_FORM_ITEMS,
   mbtiSelectFormItems: [],
+  thumbnailImgUrl: IMAGE_HOLDER_PATH,
+  imageData: '',
+  isChangeImage: false,
+  isOpenCancleButton: false,
 };
-
-interface FetchParms {
-  cardId: string | string[];
-  cookie: string;
-}
-export const fetchTestsData = createAsyncThunk(
-  'tests/fetchTestsDataStatus',
-  async (
-    { cardId, cookie }: FetchParms,
-    { rejectWithValue, getState, requestId },
-  ) => {
-    try {
-      const res = await fetcher('get', `/tests/${cardId}/edit`, {
-        headers: {
-          Cookie: cookie,
-        },
-      });
-      if (res) {
-        const { status } = res;
-        if (status) {
-          throw new Error(status);
-        }
-      }
-
-      return res;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  },
-);
 
 const testsSlice = createSlice({
   name: 'tests',
@@ -142,6 +116,7 @@ const testsSlice = createSlice({
         resultItems,
         isPublic,
         testType,
+        thumbnailImgUrl,
       } = action.payload.data;
 
       state.title = title;
@@ -151,6 +126,11 @@ const testsSlice = createSlice({
       state.selectFormItems = selectItems ? selectItems : state.selectFormItems;
       state.isPublic = isPublic;
       state.testType = testType;
+      state.thumbnailImgUrl = thumbnailImgUrl
+        ? thumbnailImgUrl
+        : IMAGE_HOLDER_PATH;
+      state.isOpenCancleButton =
+        thumbnailImgUrl === IMAGE_HOLDER_PATH ? false : true;
     },
     setMbtiTypeTestItems: (state, action) => {
       const {
@@ -159,6 +139,7 @@ const testsSlice = createSlice({
         resultItems,
         isPublic,
         testType,
+        thumbnailImgUrl,
       } = action.payload.data;
 
       state.title = title;
@@ -172,6 +153,9 @@ const testsSlice = createSlice({
         : state.mbtiSelectFormItems;
       state.isPublic = isPublic;
       state.testType = testType;
+      state.thumbnailImgUrl = thumbnailImgUrl
+        ? thumbnailImgUrl
+        : IMAGE_HOLDER_PATH;
     },
     setTestType: (state, action) => {
       state.testType = action.payload.testType;
@@ -231,18 +215,30 @@ const testsSlice = createSlice({
     setFinalMbtiSelctFormItems: (state, action) => {
       state.mbtiSelectFormItems = action.payload.mbtiSelectFormItems;
     },
+    setImageInformation: (state, action) => {
+      state.thumbnailImgUrl = action.payload.thumbnailImgUrl;
+      state.imageData = action.payload.imageData;
+      state.isChangeImage = true;
+      state.isOpenCancleButton = true;
+    },
+    setResetChangeImage: (state) => {
+      state.isChangeImage = false;
+      state.thumbnailImgUrl = IMAGE_HOLDER_PATH;
+      state.imageData = '';
+      state.isOpenCancleButton = false;
+    },
   },
 
-  extraReducers: (builder) => {
-    builder.addCase(fetchTestsData.fulfilled, (state, action) => {
-      // const { userItem, items, imgUrl } = action.payload;
-      // state.userItem = state.userItem.map((data) => {
-      //   return { ...data, defaultValue: userItem[data.type] };
-      // });
-      // state.selectItems = items;
-      // state.imgUrl = imgUrl;
-    });
-  },
+  // extraReducers: (builder) => {
+  //   builder.addCase(fetchTestsData.fulfilled, (state, action) => {
+  //     // const { userItem, items, imgUrl } = action.payload;
+  //     // state.userItem = state.userItem.map((data) => {
+  //     //   return { ...data, defaultValue: userItem[data.type] };
+  //     // });
+  //     // state.selectItems = items;
+  //     // state.imgUrl = imgUrl;
+  //   });
+  // },
 });
 
 export const {
@@ -264,5 +260,7 @@ export const {
   setScoreTypeTestItems,
   setMbtiTypeTestItems,
   setMbtiTypeFormItems,
+  setImageInformation,
+  setResetChangeImage,
 } = testsSlice.actions;
 export default testsSlice.reducer;

@@ -49,6 +49,7 @@ declare module 'styled-components' {
       mbtiTypeTagBgColor: string;
       noButtonColor: string;
       noButtonHoverColor: string;
+      previewButtonColor: string;
     };
 
     device: {

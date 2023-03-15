@@ -3,6 +3,11 @@ import styled from 'styled-components';
 export const CardImageWrapper = styled.div`
   position: relative;
   padding-top: 75%;
+  img {
+    border-radius: 4px;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
 `;
 
 export const Wrapper = styled.ul`
@@ -43,21 +48,16 @@ export const Headline = styled.h3`
   font-size: 18px;
 `;
 
-export const MoreOutlinedContainer = styled.div`
-  &:hover {
-    ul {
-      display: inline;
-    }
-  }
-`;
-
 export const TagsWrapper = styled.div``;
 
 export const TwoButtonWrapper = styled.div`
-  margin-top: 10px;
+  position: relative;
+  top: 80%;
 `;
 
 export const CardHoverWrapper = styled.div`
+  border-radius: 4px;
+
   position: absolute;
   width: calc(100% - 20px);
   height: 100%;

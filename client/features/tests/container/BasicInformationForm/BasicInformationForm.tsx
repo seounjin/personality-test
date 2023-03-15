@@ -1,11 +1,12 @@
 import React from 'react';
-import { Form } from './BasicInformationForm.style';
+import { Form, TextFiledArea } from './BasicInformationForm.style';
 import TextFiled from '../../../../components/TextFiled/TextField';
 import { useFormContext } from 'react-hook-form';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { setBasicInformationForm } from '../../../../store/modules/tests';
 import useStorage from '../../hooks/useStorage';
 import { RootState } from '../../../../store/modules';
+import ThumbnailImageUpload from '../ThumbnailImageUpload/ThumbnailImageUpload';
 
 interface BasicInformationFormProps {
   handleNext: () => void;
@@ -44,9 +45,12 @@ const BasicInformationForm = ({
 
   return (
     <Form id="basicInformationForm" onSubmit={handleSubmit(onSubmit)}>
-      <TextFiled label={'제 목'} name={'title'} />
-      <TextFiled label={'부제목'} name={'subTitle'} />
-      <TextFiled label={'설 명'} name={'explain'} />
+      <TextFiledArea>
+        <TextFiled label={'제 목'} name={'title'} />
+        <TextFiled label={'부제목'} name={'subTitle'} />
+        <TextFiled label={'설 명'} name={'explain'} />
+      </TextFiledArea>
+      <ThumbnailImageUpload />
     </Form>
   );
 };

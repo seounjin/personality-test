@@ -4,8 +4,10 @@ import fetcher from '../../../api/fetcher';
 const useFinalConfirmationForm = () => {
   const router = useRouter();
 
+  const getTestType = () => router.query.test;
+
   const requestRegister = async (data) => {
-    const testType = router.query.test;
+    const testType = getTestType();
     const res = await fetcher('post', `/personality/${testType}`, { data });
     if (res.success) {
       alert('성향 테스트가 등록 되었습니다');
@@ -22,7 +24,8 @@ const useFinalConfirmationForm = () => {
 
   const requestUpdate = async (data) => {
     const id = router.query.slug[0];
-    const res = await fetcher('put', `/personality/detail-personality/${id}`, {
+    const testType = getTestType();
+    const res = await fetcher('put', `/personality/${testType}/${id}`, {
       data,
     });
     if (res.success) {

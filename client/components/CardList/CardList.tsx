@@ -41,7 +41,7 @@ const CardList = ({
 }: CardListProps): JSX.Element => {
   return (
     <Wrapper>
-      {cardItems.map(({ title, explain, id, testType }) => (
+      {cardItems.map(({ title, explain, id, testType, thumbnailImgUrl }) => (
         <CardItem key={id}>
           <CardHoverWrapper className="card_hover_wrapper">
             <Link
@@ -59,26 +59,6 @@ const CardList = ({
                 {explain}
               </CardHoverExplain>
             </Link>
-          </CardHoverWrapper>
-
-          <CardItemHeader>
-            <CardImageWrapper>
-              <Image
-                alt="card-img"
-                src={'/images/imageholder.png'}
-                fill
-                priority
-              />
-            </CardImageWrapper>
-          </CardItemHeader>
-          <CardItemBody>
-            <Headline>{title}</Headline>
-            <TagsWrapper>
-              <Tag
-                name={`${testType}유형`}
-                backgroundColor={`${testType}TypeTagBgColor`}
-              />
-            </TagsWrapper>
             {type === 'mypage' && (
               <TwoButtonWrapper>
                 <TwoButton
@@ -93,6 +73,28 @@ const CardList = ({
                 />
               </TwoButtonWrapper>
             )}
+          </CardHoverWrapper>
+
+          <CardItemHeader>
+            <CardImageWrapper>
+              <Image
+                alt="card-img"
+                src={
+                  thumbnailImgUrl ? thumbnailImgUrl : '/images/imageholder.png'
+                }
+                fill
+                priority
+              />
+            </CardImageWrapper>
+          </CardItemHeader>
+          <CardItemBody>
+            <Headline>{title}</Headline>
+            <TagsWrapper>
+              <Tag
+                name={`${testType}유형`}
+                backgroundColor={`${testType}TypeTagBgColor`}
+              />
+            </TagsWrapper>
           </CardItemBody>
         </CardItem>
       ))}
