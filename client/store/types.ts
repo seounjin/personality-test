@@ -2,6 +2,7 @@ import {
   TypeDictionary,
   TypeFormItems,
 } from '../features/tests/components/TypeForm/TypeForm.type';
+import { MbtiSelectFormItemsType } from '../features/tests/container/SetMbtiSelectFormItems/SetMbtiSelectFormItems.type';
 import { SelectFormItems } from '../features/tests/container/SetSelectFormItems/SetSelectFormItems.type';
 
 export interface TestsInitialState {
@@ -18,7 +19,7 @@ export interface TestsInitialState {
   isPublic: boolean;
   testType: string;
   isSelectedTest: boolean;
-  mbtiSelectFormItems: any;
+  mbtiSelectFormItems: MbtiSelectFormItemsType;
   thumbnailImgUrl: string;
   imageData: string;
   isChangeImage: boolean;

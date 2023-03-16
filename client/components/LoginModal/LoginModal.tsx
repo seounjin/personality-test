@@ -13,6 +13,7 @@ import * as yup from 'yup';
 import LoginModalForm from '../LoginModalForm/LoginModalForm';
 import fetcher from '../../api/fetcher';
 import { useRouter } from 'next/router';
+import { getLoginErrorMessage } from '../../errors';
 
 const loginFormSchema = yup.object({
   email: yup
@@ -35,7 +36,8 @@ const LoginModal = (): JSX.Element => {
         router.replace('/');
       }
     } else {
-      alert('아이디 또는 비밀번호가 일치하지 않습니다');
+      const message = getLoginErrorMessage(res.status);
+      alert(message);
     }
   };
 
