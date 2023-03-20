@@ -1,10 +1,11 @@
 export const BASIC_INFORMATION_FORM = 0;
-export const SET_TYPE_ITEMS_STEP = 1;
-export const SET_SELECT_ITEMS_STEP = 2;
 export const FINAL_CONFIRMATION = 3;
 
 export const MIN_NUMBER_OF_ITEMS_COUNT = 1;
 export const MAX_NUMBER_OF_ITEMS_COUNT = 12;
+
+export const TF_MIN_NUMBER_OF_ITEMS_COUNT = 1;
+export const TF_MAX_NUMBER_OF_ITEMS_COUNT = 5;
 
 export const MIN_TYPE_ITEMS_COUNT = 2;
 export const MAX_TYPE_ITEMS_COUNT = 8;
@@ -47,13 +48,14 @@ export const TEST_TYPE_DATA = [
     imgSrc: '/images/test_type_3.png',
     title: 'O X 유형',
     text: '점수 유형은 각각의 선택지에 가중치를 부여하여 선택시 최대점수가 결과로나오는 유형이에요',
-    testType: 'tureOrFalse',
+    testType: 'trueOrFalse',
   },
 ];
 
 export const STEP_INDICATOR_LABEL = {
   score: ['기본정보 입력', '유형 설정', '선택지 설정', '최종 확인'],
   mbti: ['기본정보 입력', '유형 설정', '선택지 설정', '최종 확인'],
+  trueOrFalse: ['기본정보 입력', '선택지 설정', '결과지 설정', '최종 확인'],
 };
 
 export const MANUAL_DATA = [

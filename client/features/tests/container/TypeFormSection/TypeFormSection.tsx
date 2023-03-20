@@ -3,11 +3,7 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { MAX_TYPE_ITEMS_COUNT, MIN_TYPE_ITEMS_COUNT } from '../../tests.const';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
 import TypeForm from '../../components/TypeForm/TypeForm';
-import {
-  Form,
-  Container,
-  SetCounterButtonWrapper,
-} from './TypeFormSection.style';
+import { Form, SetCounterButtonWrapper } from './TypeFormSection.style';
 import {
   setSelctFormItems,
   setTypeFormItems,
@@ -75,29 +71,27 @@ const TypeFormSection = ({ handleNext }: TypeFormSectionProps): JSX.Element => {
 
   return (
     <Form id="typeForm" onSubmit={handleSubmit(onSubmit, onError)}>
-      <Container>
-        <SetCounterButtonWrapper>
-          <SetCounterButton
-            label={'유형 수 설정'}
-            count={typeItemsCount}
-            onLeftButtonClick={handleDecrease}
-            onRightButtonClick={handleIncrease}
-            minCount={MIN_TYPE_ITEMS_COUNT}
-            maxCount={MAX_TYPE_ITEMS_COUNT}
-          />
-        </SetCounterButtonWrapper>
-        {fields.map(({ id, typeContent, explanationContent }, index) => (
-          <TypeForm
-            key={id}
-            index={index}
-            firstLabel={'유 형'}
-            firstContent={typeContent}
-            secondLabel={'설 명'}
-            secondContent={explanationContent}
-            name={'typeFormItems'}
-          />
-        ))}
-      </Container>
+      <SetCounterButtonWrapper>
+        <SetCounterButton
+          label={'유형 수 설정'}
+          count={typeItemsCount}
+          onLeftButtonClick={handleDecrease}
+          onRightButtonClick={handleIncrease}
+          minCount={MIN_TYPE_ITEMS_COUNT}
+          maxCount={MAX_TYPE_ITEMS_COUNT}
+        />
+      </SetCounterButtonWrapper>
+      {fields.map(({ id, typeContent, explanationContent }, index) => (
+        <TypeForm
+          key={id}
+          index={index}
+          firstLabel={'유 형'}
+          firstContent={typeContent}
+          secondLabel={'설 명'}
+          secondContent={explanationContent}
+          name={'typeFormItems'}
+        />
+      ))}
     </Form>
   );
 };

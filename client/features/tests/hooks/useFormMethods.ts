@@ -6,6 +6,8 @@ import { mbtiSelectItemsFormSchema } from '../schemas/mbtiSelectItemsFormSchema'
 import { mbtiTypeFormSchema } from '../schemas/mbtiTypeFormSchema';
 import { selectItemsFormSchema } from '../schemas/selectItemsFormSchema';
 import { titleFormSchema } from '../schemas/titleFormSchema';
+import { trueOrFalseResultFormSchema } from '../schemas/trueOrFalseResultFormSchema';
+import { trueOrFalseSelectItemsFormSchema } from '../schemas/trueOrFalseSelectItemsFormSchema';
 import { typeFormSchema } from '../schemas/typeFormSchema';
 
 export const useFormMethods = () => {
@@ -17,6 +19,8 @@ export const useFormMethods = () => {
     selectFormItems,
     mbtiTypeFormItems,
     mbtiSelectFormItems,
+    trueOrFalseSelectFormItems,
+    trueOrFalseResultFormItems,
   } = useSelector(
     (state: RootState) => ({
       title: state.tests.title,
@@ -26,6 +30,8 @@ export const useFormMethods = () => {
       selectFormItems: state.tests.selectFormItems,
       mbtiTypeFormItems: state.tests.mbtiTypeFormItems,
       mbtiSelectFormItems: state.tests.mbtiSelectFormItems,
+      trueOrFalseSelectFormItems: state.tests.trueOrFalseSelectFormItems,
+      trueOrFalseResultFormItems: state.tests.trueOrFalseResultFormItems,
     }),
     shallowEqual,
   );
@@ -60,11 +66,29 @@ export const useFormMethods = () => {
     mode: 'onChange',
   });
 
+  const trueOrFalseSelectFormItemsMethods = useForm({
+    resolver: yupResolver(trueOrFalseSelectItemsFormSchema),
+    defaultValues: {
+      trueOrFalseSelectFormItems: [...trueOrFalseSelectFormItems],
+    },
+    mode: 'onChange',
+  });
+
+  const trueOrFalseResultFormItemsMethods = useForm({
+    resolver: yupResolver(trueOrFalseResultFormSchema),
+    defaultValues: {
+      trueOrFalseResultFormItems: [...trueOrFalseResultFormItems],
+    },
+    mode: 'onChange',
+  });
+
   return {
     basicInformationFormMethods,
     typeFormMethods,
     selectFormItemsMethods,
     mbtiTypeFormMethods,
     mbtiSelectFormItemsMethods,
+    trueOrFalseSelectFormItemsMethods,
+    trueOrFalseResultFormItemsMethods,
   };
 };

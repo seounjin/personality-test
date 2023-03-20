@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
 import {

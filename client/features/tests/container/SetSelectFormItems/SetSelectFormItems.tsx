@@ -11,7 +11,6 @@ import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
 import TextFiled from '../../../../components/TextFiled/TextField';
 import {
   Form,
-  Container,
   SetCounterButtonWrapper,
   SubTitle,
   TwoButtonWrapper,
@@ -171,59 +170,57 @@ const SetSelectFormItems = ({
 
   return (
     <Form id="selectForm" onSubmit={handleSubmit(onSubmit)}>
-      <Container>
-        <SetCounterButtonWrapper>
-          <SetCounterButton
-            label={'문항수 설정'}
-            count={numberOfItemsCount}
-            onLeftButtonClick={decreaseNumberOfItems}
-            onRightButtonClick={increaseNumberOfItems}
-            minCount={MIN_NUMBER_OF_ITEMS_COUNT}
-            maxCount={MAX_NUMBER_OF_ITEMS_COUNT}
-          />
-        </SetCounterButtonWrapper>
+      <SetCounterButtonWrapper>
+        <SetCounterButton
+          label={'문항수 설정'}
+          count={numberOfItemsCount}
+          onLeftButtonClick={decreaseNumberOfItems}
+          onRightButtonClick={increaseNumberOfItems}
+          minCount={MIN_NUMBER_OF_ITEMS_COUNT}
+          maxCount={MAX_NUMBER_OF_ITEMS_COUNT}
+        />
+      </SetCounterButtonWrapper>
 
-        {fields.map(({ id, optionItems }, numberOfItemsIndex) => {
-          return (
-            <BoxShadowCard key={id} subtitle={`${numberOfItemsIndex + 1}번`}>
-              <TextFiled
-                label={'질 문'}
-                name={`selectFormItems[${numberOfItemsIndex}].question`}
+      {fields.map(({ id, optionItems }, numberOfItemsIndex) => {
+        return (
+          <BoxShadowCard key={id} subtitle={`${numberOfItemsIndex + 1}번`}>
+            <TextFiled
+              label={'질 문'}
+              name={`selectFormItems[${numberOfItemsIndex}].question`}
+            />
+            {optionItems.map((_, optionItemIndex) => {
+              return (
+                <React.Fragment key={`t${optionItemIndex}]`}>
+                  <TextFiled
+                    label={`${optionItemIndex + 1}번 선택지`}
+                    name={
+                      `selectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option` as const
+                    }
+                  />
+                  <SubTitle>유형별 가중치 설정</SubTitle>
+                  <SetWeightSection
+                    name={
+                      `selectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].weightedScoreItems` as const
+                    }
+                  />
+                </React.Fragment>
+              );
+            })}
+            <TwoButtonWrapper>
+              <TwoButton
+                leftName="삭제"
+                leftType="button"
+                leftDisabled={MIN_OPTION_ITEMS_COUNT === optionItems.length}
+                leftButton={() => decreaeOptionItems(numberOfItemsIndex)}
+                rightName="추가"
+                rightType="button"
+                rightDisabled={MAX_OPTION_ITEMS_COUNT === optionItems.length}
+                rightButton={() => increaseOptionItems(numberOfItemsIndex)}
               />
-              {optionItems.map((_, optionItemIndex) => {
-                return (
-                  <React.Fragment key={`t${optionItemIndex}]`}>
-                    <TextFiled
-                      label={`${optionItemIndex + 1}번 선택지`}
-                      name={
-                        `selectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option` as const
-                      }
-                    />
-                    <SubTitle>유형별 가중치 설정</SubTitle>
-                    <SetWeightSection
-                      name={
-                        `selectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].weightedScoreItems` as const
-                      }
-                    />
-                  </React.Fragment>
-                );
-              })}
-              <TwoButtonWrapper>
-                <TwoButton
-                  leftName="삭제"
-                  leftType="button"
-                  leftDisabled={MIN_OPTION_ITEMS_COUNT === optionItems.length}
-                  leftButton={() => decreaeOptionItems(numberOfItemsIndex)}
-                  rightName="추가"
-                  rightType="button"
-                  rightDisabled={MAX_OPTION_ITEMS_COUNT === optionItems.length}
-                  rightButton={() => increaseOptionItems(numberOfItemsIndex)}
-                />
-              </TwoButtonWrapper>
-            </BoxShadowCard>
-          );
-        })}
-      </Container>
+            </TwoButtonWrapper>
+          </BoxShadowCard>
+        );
+      })}
     </Form>
   );
 };

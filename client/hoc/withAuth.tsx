@@ -71,7 +71,7 @@ const authorize = async ({ context, store, callback }: AuthorizeProps) => {
         cookie: setCookie,
         params,
         query,
-        userId: authResponse.data.userId,
+        userId: refreshTokenResponse.data.userId,
       });
     }
   }

@@ -53,6 +53,8 @@ export const theme: DefaultTheme = {
     noButtonColor: '#cebaba',
     noButtonHoverColor: '#c4acac',
     previewButtonColor: '#808080',
+    detailButtonColor: '#594545',
+    detailButtonHoverColor: '#cebaba',
   },
 
   device: {

@@ -19,7 +19,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  width: 280px;
+  width: 340px;
   height: 34px;
   padding-left: 10px;
   margin: 4px 0 4px 0;

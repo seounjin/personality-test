@@ -37,6 +37,16 @@ const initialState: TestsInitialState = {
   imageData: '',
   isChangeImage: false,
   isOpenCancleButton: false,
+  trueOrFalseSelectFormItems: [
+    {
+      question: '',
+      optionItems: [
+        { option: '', id: '0' },
+        { option: '', id: '1' },
+      ],
+    },
+  ],
+  trueOrFalseResultFormItems: [],
 };
 
 const testsSlice = createSlice({
@@ -101,6 +111,15 @@ const testsSlice = createSlice({
     setSelectFormItems: (state, action) => {
       state.selectFormItems = action.payload.selectFormItems;
     },
+    setTrueOrFalseSelectFormItems: (state, action) => {
+      state.trueOrFalseSelectFormItems =
+        action.payload.trueOrFalseSelectFormItems;
+    },
+    setTrueOrFalseResultFormItems: (state, action) => {
+      state.trueOrFalseResultFormItems =
+        action.payload.trueOrFalseResultFormItems;
+    },
+
     setPersonalityTestItems: (state, action) => {
       state.title = action.payload.title;
       state.subTitle = action.payload.subTitle;
@@ -262,5 +281,7 @@ export const {
   setMbtiTypeFormItems,
   setImageInformation,
   setResetChangeImage,
+  setTrueOrFalseSelectFormItems,
+  setTrueOrFalseResultFormItems,
 } = testsSlice.actions;
 export default testsSlice.reducer;

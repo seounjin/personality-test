@@ -14,8 +14,8 @@ export const Container = styled.div`
 `;
 
 export const Textarea = styled.textarea`
-  width: 280px;
-  height: 130px;
+  width: 340px;
+  height: 240px;
   resize: none;
   outline: none;
   margin: 4px 0;

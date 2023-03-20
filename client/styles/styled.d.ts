@@ -50,6 +50,8 @@ declare module 'styled-components' {
       noButtonColor: string;
       noButtonHoverColor: string;
       previewButtonColor: string;
+      detailButtonColor: string;
+      detailButtonHoverColor: string;
     };
 
     device: {

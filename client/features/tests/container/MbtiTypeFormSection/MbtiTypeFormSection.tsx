@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import TypeForm from '../../components/TypeForm/TypeForm';
-import { Form, Container } from '../TypeFormSection/TypeFormSection.style';
+import { Form } from '../TypeFormSection/TypeFormSection.style';
 import {
   setMbtiSelctFormItems,
   setMbtiTypeFormItems,
@@ -59,20 +59,18 @@ const MbtiTypeFormSection = ({
 
   return (
     <Form id="mbtiTypeForm" onSubmit={handleSubmit(onSubmit)}>
-      <Container>
-        {fields.map(({ id, typeContent, explanationContent }, index) => (
-          <TypeForm
-            key={id}
-            index={index}
-            firstLabel={'유 형'}
-            firstContent={typeContent}
-            firstInputDisalbed={true}
-            secondLabel={'설 명'}
-            secondContent={explanationContent}
-            name={'mbtiTypeFormItems'}
-          />
-        ))}
-      </Container>
+      {fields.map(({ id, typeContent, explanationContent }, index) => (
+        <TypeForm
+          key={id}
+          index={index}
+          firstLabel={'유 형'}
+          firstContent={typeContent}
+          firstInputDisalbed={true}
+          secondLabel={'설 명'}
+          secondContent={explanationContent}
+          name={'mbtiTypeFormItems'}
+        />
+      ))}
     </Form>
   );
 };
