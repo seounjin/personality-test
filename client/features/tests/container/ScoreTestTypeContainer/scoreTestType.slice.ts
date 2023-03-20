@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   MIN_NUMBER_OF_ITEMS_COUNT,
   MIN_TYPE_ITEMS_COUNT,
-} from './ScoreTestTypeContainer.const';
-import { ScoreTestSliceInitialState } from './ScoreTestTypeContainer.type';
+} from './scoreTestType.const';
+import { ScoreTestSliceInitialState } from './scoreTestType.type';
 
 const initialState: ScoreTestSliceInitialState = {
   scoreTestResultItemsCount: MIN_TYPE_ITEMS_COUNT,

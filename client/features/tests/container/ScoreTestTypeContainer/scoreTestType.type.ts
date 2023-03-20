@@ -8,7 +8,7 @@ export type ScoreTestResultFormItems = {
 };
 
 export interface WeightedScoreItem {
-  typeContent: string;
+  resultContent: string;
   score: number;
 }
 

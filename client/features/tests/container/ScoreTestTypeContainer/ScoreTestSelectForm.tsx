@@ -9,6 +9,11 @@ import FormLayout from '../../../../layout/FormLayout/FormLayout';
 import { RootState } from '../../../../store/modules';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
 import useStorage from '../../hooks/useStorage';
+import {
+  SetCounterButtonWrapper,
+  SubTitle,
+  TwoButtonWrapper,
+} from '../../tests.styles';
 import SetWeightSection from '../SetWeightSection/SetWeightSection';
 import {
   MAX_NUMBER_OF_ITEMS_COUNT,
@@ -16,17 +21,13 @@ import {
   MIN_NUMBER_OF_ITEMS_COUNT,
   MIN_OPTION_ITEMS_COUNT,
   SCORE_TEST_SELECT_FORM_ID,
-} from './ScoreTestTypeContainer.const';
+} from './scoreTestType.const';
 import {
   setNumberOfItemsCount,
   setScoreTestSelectFormItems,
-} from './ScoreTestTypeContainer.slice';
-import {
-  SetCounterButtonWrapper,
-  SubTitle,
-  TwoButtonWrapper,
-} from './ScoreTestTypeContainer.style';
-import { ScoreTestSelectFormItemsType } from './ScoreTestTypeContainer.type';
+} from './scoreTestType.slice';
+
+import { ScoreTestSelectFormItemsType } from './scoreTestType.type';
 
 interface ScoreTestSelectFormProps {
   handleNext: () => void;

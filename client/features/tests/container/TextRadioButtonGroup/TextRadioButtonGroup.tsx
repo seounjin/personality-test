@@ -1,8 +1,6 @@
 import React from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import HelperText from '../../../../components/HelperText/HelperText';
 import TextRadioButton from '../../components/TextRadioButton/TextRadioButton';
-import { HelperTextWrapper } from '../SetWeightSection/SetWeightSection.style';
 import { Fieldset } from './TextRadioButtonGroup.style';
 import { RadioButtonItems } from './TextRadioButtonGroup.type';
 
@@ -26,24 +24,24 @@ const TextRadioButtonGroup = ({
     data.map((item) => ({ ...item, score: item.score ? 0 : 1 }));
 
   const handleRadioButton = () => {
-    const mbtiSelectFormItem = getValues(
-      `mbtiSelectFormItems[${numberOfItemsIndex}]`,
+    const mbtiTestSelectFormItems = getValues(
+      `mbtiTestSelectFormItems[${numberOfItemsIndex}]`,
     );
 
     const firstWeightedScoreItems = setWeightedScoreItems(
-      mbtiSelectFormItem.optionItems[0].weightedScoreItems,
+      mbtiTestSelectFormItems.optionItems[0].weightedScoreItems,
     );
 
     const secondWeightedScoreItems = setWeightedScoreItems(
-      mbtiSelectFormItem.optionItems[1].weightedScoreItems,
+      mbtiTestSelectFormItems.optionItems[1].weightedScoreItems,
     );
 
     setValue(
-      `mbtiSelectFormItems[${numberOfItemsIndex}].optionItems[${0}].weightedScoreItems`,
+      `mbtiTestSelectFormItems[${numberOfItemsIndex}].optionItems[${0}].weightedScoreItems`,
       firstWeightedScoreItems,
     );
     setValue(
-      `mbtiSelectFormItems[${numberOfItemsIndex}].optionItems[${1}].weightedScoreItems`,
+      `mbtiTestSelectFormItems[${numberOfItemsIndex}].optionItems[${1}].weightedScoreItems`,
       secondWeightedScoreItems,
     );
   };

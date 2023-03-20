@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import { FormProvider } from 'react-hook-form';
-import FinalConfirmationForm from '../container/FinalConfirmationForm/FinalConfirmationForm';
-import SetSelectFormItems from '../container/SetSelectFormItems/SetSelectFormItems';
 import BasicInformationForm from '../container/BasicInformationForm/BasicInformationForm';
-import TypeFormSection from '../container/TypeFormSection/TypeFormSection';
 import { useFormMethods } from './useFormMethods';
-import MbtiTypeFormSection from '../container/MbtiTypeFormSection/MbtiTypeFormSection';
-import SetMbtiSelectFormItems from '../container/SetMbtiSelectFormItems/SetMbtiSelectFormItems';
-import FinalConfirmationMbtiForm from '../container/FinalConfirmationMbtiForm/FinalConfirmationMbtiForm';
 import SetTureOrFalseSelectFormItems from '../container/SetTureOrFalseSelectFormItems/SetTureOrFalseSelectFormItems';
 import TrueOrFalseResultFormSection from '../container/TrueOrFalseResultFormSection/TrueOrFalseResultFormSection';
 import FinalConfirmationTrueOrFalseForm from '../container/FinalConfirmationTrueOrFalseForm/FinalConfirmationTrueOrFalseForm';
@@ -16,25 +10,33 @@ import {
   SCORE_TEST_RESULT_FORM_ID,
   SCORE_TEST_SELECT_FORM_ID,
   SCORE_TEST_FINAL_FORM_ID,
-} from '../container/ScoreTestTypeContainer/ScoreTestTypeContainer.const';
+} from '../container/ScoreTestTypeContainer/scoreTestType.const';
 import ScoreTestResultForm from '../container/ScoreTestTypeContainer/ScoreTestResultForm';
 import ScoreTestSelectForm from '../container/ScoreTestTypeContainer/ScoreTestSelectForm';
 import { BASIC_INFORMATION_FORM_ID } from '../tests.const';
 import ScoreTestFinalForm from '../container/ScoreTestTypeContainer/ScoreTestFinalForm';
+import {
+  MBTI_TEST_RESULT_FORM_ID,
+  MBTI_TEST_SELECT_FORM_ID,
+  MBTI_TEST_FINAL_FORM_ID,
+} from '../container/MbtiTestTypeContainer/mbtiTestType.const';
+import MbtiTestResultForm from '../container/MbtiTestTypeContainer/MbtiTestResultForm';
+import MbtiTestSelectForm from '../container/MbtiTestTypeContainer/MbtiTestSelectForm';
+import MbtiTestFinalForm from '../container/MbtiTestTypeContainer/MbtiTestFinalForm';
+import { useMbtiTestFormMethods } from './useMbtiTestFormMethods';
 
 export const useSteps = ({ testType = 'score' }: { testType: string }) => {
   const {
     basicInformationFormMethods,
-    typeFormMethods,
-    selectFormItemsMethods,
-    mbtiTypeFormMethods,
-    mbtiSelectFormItemsMethods,
     trueOrFalseSelectFormItemsMethods,
     trueOrFalseResultFormItemsMethods,
   } = useFormMethods();
 
   const { scoreTestResultFormMethods, scoreTestSelectFormMethods } =
     useScoreTestFormMethod();
+
+  const { mbtiTestResultFormMethods, mbtiTestSelectFormMethods } =
+    useMbtiTestFormMethods();
 
   const [steps] = useState({
     score: [
@@ -74,7 +76,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
 
     mbti: [
       {
-        formId: 'basicInformationForm',
+        formId: BASIC_INFORMATION_FORM_ID,
         title: '기본정보 입력',
         Element: ({ handleNext }) => (
           <FormProvider {...basicInformationFormMethods}>
@@ -83,27 +85,27 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         ),
       },
       {
-        formId: 'mbtiTypeForm',
+        formId: MBTI_TEST_RESULT_FORM_ID,
         title: '유형 설정',
         Element: ({ handleNext }) => (
-          <FormProvider {...mbtiTypeFormMethods}>
-            <MbtiTypeFormSection handleNext={handleNext} />
+          <FormProvider {...mbtiTestResultFormMethods}>
+            <MbtiTestResultForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
       {
-        formId: 'mbtiSelectForm',
+        formId: MBTI_TEST_SELECT_FORM_ID,
         title: '선택지 설정',
         Element: ({ handleNext }) => (
-          <FormProvider {...mbtiSelectFormItemsMethods}>
-            <SetMbtiSelectFormItems handleNext={handleNext} />
+          <FormProvider {...mbtiTestSelectFormMethods}>
+            <MbtiTestSelectForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
       {
-        formId: 'finalConfirmationForm',
+        formId: MBTI_TEST_FINAL_FORM_ID,
         title: '최종 확인',
-        Element: () => <FinalConfirmationMbtiForm />,
+        Element: () => <MbtiTestFinalForm />,
       },
     ],
 

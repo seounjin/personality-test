@@ -2,13 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import { RootState } from '../../../store/modules';
-import { mbtiSelectItemsFormSchema } from '../schemas/mbtiSelectItemsFormSchema';
-import { mbtiTypeFormSchema } from '../schemas/mbtiTypeFormSchema';
 import { selectItemsFormSchema } from '../schemas/selectItemsFormSchema';
 import { titleFormSchema } from '../schemas/titleFormSchema';
 import { trueOrFalseResultFormSchema } from '../schemas/trueOrFalseResultFormSchema';
 import { trueOrFalseSelectItemsFormSchema } from '../schemas/trueOrFalseSelectItemsFormSchema';
 import { scoreTestResultFormSchema } from '../schemas/scoreTestResultFormSchema';
+import { mbtiTestResultFormSchema } from '../schemas/mbtiTestResultFormSchema';
+import { mbtiTestSelectFormSchema } from '../schemas/mbtiTestSelectFormSchema';
 
 export const useFormMethods = () => {
   const {
@@ -55,13 +55,13 @@ export const useFormMethods = () => {
   });
 
   const mbtiTypeFormMethods = useForm({
-    resolver: yupResolver(mbtiTypeFormSchema),
+    resolver: yupResolver(mbtiTestResultFormSchema),
     defaultValues: { mbtiTypeFormItems: [...mbtiTypeFormItems] },
     mode: 'onChange',
   });
 
   const mbtiSelectFormItemsMethods = useForm({
-    resolver: yupResolver(mbtiSelectItemsFormSchema),
+    resolver: yupResolver(mbtiTestSelectFormSchema),
     defaultValues: { mbtiSelectFormItems: [...mbtiSelectFormItems] },
     mode: 'onChange',
   });

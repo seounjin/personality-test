@@ -12,7 +12,8 @@ import { checkTestType } from '../../types/checkTestType';
 import axiosServer from '../../api/axiosServer';
 import { CustomError } from '../../errors';
 import Stepper from '../../features/tests/container/Stepper/Stepper';
-import { setScoreTypeTestItems } from '../../features/tests/container/ScoreTestTypeContainer/ScoreTestTypeContainer.slice';
+import { setScoreTypeTestItems } from '../../features/tests/container/ScoreTestTypeContainer/scoreTestType.slice';
+import { setMbtiTestItems } from '../../features/tests/container/MbtiTestTypeContainer/mbtiTestType.slice';
 
 interface TestsPageProps {
   testType: string;
@@ -51,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = withAuth({
           if (testType === 'score') {
             store.dispatch(setScoreTypeTestItems({ data: res.data }));
           } else if (testType === 'mbti') {
-            store.dispatch(setMbtiTypeTestItems({ data: res.data }));
+            store.dispatch(setMbtiTestItems({ data: res.data }));
           }
 
           return { props: { testType: testType } };

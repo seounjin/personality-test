@@ -9,8 +9,8 @@ const optionItemsArray = yup.array().of(
   }),
 );
 
-export const mbtiSelectItemsFormSchema = yup.object({
-  mbtiSelectFormItems: yup.array().of(
+export const mbtiTestSelectFormSchema = yup.object({
+  mbtiTestSelectFormItems: yup.array().of(
     yup.object().shape({
       question: yup
         .string()

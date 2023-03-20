@@ -5,18 +5,18 @@ import { RootState } from '../../../../store/modules';
 import ResultWriter from '../../components/ResultWriter/ResultWriter';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
 import useStorage from '../../hooks/useStorage';
+import { SetCounterButtonWrapper } from '../../tests.styles';
 import {
   MAX_TYPE_ITEMS_COUNT,
   MIN_TYPE_ITEMS_COUNT,
   SCORE_TEST_RESULT_FORM_ID,
-} from './ScoreTestTypeContainer.const';
+} from './scoreTestType.const';
 import {
   setScoreTestResultFormItems,
   setScoreTestResultItemsCount,
   setInitScoreTestSelectFormItems,
-} from './ScoreTestTypeContainer.slice';
-import { SetCounterButtonWrapper } from './ScoreTestTypeContainer.style';
-import { ScoreTestResultFormItems } from './ScoreTestTypeContainer.type';
+} from './scoreTestType.slice';
+import { ScoreTestResultFormItems } from './scoreTestType.type';
 
 interface TypeFormSectionProps {
   handleNext: () => void;

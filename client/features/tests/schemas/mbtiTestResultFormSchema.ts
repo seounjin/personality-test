@@ -1,9 +1,9 @@
 import yup from '../tests.yup';
 
-export const mbtiTypeFormSchema = yup.object({
-  mbtiTypeFormItems: yup.array().of(
+export const mbtiTestResultFormSchema = yup.object({
+  mbtiTestResultFormItems: yup.array().of(
     yup.object().shape({
-      typeContent: yup.string(),
+      resultContent: yup.string(),
       explanationContent: yup
         .string()
         .required('한 글자 이상 채워 주세요')

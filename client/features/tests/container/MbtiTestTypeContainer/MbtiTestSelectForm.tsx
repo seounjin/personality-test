@@ -1,44 +1,46 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useEffect } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import TextFiled from '../../../../components/TextFiled/TextField';
-import { Form, SubTitle } from '../SetSelectFormItems/SetSelectFormItems.style';
-import { useSelector, shallowEqual } from 'react-redux';
+import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
+import FormLayout from '../../../../layout/FormLayout/FormLayout';
 import { RootState } from '../../../../store/modules';
-import { setFinalMbtiSelctFormItems } from '../../../../store/modules/tests';
-import { useDispatch } from 'react-redux';
-import TextRadioButtonGroup from '../TextRadioButtonGroup/TextRadioButtonGroup';
-import { MBTI_DATA } from '../../tests.const';
-import { MbtiSelectFormItemsType } from './SetMbtiSelectFormItems.type';
 import useStorage from '../../hooks/useStorage';
+import { SubTitle } from '../../tests.styles';
+import TextRadioButtonGroup from '../TextRadioButtonGroup/TextRadioButtonGroup';
+import { MBTI_DATA, MBTI_TEST_SELECT_FORM_ID } from './mbtiTestType.const';
+import { setMbtiSelctFormItems } from './mbtiTestType.slice';
+import { MbtiTestSelectFormItemsType } from './mbtiTestType.type';
+import { cloneDeep } from 'lodash';
 
-interface SetMbtiSelectFormItemsProps {
+interface MbtiTestSelectFormProps {
   handleNext: () => void;
 }
 
-const SetMbtiSelectFormItems = ({
+const MbtiTestSelectForm = ({
   handleNext,
-}: SetMbtiSelectFormItemsProps): JSX.Element => {
-  const { mode, mbtiSelectFormItems } = useSelector(
+}: MbtiTestSelectFormProps): JSX.Element => {
+  const { mode, mbtiTestSelectFormItems } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
-      mbtiSelectFormItems: state.tests.mbtiSelectFormItems,
+      mbtiTestSelectFormItems: state.mbtiTest.mbtiTestSelectFormItems,
     }),
     shallowEqual,
   );
 
-  const { control, setValue, getValues, handleSubmit, trigger } =
-    useFormContext<MbtiSelectFormItemsType>();
+  const { control, setValue, handleSubmit, trigger } =
+    useFormContext<MbtiTestSelectFormItemsType>();
 
   const { fields } = useFieldArray({
     control,
-    name: 'mbtiSelectFormItems',
+    name: 'mbtiTestSelectFormItems',
   });
 
   const { setTestItems } = useStorage();
   useEffect(() => {
     if (!fields.length) {
-      setValue('mbtiSelectFormItems', mbtiSelectFormItems);
+      setValue('mbtiTestSelectFormItems', mbtiTestSelectFormItems);
     }
   }, []);
 
@@ -51,16 +53,16 @@ const SetMbtiSelectFormItems = ({
       alert('빈칸을 확인해 주세요');
       return;
     }
-    const { mbtiSelectFormItems } = data;
+    const { mbtiTestSelectFormItems } = data;
     if (mode === 'create') {
-      setTestItems({ selectItems: mbtiSelectFormItems });
+      setTestItems({ mbtiTestSelectFormItems: mbtiTestSelectFormItems });
     }
-    dispatch(setFinalMbtiSelctFormItems(data));
+    dispatch(setMbtiSelctFormItems(cloneDeep(data)));
     handleNext();
   };
 
   return (
-    <Form id="mbtiSelectForm" onSubmit={handleSubmit(onSubmit)}>
+    <FormLayout id={MBTI_TEST_SELECT_FORM_ID} onSubmit={handleSubmit(onSubmit)}>
       {fields &&
         fields.map(
           (
@@ -75,7 +77,7 @@ const SetMbtiSelectFormItems = ({
                 <SubTitle>{subtitle}</SubTitle>
                 <TextFiled
                   label={'질 문'}
-                  name={`mbtiSelectFormItems[${numberOfItemsIndex}].question`}
+                  name={`mbtiTestSelectFormItems[${numberOfItemsIndex}].question`}
                 />
                 {optionItems.map((_, optionItemIndex) => {
                   return (
@@ -83,7 +85,7 @@ const SetMbtiSelectFormItems = ({
                       <TextFiled
                         label={`${optionItemIndex + 1}번 선택지`}
                         name={
-                          `mbtiSelectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option` as const
+                          `mbtiTestSelectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option` as const
                         }
                       />
                     </React.Fragment>
@@ -95,15 +97,15 @@ const SetMbtiSelectFormItems = ({
                   items={radioButtonItems}
                   radioButtonIndex={radioButtonIndex}
                   name={
-                    `mbtiSelectFormItems[${numberOfItemsIndex}].radioButtonIndex` as const
+                    `mbtiTestSelectFormItems[${numberOfItemsIndex}].radioButtonIndex` as const
                   }
                 />
               </BoxShadowCard>
             );
           },
         )}
-    </Form>
+    </FormLayout>
   );
 };
 
-export default SetMbtiSelectFormItems;
+export default MbtiTestSelectForm;
