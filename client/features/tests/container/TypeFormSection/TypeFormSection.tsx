@@ -2,7 +2,7 @@ import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { MAX_TYPE_ITEMS_COUNT, MIN_TYPE_ITEMS_COUNT } from '../../tests.const';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
-import TypeForm from '../../components/TypeForm/TypeForm';
+import TypeForm from '../../components/ResultWriter/ResultWriter';
 import { Form, SetCounterButtonWrapper } from './TypeFormSection.style';
 import {
   setSelctFormItems,
@@ -10,7 +10,7 @@ import {
   setTypeItemsCount,
 } from '../../../../store/modules/tests';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { TypeItemValues } from '../../components/TypeForm/TypeForm.type';
+import { TypeItemValues } from '../../components/ResultWriter/ResultWriter.type';
 import { RootState } from '../../../../store/modules';
 import useStorage from '../../hooks/useStorage';
 

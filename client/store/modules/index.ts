@@ -3,6 +3,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 import tests from './tests';
 import auth from './auth';
 import mypage from './mypage';
+import scoreTest from '../../features/tests/container/ScoreTestTypeContainer/ScoreTestTypeContainer.slice';
 
 const rootReducer = (state, action) => {
   if (action.type === HYDRATE) {
@@ -12,6 +13,7 @@ const rootReducer = (state, action) => {
     tests,
     auth,
     mypage,
+    scoreTest,
   })(state, action);
 };
 export default rootReducer;

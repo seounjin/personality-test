@@ -8,7 +8,7 @@ import { selectItemsFormSchema } from '../schemas/selectItemsFormSchema';
 import { titleFormSchema } from '../schemas/titleFormSchema';
 import { trueOrFalseResultFormSchema } from '../schemas/trueOrFalseResultFormSchema';
 import { trueOrFalseSelectItemsFormSchema } from '../schemas/trueOrFalseSelectItemsFormSchema';
-import { typeFormSchema } from '../schemas/typeFormSchema';
+import { scoreTestResultFormSchema } from '../schemas/scoreTestResultFormSchema';
 
 export const useFormMethods = () => {
   const {
@@ -43,7 +43,7 @@ export const useFormMethods = () => {
   });
 
   const typeFormMethods = useForm({
-    resolver: yupResolver(typeFormSchema),
+    resolver: yupResolver(scoreTestResultFormSchema),
     defaultValues: { typeFormItems: [...typeFormItems] },
     mode: 'onChange',
   });

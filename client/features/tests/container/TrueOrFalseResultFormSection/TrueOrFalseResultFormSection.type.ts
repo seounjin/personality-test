@@ -1,4 +1,4 @@
-import { TypeFormItems } from '../../components/TypeForm/TypeForm.type';
+import { TypeFormItems } from '../../components/ResultWriter/ResultWriter.type';
 
 export interface SelectedOption {
   qusetionNumber: number;

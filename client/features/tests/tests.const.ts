@@ -15,6 +15,8 @@ export const MAX_OPTION_ITEMS_COUNT = 4;
 
 export const FINAL_CONFIRMATION_FORM_ID = 'finalConfirmationForm';
 
+export const BASIC_INFORMATION_FORM_ID = 'basicInformationForm';
+
 export const MBTI_SELECT_COUNT = 12;
 
 export const IMAGE_HOLDER_PATH = '/images/imageholder.png';

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import TypeForm from '../../components/TypeForm/TypeForm';
+import TypeForm from '../../components/ResultWriter/ResultWriter';
 import { Form } from '../TypeFormSection/TypeFormSection.style';
 import {
   setMbtiSelctFormItems,
   setMbtiTypeFormItems,
 } from '../../../../store/modules/tests';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { TypeFormItems } from '../../components/TypeForm/TypeForm.type';
+import { TypeFormItems } from '../../components/ResultWriter/ResultWriter.type';
 import useStorage from '../../hooks/useStorage';
 import { RootState } from '../../../../store/modules';
 

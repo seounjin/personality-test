@@ -1,7 +1,7 @@
 import { SelectFormItems } from '../../types';
 
 export interface ResultItems {
-  typeContent: string;
+  resultContent: string;
   explanationContent: string;
 }
 

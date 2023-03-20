@@ -1,7 +1,7 @@
 import {
   TypeDictionary,
   TypeFormItems,
-} from '../features/tests/components/TypeForm/TypeForm.type';
+} from '../features/tests/components/ResultWriter/ResultWriter.type';
 import { MbtiSelectFormItems } from '../features/tests/container/SetMbtiSelectFormItems/SetMbtiSelectFormItems.type';
 import { SelectFormItems } from '../features/tests/container/SetSelectFormItems/SetSelectFormItems.type';
 

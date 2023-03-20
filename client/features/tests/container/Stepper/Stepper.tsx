@@ -78,7 +78,7 @@ const Stepper = ({ testType }: StepperProps): JSX.Element => {
 
       {activeStep === lastStep && (
         <SubmitButtonWrapper>
-          <SubmitButton formId={FINAL_CONFIRMATION_FORM_ID} />
+          <SubmitButton formId={steps[activeStep].formId} />
         </SubmitButtonWrapper>
       )}
 

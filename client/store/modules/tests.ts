@@ -128,6 +128,24 @@ const testsSlice = createSlice({
       state.selectFormItems = action.payload.selectFormItems;
       state.isPublic = action.payload.isPublic;
     },
+    setBasicInformationItems: (state, action) => {
+      const {
+        basicInformationItems: { title, subTitle, explain },
+        testType,
+        thumbnailImgUrl,
+        isPublic,
+      } = action.payload.data;
+      state.title = title;
+      state.subTitle = subTitle;
+      state.explain = explain;
+      state.testType = testType;
+      state.thumbnailImgUrl = thumbnailImgUrl
+        ? thumbnailImgUrl
+        : IMAGE_HOLDER_PATH;
+      state.isOpenCancleButton =
+        thumbnailImgUrl === IMAGE_HOLDER_PATH ? false : true;
+      state.isPublic = isPublic;
+    },
     setScoreTypeTestItems: (state, action) => {
       const {
         basicInformationItems: { title, subTitle, explain },
@@ -283,5 +301,6 @@ export const {
   setResetChangeImage,
   setTrueOrFalseSelectFormItems,
   setTrueOrFalseResultFormItems,
+  setBasicInformationItems,
 } = testsSlice.actions;
 export default testsSlice.reducer;

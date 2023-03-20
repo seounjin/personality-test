@@ -39,7 +39,6 @@ const MainScreen = ({
           <QuestionIconWrapper>
             <QuestionIcon className="question_icon" />
             {slideIndex + 1}
-            {'.'}
           </QuestionIconWrapper>
           <QuestionWrapper>
             <Question>{question}</Question>

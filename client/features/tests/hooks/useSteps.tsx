@@ -11,6 +11,16 @@ import FinalConfirmationMbtiForm from '../container/FinalConfirmationMbtiForm/Fi
 import SetTureOrFalseSelectFormItems from '../container/SetTureOrFalseSelectFormItems/SetTureOrFalseSelectFormItems';
 import TrueOrFalseResultFormSection from '../container/TrueOrFalseResultFormSection/TrueOrFalseResultFormSection';
 import FinalConfirmationTrueOrFalseForm from '../container/FinalConfirmationTrueOrFalseForm/FinalConfirmationTrueOrFalseForm';
+import { useScoreTestFormMethod } from './useScoreTestFormMethod';
+import {
+  SCORE_TEST_RESULT_FORM_ID,
+  SCORE_TEST_SELECT_FORM_ID,
+  SCORE_TEST_FINAL_FORM_ID,
+} from '../container/ScoreTestTypeContainer/ScoreTestTypeContainer.const';
+import ScoreTestResultForm from '../container/ScoreTestTypeContainer/ScoreTestResultForm';
+import ScoreTestSelectForm from '../container/ScoreTestTypeContainer/ScoreTestSelectForm';
+import { BASIC_INFORMATION_FORM_ID } from '../tests.const';
+import ScoreTestFinalForm from '../container/ScoreTestTypeContainer/ScoreTestFinalForm';
 
 export const useSteps = ({ testType = 'score' }: { testType: string }) => {
   const {
@@ -23,10 +33,13 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
     trueOrFalseResultFormItemsMethods,
   } = useFormMethods();
 
+  const { scoreTestResultFormMethods, scoreTestSelectFormMethods } =
+    useScoreTestFormMethod();
+
   const [steps] = useState({
     score: [
       {
-        formId: 'basicInformationForm',
+        formId: BASIC_INFORMATION_FORM_ID,
         title: '기본정보 입력',
         Element: ({ handleNext }) => (
           <FormProvider {...basicInformationFormMethods}>
@@ -35,27 +48,27 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         ),
       },
       {
-        formId: 'typeForm',
+        formId: SCORE_TEST_RESULT_FORM_ID,
         title: '유형 설정',
         Element: ({ handleNext }) => (
-          <FormProvider {...typeFormMethods}>
-            <TypeFormSection handleNext={handleNext} />
+          <FormProvider {...scoreTestResultFormMethods}>
+            <ScoreTestResultForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
       {
-        formId: 'selectForm',
+        formId: SCORE_TEST_SELECT_FORM_ID,
         title: '선택지 설정',
         Element: ({ handleNext }) => (
-          <FormProvider {...selectFormItemsMethods}>
-            <SetSelectFormItems handleNext={handleNext} />
+          <FormProvider {...scoreTestSelectFormMethods}>
+            <ScoreTestSelectForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
       {
-        formId: 'finalConfirmationForm',
+        formId: SCORE_TEST_FINAL_FORM_ID,
         title: '최종 확인',
-        Element: () => <FinalConfirmationForm />,
+        Element: () => <ScoreTestFinalForm />,
       },
     ],
 

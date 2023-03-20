@@ -20,7 +20,7 @@ const LastScreen = ({
   isPublic,
   onClick,
 }: LastScreenProps): JSX.Element => {
-  const { typeContent, explanationContent } = items;
+  const { resultContent, explanationContent } = items;
 
   const copyURL = () => {
     const currentUrl = window.document.location.href;
@@ -36,7 +36,7 @@ const LastScreen = ({
 
   return (
     <Container>
-      <Title>{typeContent}</Title>
+      <Title>{resultContent}</Title>
       <ContentWrapper>
         <Content> {explanationContent}</Content>
       </ContentWrapper>

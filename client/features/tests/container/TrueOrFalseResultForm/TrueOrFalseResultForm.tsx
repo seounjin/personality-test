@@ -6,7 +6,7 @@ import {
   Container,
   TextFiledWrapper,
   NumberLabel,
-} from '../../components/TypeForm/TypeForm.style';
+} from '../../components/ResultWriter/ResultWriter.style';
 import { SelectedOption } from '../TrueOrFalseResultFormSection/TrueOrFalseResultFormSection.type';
 
 interface TypeFormProps {

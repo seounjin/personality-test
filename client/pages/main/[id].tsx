@@ -31,7 +31,7 @@ const MainPage = ({ testItems }: MainPageProps): JSX.Element => {
 };
 
 const setWeightedScoreDictionary = (data) =>
-  data.reduce((dic, { typeContent }) => ({ ...dic, [typeContent]: 0 }), {});
+  data.reduce((dic, { resultContent }) => ({ ...dic, [resultContent]: 0 }), {});
 
 const weightedScoreDictionary = (testType, selectItems) => {
   if (testType === 'score') {

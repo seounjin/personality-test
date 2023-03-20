@@ -1,11 +1,11 @@
 import yup from '../tests.yup';
 
-export const typeFormSchema = yup.object({
-  typeFormItems: yup
+export const scoreTestResultFormSchema = yup.object({
+  scoreTestResultFormItems: yup
     .array()
     .of(
       yup.object().shape({
-        typeContent: yup
+        resultContent: yup
           .string()
           .trim()
           .required('한 글자 이상 채워 주세요')
@@ -17,7 +17,7 @@ export const typeFormSchema = yup.object({
       }),
     )
     .test('checkTypeContent', '유형을 작성해 주세요', (items) => {
-      return items.every(({ typeContent }) => typeContent.length !== 0);
+      return items.every(({ resultContent }) => resultContent.length !== 0);
     })
-    .unique((a) => a.typeContent, '중복된 유형이 있습니다'),
+    .unique((a) => a.resultContent, '중복된 유형이 있습니다'),
 });

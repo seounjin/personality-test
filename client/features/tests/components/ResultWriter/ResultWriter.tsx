@@ -1,9 +1,9 @@
 import React from 'react';
 import TextAreaInput from '../TextAreaInput/TextAreaInput';
 import TextFiled from '../../../../components/TextFiled/TextField';
-import { Container, TextFiledWrapper, NumberLabel } from './TypeForm.style';
+import { Container, TextFiledWrapper, NumberLabel } from './ResultWriter.style';
 
-interface TypeFormProps {
+interface ResultWriterProps {
   index: number;
   firstLabel: string;
   firstContent: string;
@@ -13,20 +13,20 @@ interface TypeFormProps {
   name: string;
 }
 
-const TypeForm = ({
+const ResultWriter = ({
   index,
   firstLabel,
   secondLabel,
   firstInputDisalbed = false,
   name,
-}: TypeFormProps): JSX.Element => {
+}: ResultWriterProps): JSX.Element => {
   return (
     <Container>
       <NumberLabel>{`${index + 1}번`}</NumberLabel>
       <TextFiledWrapper>
         <TextFiled
           label={firstLabel}
-          name={`${name}[${index}].typeContent`}
+          name={`${name}[${index}].resultContent`}
           disabled={firstInputDisalbed}
         />
       </TextFiledWrapper>
@@ -38,4 +38,4 @@ const TypeForm = ({
   );
 };
 
-export default TypeForm;
+export default ResultWriter;
