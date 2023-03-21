@@ -1,5 +1,7 @@
-import { TrueOrFalseSelectFormItems } from './container/SetTureOrFalseSelectFormItems/SetTureOrFalseSelectFormItems.type';
-import { TrueOrFalseResultFormItems } from './container/TrueOrFalseResultFormSection/TrueOrFalseResultFormSection.type';
+import {
+  TrueOrFalseTestResultFormItem,
+  TrueOrFalseTestSelectFormItem,
+} from './container/TrueOrFalseTestContainer/trueOrFalseTest.type';
 
 const createArray = (items) => {
   return items.map(({ question, optionItems }, questionIndex) => {
@@ -29,21 +31,21 @@ const combination = (array, prefix = [], res = []) => {
   return res;
 };
 
-export const createTrueOrFalseResultFormItems = (
-  trueOrFalseSelectFormItems: TrueOrFalseSelectFormItems[],
-  trueOrFalseResultFormItems: TrueOrFalseResultFormItems[] = [],
+export const createTrueOrFalseTestResultFormItems = (
+  trueOrFalseTestSelectFormItems: TrueOrFalseTestSelectFormItem[],
+  trueOrFalseTestResultFormItems: TrueOrFalseTestResultFormItem[] = [],
 ) => {
-  const array = createArray(trueOrFalseSelectFormItems);
+  const array = createArray(trueOrFalseTestSelectFormItems);
 
   const res = combination(array);
 
   return res.map((combNumberItem, index) => {
     return {
-      typeContent: trueOrFalseResultFormItems[index]
-        ? trueOrFalseResultFormItems[index].typeContent
+      resultContent: trueOrFalseTestResultFormItems[index]
+        ? trueOrFalseTestResultFormItems[index].resultContent
         : '',
-      explanationContent: trueOrFalseResultFormItems[index]
-        ? trueOrFalseResultFormItems[index].explanationContent
+      explanationContent: trueOrFalseTestResultFormItems[index]
+        ? trueOrFalseTestResultFormItems[index].explanationContent
         : '',
       selectedOption: combNumberItem.map(
         ({ qusetionNumber, question, optionNumber, optionId, option }) => ({

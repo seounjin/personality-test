@@ -5,6 +5,8 @@ import auth from './auth';
 import mypage from './mypage';
 import scoreTest from '../../features/tests/container/ScoreTestTypeContainer/scoreTestType.slice';
 import mbtiTest from '../../features/tests/container/MbtiTestTypeContainer/mbtiTestType.slice';
+import trueOrFalseTest from '../../features/tests/container/TrueOrFalseTestContainer/trueOrFalse.slice';
+import basicForm from '../../features/tests/container/BasicInformationForm/BasicInformationForm.slice';
 
 const rootReducer = (state, action) => {
   if (action.type === HYDRATE) {
@@ -16,6 +18,8 @@ const rootReducer = (state, action) => {
     mypage,
     scoreTest,
     mbtiTest,
+    trueOrFalseTest,
+    basicForm,
   })(state, action);
 };
 export default rootReducer;

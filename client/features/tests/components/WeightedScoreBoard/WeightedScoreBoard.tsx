@@ -1,5 +1,5 @@
 import React from 'react';
-import { WeightedScoreItem } from '../../container/SetSelectFormItems/SetSelectFormItems.type';
+// import { WeightedScoreItem } from '../../container/SetSelectFormItems/SetSelectFormItems.type';
 import {
   LabelWrapper,
   Label,
@@ -12,7 +12,7 @@ import {
 } from './WeightedScoreBoard.style';
 
 interface WeightedScoreBoardProps {
-  items: WeightedScoreItem[];
+  items: any;
 }
 
 const WeightedScoreBoard = ({

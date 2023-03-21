@@ -1,40 +1,36 @@
-import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { useSelector, shallowEqual } from 'react-redux';
-import TextFiled from '../../../../components/TextFiled/TextField';
-import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store/modules';
 import {
-  setNumberOfItemsCount,
-  setTrueOrFalseResultFormItems,
-  setTrueOrFalseSelectFormItems,
-} from '../../../../store/modules/tests';
-import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
-import {
-  TF_MIN_NUMBER_OF_ITEMS_COUNT,
   TF_MAX_NUMBER_OF_ITEMS_COUNT,
-} from '../../tests.const';
+  TF_MIN_NUMBER_OF_ITEMS_COUNT,
+  TF_TEST_SELECT_FORM_ID,
+} from './trueOrFalse.const';
 import {
-  Form,
-  SetCounterButtonWrapper,
-} from '../SetSelectFormItems/SetSelectFormItems.style';
-import { TrueOrFalseSelectFormValues } from './SetTureOrFalseSelectFormItems.type';
+  setNumberOfItemsCount,
+  setTrueOrFalseTestSelectFormItems,
+} from './trueOrFalse.slice';
+import { TrueOrFalseTestSelectFormValues } from './trueOrFalseTest.type';
 import { cloneDeep } from 'lodash';
-import { createTrueOrFalseResultFormItems } from '../../tests.util';
+import FormLayout from '../../../../layout/FormLayout/FormLayout';
+import React from 'react';
+import TextFiled from '../../../../components/TextFiled/TextField';
+import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
+import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
+import { SetCounterButtonWrapper } from '../../tests.styles';
+import useStorage from '../../hooks/useStorage';
 
-interface SetTureOrFalseSelectFormItemsProps {
+interface TureOrFalseSelectFormProps {
   handleNext: () => void;
 }
 
-const SetTureOrFalseSelectFormItems = ({
+const TureOrFalseTestSelectForm = ({
   handleNext,
-}: SetTureOrFalseSelectFormItemsProps): JSX.Element => {
-  const { mode, numberOfItemsCount, trueOrFalseResultFormItems } = useSelector(
+}: TureOrFalseSelectFormProps): JSX.Element => {
+  const { mode, numberOfItemsCount } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
-      numberOfItemsCount: state.tests.numberOfItemsCount,
-      trueOrFalseResultFormItems: state.tests.trueOrFalseResultFormItems,
+      numberOfItemsCount: state.trueOrFalseTest.numberOfItemsCount,
     }),
     shallowEqual,
   );
@@ -42,11 +38,11 @@ const SetTureOrFalseSelectFormItems = ({
   const dispatch = useDispatch();
 
   const { control, setValue, getValues, handleSubmit, trigger } =
-    useFormContext<TrueOrFalseSelectFormValues>();
+    useFormContext<TrueOrFalseTestSelectFormValues>();
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'trueOrFalseSelectFormItems',
+    name: 'trueOrFalseTestSelectFormItems',
   });
 
   const decreaseNumberOfItems = () => {
@@ -71,6 +67,8 @@ const SetTureOrFalseSelectFormItems = ({
     dispatch(setNumberOfItemsCount({ count: 1 }));
   };
 
+  const { setTestItems } = useStorage();
+
   const onSubmit = async (data) => {
     const isStepValid = await trigger();
 
@@ -78,24 +76,21 @@ const SetTureOrFalseSelectFormItems = ({
       alert('빈칸을 확인해 주세요');
       return;
     }
-    const { trueOrFalseSelectFormItems } = data;
+    const { trueOrFalseTestSelectFormItems } = data;
 
-    dispatch(setTrueOrFalseSelectFormItems(cloneDeep(data)));
+    if (mode === 'create') {
+      setTestItems({
+        trueOrFalseTestSelectFormItems: trueOrFalseTestSelectFormItems,
+      });
+    }
 
-    // const res = createTrueOrFalseResultFormItems(
-    //   trueOrFalseSelectFormItems,
-    //   trueOrFalseResultFormItems,
-    // );
-
-    // dispatch(
-    //   setTrueOrFalseResultFormItems({ trueOrFalseResultFormItems: res }),
-    // );
+    dispatch(setTrueOrFalseTestSelectFormItems(cloneDeep(data)));
 
     handleNext();
   };
 
   return (
-    <Form id="trueOrFalseSelectForm" onSubmit={handleSubmit(onSubmit)}>
+    <FormLayout id={TF_TEST_SELECT_FORM_ID} onSubmit={handleSubmit(onSubmit)}>
       <SetCounterButtonWrapper>
         <SetCounterButton
           label={'문항수 설정'}
@@ -112,7 +107,7 @@ const SetTureOrFalseSelectFormItems = ({
           <BoxShadowCard key={id} subtitle={`${numberOfItemsIndex + 1}번`}>
             <TextFiled
               label={'질 문'}
-              name={`trueOrFalseSelectFormItems[${numberOfItemsIndex}].question`}
+              name={`trueOrFalseTestSelectFormItems[${numberOfItemsIndex}].question`}
             />
             {optionItems.map((_, optionItemIndex) => {
               return (
@@ -120,7 +115,7 @@ const SetTureOrFalseSelectFormItems = ({
                   <TextFiled
                     label={`${optionItemIndex + 1}번 선택지`}
                     name={
-                      `trueOrFalseSelectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option` as const
+                      `trueOrFalseTestSelectFormItems[${numberOfItemsIndex}].optionItems[${optionItemIndex}].option` as const
                     }
                   />
                 </React.Fragment>
@@ -129,8 +124,8 @@ const SetTureOrFalseSelectFormItems = ({
           </BoxShadowCard>
         );
       })}
-    </Form>
+    </FormLayout>
   );
 };
 
-export default SetTureOrFalseSelectFormItems;
+export default TureOrFalseTestSelectForm;

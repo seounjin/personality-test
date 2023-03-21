@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { FormProvider } from 'react-hook-form';
 import BasicInformationForm from '../container/BasicInformationForm/BasicInformationForm';
-import { useFormMethods } from './useFormMethods';
-import SetTureOrFalseSelectFormItems from '../container/SetTureOrFalseSelectFormItems/SetTureOrFalseSelectFormItems';
-import TrueOrFalseResultFormSection from '../container/TrueOrFalseResultFormSection/TrueOrFalseResultFormSection';
-import FinalConfirmationTrueOrFalseForm from '../container/FinalConfirmationTrueOrFalseForm/FinalConfirmationTrueOrFalseForm';
 import { useScoreTestFormMethod } from './useScoreTestFormMethod';
 import {
   SCORE_TEST_RESULT_FORM_ID,
@@ -24,13 +20,19 @@ import MbtiTestResultForm from '../container/MbtiTestTypeContainer/MbtiTestResul
 import MbtiTestSelectForm from '../container/MbtiTestTypeContainer/MbtiTestSelectForm';
 import MbtiTestFinalForm from '../container/MbtiTestTypeContainer/MbtiTestFinalForm';
 import { useMbtiTestFormMethods } from './useMbtiTestFormMethods';
+import { useTrueOrFalseTestFormMethods } from './useTrueOrFalseTestFormMethods';
+import {
+  TF_TEST_SELECT_FORM_ID,
+  TF_TEST_RESULT_FORM_ID,
+  TF_FINAL_FORM_ID,
+} from '../container/TrueOrFalseTestContainer/trueOrFalse.const';
+import TureOrFalseTestSelectForm from '../container/TrueOrFalseTestContainer/TureOrFalseTestSelectForm';
+import TrueOrFalseTestResultForm from '../container/TrueOrFalseTestContainer/TrueOrFalseTestResultForm';
+import TrueOrFalseTestFinalForm from '../container/TrueOrFalseTestContainer/TrueOrFalseTestFinalForm';
+import { useBasicInfoFormMethods } from './useBasicInfoFormMethods';
 
 export const useSteps = ({ testType = 'score' }: { testType: string }) => {
-  const {
-    basicInformationFormMethods,
-    trueOrFalseSelectFormItemsMethods,
-    trueOrFalseResultFormItemsMethods,
-  } = useFormMethods();
+  const { basicInfoFormMethods } = useBasicInfoFormMethods();
 
   const { scoreTestResultFormMethods, scoreTestSelectFormMethods } =
     useScoreTestFormMethod();
@@ -38,13 +40,16 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
   const { mbtiTestResultFormMethods, mbtiTestSelectFormMethods } =
     useMbtiTestFormMethods();
 
+  const { trueOrFalseTestSelectFormMethods, trueOrFalseTestResultFormMethods } =
+    useTrueOrFalseTestFormMethods();
+
   const [steps] = useState({
     score: [
       {
         formId: BASIC_INFORMATION_FORM_ID,
         title: '기본정보 입력',
         Element: ({ handleNext }) => (
-          <FormProvider {...basicInformationFormMethods}>
+          <FormProvider {...basicInfoFormMethods}>
             <BasicInformationForm handleNext={handleNext} />
           </FormProvider>
         ),
@@ -79,7 +84,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         formId: BASIC_INFORMATION_FORM_ID,
         title: '기본정보 입력',
         Element: ({ handleNext }) => (
-          <FormProvider {...basicInformationFormMethods}>
+          <FormProvider {...basicInfoFormMethods}>
             <BasicInformationForm handleNext={handleNext} />
           </FormProvider>
         ),
@@ -111,38 +116,38 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
 
     trueOrFalse: [
       {
-        formId: 'basicInformationForm',
+        formId: BASIC_INFORMATION_FORM_ID,
         title: '기본정보 입력',
         Element: ({ handleNext }) => (
-          <FormProvider {...basicInformationFormMethods}>
+          <FormProvider {...basicInfoFormMethods}>
             <BasicInformationForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
       {
-        formId: 'trueOrFalseSelectForm',
+        formId: TF_TEST_SELECT_FORM_ID,
         title: '선택지 설정',
         Element: ({ handleNext }) => (
-          <FormProvider {...trueOrFalseSelectFormItemsMethods}>
-            <SetTureOrFalseSelectFormItems handleNext={handleNext} />
+          <FormProvider {...trueOrFalseTestSelectFormMethods}>
+            <TureOrFalseTestSelectForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
 
       {
-        formId: 'trueOrFalseResultForm',
+        formId: TF_TEST_RESULT_FORM_ID,
         title: '결과지 설정',
         Element: ({ handleNext }) => (
-          <FormProvider {...trueOrFalseResultFormItemsMethods}>
-            <TrueOrFalseResultFormSection handleNext={handleNext} />
+          <FormProvider {...trueOrFalseTestResultFormMethods}>
+            <TrueOrFalseTestResultForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
 
       {
-        formId: 'finalConfirmationForm',
+        formId: TF_FINAL_FORM_ID,
         title: '최종 확인',
-        Element: () => <FinalConfirmationTrueOrFalseForm />,
+        Element: () => <TrueOrFalseTestFinalForm />,
       },
     ],
   });

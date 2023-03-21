@@ -19,6 +19,7 @@ const initialState: ScoreTestSliceInitialState = {
     },
   ],
   scoreTestSelectFormItems: [],
+  isPublic: true,
 };
 
 const scoreTestSlice = createSlice({
@@ -57,14 +58,16 @@ const scoreTestSlice = createSlice({
     setScoreTestSelectFormItems: (state, action) => {
       state.scoreTestSelectFormItems = action.payload.scoreTestSelectFormItems;
     },
-    setScoreTypeTestItems: (state, action) => {
-      const { selectItems, resultItems } = action.payload.data;
+    setScoreTestItems: (state, action) => {
+      const { scoreTestSelectFormItems, scoreTestResultFormItems, isPublic } =
+        action.payload.data;
 
-      state.scoreTestResultFormItems = resultItems
-        ? resultItems
+      state.isPublic = isPublic;
+      state.scoreTestResultFormItems = scoreTestResultFormItems
+        ? scoreTestResultFormItems
         : state.scoreTestResultFormItems;
-      state.scoreTestSelectFormItems = selectItems
-        ? selectItems
+      state.scoreTestSelectFormItems = scoreTestSelectFormItems
+        ? scoreTestSelectFormItems
         : state.scoreTestSelectFormItems;
     },
   },
@@ -76,7 +79,7 @@ export const {
   setScoreTestSelectFormItems,
   setScoreTestResultItemsCount,
   setNumberOfItemsCount,
-  setScoreTypeTestItems,
+  setScoreTestItems,
 } = scoreTestSlice.actions;
 
 export default scoreTestSlice.reducer;

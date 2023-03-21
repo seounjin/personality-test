@@ -1,15 +1,14 @@
-import React from 'react';
-import TextFiled from '../../../../components/TextFiled/TextField';
 import SelectedOptionsTable from '../../components/SelectedOptionsTable/SelectedOptionsTable';
-import TextAreaInput from '../../components/TextAreaInput/TextAreaInput';
 import {
   Container,
   TextFiledWrapper,
   NumberLabel,
 } from '../../components/ResultWriter/ResultWriter.style';
-import { SelectedOption } from '../TrueOrFalseResultFormSection/TrueOrFalseResultFormSection.type';
+import { SelectedOption } from './trueOrFalseTest.type';
+import TextFiled from '../../../../components/TextFiled/TextField';
+import TextAreaInput from '../../components/TextAreaInput/TextAreaInput';
 
-interface TypeFormProps {
+interface TrueOrFalseTestResultWriterProps {
   index: number;
   firstLabel: string;
   firstContent: string;
@@ -20,14 +19,14 @@ interface TypeFormProps {
   name: string;
 }
 
-const TrueOrFalseResultForm = ({
+const TrueOrFalseTestResultWriter = ({
   index,
   firstLabel,
   secondLabel,
   firstInputDisalbed = false,
   selectedOption,
   name,
-}: TypeFormProps): JSX.Element => {
+}: TrueOrFalseTestResultWriterProps): JSX.Element => {
   return (
     <Container>
       <SelectedOptionsTable selectedOption={selectedOption} />
@@ -35,7 +34,7 @@ const TrueOrFalseResultForm = ({
       <TextFiledWrapper>
         <TextFiled
           label={firstLabel}
-          name={`${name}[${index}].typeContent`}
+          name={`${name}[${index}].resultContent`}
           disabled={firstInputDisalbed}
         />
       </TextFiledWrapper>
@@ -47,4 +46,4 @@ const TrueOrFalseResultForm = ({
   );
 };
 
-export default TrueOrFalseResultForm;
+export default TrueOrFalseTestResultWriter;

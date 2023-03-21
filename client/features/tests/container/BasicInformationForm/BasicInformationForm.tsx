@@ -3,10 +3,10 @@ import { Form, TextFiledArea } from './BasicInformationForm.style';
 import TextFiled from '../../../../components/TextFiled/TextField';
 import { useFormContext } from 'react-hook-form';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { setBasicInformationForm } from '../../../../store/modules/tests';
 import useStorage from '../../hooks/useStorage';
 import { RootState } from '../../../../store/modules';
 import ThumbnailImageUpload from '../ThumbnailImageUpload/ThumbnailImageUpload';
+import { setBasicInformationForm } from './BasicInformationForm.slice';
 
 interface BasicInformationFormProps {
   handleNext: () => void;

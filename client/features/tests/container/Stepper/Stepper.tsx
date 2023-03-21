@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
-import {
-  FINAL_CONFIRMATION_FORM_ID,
-  STEP_INDICATOR_LABEL,
-} from '../../tests.const';
+import { STEP_INDICATOR_LABEL } from '../../tests.const';
 import {
   TwoButtonWrapper,
   Container,

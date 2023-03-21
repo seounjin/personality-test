@@ -1,34 +1,11 @@
 export const BASIC_INFORMATION_FORM = 0;
 export const FINAL_CONFIRMATION = 3;
 
-export const MIN_NUMBER_OF_ITEMS_COUNT = 1;
-export const MAX_NUMBER_OF_ITEMS_COUNT = 12;
-
-export const TF_MIN_NUMBER_OF_ITEMS_COUNT = 1;
-export const TF_MAX_NUMBER_OF_ITEMS_COUNT = 5;
-
-export const MIN_TYPE_ITEMS_COUNT = 2;
-export const MAX_TYPE_ITEMS_COUNT = 8;
-
-export const MIN_OPTION_ITEMS_COUNT = 2;
-export const MAX_OPTION_ITEMS_COUNT = 4;
-
-export const FINAL_CONFIRMATION_FORM_ID = 'finalConfirmationForm';
-
 export const BASIC_INFORMATION_FORM_ID = 'basicInformationForm';
-
-export const MBTI_SELECT_COUNT = 12;
 
 export const IMAGE_HOLDER_PATH = '/images/imageholder.png';
 
 export const MAX_FILE_SIZE = 2 * 1024 * 1024;
-
-export const MBTI_DATA = [
-  ['E', 'I'],
-  ['N', 'S'],
-  ['F', 'T'],
-  ['P', 'J'],
-];
 
 export const TEST_TYPE_DATA = [
   {
@@ -77,75 +54,5 @@ export const MANUAL_DATA = [
     title: '최종 확인',
     content:
       '최종 확인 단계에요\n생성하려는 테스트의 공개와 비공개를 설정할 수 있어요\n충분히 검토하여 제출해주세요',
-  },
-];
-
-export const MBTI_TYPE_FORM_ITEMS = [
-  {
-    typeContent: 'ISTJ',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'ISTP',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'ISFJ',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'ISFP',
-    explanationContent: '',
-  },
-
-  {
-    typeContent: 'INTJ',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'INTP',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'INFJ',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'INFP',
-    explanationContent: '',
-  },
-
-  {
-    typeContent: 'ESTJ',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'ESTP',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'ESFJ',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'ESFP',
-    explanationContent: '',
-  },
-
-  {
-    typeContent: 'ENTJ',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'ENTP',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'ENFJ',
-    explanationContent: '',
-  },
-  {
-    typeContent: 'ENFP',
-    explanationContent: '',
   },
 ];

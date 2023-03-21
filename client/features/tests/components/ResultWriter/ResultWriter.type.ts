@@ -6,7 +6,3 @@ export interface TypeFormItems {
 export type TypeItemValues = {
   typeFormItems: TypeFormItems[];
 };
-
-export interface TypeDictionary {
-  [key: string]: string;
-}

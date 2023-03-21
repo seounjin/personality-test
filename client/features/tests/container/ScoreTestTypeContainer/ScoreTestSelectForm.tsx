@@ -128,7 +128,7 @@ const ScoreTestSelectForm = ({
     }
     const { scoreTestSelectFormItems } = data;
     if (mode === 'create') {
-      setTestItems({ selectItems: scoreTestSelectFormItems });
+      setTestItems({ scoreTestSelectFormItems: scoreTestSelectFormItems });
     }
     dispatch(setScoreTestSelectFormItems(data));
     handleNext();

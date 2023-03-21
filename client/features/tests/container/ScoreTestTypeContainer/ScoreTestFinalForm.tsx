@@ -32,13 +32,15 @@ const ScoreTestFinalForm = () => {
   } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
-      title: state.tests.title,
-      subTitle: state.tests.subTitle,
-      explain: state.tests.explain,
-      isPublic: state.tests.isPublic,
-      thumbnailImgUrl: state.tests.thumbnailImgUrl,
-      imageData: state.tests.imageData,
-      isChangeImage: state.tests.isChangeImage,
+
+      title: state.basicForm.title,
+      subTitle: state.basicForm.subTitle,
+      explain: state.basicForm.explain,
+      thumbnailImgUrl: state.basicForm.thumbnailImgUrl,
+      imageData: state.basicForm.imageData,
+      isChangeImage: state.basicForm.isChangeImage,
+
+      isPublic: state.scoreTest.isPublic,
       scoreTestResultFormItems: state.scoreTest.scoreTestResultFormItems,
       scoreTestSelectFormItems: state.scoreTest.scoreTestSelectFormItems,
     }),

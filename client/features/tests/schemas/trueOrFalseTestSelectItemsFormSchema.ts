@@ -9,8 +9,8 @@ const optionItemsArray = yup.array().of(
   }),
 );
 
-export const trueOrFalseSelectItemsFormSchema = yup.object({
-  trueOrFalseSelectFormItems: yup.array().of(
+export const trueOrFalseTestSelectItemsFormSchema = yup.object({
+  trueOrFalseTestSelectFormItems: yup.array().of(
     yup.object().shape({
       question: yup
         .string()

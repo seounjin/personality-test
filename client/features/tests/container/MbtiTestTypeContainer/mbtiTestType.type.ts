@@ -2,6 +2,7 @@ import { ResultFormItem, SelectFormItems } from '../../tests.types';
 import { RadioButtonItems } from '../TextRadioButtonGroup/TextRadioButtonGroup.type';
 
 export interface MbtiTestSliceInitialState {
+  isPublic: boolean;
   mbtiTestResultFormItems: mbtiTestResultFormItems[];
   mbtiTestSelectFormItems: MbtiTestSelectFormItems[];
 }

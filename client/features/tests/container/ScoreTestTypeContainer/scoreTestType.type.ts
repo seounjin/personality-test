@@ -25,6 +25,7 @@ export interface ScoreTestSelectFormItems {
 export interface ScoreTestSliceInitialState {
   scoreTestResultItemsCount: number;
   numberOfItemsCount: number;
+  isPublic: boolean;
   scoreTestResultFormItems: ScoreTestResultFormItem[];
   scoreTestSelectFormItems: ScoreTestSelectFormItems[];
 }

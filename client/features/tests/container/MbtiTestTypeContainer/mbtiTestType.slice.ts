@@ -7,6 +7,7 @@ import {
 import { MbtiTestSliceInitialState } from './mbtiTestType.type';
 
 const initialState: MbtiTestSliceInitialState = {
+  isPublic: true,
   mbtiTestResultFormItems: MBTI_TEST_RESULT_FORM_ITEMS,
   mbtiTestSelectFormItems: [],
 };
@@ -76,13 +77,15 @@ const mbtiTestSlice = createSlice({
     },
 
     setMbtiTestItems: (state, action) => {
-      const { selectItems, resultItems } = action.payload.data;
+      const { isPublic, mbtiTestSelectFormItems, mbtiTestResultFormItems } =
+        action.payload.data;
 
-      state.mbtiTestResultFormItems = resultItems
-        ? resultItems
+      state.isPublic = isPublic;
+      state.mbtiTestResultFormItems = mbtiTestResultFormItems
+        ? mbtiTestResultFormItems
         : state.mbtiTestResultFormItems;
-      state.mbtiTestSelectFormItems = selectItems
-        ? selectItems
+      state.mbtiTestSelectFormItems = mbtiTestSelectFormItems
+        ? mbtiTestSelectFormItems
         : state.mbtiTestSelectFormItems;
     },
   },

@@ -1,44 +1,49 @@
-import React, { FormEvent } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from '../../../../store/modules';
-import { FINAL_CONFIRMATION_FORM_ID } from '../../tests.const';
-import SubHeadlineLabel from '../../../../components/SubHeadlineLabel/SubHeadlineLabel';
-import TextBox from '../../../../components/TextBox/TextBox';
-import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
-import SubTextBoxSection from '../../../../components/SubTextBoxSection/SubTextBoxSection';
-import TextBoxSection from '../TextBoxSection/TextBoxSection';
+import React from 'react';
+import { FormEvent } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
-import { Form } from '../BasicInformationForm/BasicInformationForm.style';
-import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
-import useStorage from '../../hooks/useStorage';
+import SubHeadlineLabel from '../../../../components/SubHeadlineLabel/SubHeadlineLabel';
+import SubTextBoxSection from '../../../../components/SubTextBoxSection/SubTextBoxSection';
+import TextBox from '../../../../components/TextBox/TextBox';
+import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
+import FormLayout from '../../../../layout/FormLayout/FormLayout';
+import { RootState } from '../../../../store/modules';
 import PrivewImage from '../../components/PrivewImage/PrivewImage';
 import SelectedOptionsTable from '../../components/SelectedOptionsTable/SelectedOptionsTable';
+import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
+import useStorage from '../../hooks/useStorage';
+import TextBoxSection from '../TextBoxSection/TextBoxSection';
+import { TF_FINAL_FORM_ID } from './trueOrFalse.const';
 
-const FinalConfirmationTrueOrFalseForm = () => {
+const TrueOrFalseTestFinalForm = () => {
   const {
     mode,
     title,
     subTitle,
     explain,
-    trueOrFalseSelectFormItems,
-    trueOrFalseResultFormItems,
     isPublic,
     imageData,
     thumbnailImgUrl,
     isChangeImage,
+    trueOrFalseTestSelectFormItems,
+    trueOrFalseTestResultFormItems,
   } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
-      title: state.tests.title,
-      subTitle: state.tests.subTitle,
-      explain: state.tests.explain,
-      trueOrFalseSelectFormItems: state.tests.trueOrFalseSelectFormItems,
-      trueOrFalseResultFormItems: state.tests.trueOrFalseResultFormItems,
-      isPublic: state.tests.isPublic,
-      thumbnailImgUrl: state.tests.thumbnailImgUrl,
-      imageData: state.tests.imageData,
-      isChangeImage: state.tests.isChangeImage,
+
+      title: state.basicForm.title,
+      subTitle: state.basicForm.subTitle,
+      explain: state.basicForm.explain,
+      thumbnailImgUrl: state.basicForm.thumbnailImgUrl,
+      imageData: state.basicForm.imageData,
+      isChangeImage: state.basicForm.isChangeImage,
+
+      isPublic: state.trueOrFalseTest.isPublic,
+      trueOrFalseTestSelectFormItems:
+        state.trueOrFalseTest.trueOrFalseTestSelectFormItems,
+      trueOrFalseTestResultFormItems:
+        state.trueOrFalseTest.trueOrFalseTestResultFormItems,
     }),
     shallowEqual,
   );
@@ -63,8 +68,8 @@ const FinalConfirmationTrueOrFalseForm = () => {
         explain: explain,
         imageData: isChangeImage ? JSON.stringify({ imageData }) : '',
       },
-      trueOrFalseSelectFormItems: trueOrFalseSelectFormItems,
-      trueOrFalseResultFormItems: trueOrFalseResultFormItems,
+      trueOrFalseTestSelectFormItems: trueOrFalseTestSelectFormItems,
+      trueOrFalseTestResultFormItems: trueOrFalseTestResultFormItems,
 
       isPublic: isPublic,
       testType: 'trueOrFalse',
@@ -80,7 +85,7 @@ const FinalConfirmationTrueOrFalseForm = () => {
   };
 
   return (
-    <Form id={FINAL_CONFIRMATION_FORM_ID} onSubmit={onSubmit}>
+    <FormLayout id={TF_FINAL_FORM_ID} onSubmit={onSubmit}>
       <BoxShadowCard subtitle="기본 정보 입력">
         <SubTextBoxSection>
           <SubHeadlineLabel label="제 목" subTitleLocation="start" />
@@ -103,37 +108,39 @@ const FinalConfirmationTrueOrFalseForm = () => {
       </BoxShadowCard>
 
       <BoxShadowCard subtitle="선택지 설정">
-        {trueOrFalseSelectFormItems.map(({ question, optionItems }, index) => (
-          <React.Fragment key={`s${index}`}>
-            <TextBoxSection title={`${index + 1}번`} titleLocation="center">
-              <SubTextBoxSection>
-                <SubHeadlineLabel label="질 문" subTitleLocation="start" />
-                <TextBox text={question} />
-              </SubTextBoxSection>
-
-              {optionItems.map(({ option }, index) => (
-                <SubTextBoxSection key={`o${index}`}>
-                  <SubHeadlineLabel
-                    label={`${index + 1}번`}
-                    subTitleLocation="start"
-                  />
-                  <TextBox text={option} />
+        {trueOrFalseTestSelectFormItems.map(
+          ({ question, optionItems }, index) => (
+            <React.Fragment key={`s${index}`}>
+              <TextBoxSection title={`${index + 1}번`} titleLocation="center">
+                <SubTextBoxSection>
+                  <SubHeadlineLabel label="질 문" subTitleLocation="start" />
+                  <TextBox text={question} />
                 </SubTextBoxSection>
-              ))}
-            </TextBoxSection>
-          </React.Fragment>
-        ))}
+
+                {optionItems.map(({ option }, index) => (
+                  <SubTextBoxSection key={`o${index}`}>
+                    <SubHeadlineLabel
+                      label={`${index + 1}번`}
+                      subTitleLocation="start"
+                    />
+                    <TextBox text={option} />
+                  </SubTextBoxSection>
+                ))}
+              </TextBoxSection>
+            </React.Fragment>
+          ),
+        )}
       </BoxShadowCard>
 
       <BoxShadowCard subtitle="결과 설정">
-        {trueOrFalseResultFormItems.map(
-          ({ typeContent, explanationContent, selectedOption }, index) => (
+        {trueOrFalseTestResultFormItems.map(
+          ({ resultContent, explanationContent, selectedOption }, index) => (
             <React.Fragment key={`t${index}`}>
               <SelectedOptionsTable selectedOption={selectedOption} />
               <TextBoxSection title={`${index + 1}번`} titleLocation="center">
                 <SubTextBoxSection>
                   <SubHeadlineLabel label="유 형" subTitleLocation="start" />
-                  <TextBox text={typeContent} />
+                  <TextBox text={resultContent} />
                 </SubTextBoxSection>
                 <SubTextBoxSection>
                   <SubHeadlineLabel label="설 명" subTitleLocation="start" />
@@ -155,8 +162,8 @@ const FinalConfirmationTrueOrFalseForm = () => {
           </Radio>
         </RadioGroup>
       </BoxShadowCard>
-    </Form>
+    </FormLayout>
   );
 };
 
-export default FinalConfirmationTrueOrFalseForm;
+export default TrueOrFalseTestFinalForm;
