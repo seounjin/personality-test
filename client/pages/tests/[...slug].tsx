@@ -2,7 +2,7 @@ import { Container, Wrapper } from '../../features/tests/tests.styles';
 import { GetServerSideProps } from 'next';
 import withAuth from '../../hoc/withAuth';
 import { setIsAuth } from '../../store/modules/auth';
-import { setBasicInformationItems, setMode } from '../../store/modules/tests';
+import { setMode } from '../../store/modules/tests';
 import Layout from '../../layout/Layout/Layout';
 import { checkTestType } from '../../types/checkTestType';
 import axiosServer from '../../api/axiosServer';
@@ -10,6 +10,8 @@ import { CustomError } from '../../errors';
 import Stepper from '../../features/tests/container/Stepper/Stepper';
 import { setScoreTestItems } from '../../features/tests/container/ScoreTestTypeContainer/scoreTestType.slice';
 import { setMbtiTestItems } from '../../features/tests/container/MbtiTestTypeContainer/mbtiTestType.slice';
+import { setBasicInformationItems } from '../../features/tests/container/BasicInformationForm/BasicInformationForm.slice';
+import { setTrueOrFalseTestItems } from '../../features/tests/container/TrueOrFalseTestContainer/trueOrFalse.slice';
 
 interface TestsPageProps {
   testType: string;
@@ -49,6 +51,8 @@ export const getServerSideProps: GetServerSideProps = withAuth({
             store.dispatch(setScoreTestItems({ data: res.data }));
           } else if (testType === 'mbti') {
             store.dispatch(setMbtiTestItems({ data: res.data }));
+          } else if (testType === 'true-or-false') {
+            store.dispatch(setTrueOrFalseTestItems({ data: res.data }));
           }
 
           return { props: { testType: testType } };

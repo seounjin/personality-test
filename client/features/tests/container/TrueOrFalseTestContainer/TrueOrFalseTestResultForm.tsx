@@ -54,7 +54,7 @@ const TrueOrFalseTestResultForm = ({
 
     if (mode === 'create') {
       setTestItems({
-        trueOrFalseTestResultFormItems: trueOrFalseTestResultFormItems,
+        resultItems: trueOrFalseTestResultFormItems,
       });
     }
 

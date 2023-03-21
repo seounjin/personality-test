@@ -37,7 +37,7 @@ const TureOrFalseTestSelectForm = ({
 
   const dispatch = useDispatch();
 
-  const { control, setValue, getValues, handleSubmit, trigger } =
+  const { control, handleSubmit, trigger } =
     useFormContext<TrueOrFalseTestSelectFormValues>();
 
   const { fields, append, remove } = useFieldArray({
@@ -80,7 +80,7 @@ const TureOrFalseTestSelectForm = ({
 
     if (mode === 'create') {
       setTestItems({
-        trueOrFalseTestSelectFormItems: trueOrFalseTestSelectFormItems,
+        selectItems: trueOrFalseTestSelectFormItems,
       });
     }
 

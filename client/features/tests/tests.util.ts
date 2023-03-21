@@ -41,6 +41,12 @@ export const createTrueOrFalseTestResultFormItems = (
 
   return res.map((combNumberItem, index) => {
     return {
+      selectedOptionNumber: combNumberItem.reduce(
+        (num, { optionNumber }, index) => {
+          return (num += optionNumber);
+        },
+        '',
+      ),
       resultContent: trueOrFalseTestResultFormItems[index]
         ? trueOrFalseTestResultFormItems[index].resultContent
         : '',

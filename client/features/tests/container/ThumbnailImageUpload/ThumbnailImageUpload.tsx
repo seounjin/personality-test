@@ -10,13 +10,14 @@ import {
   Text,
   CancleButton,
 } from './ThumbnailImageUpload.style';
-import {
-  setImageInformation,
-  setResetChangeImage,
-} from '../../../../store/modules/tests';
+
 import PrivewImage from '../../components/PrivewImage/PrivewImage';
 import imageCompression from 'browser-image-compression';
 import { MAX_FILE_SIZE } from '../../tests.const';
+import {
+  setImageInformation,
+  setResetChangeImage,
+} from '../BasicInformationForm/BasicInformationForm.slice';
 
 const ThumbnailImageUpload = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -24,8 +25,8 @@ const ThumbnailImageUpload = (): JSX.Element => {
 
   const { thumbnailImgUrl, isOpenCancleButton } = useSelector(
     (state: RootState) => ({
-      thumbnailImgUrl: state.tests.thumbnailImgUrl,
-      isOpenCancleButton: state.tests.isOpenCancleButton,
+      thumbnailImgUrl: state.basicForm.thumbnailImgUrl,
+      isOpenCancleButton: state.basicForm.isOpenCancleButton,
     }),
     shallowEqual,
   );

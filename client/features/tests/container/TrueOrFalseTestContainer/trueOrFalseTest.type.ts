@@ -30,6 +30,7 @@ export interface SelectedOption {
 }
 
 export interface TrueOrFalseTestResultFormItem extends ResultFormItem {
+  selectedOptionNumber: string;
   selectedOption: SelectedOption[];
 }
 

@@ -114,7 +114,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
       },
     ],
 
-    trueOrFalse: [
+    'true-or-false': [
       {
         formId: BASIC_INFORMATION_FORM_ID,
         title: '기본정보 입력',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SelectedOption } from '../../container/TrueOrFalseResultFormSection/TrueOrFalseResultFormSection.type';
+import { SelectedOption } from '../../container/TrueOrFalseTestContainer/trueOrFalseTest.type';
 import SelectedOptionContent from '../SelectedOptionContent/SelectedOptionContent';
 import {
   ArrowRightIcon,

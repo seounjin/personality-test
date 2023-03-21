@@ -34,18 +34,14 @@ const trueOrFalseSlice = createSlice({
         action.payload.trueOrFalseTestResultFormItems;
     },
     setTrueOrFalseTestItems: (state, action) => {
-      const {
-        trueOrFalseTestSelectFormItems,
-        trueOrFalseTestResultFormItems,
-        isPublic,
-      } = action.payload.data;
+      const { selectItems, resultItems, isPublic } = action.payload.data;
 
-      state.trueOrFalseTestResultFormItems = trueOrFalseTestResultFormItems
-        ? trueOrFalseTestResultFormItems
+      state.trueOrFalseTestResultFormItems = resultItems
+        ? resultItems
         : state.trueOrFalseTestResultFormItems;
 
-      state.trueOrFalseTestSelectFormItems = trueOrFalseTestSelectFormItems
-        ? trueOrFalseTestSelectFormItems
+      state.trueOrFalseTestSelectFormItems = selectItems
+        ? selectItems
         : state.trueOrFalseTestSelectFormItems;
 
       state.isPublic = isPublic;

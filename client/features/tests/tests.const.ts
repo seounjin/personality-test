@@ -27,14 +27,14 @@ export const TEST_TYPE_DATA = [
     imgSrc: '/images/test_type_3.png',
     title: 'O X 유형',
     text: '점수 유형은 각각의 선택지에 가중치를 부여하여 선택시 최대점수가 결과로나오는 유형이에요',
-    testType: 'trueOrFalse',
+    testType: 'true-or-false',
   },
 ];
 
 export const STEP_INDICATOR_LABEL = {
   score: ['기본정보 입력', '유형 설정', '선택지 설정', '최종 확인'],
   mbti: ['기본정보 입력', '유형 설정', '선택지 설정', '최종 확인'],
-  trueOrFalse: ['기본정보 입력', '선택지 설정', '결과지 설정', '최종 확인'],
+  'true-or-false': ['기본정보 입력', '선택지 설정', '결과지 설정', '최종 확인'],
 };
 
 export const MANUAL_DATA = [

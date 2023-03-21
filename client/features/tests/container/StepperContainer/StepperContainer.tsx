@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from '../../../../components/Modal/Modal';
-import { setBasicInformationItems } from '../../../../store/modules/tests';
 import useStorage from '../../hooks/useStorage';
 import { Wrapper } from '../../tests.styles';
+import { setBasicInformationItems } from '../BasicInformationForm/BasicInformationForm.slice';
 import { setMbtiTestItems } from '../MbtiTestTypeContainer/mbtiTestType.slice';
 import { setScoreTestItems } from '../ScoreTestTypeContainer/scoreTestType.slice';
 import SetTestsModal from '../SetTestsModal/SetTestsModal';
@@ -37,7 +37,7 @@ const StepperContainer = ({ testType }: StepperContainerProps): JSX.Element => {
       dispatch(setScoreTestItems({ data: testsItems }));
     } else if (testType === 'mbti') {
       dispatch(setMbtiTestItems({ data: testsItems }));
-    } else if (testType === 'trueOrFalse') {
+    } else if (testType === 'true-or-false') {
       dispatch(setTrueOrFalseTestItems({ data: testsItems }));
     }
 

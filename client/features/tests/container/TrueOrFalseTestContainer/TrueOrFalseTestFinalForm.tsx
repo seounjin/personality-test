@@ -68,11 +68,12 @@ const TrueOrFalseTestFinalForm = () => {
         explain: explain,
         imageData: isChangeImage ? JSON.stringify({ imageData }) : '',
       },
+
       trueOrFalseTestSelectFormItems: trueOrFalseTestSelectFormItems,
       trueOrFalseTestResultFormItems: trueOrFalseTestResultFormItems,
 
       isPublic: isPublic,
-      testType: 'trueOrFalse',
+      testType: 'true-or-false',
       isChangeImage: isChangeImage,
       thumbnailImgUrl: thumbnailImgUrl,
     };
