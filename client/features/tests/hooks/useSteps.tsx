@@ -6,19 +6,19 @@ import {
   SCORE_TEST_RESULT_FORM_ID,
   SCORE_TEST_SELECT_FORM_ID,
   SCORE_TEST_FINAL_FORM_ID,
-} from '../container/ScoreTestTypeContainer/scoreTestType.const';
-import ScoreTestResultForm from '../container/ScoreTestTypeContainer/ScoreTestResultForm';
-import ScoreTestSelectForm from '../container/ScoreTestTypeContainer/ScoreTestSelectForm';
+} from '../container/ScoreTestContainer/scoreTest.const';
+import ScoreTestResultForm from '../container/ScoreTestContainer/ScoreTestResultForm';
+import ScoreTestSelectForm from '../container/ScoreTestContainer/ScoreTestSelectForm';
 import { BASIC_INFORMATION_FORM_ID } from '../tests.const';
-import ScoreTestFinalForm from '../container/ScoreTestTypeContainer/ScoreTestFinalForm';
+import ScoreTestFinalForm from '../container/ScoreTestContainer/ScoreTestFinalForm';
 import {
   MBTI_TEST_RESULT_FORM_ID,
   MBTI_TEST_SELECT_FORM_ID,
   MBTI_TEST_FINAL_FORM_ID,
-} from '../container/MbtiTestTypeContainer/mbtiTestType.const';
-import MbtiTestResultForm from '../container/MbtiTestTypeContainer/MbtiTestResultForm';
-import MbtiTestSelectForm from '../container/MbtiTestTypeContainer/MbtiTestSelectForm';
-import MbtiTestFinalForm from '../container/MbtiTestTypeContainer/MbtiTestFinalForm';
+} from '../container/MbtiTestContainer/mbtiTest.const';
+import MbtiTestResultForm from '../container/MbtiTestContainer/MbtiTestResultForm';
+import MbtiTestSelectForm from '../container/MbtiTestContainer/MbtiTestSelectForm';
+import MbtiTestFinalForm from '../container/MbtiTestContainer/MbtiTestFinalForm';
 import { useMbtiTestFormMethods } from './useMbtiTestFormMethods';
 import { useTrueOrFalseTestFormMethods } from './useTrueOrFalseTestFormMethods';
 import {

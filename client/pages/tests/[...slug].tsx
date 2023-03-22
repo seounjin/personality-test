@@ -8,8 +8,8 @@ import { checkTestType } from '../../types/checkTestType';
 import axiosServer from '../../api/axiosServer';
 import { CustomError } from '../../errors';
 import Stepper from '../../features/tests/container/Stepper/Stepper';
-import { setScoreTestItems } from '../../features/tests/container/ScoreTestTypeContainer/scoreTestType.slice';
-import { setMbtiTestItems } from '../../features/tests/container/MbtiTestTypeContainer/mbtiTestType.slice';
+import { setScoreTestItems } from '../../features/tests/container/ScoreTestContainer/scoreTest.slice';
+import { setMbtiTestItems } from '../../features/tests/container/MbtiTestContainer/mbtiTest.slice';
 import { setBasicInformationItems } from '../../features/tests/container/BasicInformationForm/BasicInformationForm.slice';
 import { setTrueOrFalseTestItems } from '../../features/tests/container/TrueOrFalseTestContainer/trueOrFalse.slice';
 

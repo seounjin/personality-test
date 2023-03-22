@@ -13,15 +13,18 @@ import {
   TopSection,
 } from './MainScreen.style';
 
+interface onClickProps {
+  currentSlide: number;
+  weightedScoreItems?: WeightedScoreItem[];
+  optionNumber?: number;
+}
+
 interface MainProps {
   question: string;
   optionItems: OptionItems[];
   slideIndex: number;
   totalStep: number;
-  onClick: (
-    weightedScoreItems: WeightedScoreItem[],
-    slideIndex: number,
-  ) => void;
+  onClick: (...props: onClickProps[]) => void;
 }
 
 const MainScreen = ({
@@ -48,7 +51,13 @@ const MainScreen = ({
         <ButtonWrapper>
           {optionItems.map(({ option, weightedScoreItems }, index) => (
             <OptionButton
-              onClick={() => onClick(weightedScoreItems, slideIndex + 1)}
+              onClick={() =>
+                onClick({
+                  currentSlide: slideIndex + 1,
+                  weightedScoreItems,
+                  optionNumber: index + 1,
+                })
+              }
               key={`o${index}`}
             >
               {option}

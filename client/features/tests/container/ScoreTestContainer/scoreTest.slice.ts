@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   MIN_NUMBER_OF_ITEMS_COUNT,
   MIN_TYPE_ITEMS_COUNT,
-} from './scoreTestType.const';
-import { ScoreTestSliceInitialState } from './scoreTestType.type';
+} from './scoreTest.const';
+import { ScoreTestSliceInitialState } from './scoreTest.type';
 
 const initialState: ScoreTestSliceInitialState = {
   scoreTestResultItemsCount: MIN_TYPE_ITEMS_COUNT,
@@ -59,15 +59,14 @@ const scoreTestSlice = createSlice({
       state.scoreTestSelectFormItems = action.payload.scoreTestSelectFormItems;
     },
     setScoreTestItems: (state, action) => {
-      const { scoreTestSelectFormItems, scoreTestResultFormItems, isPublic } =
-        action.payload.data;
+      const { selectItems, resultItems, isPublic } = action.payload.data;
 
       state.isPublic = isPublic;
-      state.scoreTestResultFormItems = scoreTestResultFormItems
-        ? scoreTestResultFormItems
+      state.scoreTestResultFormItems = resultItems
+        ? resultItems
         : state.scoreTestResultFormItems;
-      state.scoreTestSelectFormItems = scoreTestSelectFormItems
-        ? scoreTestSelectFormItems
+      state.scoreTestSelectFormItems = selectItems
+        ? selectItems
         : state.scoreTestSelectFormItems;
     },
   },

@@ -24,6 +24,7 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
     title,
     subTitle,
     explain,
+    testType,
     isPublic,
     weightedScoreDictionary,
     personalityItems,
@@ -50,7 +51,7 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
 
   const optionsButtonClick = useCallback(
     throttle(
-      (weightedScoreItems: WeightedScoreItem[], currentSlide): void => {
+      ({ weightedScoreItems, currentSlide }): void => {
         raseScore(weightedScoreItems);
         if (currentSlide === lastSlide) {
           const res = getHighestScoreType();
@@ -82,8 +83,11 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
     return shuffleWeightScore[0];
   };
 
-  const requestResult = async (type: string) => {
-    const res = await fetcher('get', `/personality/${id}/results/${type}`);
+  const requestResult = async (result: string) => {
+    const res = await fetcher(
+      'get',
+      `/personality/${id}/${testType}/results/${result}`,
+    );
     if (res.success) {
       const { resultItems } = res.data;
       setResultItems(resultItems[0]);

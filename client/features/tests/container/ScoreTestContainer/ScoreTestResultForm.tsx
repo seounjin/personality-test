@@ -10,13 +10,13 @@ import {
   MAX_TYPE_ITEMS_COUNT,
   MIN_TYPE_ITEMS_COUNT,
   SCORE_TEST_RESULT_FORM_ID,
-} from './scoreTestType.const';
+} from './scoreTest.const';
 import {
   setScoreTestResultFormItems,
   setScoreTestResultItemsCount,
   setInitScoreTestSelectFormItems,
-} from './scoreTestType.slice';
-import { ScoreTestResultFormItems } from './scoreTestType.type';
+} from './scoreTest.slice';
+import { ScoreTestResultFormItems } from './scoreTest.type';
 
 interface TypeFormSectionProps {
   handleNext: () => void;
@@ -63,7 +63,7 @@ const ScoreTestResultForm = ({
     const { scoreTestResultFormItems } = data;
 
     if (mode === 'create') {
-      setTestItems({ scoreTestResultFormItems: scoreTestResultFormItems });
+      setTestItems({ resultItems: scoreTestResultFormItems });
     }
 
     dispatch(

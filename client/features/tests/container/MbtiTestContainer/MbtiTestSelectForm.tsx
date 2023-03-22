@@ -9,9 +9,9 @@ import { RootState } from '../../../../store/modules';
 import useStorage from '../../hooks/useStorage';
 import { SubTitle } from '../../tests.styles';
 import TextRadioButtonGroup from '../TextRadioButtonGroup/TextRadioButtonGroup';
-import { MBTI_DATA, MBTI_TEST_SELECT_FORM_ID } from './mbtiTestType.const';
-import { setMbtiSelctFormItems } from './mbtiTestType.slice';
-import { MbtiTestSelectFormItemsType } from './mbtiTestType.type';
+import { MBTI_DATA, MBTI_TEST_SELECT_FORM_ID } from './mbtiTest.const';
+import { setMbtiSelctFormItems } from './mbtiTest.slice';
+import { MbtiTestSelectFormItemsType } from './mbtiTest.type';
 import { cloneDeep } from 'lodash';
 
 interface MbtiTestSelectFormProps {
@@ -55,7 +55,7 @@ const MbtiTestSelectForm = ({
     }
     const { mbtiTestSelectFormItems } = data;
     if (mode === 'create') {
-      setTestItems({ mbtiTestSelectFormItems: mbtiTestSelectFormItems });
+      setTestItems({ selectItems: mbtiTestSelectFormItems });
     }
     dispatch(setMbtiSelctFormItems(cloneDeep(data)));
     handleNext();

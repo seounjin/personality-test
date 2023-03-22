@@ -10,6 +10,7 @@ import MainPageLayout from '../../layout/MainPageLayout/MainPageLayout';
 import axiosServer from '../../api/axiosServer';
 import { checkTestType } from '../../types/checkTestType';
 import { CustomError } from '../../errors';
+import TrueOrFalseTypeTest from '../../features/personalityTest/container/TrueOrFalseTypeTest/TrueOrFalseTypeTest';
 
 interface MainPageProps {
   testItems: ScoreTestItems | MbtiTestItems;
@@ -21,6 +22,8 @@ const testList = (testType, testItems) => {
       return <ScoreTypeTest testItems={testItems} />;
     case 'mbti':
       return <MbtiTestType testItems={testItems} />;
+    case 'true-or-false':
+      return <TrueOrFalseTypeTest testItems={testItems} />;
   }
 };
 
@@ -35,11 +38,17 @@ const setWeightedScoreDictionary = (data) =>
 
 const weightedScoreDictionary = (testType, selectItems) => {
   if (testType === 'score') {
-    return setWeightedScoreDictionary(
-      selectItems[0].optionItems[0].weightedScoreItems,
-    );
+    return {
+      weightedScoreDictionary: setWeightedScoreDictionary(
+        selectItems[0].optionItems[0].weightedScoreItems,
+      ),
+    };
   } else if (testType === 'mbti') {
-    return setWeightedScoreDictionary(MBTI_TEST_TYPE_CONTENT);
+    return {
+      weightedScoreDictionary: setWeightedScoreDictionary(
+        MBTI_TEST_TYPE_CONTENT,
+      ),
+    };
   }
   return {};
 };
@@ -87,10 +96,7 @@ export const getServerSideProps: GetServerSideProps = async ({
             testType: testType,
             isPublic: isPublic,
             personalityItems: [...selectItems],
-            weightedScoreDictionary: weightedScoreDictionary(
-              testType,
-              selectItems,
-            ),
+            ...weightedScoreDictionary(testType, selectItems),
           },
         },
       };

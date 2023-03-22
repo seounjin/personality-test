@@ -17,6 +17,7 @@ import { Card } from './CardList.type';
 import Image from 'next/image';
 import TwoButton from '../TwoButton/TwoButton';
 import Tag from '../Tag/Tag';
+import { PARSE_TAG_TEXT } from '../../features/tests/tests.const';
 
 type CardListProps = {
   cardItems: Card[];
@@ -91,7 +92,7 @@ const CardList = ({
             <Headline>{title}</Headline>
             <TagsWrapper>
               <Tag
-                name={`${testType}유형`}
+                name={`${PARSE_TAG_TEXT[testType]}유형`}
                 backgroundColor={`${testType}TypeTagBgColor`}
               />
             </TagsWrapper>

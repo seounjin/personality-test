@@ -55,6 +55,7 @@ export const theme: DefaultTheme = {
     previewButtonColor: '#808080',
     detailButtonColor: '#594545',
     detailButtonHoverColor: '#cebaba',
+    'true-or-falseTypeTagBgColor': '#DAEAF1',
   },
 
   device: {

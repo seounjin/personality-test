@@ -52,6 +52,7 @@ declare module 'styled-components' {
       previewButtonColor: string;
       detailButtonColor: string;
       detailButtonHoverColor: string;
+      'true-or-falseTypeTagBgColor': string;
     };
 
     device: {

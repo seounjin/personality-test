@@ -1,69 +1,43 @@
 import React, { useCallback, useState } from 'react';
-import { SelectFormItems, WeightedScoreItem } from '../../../../types';
+import { SelectFormItems } from '../../../../types';
 import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
-import { MBTI_TEST_TYPE } from '../../personalityTest.const';
 import { useSlide } from '../../personalityTest.hook';
-import {
-  WeightedScore,
-  ResultItems,
-  MbtiTestItems,
-} from '../../personalityTest.types';
+import { ResultItems } from '../../personalityTest.types';
 import { throttle } from 'lodash';
 import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
 
-interface MbtiTestTypeProps {
-  testItems: MbtiTestItems;
+interface TrueOrFalseTypeTestProps {
+  testItems: any;
 }
 
-const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
-  const {
-    id,
-    title,
-    subTitle,
-    explain,
-    testType,
-    isPublic,
-    weightedScoreDictionary,
-    personalityItems,
-  } = testItems;
+const TrueOrFalseTypeTest = ({
+  testItems,
+}: TrueOrFalseTypeTestProps): JSX.Element => {
+  const { id, title, subTitle, testType, isPublic, personalityItems } =
+    testItems;
 
   const [personalityTest] = useState<SelectFormItems[]>(personalityItems);
   const [lastSlide] = useState<number>(personalityTest.length);
-  const [weightedScore, setWeightedScore] = useState<WeightedScore>(
-    weightedScoreDictionary,
-  );
+
   const [resultItems, setResultItems] = useState<ResultItems | null>(null);
+  const [selectedOtioin, setSelectedOption] = useState('');
+
   const { slideRef, nextSlide, resetSlide } = useSlide();
 
   const startClick = (): void => {
     nextSlide();
   };
 
-  const raseScore = (weightedScoreItems: WeightedScoreItem[]) => {
-    for (const { typeContent, score } of weightedScoreItems) {
-      weightedScore[typeContent] += score;
-    }
-    setWeightedScore({ ...weightedScore });
-  };
-
-  const setMbtiType = () =>
-    MBTI_TEST_TYPE.reduce((type, item, index) => {
-      const [aType, bType] = item;
-      return (type +=
-        weightedScore[aType] > weightedScore[bType] ? aType : bType);
-    }, '');
-
   const optionsButtonClick = useCallback(
     throttle(
-      ({ weightedScoreItems = [], currentSlide }): void => {
-        raseScore(weightedScoreItems);
+      ({ currentSlide, optionNumber }): void => {
+        setSelectedOption(selectedOtioin + `${optionNumber}`);
         if (currentSlide === lastSlide) {
-          const res = setMbtiType();
-          requestResult(res);
+          requestResult(selectedOtioin + `${optionNumber}`);
           return;
         }
         nextSlide();
@@ -74,7 +48,8 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
     [],
   );
 
-  const requestResult = async (result: string) => {
+  const requestResult = async (result) => {
+    console.log('투지', selectedOtioin, testType);
     const res = await fetcher(
       'get',
       `/personality/${id}/${testType}/results/${result}`,
@@ -90,7 +65,7 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
 
   const reStartClick = (): void => {
     resetSlide();
-    setWeightedScore(weightedScoreDictionary);
+    setSelectedOption('');
   };
 
   return (
@@ -123,4 +98,4 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
   );
 };
 
-export default MbtiTestType;
+export default TrueOrFalseTypeTest;

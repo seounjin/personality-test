@@ -56,3 +56,9 @@ export const MANUAL_DATA = [
       '최종 확인 단계에요\n생성하려는 테스트의 공개와 비공개를 설정할 수 있어요\n충분히 검토하여 제출해주세요',
   },
 ];
+
+export const PARSE_TAG_TEXT = {
+  score: '점수',
+  mbti: 'mbti',
+  'true-or-false': 'O X',
+};

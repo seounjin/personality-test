@@ -3,8 +3,8 @@ import {
   MBTI_DATA,
   MBTI_TEST_RESULT_FORM_ITEMS,
   MBTI_SELECT_COUNT,
-} from './mbtiTestType.const';
-import { MbtiTestSliceInitialState } from './mbtiTestType.type';
+} from './mbtiTest.const';
+import { MbtiTestSliceInitialState } from './mbtiTest.type';
 
 const initialState: MbtiTestSliceInitialState = {
   isPublic: true,
@@ -77,15 +77,14 @@ const mbtiTestSlice = createSlice({
     },
 
     setMbtiTestItems: (state, action) => {
-      const { isPublic, mbtiTestSelectFormItems, mbtiTestResultFormItems } =
-        action.payload.data;
+      const { isPublic, selectItems, resultItems } = action.payload.data;
 
       state.isPublic = isPublic;
-      state.mbtiTestResultFormItems = mbtiTestResultFormItems
-        ? mbtiTestResultFormItems
+      state.mbtiTestResultFormItems = resultItems
+        ? resultItems
         : state.mbtiTestResultFormItems;
-      state.mbtiTestSelectFormItems = mbtiTestSelectFormItems
-        ? mbtiTestSelectFormItems
+      state.mbtiTestSelectFormItems = selectItems
+        ? selectItems
         : state.mbtiTestSelectFormItems;
     },
   },

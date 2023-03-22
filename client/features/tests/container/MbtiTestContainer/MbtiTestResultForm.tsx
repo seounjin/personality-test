@@ -5,11 +5,11 @@ import { RootState } from '../../../../store/modules';
 import ResultWriter from '../../components/ResultWriter/ResultWriter';
 import useStorage from '../../hooks/useStorage';
 import { ResultFormItem } from '../../tests.types';
-import { MBTI_TEST_RESULT_FORM_ID } from './mbtiTestType.const';
+import { MBTI_TEST_RESULT_FORM_ID } from './mbtiTest.const';
 import {
   setInitMbtiSelctFormItems,
   setmbtiTestResultFormItems,
-} from './mbtiTestType.slice';
+} from './mbtiTest.slice';
 
 type mbtiTestResultFormItemsValues = {
   mbtiTestResultFormItems: ResultFormItem[];
@@ -46,7 +46,7 @@ const MbtiTestResultForm = ({
     const { mbtiTestResultFormItems } = data;
 
     if (mode === 'create') {
-      setTestItems({ mbtiTestResultFormItems: mbtiTestResultFormItems });
+      setTestItems({ resultItems: mbtiTestResultFormItems });
     }
 
     dispatch(

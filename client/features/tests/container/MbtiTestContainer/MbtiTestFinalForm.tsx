@@ -15,7 +15,7 @@ import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 import useStorage from '../../hooks/useStorage';
 import TextBoxSection from '../TextBoxSection/TextBoxSection';
 import WeightedScoreBoardSection from '../WeightedScoreBoardSection/WeightedScoreBoardSection';
-import { MBTI_TEST_FINAL_FORM_ID } from './mbtiTestType.const';
+import { MBTI_TEST_FINAL_FORM_ID } from './mbtiTest.const';
 
 const MbtiTestFinalForm = () => {
   const {

@@ -21,13 +21,13 @@ import {
   MIN_NUMBER_OF_ITEMS_COUNT,
   MIN_OPTION_ITEMS_COUNT,
   SCORE_TEST_SELECT_FORM_ID,
-} from './scoreTestType.const';
+} from './scoreTest.const';
 import {
   setNumberOfItemsCount,
   setScoreTestSelectFormItems,
-} from './scoreTestType.slice';
+} from './scoreTest.slice';
 
-import { ScoreTestSelectFormItemsType } from './scoreTestType.type';
+import { ScoreTestSelectFormItemsType } from './scoreTest.type';
 
 interface ScoreTestSelectFormProps {
   handleNext: () => void;
@@ -128,7 +128,7 @@ const ScoreTestSelectForm = ({
     }
     const { scoreTestSelectFormItems } = data;
     if (mode === 'create') {
-      setTestItems({ scoreTestSelectFormItems: scoreTestSelectFormItems });
+      setTestItems({ selectItems: scoreTestSelectFormItems });
     }
     dispatch(setScoreTestSelectFormItems(data));
     handleNext();

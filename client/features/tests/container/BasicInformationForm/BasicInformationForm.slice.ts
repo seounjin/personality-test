@@ -32,8 +32,11 @@ const basicFormSlice = createSlice({
       state.thumbnailImgUrl = thumbnailImgUrl
         ? thumbnailImgUrl
         : IMAGE_HOLDER_PATH;
-      state.isOpenCancleButton =
-        thumbnailImgUrl === IMAGE_HOLDER_PATH ? false : true;
+      state.isOpenCancleButton = thumbnailImgUrl
+        ? thumbnailImgUrl === IMAGE_HOLDER_PATH
+          ? false
+          : true
+        : false;
     },
 
     setImageInformation: (state, action) => {
