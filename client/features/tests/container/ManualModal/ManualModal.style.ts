@@ -6,19 +6,24 @@ export const Container = styled.div``;
 
 export const Body = styled.div``;
 
-export const Title = styled.h1`
-  font-size: 16px;
+export const Title = styled.h2`
+  font-size: 20px;
 `;
 
 export const ContentWrapper = styled.ul`
   margin: 0;
   margin-top: 20px;
   padding-left: 20px;
-  font-size: 14px;
+  font-size: 18px;
 `;
 
-export const Content = styled.li`
+interface ContentProps {
+  isListStyle: boolean;
+}
+
+export const Content = styled.li<ContentProps>`
   margin-bottom: 8px;
+  list-style: ${({ isListStyle }) => (isListStyle ? 'initial' : 'none')};
 `;
 
 export const Page = styled.div`
@@ -71,4 +76,8 @@ export const Button = styled.button`
   background: white;
   padding: 0;
   margin: 0 5px;
+`;
+
+export const BulletPoint = styled.span`
+  font-size: 20px;
 `;

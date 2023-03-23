@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import {
-  BASIC_INFORMATION_FORM,
-  FINAL_CONFIRMATION,
-  MANUAL_DATA,
-} from '../../tests.const';
-import {
   Body,
+  BulletPoint,
   Button,
   Container,
   Content,
@@ -19,20 +15,22 @@ import {
 
 interface ManualModalProps {
   activeStep: number;
+  manual: any;
 }
 
-const ManualModal = ({ activeStep }: ManualModalProps): JSX.Element => {
+const ManualModal = ({ activeStep, manual }: ManualModalProps): JSX.Element => {
   const [currentSlide, setCurrentSlide] = useState(activeStep);
 
-  const { title, content } = MANUAL_DATA[currentSlide];
+  const { firstStep, lastStep, data } = manual;
+  const { title, content } = data[currentSlide];
 
   const prevButtonClick = () => {
-    if (BASIC_INFORMATION_FORM === currentSlide) return;
+    if (currentSlide === firstStep) return;
     setCurrentSlide((currentSlide) => currentSlide - 1);
   };
 
   const nextButtonClick = () => {
-    if (FINAL_CONFIRMATION === currentSlide) return;
+    if (currentSlide === lastStep) return;
 
     setCurrentSlide((currentSlide) => currentSlide + 1);
   };
@@ -42,9 +40,17 @@ const ManualModal = ({ activeStep }: ManualModalProps): JSX.Element => {
       <Body>
         <Title>{title}</Title>
         <ContentWrapper>
-          {content.split('\n').map((line, index) => (
-            <Content key={`l${index}`}>{line}</Content>
-          ))}
+          {content.split('\n').map((line, index) => {
+            const bulletPoint = line.trim()[0];
+            return (
+              <Content
+                key={`l${index}`}
+                isListStyle={bulletPoint === '-' ? false : true}
+              >
+                {line}
+              </Content>
+            );
+          })}
         </ContentWrapper>
       </Body>
 
@@ -52,22 +58,22 @@ const ManualModal = ({ activeStep }: ManualModalProps): JSX.Element => {
         <Button
           type="button"
           onClick={prevButtonClick}
-          disabled={currentSlide === BASIC_INFORMATION_FORM}
+          disabled={currentSlide === firstStep}
         >
-          <PrevIcon $isDisabled={currentSlide === BASIC_INFORMATION_FORM} />
+          <PrevIcon $isDisabled={currentSlide === firstStep} />
         </Button>
 
         <Button
           type="button"
           onClick={nextButtonClick}
-          disabled={currentSlide === FINAL_CONFIRMATION}
+          disabled={currentSlide === lastStep}
         >
-          <NextIcon $isDisabled={currentSlide === FINAL_CONFIRMATION} />
+          <NextIcon $isDisabled={currentSlide === lastStep} />
         </Button>
       </TwoButtonWrapper>
 
       <Page>
-        {currentSlide + 1} {'/'} {FINAL_CONFIRMATION + 1}
+        {currentSlide + 1} {'/'} {lastStep + 1}
       </Page>
     </Container>
   );

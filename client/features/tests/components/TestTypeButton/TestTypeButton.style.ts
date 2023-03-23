@@ -31,6 +31,6 @@ export const Headline = styled.h1`
 `;
 
 export const Text = styled.p`
-  font-size: 14px;
-  line-height: normal;
+  font-size: 16px;
+  line-height: 1.6;
 `;

@@ -5,7 +5,7 @@ export interface WeightedScoreItem {
 
 export interface OptionItems {
   option: string;
-  weightedScoreItems: WeightedScoreItem[];
+  weightedScoreItems?: WeightedScoreItem[];
 }
 
 export interface SelectFormItems {

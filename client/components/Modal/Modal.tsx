@@ -1,5 +1,12 @@
 import { ReactNode } from 'react';
-import { Wrapper, Overlay, ModalContent } from './Modal.style';
+import {
+  Wrapper,
+  Overlay,
+  ModalContent,
+  ModalHeadLilne,
+  XMarkIcon,
+  XMarkIconWrapper,
+} from './Modal.style';
 
 interface ModalProps {
   children: ReactNode;
@@ -10,7 +17,14 @@ const Modal = ({ children, onClose }: ModalProps): JSX.Element => {
   return (
     <Wrapper>
       <Overlay onClick={onClose} />
-      <ModalContent>{children}</ModalContent>
+      <ModalContent>
+        <ModalHeadLilne>
+          <XMarkIconWrapper onClick={onClose}>
+            <XMarkIcon />
+          </XMarkIconWrapper>
+        </ModalHeadLilne>
+        {children}
+      </ModalContent>
     </Wrapper>
   );
 };

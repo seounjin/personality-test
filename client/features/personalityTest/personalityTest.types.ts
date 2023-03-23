@@ -39,3 +39,7 @@ export interface ScoreTestItems extends BaseTestItems {
 }
 
 export type MbtiTestItems = ScoreTestItems;
+
+export interface TrueOrFalseTestItems extends BaseTestItems {
+  personalityItems: PersonalityItems[];
+}

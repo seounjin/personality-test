@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import StepIndicator from '../../../../components/StepIndicator/StepIndicator';
 import TwoButton from '../../../../components/TwoButton/TwoButton';
-import { STEP_INDICATOR_LABEL } from '../../tests.const';
+import { MODAL_MANUAL_ITEMS, STEP_INDICATOR_LABEL } from '../../tests.const';
 import {
   TwoButtonWrapper,
   Container,
@@ -60,7 +60,10 @@ const Stepper = ({ testType }: StepperProps): JSX.Element => {
       <ScrollTop activeStep={activeStep} />
       {isModalOpen && (
         <Modal onClose={handleModal}>
-          <ManualModal activeStep={activeStep} />
+          <ManualModal
+            activeStep={activeStep}
+            manual={MODAL_MANUAL_ITEMS[testType]}
+          />
         </Modal>
       )}
 

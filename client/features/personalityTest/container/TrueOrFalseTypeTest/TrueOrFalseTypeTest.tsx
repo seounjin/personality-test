@@ -5,13 +5,13 @@ import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
 import { useSlide } from '../../personalityTest.hook';
-import { ResultItems } from '../../personalityTest.types';
+import { ResultItems, TrueOrFalseTestItems } from '../../personalityTest.types';
 import { throttle } from 'lodash';
 import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
 
 interface TrueOrFalseTypeTestProps {
-  testItems: any;
+  testItems: TrueOrFalseTestItems;
 }
 
 const TrueOrFalseTypeTest = ({
