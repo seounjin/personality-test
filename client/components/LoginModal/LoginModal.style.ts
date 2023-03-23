@@ -12,7 +12,7 @@ export const Title = styled.h1`
 export const LoginFormButton = styled.button`
   border-radius: 3px;
   margin: 20px 0;
-  width: 280px;
+  width: 340px;
   height: 34px;
   border: none;
   font-size: 1.5rem;
