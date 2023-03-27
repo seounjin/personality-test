@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: none;
@@ -10,40 +10,31 @@ export const Container = styled.div`
   `}
 `;
 
-export const Overlay = styled.div`
-  position: absolute;
+interface OverlayProps {
+  isSideBarOpen: boolean;
+}
+
+export const Overlay = styled.div<OverlayProps>`
+  display: ${({ isSideBarOpen }) => (isSideBarOpen ? 'inline' : 'none')};
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgb(0, 0, 0, 0.1);
-`;
-
-export const Wrapper = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-`;
-
-const slide = keyframes`
-  0% {
-    transform: translate(100%, 0);
-  }
-
-  100% {
-    transform: translate(0, 0);
-  }
+  z-index: 100;
 `;
 
 export const SideBarWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
+  width: 230px;
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.5s ease-in-out;
 
-  .sidebar {
-    animation: ${slide} 0.5s ease-in-out;
+  &.open {
+    transform: translateX(0%);
   }
 `;

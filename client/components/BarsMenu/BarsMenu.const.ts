@@ -12,7 +12,7 @@ export const LOGOUT_MENU = [
     key: 2,
     type: 'button',
     text: '성향테스트 만들기',
-    asPath: '/signup',
+    asPath: '/login',
     subMenu: [],
   },
   {

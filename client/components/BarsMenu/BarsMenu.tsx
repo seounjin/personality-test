@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Sidebar from '../SideBar/Sidebar';
 import BarsIcon from '../BarsIcon/BarsIcon';
 import { LOGIN_MENU, LOGOUT_MENU } from './BarsMenu.const';
-import { Container, Overlay, SideBarWrapper, Wrapper } from './BarsMenu.style';
+import { Container, Overlay, SideBarWrapper } from './BarsMenu.style';
 import { useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
 import fetcher from '../../api/fetcher';
@@ -15,6 +15,9 @@ const BarsMenu = (): JSX.Element => {
     }),
     shallowEqual,
   );
+
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -37,7 +40,6 @@ const BarsMenu = (): JSX.Element => {
     }
     router.push(asPath);
   };
-  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const handleSideBar = () => {
     setIsSideBarOpen(!isSideBarOpen);
@@ -46,18 +48,14 @@ const BarsMenu = (): JSX.Element => {
   return (
     <Container>
       <BarsIcon onClick={handleSideBar} />
-      {isSideBarOpen && (
-        <Wrapper>
-          <Overlay onClick={handleSideBar} />
-          <SideBarWrapper>
-            {isAuth ? (
-              <Sidebar onClick={handleClick} sidebarMenu={LOGIN_MENU} />
-            ) : (
-              <Sidebar onClick={handleClick} sidebarMenu={LOGOUT_MENU} />
-            )}
-          </SideBarWrapper>
-        </Wrapper>
-      )}
+      <Overlay onClick={handleSideBar} isSideBarOpen={isSideBarOpen} />
+      <SideBarWrapper className={isSideBarOpen ? 'open' : ''}>
+        {isAuth ? (
+          <Sidebar onClick={handleClick} sidebarMenu={LOGIN_MENU} />
+        ) : (
+          <Sidebar onClick={handleClick} sidebarMenu={LOGOUT_MENU} />
+        )}
+      </SideBarWrapper>
     </Container>
   );
 };
