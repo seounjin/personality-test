@@ -96,7 +96,7 @@ export const CardHoverTitle = styled.h3`
   transition: all 0.4s;
 `;
 
-export const CardHoverExplain = styled.p`
+export const CardHoverExplain = styled.span`
   position: absolute;
   top: 150%;
   transition: all 0.4s;

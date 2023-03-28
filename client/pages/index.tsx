@@ -1,19 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Modal from '../components/Modal/Modal';
-import fetcher from '../api/fetcher';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import HomeBody from '../layout/Homebody/HomeBody';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { RootState } from '../store/modules';
 import { setIsAuth } from '../store/modules/auth';
-import CardList from '../components/CardList/CardList';
+// import CardList from '../components/CardList/CardList';
 import { Card } from '../components/CardList/CardList.type';
 import withAuth from '../hoc/withAuth';
 import Layout from '../layout/Layout/Layout';
 import axiosServer from '../api/axiosServer';
-
-const MCardList = React.memo(CardList);
+import dynamic from 'next/dynamic';
 
 type HomeProps = {
   cardItems: Card[];
@@ -33,11 +28,23 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
   //   if (Intersecting) getCards();
   // }, [Intersecting]);
 
+  const CardList = dynamic(() => import('../components/CardList/CardList'), {
+    ssr: true,
+  });
+
   return (
     <Layout>
       <HomeBody>
-        {cards && <MCardList cardItems={cards} type="home" />}
-
+        <Suspense
+          fallback={
+            <div>
+              loading...loading...loading...loading...loading...loading...loading...
+            </div>
+          }
+        >
+          {/* {cards && <CardList cardItems={cards} type="home" />} */}
+          <CardList cardItems={cards} type="home" />
+        </Suspense>
         {/* <div ref={target} style={{ height: '1px' }}></div> */}
       </HomeBody>
     </Layout>
