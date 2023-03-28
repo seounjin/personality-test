@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { GetServerSideProps } from 'next';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import HomeBody from '../layout/Homebody/HomeBody';
 import { setIsAuth } from '../store/modules/auth';
-// import CardList from '../components/CardList/CardList';
 import { Card } from '../components/CardList/CardList.type';
 import withAuth from '../hoc/withAuth';
 import Layout from '../layout/Layout/Layout';
@@ -35,16 +34,7 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
   return (
     <Layout>
       <HomeBody>
-        <Suspense
-          fallback={
-            <div>
-              loading...loading...loading...loading...loading...loading...loading...
-            </div>
-          }
-        >
-          {/* {cards && <CardList cardItems={cards} type="home" />} */}
-          <CardList cardItems={cards} type="home" />
-        </Suspense>
+        <CardList cardItems={cards} type="home" />
         {/* <div ref={target} style={{ height: '1px' }}></div> */}
       </HomeBody>
     </Layout>

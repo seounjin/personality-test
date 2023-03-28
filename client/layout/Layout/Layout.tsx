@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
-import { ReactNode, Suspense } from 'react';
-// import Header from '../Header/Header';
+import { ReactNode } from 'react';
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,15 +12,7 @@ const Header = dynamic(() => import('../Header/Header'), {
 const Layout = ({ children }: LayoutProps): JSX.Element => {
   return (
     <>
-      <Suspense
-        fallback={
-          <div>
-            loading...loading...loading...loading...loading...loading...loading...
-          </div>
-        }
-      >
-        <Header />
-      </Suspense>
+      <Header />
       {children}
     </>
   );
