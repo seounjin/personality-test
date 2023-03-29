@@ -17,10 +17,7 @@ import { Card } from './CardList.type';
 import Image from 'next/image';
 import TwoButton from '../TwoButton/TwoButton';
 import Tag from '../Tag/Tag';
-import {
-  IMAGE_HOLDER_PATH,
-  PARSE_TAG_TEXT,
-} from '../../features/tests/tests.const';
+import { PARSE_TAG_TEXT } from '../../features/tests/tests.const';
 
 type CardListProps = {
   cardItems: Card[];
@@ -81,12 +78,7 @@ const CardList = ({
 
           <CardItemHeader>
             <CardImageWrapper>
-              <Image
-                alt="card-img"
-                src={thumbnailImgUrl ? thumbnailImgUrl : IMAGE_HOLDER_PATH}
-                fill
-                priority
-              />
+              <Image alt="card-img" src={thumbnailImgUrl} fill priority />
             </CardImageWrapper>
           </CardItemHeader>
           <CardItemBody>

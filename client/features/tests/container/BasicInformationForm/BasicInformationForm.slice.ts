@@ -6,7 +6,7 @@ const initialState: BasicFormSliceInitialState = {
   title: '',
   subTitle: '',
   explain: '',
-  thumbnailImgUrl: '',
+  thumbnailImgUrl: IMAGE_HOLDER_PATH,
   imageData: '',
   isChangeImage: false,
   isOpenCancleButton: false,

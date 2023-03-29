@@ -77,7 +77,6 @@ const ScoreTestFinalForm = () => {
       thumbnailImgUrl: thumbnailImgUrl,
     };
 
-    console.log('스코어 데이터', data);
     if (mode === 'create') {
       requestRegister(data);
     } else {
