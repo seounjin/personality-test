@@ -19,6 +19,8 @@ import TwoButton from '../TwoButton/TwoButton';
 import Tag from '../Tag/Tag';
 import { PARSE_TAG_TEXT } from '../../features/tests/tests.const';
 
+const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL;
+
 type CardListProps = {
   cardItems: Card[];
   handleLeftButton?: (
@@ -80,9 +82,7 @@ const CardList = ({
             <CardImageWrapper>
               <Image
                 alt="card-img"
-                src={
-                  thumbnailImgUrl ? thumbnailImgUrl : '/images/imageholder.png'
-                }
+                src={`${IMG_URL}${thumbnailImgUrl}`}
                 fill
                 priority
               />
