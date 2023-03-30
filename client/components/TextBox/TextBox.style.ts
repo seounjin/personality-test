@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  width: 280px;
+  width: 340px;
   padding: 8px;
   font-size: 1.5rem;
   word-wrap: break-word;

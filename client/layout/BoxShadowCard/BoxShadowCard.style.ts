@@ -12,6 +12,11 @@ export const Container = styled.div`
   margin-bottom: 40px;
   padding: 20px 0;
   box-shadow: ${({ theme }) => theme.boxShadow};
+
+  ${({ theme }) =>
+    theme.device.mobile`
+    box-shadow: none;
+  `}
 `;
 
 export const SubTitleWrapper = styled.div`
