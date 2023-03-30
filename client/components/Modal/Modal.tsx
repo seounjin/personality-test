@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import {
   Wrapper,
   Overlay,
@@ -14,6 +14,12 @@ interface ModalProps {
 }
 
 const Modal = ({ children, onClose }: ModalProps): JSX.Element => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
   return (
     <Wrapper>
       <Overlay onClick={onClose} />
