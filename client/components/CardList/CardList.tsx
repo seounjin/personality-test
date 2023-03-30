@@ -17,7 +17,10 @@ import { Card } from './CardList.type';
 import Image from 'next/image';
 import TwoButton from '../TwoButton/TwoButton';
 import Tag from '../Tag/Tag';
-import { PARSE_TAG_TEXT } from '../../features/tests/tests.const';
+import {
+  IMAGE_HOLDER_PATH,
+  PARSE_TAG_TEXT,
+} from '../../features/tests/tests.const';
 
 type CardListProps = {
   cardItems: Card[];
