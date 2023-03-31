@@ -8,8 +8,8 @@ export const Container = styled.div`
 
   ${({ theme }) =>
     theme.device.mobile`
-    padding: 20px 0;
-    background-color: ${theme.colors.white};`}
+    padding: 30px 0 0 0;
+    `}
 `;
 
 export const Wrapper = styled.div`

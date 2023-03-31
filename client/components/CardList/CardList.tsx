@@ -5,7 +5,6 @@ import {
   CardItemHeader,
   CardItemBody,
   Headline,
-  CardImageWrapper,
   TagsWrapper,
   TwoButtonWrapper,
   CardHoverWrapper,
@@ -80,9 +79,7 @@ const CardList = ({
           </CardHoverWrapper>
 
           <CardItemHeader>
-            <CardImageWrapper>
-              <Image alt="card-img" src={thumbnailImgUrl} fill priority />
-            </CardImageWrapper>
+            <Image alt="card-img" src={thumbnailImgUrl} fill priority />
           </CardItemHeader>
           <CardItemBody>
             <Headline>{title}</Headline>

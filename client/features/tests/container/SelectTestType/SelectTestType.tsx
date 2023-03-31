@@ -2,13 +2,17 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setTestType } from '../../../../store/modules/tests';
-import { TEST_TYPE_DATA } from '../../tests.const';
-import TestTypeButton from '../../components/TestTypeButton/TestTypeButton';
-import {
-  ButtonContainer,
-  ButtonWrapper,
-  Container,
-} from './SelectTestType.style';
+import { ButtonContainer, Container } from './SelectTestType.style';
+import TestTypeButtonsSkeleton from '../../components/TestTypeButtonsSkeleton/TestTypeButtonsSkeleton';
+import dynamic from 'next/dynamic';
+
+const TestTypeButtons = dynamic(
+  () => import('../../components/TestTypeButtons/TestTypeButtons'),
+  {
+    ssr: false,
+    loading: () => <TestTypeButtonsSkeleton />,
+  },
+);
 
 const SelectTestType = () => {
   const dispatch = useDispatch();
@@ -22,17 +26,7 @@ const SelectTestType = () => {
   return (
     <Container>
       <ButtonContainer>
-        {TEST_TYPE_DATA.map(({ id, title, text, imgSrc, testType }) => (
-          <ButtonWrapper key={id}>
-            <TestTypeButton
-              title={title}
-              text={text}
-              imgSrc={imgSrc}
-              testType={testType}
-              onClick={handleTypeButton}
-            />
-          </ButtonWrapper>
-        ))}
+        <TestTypeButtons onClick={handleTypeButton} />
       </ButtonContainer>
     </Container>
   );

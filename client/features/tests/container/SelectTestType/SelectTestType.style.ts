@@ -10,14 +10,10 @@ export const Container = styled.div`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  padding-top: 200px;
+  padding-top: 150px;
   ${({ theme }) =>
     theme.device.laptop`
   flex-direction: column;
-  padding-top: 0;
+  padding-top: 50px;
   `}
-`;
-
-export const ButtonWrapper = styled.div`
-  margin: 20px;
 `;

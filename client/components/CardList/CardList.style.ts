@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-export const CardImageWrapper = styled.div`
+export const CardItemHeader = styled.div`
   position: relative;
   padding-top: 75%;
+  border-radius: 4px;
+  border: solid 2px rgb(0 0 0 / 10%);
   img {
     border-radius: 4px;
     object-fit: cover;
@@ -32,12 +34,6 @@ export const CardItem = styled.li`
       opacity: 1;
     }
   }
-`;
-
-export const CardItemHeader = styled.div`
-  position: relative;
-  border-radius: 4px;
-  border: solid 2px rgb(0 0 0 / 10%);
 `;
 
 export const CardItemBody = styled.div`
