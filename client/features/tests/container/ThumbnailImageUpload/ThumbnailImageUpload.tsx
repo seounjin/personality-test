@@ -48,6 +48,7 @@ const ThumbnailImageUpload = (): JSX.Element => {
       reader.readAsDataURL(compressedFile);
       reader.onloadend = () => {
         const imageData = reader.result;
+        console.log('imageData', typeof imageData);
         dispatch(
           setImageInformation({
             thumbnailImgUrl: URL.createObjectURL(compressedFile),
@@ -56,7 +57,6 @@ const ThumbnailImageUpload = (): JSX.Element => {
         );
       };
     } catch (error) {
-      console.log('에러', error);
       alert('잠시 후 다시 시도해주세요');
     }
   };

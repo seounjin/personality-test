@@ -1,4 +1,4 @@
-import { DefaultTheme, css, CSSProp } from 'styled-components';
+import { DefaultTheme, css, CSSProp, keyframes } from 'styled-components';
 
 const deviceSizes = {
   mobile: '425',
@@ -82,4 +82,22 @@ export const theme: DefaultTheme = {
   boxShadow: (): CSSProp =>
     css`rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, ${(props) =>
       props.theme.colors.boxShadowBorderColor} 0px 0px 0px 2px`,
+
+  skeletonGradation: (): CSSProp =>
+    css`
+      ${pulse} 2s ease-in-out infinite
+    `,
 };
+
+const pulse = keyframes`
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+    }
+`;

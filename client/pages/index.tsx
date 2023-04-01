@@ -8,6 +8,7 @@ import withAuth from '../hoc/withAuth';
 import Layout from '../layout/Layout/Layout';
 import axiosServer from '../api/axiosServer';
 import dynamic from 'next/dynamic';
+import CardListSkeleton from '../components/CardList/CardListSkeleton';
 
 type HomeProps = {
   cardItems: Card[];
@@ -29,6 +30,7 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
 
   const CardList = dynamic(() => import('../components/CardList/CardList'), {
     ssr: true,
+    loading: () => <CardListSkeleton CardListLength={cards.length} />,
   });
 
   return (

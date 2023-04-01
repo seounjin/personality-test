@@ -1,8 +1,9 @@
 import React from 'react';
+import { SkeletonBarWrapper } from '../../../../components/CardList/CardListSkeleton.style';
+import SkeletonBar from '../../../../components/SkeletonBar/SkeletonBar';
 import { TEST_TYPE_DATA } from '../../tests.const';
 import {
   Content,
-  ContentSkeleton,
   HeaderSkeleton,
   Wrapper,
 } from './TestTypeButtonsSkeleton.style';
@@ -14,8 +15,10 @@ const TestTypeButtonsSkeleton = (): JSX.Element => {
         <Wrapper key={id}>
           <HeaderSkeleton />
           <Content>
-            {['s1', 's2', 's3', 's4'].map((data) => (
-              <ContentSkeleton key={data} />
+            {['s1', 's2', 's3', 's4'].map((id) => (
+              <SkeletonBarWrapper key={id}>
+                <SkeletonBar width="100%" height="20px" />
+              </SkeletonBarWrapper>
             ))}
           </Content>
         </Wrapper>

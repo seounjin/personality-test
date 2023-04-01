@@ -62,5 +62,6 @@ declare module 'styled-components' {
       laptop: (literals: TemplateStringsArray, ...args: string[]) => CSSProp;
     };
     boxShadow: () => CSSProp;
+    skeletonGradation: () => CSSProp;
   }
 }
