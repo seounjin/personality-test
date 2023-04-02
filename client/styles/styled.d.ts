@@ -54,6 +54,7 @@ declare module 'styled-components' {
       detailButtonHoverColor: string;
       'true-or-falseTypeTagBgColor': string;
       skeletionColor: string;
+      scrollButtonColor: string;
     };
 
     device: {

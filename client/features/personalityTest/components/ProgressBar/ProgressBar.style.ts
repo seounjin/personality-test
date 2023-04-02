@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapepr = styled.div``;
+export const Wrapper = styled.div``;
 
 export const BarWrapper = styled.div`
   position: relative;

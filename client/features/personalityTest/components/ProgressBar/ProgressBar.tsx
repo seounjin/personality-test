@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Wrapepr,
+  Wrapper,
   BarWrapper,
   BeheindBar,
   ForwardBar,
@@ -18,7 +18,7 @@ const ProgressBar = ({
   activeStep = 1,
 }: ProgressBarProps): JSX.Element => {
   return (
-    <Wrapepr>
+    <Wrapper>
       <TextWrapper>
         <Text> {activeStep + '/' + totalStep}</Text>
       </TextWrapper>
@@ -27,7 +27,7 @@ const ProgressBar = ({
           <ForwardBar width={(activeStep / totalStep) * 100} />
         </BeheindBar>
       </BarWrapper>
-    </Wrapepr>
+    </Wrapper>
   );
 };
 

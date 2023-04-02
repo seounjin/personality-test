@@ -15,6 +15,7 @@ import Modal from '../../../../components/Modal/Modal';
 import ManualModal from '../ManualModal/ManualModal';
 import QuestionMarkButton from '../../components/QuestionMarkButton/QuestionMarkButton';
 import ScrollTop from '../../components/ScrollTop/ScrollTop';
+import ScrollButtons from '../../components/ScrollButtons/ScrollButtons';
 
 interface StepperProps {
   testType: string;
@@ -98,6 +99,8 @@ const Stepper = ({ testType }: StepperProps): JSX.Element => {
       <QuestionMarkButtonWrapper>
         <QuestionMarkButton onClick={QuestionMarkClick} />
       </QuestionMarkButtonWrapper>
+
+      <ScrollButtons />
     </Container>
   );
 };

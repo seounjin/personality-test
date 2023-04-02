@@ -57,6 +57,7 @@ export const theme: DefaultTheme = {
     detailButtonHoverColor: '#cebaba',
     'true-or-falseTypeTagBgColor': '#DAEAF1',
     skeletionColor: '#bfbfbf',
+    scrollButtonColor: '#594545',
   },
 
   device: {
