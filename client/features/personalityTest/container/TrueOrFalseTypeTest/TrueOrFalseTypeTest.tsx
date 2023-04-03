@@ -88,7 +88,8 @@ const TrueOrFalseTypeTest = ({
       {resultItems && (
         <BackgroundImage>
           <LastScreen
-            items={resultItems}
+            resultContent={resultItems.resultContent}
+            explanationContent={resultItems.explanationContent}
             isPublic={isPublic}
             onClick={reStartClick}
           />

@@ -27,9 +27,4 @@ module.exports = {
       },
     ],
   },
-  // images: {
-  //   // loader: 'akamai',
-  //   path: 'http://localhost:8080',
-  //   domains: ['localhost'],
-  // },
 };

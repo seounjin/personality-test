@@ -13,70 +13,86 @@ export const MBTI_DATA = [
 
 export const MBTI_TEST_RESULT_FORM_ITEMS = [
   {
-    resultContent: 'ISTJ',
+    mbtiType: 'ISTJ',
+    resultContent: '',
     explanationContent: '',
   },
   {
-    resultContent: 'ISTP',
+    mbtiType: 'ISTP',
+    resultContent: '',
     explanationContent: '',
   },
   {
-    resultContent: 'ISFJ',
+    mbtiType: 'ISFJ',
+    resultContent: '',
     explanationContent: '',
   },
   {
-    resultContent: 'ISFP',
-    explanationContent: '',
-  },
-
-  {
-    resultContent: 'INTJ',
-    explanationContent: '',
-  },
-  {
-    resultContent: 'INTP',
-    explanationContent: '',
-  },
-  {
-    resultContent: 'INFJ',
-    explanationContent: '',
-  },
-  {
-    resultContent: 'INFP',
+    mbtiType: 'ISFP',
+    resultContent: '',
     explanationContent: '',
   },
 
   {
-    resultContent: 'ESTJ',
+    mbtiType: 'INTJ',
+    resultContent: '',
     explanationContent: '',
   },
   {
-    resultContent: 'ESTP',
+    mbtiType: 'INTP',
+    resultContent: '',
     explanationContent: '',
   },
   {
-    resultContent: 'ESFJ',
+    mbtiType: 'INFJ',
+    resultContent: '',
     explanationContent: '',
   },
   {
-    resultContent: 'ESFP',
+    mbtiType: 'INFP',
+    resultContent: '',
     explanationContent: '',
   },
 
   {
-    resultContent: 'ENTJ',
+    mbtiType: 'ESTJ',
+    resultContent: '',
     explanationContent: '',
   },
   {
-    resultContent: 'ENTP',
+    mbtiType: 'ESTP',
+    resultContent: '',
     explanationContent: '',
   },
   {
-    resultContent: 'ENFJ',
+    mbtiType: 'ESFJ',
+    resultContent: '',
     explanationContent: '',
   },
   {
-    resultContent: 'ENFP',
+    mbtiType: 'ESFP',
+    resultContent: '',
+    explanationContent: '',
+  },
+
+  {
+    mbtiType: 'ENTJ',
+    resultContent: '',
+    explanationContent: '',
+  },
+  {
+    mbtiType: 'ENTP',
+    resultContent: '',
+    explanationContent: '',
+  },
+  {
+    mbtiType: 'ENFJ',
+    resultContent: '',
+    explanationContent: '',
+  },
+  {
+    mbtiType: 'ENFP',
+    resultContent: '',
     explanationContent: '',
   },
 ];

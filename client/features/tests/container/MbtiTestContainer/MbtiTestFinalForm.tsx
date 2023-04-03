@@ -109,11 +109,18 @@ const MbtiTestFinalForm = () => {
 
       <BoxShadowCard subtitle="유형 설정">
         {mbtiTestResultFormItems.map(
-          ({ resultContent, explanationContent }, index) => (
+          ({ mbtiType, resultContent, explanationContent }, index) => (
             <React.Fragment key={`t${index}`}>
               <TextBoxSection title={`${index + 1}번`} titleLocation="center">
                 <SubTextBoxSection>
-                  <SubHeadlineLabel label="유 형" subTitleLocation="start" />
+                  <SubHeadlineLabel
+                    label="Mbti 유형"
+                    subTitleLocation="start"
+                  />
+                  <TextBox text={mbtiType} />
+                </SubTextBoxSection>
+                <SubTextBoxSection>
+                  <SubHeadlineLabel label="결 과" subTitleLocation="start" />
                   <TextBox text={resultContent} />
                 </SubTextBoxSection>
                 <SubTextBoxSection>

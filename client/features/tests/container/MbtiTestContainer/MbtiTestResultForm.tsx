@@ -2,7 +2,6 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import FormLayout from '../../../../layout/FormLayout/FormLayout';
 import { RootState } from '../../../../store/modules';
-import ResultWriter from '../../components/ResultWriter/ResultWriter';
 import useStorage from '../../hooks/useStorage';
 import { ResultFormItem } from '../../tests.types';
 import { MBTI_TEST_RESULT_FORM_ID } from './mbtiTest.const';
@@ -10,6 +9,7 @@ import {
   setInitMbtiSelctFormItems,
   setmbtiTestResultFormItems,
 } from './mbtiTest.slice';
+import MbtiTestResultWriter from './MbtiTestResultWriter';
 
 type mbtiTestResultFormItemsValues = {
   mbtiTestResultFormItems: ResultFormItem[];
@@ -61,15 +61,14 @@ const MbtiTestResultForm = ({
 
   return (
     <FormLayout id={MBTI_TEST_RESULT_FORM_ID} onSubmit={handleSubmit(onSubmit)}>
-      {fields.map(({ id, resultContent, explanationContent }, index) => (
-        <ResultWriter
+      {fields.map(({ id }, index) => (
+        <MbtiTestResultWriter
           key={id}
           index={index}
-          firstLabel={'유 형'}
-          firstContent={resultContent}
+          firstLabel={'Mbti 유형'}
           firstInputDisalbed={true}
-          secondLabel={'설 명'}
-          secondContent={explanationContent}
+          secondLabel={'결 과'}
+          thirdLabel={'설 명'}
           name={'mbtiTestResultFormItems'}
         />
       ))}

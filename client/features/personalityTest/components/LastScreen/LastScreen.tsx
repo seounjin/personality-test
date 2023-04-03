@@ -1,5 +1,4 @@
 import React from 'react';
-import { ResultItems } from '../../personalityTest.types';
 import OvalButton from '../OvalButton/OvalButton';
 import {
   ButtonWrapper,
@@ -10,18 +9,20 @@ import {
 } from './LastScreen.style';
 
 interface LastScreenProps {
-  items: ResultItems;
+  resultContent: string;
+  explanationContent: string;
+  subTitle?: string;
   isPublic: boolean;
   onClick: () => void;
 }
 
 const LastScreen = ({
-  items,
+  resultContent,
+  explanationContent,
+  subTitle,
   isPublic,
   onClick,
 }: LastScreenProps): JSX.Element => {
-  const { resultContent, explanationContent } = items;
-
   const copyURL = () => {
     const currentUrl = window.document.location.href;
     const text = document.createElement('textarea');
@@ -36,7 +37,10 @@ const LastScreen = ({
 
   return (
     <Container>
-      <Title>{resultContent}</Title>
+      <Title>
+        {resultContent}
+        {subTitle && `(${subTitle})`}
+      </Title>
       <ContentWrapper>
         <Content> {explanationContent}</Content>
       </ContentWrapper>

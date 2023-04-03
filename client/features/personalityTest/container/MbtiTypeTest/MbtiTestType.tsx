@@ -8,8 +8,8 @@ import { MBTI_TEST_TYPE } from '../../personalityTest.const';
 import { useSlide } from '../../personalityTest.hook';
 import {
   WeightedScore,
-  ResultItems,
   MbtiTestItems,
+  MbtiResultItems,
 } from '../../personalityTest.types';
 import { throttle } from 'lodash';
 import fetcher from '../../../../api/fetcher';
@@ -36,7 +36,7 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
   const [weightedScore, setWeightedScore] = useState<WeightedScore>(
     weightedScoreDictionary,
   );
-  const [resultItems, setResultItems] = useState<ResultItems | null>(null);
+  const [resultItems, setResultItems] = useState<MbtiResultItems | null>(null);
   const { slideRef, nextSlide, resetSlide } = useSlide();
 
   const startClick = (): void => {
@@ -113,7 +113,9 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
       {resultItems && (
         <BackgroundImage>
           <LastScreen
-            items={resultItems}
+            resultContent={resultItems.resultContent}
+            explanationContent={resultItems.explanationContent}
+            subTitle={resultItems.mbtiType}
             isPublic={isPublic}
             onClick={reStartClick}
           />

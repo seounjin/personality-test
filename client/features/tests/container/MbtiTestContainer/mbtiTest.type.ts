@@ -7,7 +7,9 @@ export interface MbtiTestSliceInitialState {
   mbtiTestSelectFormItems: MbtiTestSelectFormItems[];
 }
 
-export type mbtiTestResultFormItems = ResultFormItem;
+export interface mbtiTestResultFormItems extends ResultFormItem {
+  mbtiType: string;
+}
 
 export interface MbtiTestSelectFormItems extends SelectFormItems {
   radioButtonItems: RadioButtonItems[];

@@ -122,9 +122,10 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
       {resultItems && (
         <BackgroundImage>
           <LastScreen
-            items={resultItems}
             isPublic={isPublic}
             onClick={reStartClick}
+            resultContent={resultItems.resultContent}
+            explanationContent={resultItems.explanationContent}
           />
         </BackgroundImage>
       )}

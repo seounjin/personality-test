@@ -5,6 +5,10 @@ export interface ResultItems {
   explanationContent: string;
 }
 
+export interface MbtiResultItems extends ResultItems {
+  mbtiType: string;
+}
+
 export interface Error {
   statusCode: number;
   message: string;
