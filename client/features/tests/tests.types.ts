@@ -17,10 +17,23 @@ export interface WeightedScoreItem {
 
 export interface OptionItems {
   option: string;
-  weightedScoreItems: WeightedScoreItem[];
+  weightedScoreItems?: WeightedScoreItem[];
 }
 
 export interface SelectFormItems {
   question: string;
   optionItems: OptionItems[];
+}
+
+export interface WeightedScore {
+  [key: string]: number;
+}
+
+export interface BaseTestItems {
+  title: string;
+  subTitle: string;
+  explain: string;
+  id: string;
+  testType: string;
+  isPublic: boolean;
 }

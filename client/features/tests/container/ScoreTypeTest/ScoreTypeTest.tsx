@@ -1,25 +1,25 @@
 import React, { useCallback, useState } from 'react';
-import { SelectFormItems, WeightedScoreItem } from '../../../../types';
-import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
+import BackgroundImage from '../../../tests/components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
-import { MBTI_TEST_TYPE } from '../../personalityTest.const';
-import { useSlide } from '../../personalityTest.hook';
-import {
-  WeightedScore,
-  MbtiTestItems,
-  MbtiResultItems,
-} from '../../personalityTest.types';
 import { throttle } from 'lodash';
 import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
+import { useSlide } from '../../hooks/useSlide';
+import { ScoreTestResultFormItem } from '../ScoreTestContainer/scoreTest.type';
+import { ScoreTestItems } from './ScoreTypeTest.type';
+import {
+  SelectFormItems,
+  WeightedScore,
+  WeightedScoreItem,
+} from '../../tests.types';
 
-interface MbtiTestTypeProps {
-  testItems: MbtiTestItems;
+interface ScoreTypeTestProps {
+  testItems: ScoreTestItems;
 }
 
-const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
+const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
   const {
     id,
     title,
@@ -36,7 +36,8 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
   const [weightedScore, setWeightedScore] = useState<WeightedScore>(
     weightedScoreDictionary,
   );
-  const [resultItems, setResultItems] = useState<MbtiResultItems | null>(null);
+  const [resultItems, setResultItems] =
+    useState<ScoreTestResultFormItem | null>(null);
   const { slideRef, nextSlide, resetSlide } = useSlide();
 
   const startClick = (): void => {
@@ -44,25 +45,18 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
   };
 
   const raseScore = (weightedScoreItems: WeightedScoreItem[]) => {
-    for (const { typeContent, score } of weightedScoreItems) {
-      weightedScore[typeContent] += score;
+    for (const { resultContent, score } of weightedScoreItems) {
+      weightedScore[resultContent] += score;
     }
     setWeightedScore({ ...weightedScore });
   };
 
-  const setMbtiType = () =>
-    MBTI_TEST_TYPE.reduce((type, item, index) => {
-      const [aType, bType] = item;
-      return (type +=
-        weightedScore[aType] > weightedScore[bType] ? aType : bType);
-    }, '');
-
   const optionsButtonClick = useCallback(
     throttle(
-      ({ weightedScoreItems = [], currentSlide }): void => {
+      ({ weightedScoreItems, currentSlide }): void => {
         raseScore(weightedScoreItems);
         if (currentSlide === lastSlide) {
-          const res = setMbtiType();
+          const res = getHighestScoreType();
           requestResult(res);
           return;
         }
@@ -73,6 +67,23 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
     ),
     [],
   );
+
+  const getHighestScoreType = (): string => {
+    const sortedWeightScore = Object.entries(weightedScore).sort(
+      ([, a], [, b]) => (a > b ? -1 : 1),
+    );
+    const [, sortedValue] = sortedWeightScore[0];
+
+    const shuffleWeightScore = sortedWeightScore
+      .reduce(
+        (array, [key, value]) =>
+          sortedValue === value ? [...array, key] : array,
+        [],
+      )
+      .sort(() => Math.random() - 0.5);
+
+    return shuffleWeightScore[0];
+  };
 
   const requestResult = async (result: string) => {
     const res = await fetcher(
@@ -113,11 +124,10 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
       {resultItems && (
         <BackgroundImage>
           <LastScreen
-            resultContent={resultItems.resultContent}
-            explanationContent={resultItems.explanationContent}
-            subTitle={resultItems.mbtiType}
             isPublic={isPublic}
             onClick={reStartClick}
+            resultContent={resultItems.resultContent}
+            explanationContent={resultItems.explanationContent}
           />
         </BackgroundImage>
       )}
@@ -125,4 +135,4 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
   );
 };
 
-export default MbtiTestType;
+export default ScoreTypeTest;

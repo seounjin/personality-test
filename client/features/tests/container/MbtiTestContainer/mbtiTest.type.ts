@@ -3,11 +3,11 @@ import { RadioButtonItems } from '../TextRadioButtonGroup/TextRadioButtonGroup.t
 
 export interface MbtiTestSliceInitialState {
   isPublic: boolean;
-  mbtiTestResultFormItems: mbtiTestResultFormItems[];
+  mbtiTestResultFormItems: MbtiTestResultFormItems[];
   mbtiTestSelectFormItems: MbtiTestSelectFormItems[];
 }
 
-export interface mbtiTestResultFormItems extends ResultFormItem {
+export interface MbtiTestResultFormItems extends ResultFormItem {
   mbtiType: string;
 }
 

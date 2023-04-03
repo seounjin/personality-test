@@ -1,43 +1,71 @@
 import React, { useCallback, useState } from 'react';
-import { SelectFormItems } from '../../../../types';
-import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
+import BackgroundImage from '../../../tests/components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
-import { useSlide } from '../../personalityTest.hook';
-import { ResultItems, TrueOrFalseTestItems } from '../../personalityTest.types';
 import { throttle } from 'lodash';
 import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
+import { MBTI_TEST_TYPE } from '../../tests.const';
+import { useSlide } from '../../hooks/useSlide';
+import { MbtiTestItems } from './MbtiTestType.type';
+import {
+  SelectFormItems,
+  WeightedScore,
+  WeightedScoreItem,
+} from '../../tests.types';
+import { MbtiTestResultFormItems } from '../MbtiTestContainer/mbtiTest.type';
 
-interface TrueOrFalseTypeTestProps {
-  testItems: TrueOrFalseTestItems;
+interface MbtiTestTypeProps {
+  testItems: MbtiTestItems;
 }
 
-const TrueOrFalseTypeTest = ({
-  testItems,
-}: TrueOrFalseTypeTestProps): JSX.Element => {
-  const { id, title, subTitle, testType, isPublic, personalityItems } =
-    testItems;
+const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
+  const {
+    id,
+    title,
+    subTitle,
+    explain,
+    testType,
+    isPublic,
+    weightedScoreDictionary,
+    personalityItems,
+  } = testItems;
 
   const [personalityTest] = useState<SelectFormItems[]>(personalityItems);
   const [lastSlide] = useState<number>(personalityTest.length);
-
-  const [resultItems, setResultItems] = useState<ResultItems | null>(null);
-  const [selectedOtioin, setSelectedOption] = useState('');
-
+  const [weightedScore, setWeightedScore] = useState<WeightedScore>(
+    weightedScoreDictionary,
+  );
+  const [resultItems, setResultItems] =
+    useState<MbtiTestResultFormItems | null>(null);
   const { slideRef, nextSlide, resetSlide } = useSlide();
 
   const startClick = (): void => {
     nextSlide();
   };
 
+  const raseScore = (weightedScoreItems: WeightedScoreItem[]) => {
+    for (const { resultContent, score } of weightedScoreItems) {
+      weightedScore[resultContent] += score;
+    }
+    setWeightedScore({ ...weightedScore });
+  };
+
+  const setMbtiType = () =>
+    MBTI_TEST_TYPE.reduce((type, item, index) => {
+      const [aType, bType] = item;
+      return (type +=
+        weightedScore[aType] > weightedScore[bType] ? aType : bType);
+    }, '');
+
   const optionsButtonClick = useCallback(
     throttle(
-      ({ currentSlide, optionNumber }): void => {
-        setSelectedOption(selectedOtioin + `${optionNumber}`);
+      ({ weightedScoreItems = [], currentSlide }): void => {
+        raseScore(weightedScoreItems);
         if (currentSlide === lastSlide) {
-          requestResult(selectedOtioin + `${optionNumber}`);
+          const res = setMbtiType();
+          requestResult(res);
           return;
         }
         nextSlide();
@@ -48,8 +76,7 @@ const TrueOrFalseTypeTest = ({
     [],
   );
 
-  const requestResult = async (result) => {
-    console.log('투지', selectedOtioin, testType);
+  const requestResult = async (result: string) => {
     const res = await fetcher(
       'get',
       `/personality/${id}/${testType}/results/${result}`,
@@ -65,7 +92,7 @@ const TrueOrFalseTypeTest = ({
 
   const reStartClick = (): void => {
     resetSlide();
-    setSelectedOption('');
+    setWeightedScore(weightedScoreDictionary);
   };
 
   return (
@@ -90,6 +117,7 @@ const TrueOrFalseTypeTest = ({
           <LastScreen
             resultContent={resultItems.resultContent}
             explanationContent={resultItems.explanationContent}
+            subTitle={resultItems.mbtiType}
             isPublic={isPublic}
             onClick={reStartClick}
           />
@@ -99,4 +127,4 @@ const TrueOrFalseTypeTest = ({
   );
 };
 
-export default TrueOrFalseTypeTest;
+export default MbtiTestType;

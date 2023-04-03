@@ -1,61 +1,45 @@
 import React, { useCallback, useState } from 'react';
-import { SelectFormItems, WeightedScoreItem } from '../../../../types';
-import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
+// import { SelectFormItems } from '../../../../types';
+import BackgroundImage from '../../../tests/components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
-import { useSlide } from '../../personalityTest.hook';
-import {
-  WeightedScore,
-  ResultItems,
-  ScoreTestItems,
-} from '../../personalityTest.types';
+// import { ResultItems, TrueOrFalseTestItems } from '../../personalityTest.types';
 import { throttle } from 'lodash';
 import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
+import { useSlide } from '../../hooks/useSlide';
+import { TrueOrFalseTestItems } from './TrueOrFalseTypeTest.type';
+import { ResultFormItem, SelectFormItems } from '../../tests.types';
 
-interface ScoreTypeTestProps {
-  testItems: ScoreTestItems;
+interface TrueOrFalseTypeTestProps {
+  testItems: TrueOrFalseTestItems;
 }
 
-const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
-  const {
-    id,
-    title,
-    subTitle,
-    explain,
-    testType,
-    isPublic,
-    weightedScoreDictionary,
-    personalityItems,
-  } = testItems;
+const TrueOrFalseTypeTest = ({
+  testItems,
+}: TrueOrFalseTypeTestProps): JSX.Element => {
+  const { id, title, subTitle, testType, isPublic, personalityItems } =
+    testItems;
 
   const [personalityTest] = useState<SelectFormItems[]>(personalityItems);
   const [lastSlide] = useState<number>(personalityTest.length);
-  const [weightedScore, setWeightedScore] = useState<WeightedScore>(
-    weightedScoreDictionary,
-  );
-  const [resultItems, setResultItems] = useState<ResultItems | null>(null);
+
+  const [resultItems, setResultItems] = useState<ResultFormItem | null>(null);
+  const [selectedOtioin, setSelectedOption] = useState('');
+
   const { slideRef, nextSlide, resetSlide } = useSlide();
 
   const startClick = (): void => {
     nextSlide();
   };
 
-  const raseScore = (weightedScoreItems: WeightedScoreItem[]) => {
-    for (const { typeContent, score } of weightedScoreItems) {
-      weightedScore[typeContent] += score;
-    }
-    setWeightedScore({ ...weightedScore });
-  };
-
   const optionsButtonClick = useCallback(
     throttle(
-      ({ weightedScoreItems, currentSlide }): void => {
-        raseScore(weightedScoreItems);
+      ({ currentSlide, optionNumber }): void => {
+        setSelectedOption(selectedOtioin + `${optionNumber}`);
         if (currentSlide === lastSlide) {
-          const res = getHighestScoreType();
-          requestResult(res);
+          requestResult(selectedOtioin + `${optionNumber}`);
           return;
         }
         nextSlide();
@@ -66,24 +50,8 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
     [],
   );
 
-  const getHighestScoreType = (): string => {
-    const sortedWeightScore = Object.entries(weightedScore).sort(
-      ([, a], [, b]) => (a > b ? -1 : 1),
-    );
-    const [, sortedValue] = sortedWeightScore[0];
-
-    const shuffleWeightScore = sortedWeightScore
-      .reduce(
-        (array, [key, value]) =>
-          sortedValue === value ? [...array, key] : array,
-        [],
-      )
-      .sort(() => Math.random() - 0.5);
-
-    return shuffleWeightScore[0];
-  };
-
-  const requestResult = async (result: string) => {
+  const requestResult = async (result) => {
+    console.log('투지', selectedOtioin, testType);
     const res = await fetcher(
       'get',
       `/personality/${id}/${testType}/results/${result}`,
@@ -99,7 +67,7 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
 
   const reStartClick = (): void => {
     resetSlide();
-    setWeightedScore(weightedScoreDictionary);
+    setSelectedOption('');
   };
 
   return (
@@ -122,10 +90,10 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
       {resultItems && (
         <BackgroundImage>
           <LastScreen
-            isPublic={isPublic}
-            onClick={reStartClick}
             resultContent={resultItems.resultContent}
             explanationContent={resultItems.explanationContent}
+            isPublic={isPublic}
+            onClick={reStartClick}
           />
         </BackgroundImage>
       )}
@@ -133,4 +101,4 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
   );
 };
 
-export default ScoreTypeTest;
+export default TrueOrFalseTypeTest;

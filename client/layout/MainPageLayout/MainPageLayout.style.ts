@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SCREEN_WIDTH } from '../../features/personalityTest/personalityTest.const';
+import { SCREEN_WIDTH } from '../../features/tests/tests.const';
 
 export const Wrapper = styled.div`
   width: 100%;

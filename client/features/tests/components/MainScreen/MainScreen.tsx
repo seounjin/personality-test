@@ -1,5 +1,5 @@
 import React from 'react';
-import { OptionItems, WeightedScoreItem } from '../../../../types';
+import { OptionItems, WeightedScoreItem } from '../../tests.types';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import {
   Container,

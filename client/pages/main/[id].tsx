@@ -1,19 +1,22 @@
-import {
-  MbtiTestItems,
-  ScoreTestItems,
-} from '../../features/personalityTest/personalityTest.types';
+// import {
+//   MbtiTestItems,
+//   ScoreTestItems,
+// } from '../../features/personalityTest/personalityTest.types';
 import { GetServerSideProps } from 'next';
-import { MBTI_TEST_TYPE_CONTENT } from '../../features/personalityTest/personalityTest.const';
-import MbtiTestType from '../../features/personalityTest/container/MbtiTypeTest/MbtiTestType';
-import ScoreTypeTest from '../../features/personalityTest/container/ScoreTypeTest/ScoreTypeTest';
 import MainPageLayout from '../../layout/MainPageLayout/MainPageLayout';
 import axiosServer from '../../api/axiosServer';
 import { checkTestType } from '../../types/checkTestType';
 import { CustomError } from '../../errors';
-import TrueOrFalseTypeTest from '../../features/personalityTest/container/TrueOrFalseTypeTest/TrueOrFalseTypeTest';
+import MbtiTestType from '../../features/tests/container/MbtiTypeTest/MbtiTestType';
+import ScoreTypeTest from '../../features/tests/container/ScoreTypeTest/ScoreTypeTest';
+import TrueOrFalseTypeTest from '../../features/tests/container/TrueOrFalseTypeTest/TrueOrFalseTypeTest';
+import { MBTI_TEST_TYPE_CONTENT } from '../../features/tests/tests.const';
+import { ScoreTestItems } from '../../features/tests/container/ScoreTypeTest/ScoreTypeTest.type';
+import { MbtiTestItems } from '../../features/tests/container/MbtiTypeTest/MbtiTestType.type';
+import { TrueOrFalseTestItems } from '../../features/tests/container/TrueOrFalseTypeTest/TrueOrFalseTypeTest.type';
 
 interface MainPageProps {
-  testItems: ScoreTestItems | MbtiTestItems;
+  testItems: ScoreTestItems | MbtiTestItems | TrueOrFalseTestItems;
 }
 
 const testList = (testType, testItems) => {
