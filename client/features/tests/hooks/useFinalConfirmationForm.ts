@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import fetcher from '../../../api/fetcher';
 
 const useFinalConfirmationForm = () => {
@@ -41,7 +42,18 @@ const useFinalConfirmationForm = () => {
     }
   };
 
-  return { requestRegister, requestUpdate };
+  const [isTemporaryTestOpen, setIsTemporaryTestOpen] = useState(false);
+
+  const handleCloseTemporaryTest = () => {
+    setIsTemporaryTestOpen(!isTemporaryTestOpen);
+  };
+
+  return {
+    requestRegister,
+    requestUpdate,
+    handleCloseTemporaryTest,
+    isTemporaryTestOpen,
+  };
 };
 
 export default useFinalConfirmationForm;

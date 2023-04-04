@@ -30,7 +30,11 @@ const StartScreen = ({
         priority
       />
       <ButtonWrapper>
-        <OvalButton text={'테스트 시작하기'} onClick={onClick} />
+        <OvalButton
+          text={'테스트 시작하기'}
+          ariaLabel={'테스트 시작 버튼'}
+          onClick={onClick}
+        />
       </ButtonWrapper>
     </Wrapper>
   );

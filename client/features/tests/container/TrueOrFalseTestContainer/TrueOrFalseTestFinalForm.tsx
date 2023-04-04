@@ -3,6 +3,7 @@ import { FormEvent } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
+import RoundButton from '../../../../components/RoundButton/RoundButton';
 import SubHeadlineLabel from '../../../../components/SubHeadlineLabel/SubHeadlineLabel';
 import SubTextBoxSection from '../../../../components/SubTextBoxSection/SubTextBoxSection';
 import TextBox from '../../../../components/TextBox/TextBox';
@@ -11,10 +12,12 @@ import FormLayout from '../../../../layout/FormLayout/FormLayout';
 import { RootState } from '../../../../store/modules';
 import PrivewImage from '../../components/PrivewImage/PrivewImage';
 import SelectedOptionsTable from '../../components/SelectedOptionsTable/SelectedOptionsTable';
+import TemporaryTestWrapper from '../../components/TemporaryTestWrapper/TemporaryTestWrapper';
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 import useStorage from '../../hooks/useStorage';
 import TextBoxSection from '../TextBoxSection/TextBoxSection';
 import { TF_FINAL_FORM_ID } from './trueOrFalse.const';
+import TrueOrFalseTypeTest from './TrueOrFalseTypeTest';
 
 const TrueOrFalseTestFinalForm = () => {
   const {
@@ -48,7 +51,12 @@ const TrueOrFalseTestFinalForm = () => {
     shallowEqual,
   );
 
-  const { requestRegister, requestUpdate } = useFinalConfirmationForm();
+  const {
+    requestRegister,
+    requestUpdate,
+    handleCloseTemporaryTest,
+    isTemporaryTestOpen,
+  } = useFinalConfirmationForm();
 
   const { removeTestItems } = useStorage();
 
@@ -150,6 +158,31 @@ const TrueOrFalseTestFinalForm = () => {
               </TextBoxSection>
             </React.Fragment>
           ),
+        )}
+      </BoxShadowCard>
+
+      <BoxShadowCard subtitle="테스트 미리보기">
+        <RoundButton
+          onClick={handleCloseTemporaryTest}
+          text={'미리보기'}
+          ariaLabel={'테스트 미리보기 버튼'}
+        />
+        {isTemporaryTestOpen && (
+          <TemporaryTestWrapper onClose={handleCloseTemporaryTest}>
+            <TrueOrFalseTypeTest
+              testDisposition="temporary"
+              testItems={{
+                title,
+                subTitle,
+                explain,
+                testType: 'true-or-false',
+                isPublic: false,
+                personalityItems: trueOrFalseTestSelectFormItems,
+              }}
+              trueOrFalseResultItems={trueOrFalseTestResultFormItems}
+              handleCloseTemporaryTest={handleCloseTemporaryTest}
+            />
+          </TemporaryTestWrapper>
         )}
       </BoxShadowCard>
 

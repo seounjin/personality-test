@@ -58,6 +58,7 @@ export const theme: DefaultTheme = {
     'true-or-falseTypeTagBgColor': '#DAEAF1',
     skeletionColor: '#bfbfbf',
     scrollButtonColor: '#594545',
+    roundButtonColor: '#594545',
   },
 
   device: {

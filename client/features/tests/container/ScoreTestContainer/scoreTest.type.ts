@@ -1,3 +1,9 @@
+import {
+  BaseTestItems,
+  SelectFormItems,
+  WeightedScore,
+} from '../../tests.types';
+
 export interface ScoreTestResultFormItem {
   resultContent: string;
   explanationContent: string;
@@ -33,3 +39,8 @@ export interface ScoreTestSliceInitialState {
 export type ScoreTestSelectFormItemsType = {
   scoreTestSelectFormItems: ScoreTestSelectFormItems[];
 };
+
+export interface ScoreTestItems extends BaseTestItems {
+  weightedScoreDictionary: WeightedScore;
+  personalityItems: SelectFormItems[];
+}

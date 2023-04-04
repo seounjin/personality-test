@@ -1,26 +1,33 @@
-import React, { useCallback, useState } from 'react';
-import BackgroundImage from '../../../tests/components/BackgroundImage/BackgroundImage';
+import React, { useState } from 'react';
+import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
-import { throttle } from 'lodash';
 import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
 import { MBTI_TEST_TYPE } from '../../tests.const';
 import { useSlide } from '../../hooks/useSlide';
-import { MbtiTestItems } from './MbtiTestType.type';
 import {
   SelectFormItems,
+  TestDisposition,
   WeightedScore,
   WeightedScoreItem,
 } from '../../tests.types';
-import { MbtiTestResultFormItems } from '../MbtiTestContainer/mbtiTest.type';
+import { MbtiTestItems, MbtiTestResultFormItem } from './mbtiTest.type';
 
 interface MbtiTestTypeProps {
   testItems: MbtiTestItems;
+  testDisposition?: TestDisposition;
+  mbtiResultItems?: MbtiTestResultFormItem[];
+  handleCloseTemporaryTest?: () => void;
 }
 
-const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
+const MbtiTestType = ({
+  testItems,
+  mbtiResultItems,
+  testDisposition = 'real',
+  handleCloseTemporaryTest,
+}: MbtiTestTypeProps): JSX.Element => {
   const {
     id,
     title,
@@ -37,9 +44,10 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
   const [weightedScore, setWeightedScore] = useState<WeightedScore>(
     weightedScoreDictionary,
   );
-  const [resultItems, setResultItems] =
-    useState<MbtiTestResultFormItems | null>(null);
-  const { slideRef, nextSlide, resetSlide } = useSlide();
+  const [resultItems, setResultItems] = useState<MbtiTestResultFormItem | null>(
+    null,
+  );
+  const { slideRef, nextSlide, resetSlide, isTransitioning } = useSlide();
 
   const startClick = (): void => {
     nextSlide();
@@ -59,22 +67,28 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
         weightedScore[aType] > weightedScore[bType] ? aType : bType);
     }, '');
 
-  const optionsButtonClick = useCallback(
-    throttle(
-      ({ weightedScoreItems = [], currentSlide }): void => {
-        raseScore(weightedScoreItems);
-        if (currentSlide === lastSlide) {
-          const res = setMbtiType();
-          requestResult(res);
-          return;
-        }
-        nextSlide();
-      },
-      1000,
-      { leading: true, trailing: false },
-    ),
-    [],
-  );
+  const optionsButtonClick = ({
+    weightedScoreItems = [],
+    currentSlide,
+  }): void => {
+    raseScore(weightedScoreItems);
+    if (currentSlide === lastSlide) {
+      const res = setMbtiType();
+      if (testDisposition === 'real') {
+        requestResult(res);
+      } else {
+        requestTempResult(res);
+      }
+      return;
+    }
+    nextSlide();
+  };
+
+  const requestTempResult = async (result: string) => {
+    const res = mbtiResultItems.filter(({ mbtiType }) => mbtiType === result);
+    setResultItems(res[0]);
+    nextSlide();
+  };
 
   const requestResult = async (result: string) => {
     const res = await fetcher(
@@ -109,6 +123,7 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
             slideIndex={index}
             totalStep={personalityTest.length}
             onClick={optionsButtonClick}
+            isTransitioning={isTransitioning}
           />
         </BackgroundImage>
       ))}
@@ -120,6 +135,7 @@ const MbtiTestType = ({ testItems }: MbtiTestTypeProps): JSX.Element => {
             subTitle={resultItems.mbtiType}
             isPublic={isPublic}
             onClick={reStartClick}
+            onClose={handleCloseTemporaryTest}
           />
         </BackgroundImage>
       )}

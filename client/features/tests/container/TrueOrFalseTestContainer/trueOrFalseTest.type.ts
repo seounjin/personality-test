@@ -1,4 +1,4 @@
-import { OptionItems, ResultFormItem } from '../../tests.types';
+import { BaseTestItems, OptionItems, ResultFormItem } from '../../tests.types';
 
 export interface TrueOrFalseTestSliceInitialState {
   numberOfItemsCount: number;
@@ -37,3 +37,7 @@ export interface TrueOrFalseTestResultFormItem extends ResultFormItem {
 export type TrueOrFalseTestResultFormValues = {
   trueOrFalseTestResultFormItems: TrueOrFalseTestResultFormItem[];
 };
+
+export interface TrueOrFalseTestItems extends BaseTestItems {
+  personalityItems: TrueOrFalseTestSelectFormItem[];
+}

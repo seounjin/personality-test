@@ -1,19 +1,16 @@
-// import {
-//   MbtiTestItems,
-//   ScoreTestItems,
-// } from '../../features/personalityTest/personalityTest.types';
 import { GetServerSideProps } from 'next';
 import MainPageLayout from '../../layout/MainPageLayout/MainPageLayout';
 import axiosServer from '../../api/axiosServer';
 import { checkTestType } from '../../types/checkTestType';
 import { CustomError } from '../../errors';
-import MbtiTestType from '../../features/tests/container/MbtiTypeTest/MbtiTestType';
-import ScoreTypeTest from '../../features/tests/container/ScoreTypeTest/ScoreTypeTest';
-import TrueOrFalseTypeTest from '../../features/tests/container/TrueOrFalseTypeTest/TrueOrFalseTypeTest';
+import MbtiTestType from '../../features/tests/container/MbtiTestContainer/MbtiTestType';
+import ScoreTypeTest from '../../features/tests/container/ScoreTestContainer/ScoreTypeTest';
+import TrueOrFalseTypeTest from '../../features/tests/container/TrueOrFalseTestContainer/TrueOrFalseTypeTest';
 import { MBTI_TEST_TYPE_CONTENT } from '../../features/tests/tests.const';
-import { ScoreTestItems } from '../../features/tests/container/ScoreTypeTest/ScoreTypeTest.type';
-import { MbtiTestItems } from '../../features/tests/container/MbtiTypeTest/MbtiTestType.type';
-import { TrueOrFalseTestItems } from '../../features/tests/container/TrueOrFalseTypeTest/TrueOrFalseTypeTest.type';
+import { MbtiTestItems } from '../../features/tests/container/MbtiTestContainer/mbtiTest.type';
+import { ScoreTestItems } from '../../features/tests/container/ScoreTestContainer/scoreTest.type';
+import { setWeightedScoreDictionary } from '../../features/tests/tests.util';
+import { TrueOrFalseTestItems } from '../../features/tests/container/TrueOrFalseTestContainer/trueOrFalseTest.type';
 
 interface MainPageProps {
   testItems: ScoreTestItems | MbtiTestItems | TrueOrFalseTestItems;
@@ -35,9 +32,6 @@ const MainPage = ({ testItems }: MainPageProps): JSX.Element => {
     <MainPageLayout>{testList(testItems.testType, testItems)}</MainPageLayout>
   );
 };
-
-const setWeightedScoreDictionary = (data) =>
-  data.reduce((dic, { resultContent }) => ({ ...dic, [resultContent]: 0 }), {});
 
 const weightedScoreDictionary = (testType, selectItems) => {
   if (testType === 'score') {

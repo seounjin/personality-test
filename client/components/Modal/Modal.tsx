@@ -1,9 +1,9 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
+import useBodyOverflow from '../../hooks/useBodyOverflow';
 import {
   Wrapper,
   Overlay,
   ModalContent,
-  ModalHeadLilne,
   XMarkIcon,
   XMarkIconWrapper,
 } from './Modal.style';
@@ -14,21 +14,15 @@ interface ModalProps {
 }
 
 const Modal = ({ children, onClose }: ModalProps): JSX.Element => {
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
+  useBodyOverflow();
+
   return (
     <Wrapper>
       <Overlay onClick={onClose} />
       <ModalContent>
-        <ModalHeadLilne>
-          <XMarkIconWrapper onClick={onClose}>
-            <XMarkIcon />
-          </XMarkIconWrapper>
-        </ModalHeadLilne>
+        <XMarkIconWrapper onClick={onClose}>
+          <XMarkIcon />
+        </XMarkIconWrapper>
         {children}
       </ModalContent>
     </Wrapper>

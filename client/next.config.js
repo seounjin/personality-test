@@ -6,13 +6,6 @@
 // };
 module.exports = {
   swcMinify: true,
-  experimental: {
-    modularizeImports: {
-      lodash: {
-        transform: 'lodash/{{member}}',
-      },
-    },
-  },
   compiler: {
     styledComponents: true,
   },

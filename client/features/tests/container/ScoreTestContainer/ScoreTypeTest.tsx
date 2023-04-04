@@ -1,25 +1,32 @@
-import React, { useCallback, useState } from 'react';
-import BackgroundImage from '../../../tests/components/BackgroundImage/BackgroundImage';
+import React, { useState } from 'react';
+import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
-import { throttle } from 'lodash';
 import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
 import { useSlide } from '../../hooks/useSlide';
-import { ScoreTestResultFormItem } from '../ScoreTestContainer/scoreTest.type';
-import { ScoreTestItems } from './ScoreTypeTest.type';
+import { ScoreTestItems, ScoreTestResultFormItem } from './scoreTest.type';
 import {
   SelectFormItems,
+  TestDisposition,
   WeightedScore,
   WeightedScoreItem,
 } from '../../tests.types';
 
 interface ScoreTypeTestProps {
   testItems: ScoreTestItems;
+  testDisposition?: TestDisposition;
+  scoreResultItems?: ScoreTestResultFormItem[];
+  handleCloseTemporaryTest?: () => void;
 }
 
-const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
+const ScoreTypeTest = ({
+  testItems,
+  scoreResultItems,
+  testDisposition = 'real',
+  handleCloseTemporaryTest,
+}: ScoreTypeTestProps): JSX.Element => {
   const {
     id,
     title,
@@ -38,7 +45,7 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
   );
   const [resultItems, setResultItems] =
     useState<ScoreTestResultFormItem | null>(null);
-  const { slideRef, nextSlide, resetSlide } = useSlide();
+  const { slideRef, nextSlide, resetSlide, isTransitioning } = useSlide();
 
   const startClick = (): void => {
     nextSlide();
@@ -51,22 +58,19 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
     setWeightedScore({ ...weightedScore });
   };
 
-  const optionsButtonClick = useCallback(
-    throttle(
-      ({ weightedScoreItems, currentSlide }): void => {
-        raseScore(weightedScoreItems);
-        if (currentSlide === lastSlide) {
-          const res = getHighestScoreType();
-          requestResult(res);
-          return;
-        }
-        nextSlide();
-      },
-      1000,
-      { leading: true, trailing: false },
-    ),
-    [],
-  );
+  const optionsButtonClick = ({ weightedScoreItems, currentSlide }): void => {
+    raseScore(weightedScoreItems);
+    if (currentSlide === lastSlide) {
+      const res = getHighestScoreType();
+      if (testDisposition === 'real') {
+        requestResult(res);
+      } else {
+        requestTempResult(res);
+      }
+      return;
+    }
+    nextSlide();
+  };
 
   const getHighestScoreType = (): string => {
     const sortedWeightScore = Object.entries(weightedScore).sort(
@@ -99,6 +103,14 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
     }
   };
 
+  const requestTempResult = async (result: string) => {
+    const res = scoreResultItems.filter(
+      ({ resultContent }) => resultContent === result,
+    );
+    setResultItems(res[0]);
+    nextSlide();
+  };
+
   const reStartClick = (): void => {
     resetSlide();
     setWeightedScore(weightedScoreDictionary);
@@ -118,6 +130,7 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
             slideIndex={index}
             totalStep={personalityTest.length}
             onClick={optionsButtonClick}
+            isTransitioning={isTransitioning}
           />
         </BackgroundImage>
       ))}
@@ -126,6 +139,7 @@ const ScoreTypeTest = ({ testItems }: ScoreTypeTestProps): JSX.Element => {
           <LastScreen
             isPublic={isPublic}
             onClick={reStartClick}
+            onClose={handleCloseTemporaryTest}
             resultContent={resultItems.resultContent}
             explanationContent={resultItems.explanationContent}
           />

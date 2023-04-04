@@ -3,6 +3,7 @@ import { FormEvent } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
+import RoundButton from '../../../../components/RoundButton/RoundButton';
 import SubHeadlineLabel from '../../../../components/SubHeadlineLabel/SubHeadlineLabel';
 import SubTextBoxSection from '../../../../components/SubTextBoxSection/SubTextBoxSection';
 import TextBox from '../../../../components/TextBox/TextBox';
@@ -10,12 +11,16 @@ import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
 import FormLayout from '../../../../layout/FormLayout/FormLayout';
 import { RootState } from '../../../../store/modules';
 import PrivewImage from '../../components/PrivewImage/PrivewImage';
+import TemporaryTestWrapper from '../../components/TemporaryTestWrapper/TemporaryTestWrapper';
 import WeightedScoreBoard from '../../components/WeightedScoreBoard/WeightedScoreBoard';
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 import useStorage from '../../hooks/useStorage';
+import { MBTI_TEST_TYPE_CONTENT } from '../../tests.const';
+import { setWeightedScoreDictionary } from '../../tests.util';
 import TextBoxSection from '../TextBoxSection/TextBoxSection';
 import WeightedScoreBoardSection from '../WeightedScoreBoardSection/WeightedScoreBoardSection';
 import { MBTI_TEST_FINAL_FORM_ID } from './mbtiTest.const';
+import MbtiTestType from './MbtiTestType';
 
 const MbtiTestFinalForm = () => {
   const {
@@ -47,7 +52,12 @@ const MbtiTestFinalForm = () => {
     shallowEqual,
   );
 
-  const { requestRegister, requestUpdate } = useFinalConfirmationForm();
+  const {
+    requestRegister,
+    requestUpdate,
+    handleCloseTemporaryTest,
+    isTemporaryTestOpen,
+  } = useFinalConfirmationForm();
 
   const setWeightedScoreBoard = (items) => <WeightedScoreBoard items={items} />;
 
@@ -161,6 +171,34 @@ const MbtiTestFinalForm = () => {
             </TextBoxSection>
           </React.Fragment>
         ))}
+      </BoxShadowCard>
+
+      <BoxShadowCard subtitle="테스트 미리보기">
+        <RoundButton
+          onClick={handleCloseTemporaryTest}
+          text={'미리보기'}
+          ariaLabel={'테스트 미리보기 버튼'}
+        />
+        {isTemporaryTestOpen && (
+          <TemporaryTestWrapper onClose={handleCloseTemporaryTest}>
+            <MbtiTestType
+              testDisposition="temporary"
+              testItems={{
+                title,
+                subTitle,
+                explain,
+                testType: 'mbti',
+                isPublic: false,
+                personalityItems: mbtiTestSelectFormItems,
+                weightedScoreDictionary: setWeightedScoreDictionary(
+                  MBTI_TEST_TYPE_CONTENT,
+                ),
+              }}
+              mbtiResultItems={mbtiTestResultFormItems}
+              handleCloseTemporaryTest={handleCloseTemporaryTest}
+            />
+          </TemporaryTestWrapper>
+        )}
       </BoxShadowCard>
 
       <BoxShadowCard subtitle="공개 하시겠습니까?">

@@ -1,13 +1,14 @@
 import { ResultFormItem, SelectFormItems } from '../../tests.types';
+import { ScoreTestItems } from '../ScoreTestContainer/scoreTest.type';
 import { RadioButtonItems } from '../TextRadioButtonGroup/TextRadioButtonGroup.type';
 
 export interface MbtiTestSliceInitialState {
   isPublic: boolean;
-  mbtiTestResultFormItems: MbtiTestResultFormItems[];
+  mbtiTestResultFormItems: MbtiTestResultFormItem[];
   mbtiTestSelectFormItems: MbtiTestSelectFormItems[];
 }
 
-export interface MbtiTestResultFormItems extends ResultFormItem {
+export interface MbtiTestResultFormItem extends ResultFormItem {
   mbtiType: string;
 }
 
@@ -19,3 +20,5 @@ export interface MbtiTestSelectFormItems extends SelectFormItems {
 export type MbtiTestSelectFormItemsType = {
   mbtiTestSelectFormItems: MbtiTestSelectFormItems[];
 };
+
+export type MbtiTestItems = ScoreTestItems;

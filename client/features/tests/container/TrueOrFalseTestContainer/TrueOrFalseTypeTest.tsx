@@ -1,57 +1,73 @@
-import React, { useCallback, useState } from 'react';
-// import { SelectFormItems } from '../../../../types';
-import BackgroundImage from '../../../tests/components/BackgroundImage/BackgroundImage';
+import React, { useState } from 'react';
+import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
-// import { ResultItems, TrueOrFalseTestItems } from '../../personalityTest.types';
-import { throttle } from 'lodash';
 import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
 import { useSlide } from '../../hooks/useSlide';
-import { TrueOrFalseTestItems } from './TrueOrFalseTypeTest.type';
-import { ResultFormItem, SelectFormItems } from '../../tests.types';
+import { TestDisposition } from '../../tests.types';
+import {
+  TrueOrFalseTestItems,
+  TrueOrFalseTestResultFormItem,
+  TrueOrFalseTestSelectFormItem,
+} from './trueOrFalseTest.type';
 
 interface TrueOrFalseTypeTestProps {
   testItems: TrueOrFalseTestItems;
+  testDisposition?: TestDisposition;
+  trueOrFalseResultItems?: TrueOrFalseTestResultFormItem[];
+  handleCloseTemporaryTest?: () => void;
 }
 
 const TrueOrFalseTypeTest = ({
   testItems,
+  testDisposition = 'real',
+  trueOrFalseResultItems,
+  handleCloseTemporaryTest,
 }: TrueOrFalseTypeTestProps): JSX.Element => {
   const { id, title, subTitle, testType, isPublic, personalityItems } =
     testItems;
 
-  const [personalityTest] = useState<SelectFormItems[]>(personalityItems);
+  const [personalityTest] =
+    useState<TrueOrFalseTestSelectFormItem[]>(personalityItems);
   const [lastSlide] = useState<number>(personalityTest.length);
 
-  const [resultItems, setResultItems] = useState<ResultFormItem | null>(null);
-  const [selectedOtioin, setSelectedOption] = useState('');
+  const [resultItems, setResultItems] =
+    useState<TrueOrFalseTestResultFormItem | null>(null);
+  const [selectedOtioin, setSelectedOption] = useState<string>('');
 
-  const { slideRef, nextSlide, resetSlide } = useSlide();
+  const { slideRef, nextSlide, resetSlide, isTransitioning } = useSlide();
 
   const startClick = (): void => {
     nextSlide();
   };
 
-  const optionsButtonClick = useCallback(
-    throttle(
-      ({ currentSlide, optionNumber }): void => {
-        setSelectedOption(selectedOtioin + `${optionNumber}`);
-        if (currentSlide === lastSlide) {
-          requestResult(selectedOtioin + `${optionNumber}`);
-          return;
-        }
-        nextSlide();
-      },
-      1000,
-      { leading: true, trailing: false },
-    ),
-    [],
-  );
+  const optionsButtonClick = ({ currentSlide, optionNumber }): void => {
+    setSelectedOption((selectedOtioin) => selectedOtioin + `${optionNumber}`);
+    if (currentSlide === lastSlide) {
+      if (testDisposition === 'real') {
+        requestResult(selectedOtioin + `${optionNumber}`);
+      } else {
+        requestTempResult(selectedOtioin + `${optionNumber}`);
+      }
+      return;
+    }
+    nextSlide();
+  };
+
+  const requestTempResult = async (result: string) => {
+    const res = trueOrFalseResultItems.filter(
+      ({ selectedOptionNumber }) => selectedOptionNumber === result,
+    );
+    console.log('결과', selectedOtioin, result);
+
+    console.log('res', trueOrFalseResultItems);
+    setResultItems(res[0]);
+    nextSlide();
+  };
 
   const requestResult = async (result) => {
-    console.log('투지', selectedOtioin, testType);
     const res = await fetcher(
       'get',
       `/personality/${id}/${testType}/results/${result}`,
@@ -84,6 +100,7 @@ const TrueOrFalseTypeTest = ({
             slideIndex={index}
             totalStep={personalityTest.length}
             onClick={optionsButtonClick}
+            isTransitioning={isTransitioning}
           />
         </BackgroundImage>
       ))}
@@ -94,6 +111,7 @@ const TrueOrFalseTypeTest = ({
             explanationContent={resultItems.explanationContent}
             isPublic={isPublic}
             onClick={reStartClick}
+            onClose={handleCloseTemporaryTest}
           />
         </BackgroundImage>
       )}

@@ -25,6 +25,7 @@ interface MainProps {
   slideIndex: number;
   totalStep: number;
   onClick: (...props: onClickProps[]) => void;
+  isTransitioning: boolean;
 }
 
 const MainScreen = ({
@@ -33,6 +34,7 @@ const MainScreen = ({
   slideIndex,
   totalStep,
   onClick,
+  isTransitioning,
 }: MainProps): JSX.Element => {
   return (
     <Wrapper>
@@ -51,6 +53,9 @@ const MainScreen = ({
         <ButtonWrapper>
           {optionItems.map(({ option, weightedScoreItems }, index) => (
             <OptionButton
+              disabled={isTransitioning}
+              type="button"
+              aria-label={`${option} 버튼`}
               onClick={() =>
                 onClick({
                   currentSlide: slideIndex + 1,

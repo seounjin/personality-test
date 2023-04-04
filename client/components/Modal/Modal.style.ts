@@ -36,13 +36,12 @@ export const ModalContent = styled.div`
   max-height: 80%;
 `;
 
-export const ModalHeadLilne = styled.div`
-  width: 100%;
-`;
-
 export const XMarkIconWrapper = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
   cursor: pointer;
-  float: right;
+  z-index: 1000;
 `;
 
 export const XMarkIcon = styled(xMarkSolidSvgIcon)`

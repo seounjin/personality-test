@@ -14,6 +14,7 @@ interface LastScreenProps {
   subTitle?: string;
   isPublic: boolean;
   onClick: () => void;
+  onClose?: () => void;
 }
 
 const LastScreen = ({
@@ -22,8 +23,9 @@ const LastScreen = ({
   subTitle,
   isPublic,
   onClick,
+  onClose,
 }: LastScreenProps): JSX.Element => {
-  const copyURL = () => {
+  const copyUrl = () => {
     const currentUrl = window.document.location.href;
     const text = document.createElement('textarea');
     document.body.appendChild(text);
@@ -45,9 +47,23 @@ const LastScreen = ({
         <Content> {explanationContent}</Content>
       </ContentWrapper>
       <ButtonWrapper>
-        {isPublic && <OvalButton text={'공유하기'} onClick={copyURL} />}
-        <OvalButton text={'테스트 다시하기'} onClick={onClick} />
-        <OvalButton text={'나가기'} onClick={() => window.close()} />
+        {isPublic && (
+          <OvalButton
+            text={'공유하기'}
+            ariaLabel={'공유하기 버튼'}
+            onClick={copyUrl}
+          />
+        )}
+        <OvalButton
+          text={'테스트 다시하기'}
+          ariaLabel={'테스트 다시하기 버튼'}
+          onClick={onClick}
+        />
+        <OvalButton
+          text={'나가기'}
+          ariaLabel={'나가기 버튼'}
+          onClick={onClose ? onClose : () => window.close()}
+        />
       </ButtonWrapper>
     </Container>
   );

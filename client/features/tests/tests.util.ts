@@ -65,3 +65,6 @@ export const createTrueOrFalseTestResultFormItems = (
     };
   });
 };
+
+export const setWeightedScoreDictionary = (data) =>
+  data.reduce((dic, { resultContent }) => ({ ...dic, [resultContent]: 0 }), {});

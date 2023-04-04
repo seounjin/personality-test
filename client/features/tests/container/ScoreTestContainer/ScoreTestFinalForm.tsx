@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormEvent } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import Modal from '../../../../components/Modal/Modal';
 import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
 import SubHeadlineLabel from '../../../../components/SubHeadlineLabel/SubHeadlineLabel';
@@ -8,14 +9,19 @@ import SubTextBoxSection from '../../../../components/SubTextBoxSection/SubTextB
 import TextBox from '../../../../components/TextBox/TextBox';
 import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
 import FormLayout from '../../../../layout/FormLayout/FormLayout';
+import MainPageLayout from '../../../../layout/MainPageLayout/MainPageLayout';
+import TemporaryTestWrapper from '../../components/TemporaryTestWrapper/TemporaryTestWrapper';
 import { RootState } from '../../../../store/modules';
 import PrivewImage from '../../components/PrivewImage/PrivewImage';
 import WeightedScoreBoard from '../../components/WeightedScoreBoard/WeightedScoreBoard';
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 import useStorage from '../../hooks/useStorage';
+import ScoreTypeTest from './ScoreTypeTest';
 import TextBoxSection from '../TextBoxSection/TextBoxSection';
 import WeightedScoreBoardSection from '../WeightedScoreBoardSection/WeightedScoreBoardSection';
 import { SCORE_TEST_FINAL_FORM_ID } from './scoreTest.const';
+import RoundButton from '../../../../components/RoundButton/RoundButton';
+import { setWeightedScoreDictionary } from '../../tests.util';
 
 const ScoreTestFinalForm = () => {
   const {
@@ -47,7 +53,12 @@ const ScoreTestFinalForm = () => {
     shallowEqual,
   );
 
-  const { requestRegister, requestUpdate } = useFinalConfirmationForm();
+  const {
+    requestRegister,
+    requestUpdate,
+    handleCloseTemporaryTest,
+    isTemporaryTestOpen,
+  } = useFinalConfirmationForm();
 
   const setWeightedScoreBoard = (items) => <WeightedScoreBoard items={items} />;
 
@@ -154,6 +165,34 @@ const ScoreTestFinalForm = () => {
             </TextBoxSection>
           </React.Fragment>
         ))}
+      </BoxShadowCard>
+
+      <BoxShadowCard subtitle="테스트 미리보기">
+        <RoundButton
+          onClick={handleCloseTemporaryTest}
+          text={'미리보기'}
+          ariaLabel={'테스트 미리보기 버튼'}
+        />
+        {isTemporaryTestOpen && (
+          <TemporaryTestWrapper onClose={handleCloseTemporaryTest}>
+            <ScoreTypeTest
+              testDisposition="temporary"
+              testItems={{
+                title,
+                subTitle,
+                explain,
+                testType: 'score',
+                isPublic: false,
+                personalityItems: scoreTestSelectFormItems,
+                weightedScoreDictionary: setWeightedScoreDictionary(
+                  scoreTestSelectFormItems[0].optionItems[0].weightedScoreItems,
+                ),
+              }}
+              scoreResultItems={scoreTestResultFormItems}
+              handleCloseTemporaryTest={handleCloseTemporaryTest}
+            />
+          </TemporaryTestWrapper>
+        )}
       </BoxShadowCard>
 
       <BoxShadowCard subtitle="공개 하시겠습니까?">

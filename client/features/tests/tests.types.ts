@@ -33,7 +33,9 @@ export interface BaseTestItems {
   title: string;
   subTitle: string;
   explain: string;
-  id: string;
+  id?: string;
   testType: string;
   isPublic: boolean;
 }
+
+export type TestDisposition = 'temporary' | 'real' | null;
