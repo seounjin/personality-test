@@ -22,6 +22,11 @@ module.exports = {
   images: {
     remotePatterns: [
       {
+        protocol: 'https',
+        hostname: 'api.rororo-marshmallow.store',
+        port: '',
+      },
+      {
         protocol: 'http',
         hostname: 'localhost',
         port: '8080',
