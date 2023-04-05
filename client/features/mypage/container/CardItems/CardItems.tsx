@@ -34,12 +34,12 @@ const CardItems = () => {
       dispatch(setCards(newCards));
       setIsModalOpen(false);
     } else {
-      if (res.status === 401) {
+      if (res.status === 400 || res.status === 401) {
         alert('로그인 유효시간이 만료 되었습니다 \n다시 로그인해 주세요');
         router.push('/login?redirect=mypage');
-      } else {
-        alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
+        return;
       }
+      alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
     }
   };
 

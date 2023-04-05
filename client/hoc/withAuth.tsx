@@ -1,5 +1,4 @@
 import { wrapper } from '../store';
-import fetcher from '../api/fetcher';
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
@@ -9,7 +8,6 @@ import {
 import { AnyAction, Store } from '@reduxjs/toolkit';
 import { RootState } from '../store/modules';
 import { ParsedUrlQuery } from 'querystring';
-import { axiosNext } from '../api/axiosNext';
 import authFetcher from '../api/authFetcher';
 import requestToken from '../api/requestToken';
 
@@ -31,7 +29,7 @@ const authorize = async ({ context, store, callback }: AuthorizeProps) => {
     const headers = {
       Cookie: cookie,
     };
-    const authResponse = await fetcher('get', '/auth', {
+    const authResponse = await authFetcher('get', '/auth', {
       headers,
     });
 
@@ -74,6 +72,11 @@ const authorize = async ({ context, store, callback }: AuthorizeProps) => {
         query,
         userId: data.userId,
       });
+    } else {
+      res.setHeader('Set-Cookie', [
+        `accessToken=deleted; Max-Age=0; path=/`,
+        `refreshToken=deleted; Max-Age=0; path=/`,
+      ]);
     }
   }
 
@@ -90,39 +93,3 @@ export const withAuth = ({ callback }): GetServerSideProps =>
   });
 
 export default withAuth;
-// const authorize = async ({ context, store, callback }: AuthorizeProps) => {
-//   const { req, res, params } = context;
-//   const cookie = req.headers.cookie;
-//   // axiosNext.defaults.headers.common.Cookies = '';
-//   // {headers: { Cookie: cookie }}
-//   if (req && cookie) {
-//     // axiosNext.defaults.headers.common.Cookies = cookie;
-//     // const authResponse = await axiosNext.get('/auth');
-//     const authResponse = await authFetcher('get', '/auth', {
-//       headers: { Cookie: cookie },
-//     });
-
-//     if (authResponse.success) {
-//       return callback({
-//         auth: true,
-//         id: params ? params.id : '',
-//         cookie: cookie,
-//         store,
-//       });
-//     }
-//     return callback({ auth: false, status: authResponse.status });
-//   }
-
-//   return callback({ auth: false, status: null });
-// };
-
-// export const withAuth = ({ callback }): GetServerSideProps =>
-//   wrapper.getServerSideProps((store) => async (context) => {
-//     return authorize({
-//       context,
-//       store,
-//       callback,
-//     });
-//   });
-
-// export default withAuth;

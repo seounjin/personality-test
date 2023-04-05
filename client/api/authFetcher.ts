@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, Method } from 'axios';
-import { axiosNext } from './axiosNext';
+import { apiServer } from './axiosServer';
 
 const authFetcher = async (
   method: Method,
@@ -7,18 +7,12 @@ const authFetcher = async (
   ...rest: AxiosRequestConfig[]
 ) => {
   try {
-    const res = await axiosNext[method](url, ...rest);
-    console.log('status', res.status);
-    if (res.status >= 200) {
-      return res.data;
-    }
+    const res = await apiServer[method](url, ...rest);
+    return res.data;
   } catch (error) {
     if (error.response) {
-      console.log('fetcher 에러', error.response.data);
-      console.log('fetcher 상태코드', error.response && error.response.status);
       return error.response;
     }
-
     return { success: false, status: 503 };
   }
 };

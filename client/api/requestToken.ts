@@ -13,7 +13,6 @@ const requestToken = async (
     return res;
   } catch (error) {
     const errorStatus = error.response ? error.response.status : 500;
-    console.log('fetcher error', errorStatus);
     return { status: errorStatus };
   }
 };

@@ -26,7 +26,7 @@ const BarsMenu = (): JSX.Element => {
       alert('로그아웃 되었습니다');
       router.replace('/');
     } else {
-      alert('로그아웃을 실패 하셨습니다');
+      alert('로그아웃 실패 하셨습니다');
       router.reload();
     }
   };

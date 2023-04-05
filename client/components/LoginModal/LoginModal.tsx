@@ -11,9 +11,9 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import LoginModalForm from '../LoginModalForm/LoginModalForm';
-import fetcher from '../../api/fetcher';
 import { useRouter } from 'next/router';
 import { getLoginErrorMessage } from '../../errors';
+import authFetcher from '../../api/authFetcher';
 
 const loginFormSchema = yup.object({
   email: yup
@@ -26,7 +26,7 @@ const loginFormSchema = yup.object({
 const LoginModal = (): JSX.Element => {
   const router = useRouter();
   const onSubmit = async (data: { email: string; password: string }) => {
-    const res = await fetcher('post', '/user/login', { data });
+    const res = await authFetcher('post', '/user/login', { data });
     if (res.success) {
       alert('로그인 성공');
       const redirect = router.query.redirect;

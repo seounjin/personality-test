@@ -1,6 +1,12 @@
-import { AxiosRequestConfig, Method } from 'axios';
+import axios, { AxiosRequestConfig, Method } from 'axios';
 import { getErrorMessage, CustomError } from '../errors';
-import { axiosClient } from './axiosClient';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+export const apiServer = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
 
 const axiosServer = async (
   method: Method,
@@ -8,7 +14,7 @@ const axiosServer = async (
   ...rest: AxiosRequestConfig[]
 ) => {
   try {
-    const res = await axiosClient[method](url, ...rest);
+    const res = await apiServer[method](url, ...rest);
     return res.data;
   } catch (error) {
     const message = getErrorMessage(error.response.status);
