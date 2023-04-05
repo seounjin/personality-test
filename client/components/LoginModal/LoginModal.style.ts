@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
 export const Container = styled.div``;
@@ -36,7 +37,7 @@ export const Bottom = styled.div`
   }
 `;
 
-export const Link = styled.a`
+export const StyledLink = styled(Link)`
   font-size: 1.5rem;
   color: ${({ theme }) => theme.colors.loginFormLinkTextColor};
   cursor: pointer;

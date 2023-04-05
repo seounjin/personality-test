@@ -56,6 +56,7 @@ declare module 'styled-components' {
       skeletionColor: string;
       scrollButtonColor: string;
       roundButtonColor: string;
+      spinnerColor: string;
     };
 
     device: {

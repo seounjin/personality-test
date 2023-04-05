@@ -59,6 +59,7 @@ export const theme: DefaultTheme = {
     skeletionColor: '#bfbfbf',
     scrollButtonColor: '#594545',
     roundButtonColor: '#594545',
+    spinnerColor: '#594545',
   },
 
   device: {

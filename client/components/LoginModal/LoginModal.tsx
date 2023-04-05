@@ -3,8 +3,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import {
   Bottom,
   Container,
-  Link,
   LoginFormButton,
+  StyledLink,
   Title,
   TitleWrapper,
 } from './LoginModal.style';
@@ -58,8 +58,8 @@ const LoginModal = (): JSX.Element => {
       <LoginFormButton form="loginModalForm">로그인</LoginFormButton>
 
       <Bottom>
-        <Link href="/">홈으로</Link>
-        <Link href="/signup">회원 가입</Link>
+        <StyledLink href="/">홈으로</StyledLink>
+        <StyledLink href="/signup">회원 가입</StyledLink>
       </Bottom>
     </Container>
   );

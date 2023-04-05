@@ -12,5 +12,5 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 2000;
-  background-color: rgb(0, 0, 0, 0.2);
+  // background-color: rgb(0, 0, 0, 0.2);
 `;

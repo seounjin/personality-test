@@ -76,7 +76,13 @@ const CardList = ({
           </CardHoverWrapper>
 
           <CardItemHeader>
-            <Image alt="card-img" src={thumbnailImgUrl} fill priority />
+            <Image
+              alt="card-img"
+              src={thumbnailImgUrl}
+              fill
+              loading="eager"
+              priority
+            />
           </CardItemHeader>
           <CardItemBody>
             <Headline>{title}</Headline>
