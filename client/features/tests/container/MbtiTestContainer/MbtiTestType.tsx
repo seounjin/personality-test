@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
@@ -104,9 +104,12 @@ const MbtiTestType = ({
     }
   };
 
+  const lastBackgroundImgRef = useRef(null);
+
   const reStartClick = (): void => {
     resetSlide();
     setWeightedScore(weightedScoreDictionary);
+    lastBackgroundImgRef.current.scrollTop = 0;
   };
 
   return (
@@ -128,7 +131,7 @@ const MbtiTestType = ({
         </BackgroundImage>
       ))}
       {resultItems && (
-        <BackgroundImage>
+        <BackgroundImage ref={lastBackgroundImgRef}>
           <LastScreen
             resultContent={resultItems.resultContent}
             explanationContent={resultItems.explanationContent}

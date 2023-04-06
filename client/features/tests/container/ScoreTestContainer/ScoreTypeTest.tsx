@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
@@ -111,9 +111,12 @@ const ScoreTypeTest = ({
     nextSlide();
   };
 
+  const lastBackgroundImgRef = useRef(null);
+
   const reStartClick = (): void => {
     resetSlide();
     setWeightedScore(weightedScoreDictionary);
+    lastBackgroundImgRef.current.scrollTop = 0;
   };
 
   return (
@@ -135,7 +138,7 @@ const ScoreTypeTest = ({
         </BackgroundImage>
       ))}
       {resultItems && (
-        <BackgroundImage>
+        <BackgroundImage ref={lastBackgroundImgRef}>
           <LastScreen
             isPublic={isPublic}
             onClick={reStartClick}

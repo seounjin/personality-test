@@ -42,6 +42,9 @@ export const CardItemBody = styled.div`
 
 export const Headline = styled.h3`
   font-size: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 export const TagsWrapper = styled.div``;
@@ -67,7 +70,7 @@ export const CardHoverWrapper = styled.div`
 
   a {
     position: absolute;
-    padding: 20px;
+    // padding: 20px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -90,10 +93,25 @@ export const CardHoverTitle = styled.h3`
   position: absolute;
   bottom: 150%;
   transition: all 0.4s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0 10px;
 `;
 
 export const CardHoverExplain = styled.span`
   position: absolute;
   top: 150%;
   transition: all 0.4s;
+
+  line-height: 1.4;
+  padding: 0 10px;
+
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
 `;

@@ -2,24 +2,29 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  padding: 17px;
+  padding: 20px;
 `;
 
 export const Title = styled.span`
   font-size: 30px;
   font-weight: bold;
+  text-align: center;
   color: ${({ theme }) => theme.colors.lastScreenTitleColor};
-  box-shadow: inset 0 -20px 0 ${({ theme }) => theme.colors.mainPageSubColor};
+
+  ${({ theme }) =>
+    theme.device.mobile`
+      font-size: 25px;
+    `}
 `;
 
 export const Content = styled.div`
   font-size: 18px;
-  line-height: 1.3;
+  line-height: 1.4;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -32,13 +37,9 @@ export const ButtonWrapper = styled.div`
 export const ContentWrapper = styled.div`
   width: 100%;
   max-width: 420px;
-  height: 500px;
-  padding: 40px;
+  min-height: 400px;
+  padding: 20px;
   margin: 20px 0;
   border-radius: 20px;
   background-color: ${({ theme }) => theme.colors.lastScreenContentColor};
-
-  ${({ theme }) =>
-    theme.device.mobile`
-  height: 420px;`}
 `;

@@ -6,7 +6,10 @@ import { CustomError } from '../../errors';
 import MbtiTestType from '../../features/tests/container/MbtiTestContainer/MbtiTestType';
 import ScoreTypeTest from '../../features/tests/container/ScoreTestContainer/ScoreTypeTest';
 import TrueOrFalseTypeTest from '../../features/tests/container/TrueOrFalseTestContainer/TrueOrFalseTypeTest';
-import { MBTI_TEST_TYPE_CONTENT } from '../../features/tests/tests.const';
+import {
+  IMAGE_HOLDER_PATH,
+  MBTI_TEST_TYPE_CONTENT,
+} from '../../features/tests/tests.const';
 import { MbtiTestItems } from '../../features/tests/container/MbtiTestContainer/mbtiTest.type';
 import { ScoreTestItems } from '../../features/tests/container/ScoreTestContainer/scoreTest.type';
 import { setWeightedScoreDictionary } from '../../features/tests/tests.util';
@@ -41,7 +44,11 @@ const MainPage = ({
         title={`${title} 테스트`}
         altImage={`${title} 테스트 썸네일`}
         description={explain}
-        ogImageUrl={thumbnailImgUrl}
+        ogImageUrl={
+          thumbnailImgUrl === IMAGE_HOLDER_PATH
+            ? 'https://rororo-marshmallow.store/api/og'
+            : thumbnailImgUrl
+        }
         ogTitle={title}
         ogDescription={explain}
       />

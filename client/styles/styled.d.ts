@@ -1,6 +1,4 @@
 import { CSSProp } from 'styled-components';
-import { isArgumentsObject } from 'util/types';
-import { string } from 'yup';
 
 declare module 'styled-components' {
   export interface DefaultTheme {

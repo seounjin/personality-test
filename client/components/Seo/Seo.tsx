@@ -19,15 +19,15 @@ const Seo = ({
   ogDescription,
   altImage,
 }: HeadMetaProps): JSX.Element => {
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
 
   return (
     <NextSeo
       title={title}
       description={description}
-      canonical={`https://rororo-marshmallow.store${pathname}`}
+      canonical={`https://rororo-marshmallow.store${asPath}`}
       openGraph={{
-        url: `https://rororo-marshmallow.store${pathname}`,
+        url: `https://rororo-marshmallow.store${asPath}`,
         title: ogTitle,
         description: ogDescription,
         images: [

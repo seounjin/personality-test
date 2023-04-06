@@ -21,7 +21,6 @@ export const Container = styled.div`
   height: 100%;
   border: solid;
   background-color: ${({ theme }) => theme.colors.white};
-  font-size: 20px;
 `;
 
 export const QuestionWrapper = styled.div`
@@ -29,10 +28,12 @@ export const QuestionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 24px;
 `;
 
 export const Question = styled.span`
-  line-height: normal;
+  line-height: 1.4;
+  text-align: center;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -44,14 +45,16 @@ export const ButtonWrapper = styled.div`
 
 const Button = styled.button`
   width: 280px;
-  height: 72px;
   border: none;
   border-radius: 22px;
+  padding: 16px;
 `;
 
 export const OptionButton = styled(Button)`
   background-color: ${({ theme }) => theme.colors.optionButtonColor};
   margin-bottom: 20px;
+  font-size: 20px;
+  line-height: 1.4;
 `;
 
 export const QuestionIconWrapper = styled.div`
@@ -71,4 +74,5 @@ export const TopSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
 `;
