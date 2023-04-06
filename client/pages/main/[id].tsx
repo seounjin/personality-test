@@ -11,9 +11,11 @@ import { MbtiTestItems } from '../../features/tests/container/MbtiTestContainer/
 import { ScoreTestItems } from '../../features/tests/container/ScoreTestContainer/scoreTest.type';
 import { setWeightedScoreDictionary } from '../../features/tests/tests.util';
 import { TrueOrFalseTestItems } from '../../features/tests/container/TrueOrFalseTestContainer/trueOrFalseTest.type';
+import Seo from '../../components/Seo/Seo';
 
 interface MainPageProps {
   testItems: ScoreTestItems | MbtiTestItems | TrueOrFalseTestItems;
+  thumbnailImgUrl: string;
 }
 
 const testList = (testType, testItems) => {
@@ -27,9 +29,24 @@ const testList = (testType, testItems) => {
   }
 };
 
-const MainPage = ({ testItems }: MainPageProps): JSX.Element => {
+const MainPage = ({
+  testItems,
+  thumbnailImgUrl,
+}: MainPageProps): JSX.Element => {
+  const { title, explain, testType } = testItems;
+
   return (
-    <MainPageLayout>{testList(testItems.testType, testItems)}</MainPageLayout>
+    <>
+      <Seo
+        title={`${title} 테스트`}
+        altImage={`${title} 테스트 썸네일`}
+        description={explain}
+        ogImageUrl={thumbnailImgUrl}
+        ogTitle={title}
+        ogDescription={explain}
+      />
+      <MainPageLayout>{testList(testType, testItems)}</MainPageLayout>
+    </>
   );
 };
 
@@ -81,6 +98,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         testType,
         selectItems,
         isPublic,
+        thumbnailImgUrl,
       } = res.data;
 
       return {
@@ -95,6 +113,7 @@ export const getServerSideProps: GetServerSideProps = async ({
             personalityItems: [...selectItems],
             ...weightedScoreDictionary(testType, selectItems),
           },
+          thumbnailImgUrl: thumbnailImgUrl,
         },
       };
     }

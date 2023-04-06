@@ -9,6 +9,7 @@ import Layout from '../layout/Layout/Layout';
 import axiosServer from '../api/axiosServer';
 import dynamic from 'next/dynamic';
 import CardListSkeleton from '../components/CardList/CardListSkeleton';
+import Seo from '../components/Seo/Seo';
 
 type HomeProps = {
   cardItems: Card[];
@@ -34,12 +35,24 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
   });
 
   return (
-    <Layout>
-      <HomeBody>
-        <CardList cardItems={cards} type="home" />
-        {/* <div ref={target} style={{ height: '1px' }}></div> */}
-      </HomeBody>
-    </Layout>
+    <>
+      <Seo
+        title={`성향 테스트`}
+        altImage={`성향테스트 아이콘`}
+        description={
+          '각양각색의 사람들의 성향을 테스트 할 수 있는 폼을 제공해주는 서비스입니다.'
+        }
+        ogImageUrl={'https://rororo-marshmallow.store/api/og'}
+        ogTitle={'성향 테스트'}
+        ogDescription={'성향테스트를 만들고 공유할수 있어요.'}
+      />
+      <Layout>
+        <HomeBody>
+          <CardList cardItems={cards} type="home" />
+          {/* <div ref={target} style={{ height: '1px' }}></div> */}
+        </HomeBody>
+      </Layout>
+    </>
   );
 };
 

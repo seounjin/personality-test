@@ -60,9 +60,7 @@ const TrueOrFalseTypeTest = ({
     const res = trueOrFalseResultItems.filter(
       ({ selectedOptionNumber }) => selectedOptionNumber === result,
     );
-    console.log('결과', selectedOtioin, result);
 
-    console.log('res', trueOrFalseResultItems);
     setResultItems(res[0]);
     nextSlide();
   };

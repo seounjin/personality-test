@@ -24,8 +24,9 @@ export default function handler() {
           src="http://rororo-marshmallow.store/images/onImage.svg"
           width="140px"
           height="140px"
+          style={{ marginTop: '20px' }}
         />
-        <p>누구나 쉽게 만들어 보아요</p>
+        <p>누구나 쉽게 만들고 공유해 보아요</p>
       </div>
     ),
     {

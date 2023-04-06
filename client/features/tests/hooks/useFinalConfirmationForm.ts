@@ -10,7 +10,6 @@ const useFinalConfirmationForm = () => {
   const requestRegister = async (data) => {
     const testType = getTestType();
     const res = await fetcher('post', `/personality/${testType}`, { data });
-    console.log('res!!!', res);
     if (res.success) {
       alert('성향 테스트가 등록 되었습니다');
       router.push('/');

@@ -48,7 +48,6 @@ const ThumbnailImageUpload = (): JSX.Element => {
       reader.readAsDataURL(compressedFile);
       reader.onloadend = () => {
         const imageData = reader.result;
-        console.log('imageData', typeof imageData);
         dispatch(
           setImageInformation({
             thumbnailImgUrl: URL.createObjectURL(compressedFile),
