@@ -27,11 +27,4 @@ export const Nav = styled.nav`
   .menu_wrapper {
     border-bottom-left-radius: 10px;
   }
-
-  .back_button {
-    display: none;
-    ${({ theme }) =>
-      theme.device.laptop`
-display: inline;`}
-  }
 `;
