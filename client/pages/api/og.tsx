@@ -21,7 +21,7 @@ export default function handler() {
         }}
       >
         <img
-          src="http://rororo-marshmallow.store/images/onImage.svg"
+          src="http://rororo-marshmallow.store/images/favicon.svg"
           width="140px"
           height="140px"
           style={{ marginTop: '20px' }}

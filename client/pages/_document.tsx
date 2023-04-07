@@ -37,6 +37,8 @@ class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
+          <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+
           <meta
             name="keywords"
             content="성향, 테스트, 성향테스트, mbti, 사람, 성격, 점수형, O X형"
