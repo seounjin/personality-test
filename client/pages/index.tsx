@@ -48,7 +48,7 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
       />
       <Layout>
         <HomeBody>
-          <CardList cardItems={cards} type="home" />
+          <CardList cardItems={cards} />
           {/* <div ref={target} style={{ height: '1px' }}></div> */}
         </HomeBody>
       </Layout>

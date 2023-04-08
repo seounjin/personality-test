@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 

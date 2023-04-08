@@ -9,6 +9,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../../../store/modules';
 import { useDispatch } from 'react-redux';
 import { setCards } from '../../../../store/modules/mypage';
+import MypageCardList from '../../components/MypageCardList/MypageCardList';
 
 const CardItems = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -70,11 +71,10 @@ const CardItems = () => {
   return (
     <>
       {cards.length ? (
-        <CardList
+        <MypageCardList
           cardItems={cards}
           handleLeftButton={deleteButtonClick}
           handleRightButton={updateButtonClick}
-          type="mypage"
         />
       ) : (
         <PhraseText text={'아직 생성한 테스트가 없습니다'} />

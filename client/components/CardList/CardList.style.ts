@@ -49,11 +49,6 @@ export const Headline = styled.h3`
 
 export const TagsWrapper = styled.div``;
 
-export const TwoButtonWrapper = styled.div`
-  position: relative;
-  top: 80%;
-`;
-
 export const CardHoverWrapper = styled.div`
   border-radius: 4px;
 
@@ -70,7 +65,6 @@ export const CardHoverWrapper = styled.div`
 
   a {
     position: absolute;
-    // padding: 20px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -114,4 +108,9 @@ export const CardHoverExplain = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
+`;
+
+export const Description = styled.p`
+  font-size: 18px;
+  line-height: 1.4;
 `;

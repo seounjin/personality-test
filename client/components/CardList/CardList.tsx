@@ -6,7 +6,6 @@ import {
   CardItemBody,
   Headline,
   TagsWrapper,
-  TwoButtonWrapper,
   CardHoverWrapper,
   CardHoverExplain,
   CardHoverTitle,
@@ -14,31 +13,14 @@ import {
 import Link from 'next/link';
 import { Card } from './CardList.type';
 import Image from 'next/image';
-import TwoButton from '../TwoButton/TwoButton';
 import Tag from '../Tag/Tag';
 import { PARSE_TAG_TEXT } from '../../features/tests/tests.const';
 
 type CardListProps = {
   cardItems: Card[];
-  handleLeftButton?: (
-    event: React.MouseEvent,
-    id: string,
-    testType: string,
-  ) => void;
-  handleRightButton?: (
-    event: React.MouseEvent,
-    id: string,
-    testType: string,
-  ) => void;
-  type?: string;
 };
 
-const CardList = ({
-  cardItems,
-  handleLeftButton,
-  handleRightButton,
-  type = 'home',
-}: CardListProps): JSX.Element => {
+const CardList = ({ cardItems }: CardListProps): JSX.Element => {
   return (
     <Wrapper>
       {cardItems.map(({ title, explain, id, testType, thumbnailImgUrl }) => (
@@ -59,20 +41,6 @@ const CardList = ({
                 {explain}
               </CardHoverExplain>
             </Link>
-            {type === 'mypage' && (
-              <TwoButtonWrapper>
-                <TwoButton
-                  leftName="삭제"
-                  leftButton={(event) => handleLeftButton(event, id, testType)}
-                  rightButton={(event) =>
-                    handleRightButton(event, id, testType)
-                  }
-                  leftType="button"
-                  rightType="button"
-                  rightName="수정"
-                />
-              </TwoButtonWrapper>
-            )}
           </CardHoverWrapper>
 
           <CardItemHeader>

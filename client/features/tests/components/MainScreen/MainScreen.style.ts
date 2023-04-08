@@ -55,6 +55,10 @@ export const OptionButton = styled(Button)`
   margin-bottom: 20px;
   font-size: 20px;
   line-height: 1.4;
+
+  &:disabled {
+    color: black;
+  }
 `;
 
 export const QuestionIconWrapper = styled.div`
