@@ -42,7 +42,7 @@ const Home = ({ cardItems }: HomeProps): JSX.Element => {
         description={
           '각양각색의 사람들의 성향을 테스트 할 수 있는 폼을 제공해주는 서비스입니다.'
         }
-        ogImageUrl={'https://rororo-marshmallow.store/api/og'}
+        ogImageUrl={`${process.env.NEXT_PUBLIC_BASE_URL}/api/og`}
         ogTitle={'성향 테스트'}
         ogDescription={'성향테스트를 만들고 공유할수 있어요.'}
       />
