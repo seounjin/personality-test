@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import fetcher from '../../../../api/fetcher';
 import Modal from '../../../../components/Modal/Modal';
-import CardList from '../../../../components/CardList/CardList';
 import DeleteAlertModal from '../DeleteAlertModal/DeleteAlertModal';
 import PhraseText from '../../components/PhraseText/PhraseText';
 import { useSelector, shallowEqual } from 'react-redux';
@@ -64,6 +63,54 @@ const CardItems = () => {
     router.push(`/tests/${id}?test=${testType}`);
   };
 
+  const getAccessToken = async (id: string): Promise<string> => {
+    const res = await fetcher('get', `/propensity/${id}/access-token`);
+
+    if (res.success) {
+      return res.accessToken;
+    }
+    alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
+    return '';
+  };
+
+  const copyUrl = (shareUrl: string) => {
+    const text = document.createElement('textarea');
+    document.body.appendChild(text);
+    text.value = shareUrl;
+    text.select();
+    document.execCommand('copy');
+    document.body.removeChild(text);
+
+    alert('링크가 복사되었습니다.');
+  };
+
+  const getPublicShareUrl = (id, testType) => {
+    return `${process.env.NEXT_PUBLIC_BASE_URL}/main/${id}?test=${testType}`;
+  };
+
+  const getNotPublicShareUrl = async (id, testType) => {
+    const acceeeToken = await getAccessToken(id);
+    return `${process.env.NEXT_PUBLIC_BASE_URL}/main/${id}?test=${testType}&accessToken=${acceeeToken}`;
+  };
+
+  const shareButtonClick = async (
+    event: React.MouseEvent,
+    id: string,
+    testType: string,
+    isPublic: boolean,
+  ) => {
+    event.preventDefault();
+
+    let shareUrl = '';
+    if (isPublic) {
+      shareUrl = getPublicShareUrl(id, testType);
+    } else {
+      shareUrl = await getNotPublicShareUrl(id, testType);
+    }
+
+    copyUrl(shareUrl);
+  };
+
   const handleClose = () => {
     setIsModalOpen(false);
   };
@@ -73,8 +120,9 @@ const CardItems = () => {
       {cards.length ? (
         <MypageCardList
           cardItems={cards}
-          handleLeftButton={deleteButtonClick}
-          handleRightButton={updateButtonClick}
+          deleteButtonClick={deleteButtonClick}
+          updateButtonClick={updateButtonClick}
+          shareButtonClick={shareButtonClick}
         />
       ) : (
         <PhraseText text={'아직 생성한 테스트가 없습니다'} />

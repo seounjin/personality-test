@@ -26,7 +26,7 @@ const Sidebar = ({ onClick, sidebarMenu }: SidebarProps): JSX.Element => {
               <Menu
                 key={item.id}
                 onClick={() => onClick(item.asPath)}
-                isActive={router.asPath === item.asPath}
+                isActive={router.pathname === item.asPath}
               >
                 {item.text}
               </Menu>

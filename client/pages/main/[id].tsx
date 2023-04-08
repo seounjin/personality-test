@@ -46,7 +46,7 @@ const MainPage = ({
         description={explain}
         ogImageUrl={
           thumbnailImgUrl === IMAGE_HOLDER_PATH
-            ? 'https://rororo-marshmallow.store/api/og'
+            ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/og`
             : thumbnailImgUrl
         }
         ogTitle={title}
@@ -78,7 +78,8 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
 }) => {
-  const { test, id: parmsId } = query;
+  const { test, id: parmsId, accessToken } = query;
+
   try {
     if (!checkTestType(test)) {
       throw new CustomError('잘못된 요청입니다', 400);
@@ -90,13 +91,13 @@ export const getServerSideProps: GetServerSideProps = async ({
         }
       : {};
 
-    const res = await axiosServer(
-      'get',
-      `/personality/${parmsId}?test=${test}`,
-      {
-        headers,
-      },
-    );
+    const requsetUrl = !accessToken
+      ? `/personality/${parmsId}?test=${test}`
+      : `/personality/private/${parmsId}?test=${test}&accessToken=${accessToken}`;
+
+    const res = await axiosServer('get', requsetUrl, {
+      headers,
+    });
 
     if (res.success) {
       const {

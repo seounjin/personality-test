@@ -4,4 +4,5 @@ export interface Card {
   explain: string;
   testType: string;
   thumbnailImgUrl?: string;
+  isPublic?: boolean;
 }

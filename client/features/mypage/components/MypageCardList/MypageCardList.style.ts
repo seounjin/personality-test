@@ -4,18 +4,33 @@ export const ButtonContainer = styled.div`
   margin-top: 18px;
   display: flex;
   justify-content: end;
+
+  button: nth-child(2) {
+    margin: 0 8px;
+  }
 `;
 
-const CircleButton = styled.button`
+export const Button = styled.button`
   width: 50px;
-  height: 50px;
+  height: 80px;
   padding: 0;
   border: none;
-  background-color: #dddddd;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.mypageBackgroundColor};
+`;
+
+const GrayCircle = styled.span`
+  width: 50px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.lightGray};
 
   transition: all 0.2s ease-in-out;
 
@@ -24,33 +39,25 @@ const CircleButton = styled.button`
   }
 `;
 
-export const DeleteButton = styled(CircleButton)`
-  margin-right: 8px;
+export const DeleteEimoji = styled(GrayCircle)`
   &::before {
     content: '🗑';
     font-size: 20px;
   }
 `;
 
-export const EditButton = styled(CircleButton)`
-  margin-right: 8px;
+export const EditEimoji = styled(GrayCircle)`
   &::before {
     content: '✏️';
     font-size: 20px;
   }
 `;
 
-export const ShareButton = styled(CircleButton)`
+export const ShareEimoji = styled(GrayCircle)`
   &::before {
     content: '📤';
     font-size: 20px;
   }
-`;
-
-export const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 export const ButtonTag = styled.span`
