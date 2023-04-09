@@ -3,7 +3,6 @@ import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
-import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
 import { useSlide } from '../../hooks/useSlide';
 import { TestDisposition } from '../../tests.types';
@@ -12,6 +11,7 @@ import {
   TrueOrFalseTestResultFormItem,
   TrueOrFalseTestSelectFormItem,
 } from './trueOrFalseTest.type';
+import { useFetcher } from '../../../../hooks/useFetcher';
 
 interface TrueOrFalseTypeTestProps {
   testItems: TrueOrFalseTestItems;
@@ -28,6 +28,8 @@ const TrueOrFalseTypeTest = ({
 }: TrueOrFalseTypeTestProps): JSX.Element => {
   const { id, title, subTitle, testType, isPublic, personalityItems } =
     testItems;
+
+  const fetcher = useFetcher();
 
   const [personalityTest] =
     useState<TrueOrFalseTestSelectFormItem[]>(personalityItems);
@@ -70,6 +72,7 @@ const TrueOrFalseTypeTest = ({
       'get',
       `/personality/${id}/${testType}/results/${result}`,
     );
+
     if (res.success) {
       const { resultItems } = res.data;
       setResultItems(resultItems[0]);

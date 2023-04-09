@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import fetcher from '../../../api/fetcher';
+import { useFetcher } from '../../../hooks/useFetcher';
 
 const useFinalConfirmationForm = () => {
   const router = useRouter();
+  const fetcher = useFetcher();
 
   const getTestType = () => router.query.test;
 

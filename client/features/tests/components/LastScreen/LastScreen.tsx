@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import OvalButton from '../OvalButton/OvalButton';
 import {
@@ -25,6 +26,8 @@ const LastScreen = ({
   onClick,
   onClose,
 }: LastScreenProps): JSX.Element => {
+  const router = useRouter();
+
   const copyUrl = () => {
     const currentUrl = window.document.location.href;
     const text = document.createElement('textarea');
@@ -59,11 +62,20 @@ const LastScreen = ({
           ariaLabel={'테스트 다시하기 버튼'}
           onClick={onClick}
         />
-        <OvalButton
-          text={'나가기'}
-          ariaLabel={'나가기 버튼'}
-          onClick={onClose ? onClose : () => window.close()}
-        />
+        {onClose && (
+          <OvalButton
+            text={'나가기'}
+            ariaLabel={'나가기 버튼'}
+            onClick={onClose}
+          />
+        )}
+        {!onClose ? (
+          <OvalButton
+            text={'홈으로'}
+            ariaLabel={'홈 버튼'}
+            onClick={() => router.push('/')}
+          />
+        ) : null}
       </ButtonWrapper>
     </Container>
   );

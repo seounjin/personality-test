@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ButtonContainer = styled.div`
   margin-top: 18px;
   display: flex;
-  justify-content: end;
+  justify-content: start;
 
   button: nth-child(2) {
     margin: 0 8px;
@@ -25,7 +25,7 @@ export const Button = styled.button`
 
 const GrayCircle = styled.span`
   width: 50px;
-  height: 100%;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,9 +58,4 @@ export const ShareEimoji = styled(GrayCircle)`
     content: '📤';
     font-size: 20px;
   }
-`;
-
-export const ButtonTag = styled.span`
-  margin-top: 10px;
-  font-size: 16px;
 `;

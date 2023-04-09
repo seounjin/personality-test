@@ -19,7 +19,6 @@ import {
   DeleteEimoji,
   EditEimoji,
   ShareEimoji,
-  ButtonTag,
 } from './MypageCardList.style';
 
 type MypageCardListProps = {
@@ -88,7 +87,6 @@ const MypageCardList = ({
                     onClick={(event) => deleteButtonClick(event, id, testType)}
                   >
                     <DeleteEimoji />
-                    <ButtonTag>삭 제</ButtonTag>
                   </Button>
 
                   <Button
@@ -97,7 +95,6 @@ const MypageCardList = ({
                     onClick={(event) => updateButtonClick(event, id, testType)}
                   >
                     <EditEimoji />
-                    <ButtonTag>수 정</ButtonTag>
                   </Button>
 
                   <Button
@@ -108,7 +105,6 @@ const MypageCardList = ({
                     }
                   >
                     <ShareEimoji />
-                    <ButtonTag>공 유</ButtonTag>
                   </Button>
                 </ButtonContainer>
               </CardItemBody>

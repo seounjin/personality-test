@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormEvent } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
-import Modal from '../../../../components/Modal/Modal';
 import Radio from '../../../../components/Radio/Radio';
 import RadioGroup from '../../../../components/RadioGroup/RadioGroup';
 import SubHeadlineLabel from '../../../../components/SubHeadlineLabel/SubHeadlineLabel';
@@ -9,7 +8,6 @@ import SubTextBoxSection from '../../../../components/SubTextBoxSection/SubTextB
 import TextBox from '../../../../components/TextBox/TextBox';
 import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
 import FormLayout from '../../../../layout/FormLayout/FormLayout';
-import MainPageLayout from '../../../../layout/MainPageLayout/MainPageLayout';
 import TemporaryTestWrapper from '../../components/TemporaryTestWrapper/TemporaryTestWrapper';
 import { RootState } from '../../../../store/modules';
 import PrivewImage from '../../components/PrivewImage/PrivewImage';
@@ -88,11 +86,12 @@ const ScoreTestFinalForm = () => {
       thumbnailImgUrl: thumbnailImgUrl,
     };
 
-    if (mode === 'create') {
-      requestRegister(data);
-    } else {
-      requestUpdate(data);
-    }
+    console.log('데이터', data);
+    // if (mode === 'create') {
+    //   requestRegister(data);
+    // } else {
+    //   requestUpdate(data);
+    // }
   };
 
   return (

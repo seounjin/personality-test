@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
-import fetcher from '../../api/fetcher';
+import { useFetcher } from '../../hooks/useFetcher';
 import { RootState } from '../../store/modules';
 import { NavLink } from '../NavLink/NavLink';
 import { LoginButton, LogoutButton, Wrapper } from './RightMenu.style';
@@ -15,6 +15,8 @@ const RightMenu = (): JSX.Element => {
     }),
     shallowEqual,
   );
+
+  const fetcher = useFetcher();
 
   const handleLogin = () => {
     router.push('/login');

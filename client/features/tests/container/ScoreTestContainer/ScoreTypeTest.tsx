@@ -3,7 +3,6 @@ import BackgroundImage from '../../components/BackgroundImage/BackgroundImage';
 import LastScreen from '../../components/LastScreen/LastScreen';
 import MainScreen from '../../components/MainScreen/MainScreen';
 import StartScreen from '../../components/StartScreen/StartScreen';
-import fetcher from '../../../../api/fetcher';
 import SlideWrapper from '../../components/SlideWrapper/SlideWrapper';
 import { useSlide } from '../../hooks/useSlide';
 import { ScoreTestItems, ScoreTestResultFormItem } from './scoreTest.type';
@@ -13,6 +12,7 @@ import {
   WeightedScore,
   WeightedScoreItem,
 } from '../../tests.types';
+import { useFetcher } from '../../../../hooks/useFetcher';
 
 interface ScoreTypeTestProps {
   testItems: ScoreTestItems;
@@ -37,6 +37,7 @@ const ScoreTypeTest = ({
     weightedScoreDictionary,
     personalityItems,
   } = testItems;
+  const fetcher = useFetcher();
 
   const [personalityTest] = useState<SelectFormItems[]>(personalityItems);
   const [lastSlide] = useState<number>(personalityTest.length);

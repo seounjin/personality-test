@@ -6,7 +6,7 @@ import { LOGIN_MENU, LOGOUT_MENU } from './BarsMenu.const';
 import { Container, Overlay, SideBarWrapper } from './BarsMenu.style';
 import { useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/modules';
-import fetcher from '../../api/fetcher';
+import { useFetcher } from '../../hooks/useFetcher';
 
 const BarsMenu = (): JSX.Element => {
   const { isAuth } = useSelector(
@@ -15,6 +15,8 @@ const BarsMenu = (): JSX.Element => {
     }),
     shallowEqual,
   );
+
+  const fetcher = useFetcher();
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 

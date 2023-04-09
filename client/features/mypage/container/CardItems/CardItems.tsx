@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import fetcher from '../../../../api/fetcher';
 import Modal from '../../../../components/Modal/Modal';
 import DeleteAlertModal from '../DeleteAlertModal/DeleteAlertModal';
 import PhraseText from '../../components/PhraseText/PhraseText';
@@ -9,6 +8,7 @@ import { RootState } from '../../../../store/modules';
 import { useDispatch } from 'react-redux';
 import { setCards } from '../../../../store/modules/mypage';
 import MypageCardList from '../../components/MypageCardList/MypageCardList';
+import { useFetcher } from '../../../../hooks/useFetcher';
 
 const CardItems = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -22,6 +22,7 @@ const CardItems = () => {
   );
   const dispatch = useDispatch();
   const router = useRouter();
+  const fetcher = useFetcher();
 
   const requestDelete = async () => {
     const res = await fetcher(

@@ -4,8 +4,8 @@ import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useSelector, shallowEqual } from 'react-redux';
 import * as yup from 'yup';
-import fetcher from '../../../../api/fetcher';
 import { LoginFormButton } from '../../../../components/LoginModal/LoginModal.style';
+import { useFetcher } from '../../../../hooks/useFetcher';
 import { RootState } from '../../../../store/modules';
 import SignoutForm from '../../components/SignoutForm/SignoutForm';
 import { Container, Wrapper } from './SignoutContainer.style';
@@ -22,6 +22,7 @@ const SignoutContainer = () => {
     }),
     shallowEqual,
   );
+  const fetcher = useFetcher();
 
   const SingoutFormMethods = useForm({
     resolver: yupResolver(signoutFormSchema),

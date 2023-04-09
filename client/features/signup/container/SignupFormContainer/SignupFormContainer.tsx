@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import fetcher from '../../../../api/fetcher';
 import { LoginFormButton } from '../../../../components/LoginModal/LoginModal.style';
 import SignupForm from '../../components/SignupForm/SignupForm';
 import { signupFormSchema } from '../../Schema/SignupFormSchema';
@@ -16,6 +15,7 @@ import {
   LoginLinkWrapper,
   Text,
 } from './SignupFormContainer.style';
+import { useFetcher } from '../../../../hooks/useFetcher';
 
 const SignupFormContainer = () => {
   const signupFormMethods = useForm({
@@ -25,6 +25,7 @@ const SignupFormContainer = () => {
   });
 
   const router = useRouter();
+  const fetcher = useFetcher();
 
   const onSubmit = async ({
     email,

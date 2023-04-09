@@ -1,15 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Router } from 'next/router';
+import { useSelector, shallowEqual } from 'react-redux';
+import { RootState } from '../store/modules';
+import { setIsLoading } from '../store/modules/loading';
+import { useDispatch } from 'react-redux';
 
 const useLoadingIndicator = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading } = useSelector(
+    (state: RootState) => ({
+      isLoading: state.loading.isLoading,
+    }),
+    shallowEqual,
+  );
+  const dispatch = useDispatch();
 
   const start = () => {
-    setIsLoading(true);
+    dispatch(setIsLoading({ isLoading: true }));
   };
 
   const end = () => {
-    setIsLoading(false);
+    dispatch(setIsLoading({ isLoading: false }));
   };
 
   useEffect(() => {

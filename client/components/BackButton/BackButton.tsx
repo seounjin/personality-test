@@ -1,25 +1,18 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, AngleLeftSolidIcon, NoneBlock } from './BackButton.style';
 
 const BackButton = (): JSX.Element => {
-  const router = useRouter();
-  const [isGoBack, setIsGoBack] = useState(false);
+  // const router = useRouter();
 
-  const handleClick = () => {
-    router.back();
-  };
+  // const handleClick = () => {
+  //   router.back();
+  // };
 
-  useEffect(() => {
-    setIsGoBack(window.history.length > 1);
-  }, []);
+  //   <Button onClick={handleClick}>
+  //   <AngleLeftSolidIcon />
+  // </Button>
 
-  return isGoBack ? (
-    <Button onClick={handleClick}>
-      <AngleLeftSolidIcon />
-    </Button>
-  ) : (
-    <NoneBlock />
-  );
+  return <NoneBlock />;
 };
 export default BackButton;

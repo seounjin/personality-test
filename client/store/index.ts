@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { EnhancedStore, configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
-
+import { RootState } from './modules';
 import reducer from './modules';
 
-const makeStore = (context) =>
+const makeStore = (context): EnhancedStore<RootState> =>
   configureStore({
     reducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),

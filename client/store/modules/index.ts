@@ -3,6 +3,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 import tests from './tests';
 import auth from './auth';
 import mypage from './mypage';
+import loading from './loading';
 import scoreTest from '../../features/tests/container/ScoreTestContainer/scoreTest.slice';
 import mbtiTest from '../../features/tests/container/MbtiTestContainer/mbtiTest.slice';
 import trueOrFalseTest from '../../features/tests/container/TrueOrFalseTestContainer/trueOrFalse.slice';
@@ -20,6 +21,7 @@ const rootReducer = (state, action) => {
     mbtiTest,
     trueOrFalseTest,
     basicForm,
+    loading,
   })(state, action);
 };
 export default rootReducer;
