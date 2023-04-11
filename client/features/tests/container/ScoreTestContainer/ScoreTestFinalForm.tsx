@@ -86,12 +86,11 @@ const ScoreTestFinalForm = () => {
       thumbnailImgUrl: thumbnailImgUrl,
     };
 
-    console.log('데이터', data);
-    // if (mode === 'create') {
-    //   requestRegister(data);
-    // } else {
-    //   requestUpdate(data);
-    // }
+    if (mode === 'create') {
+      requestRegister(data);
+    } else {
+      requestUpdate(data);
+    }
   };
 
   return (

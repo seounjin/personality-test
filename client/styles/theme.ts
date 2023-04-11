@@ -60,6 +60,7 @@ export const theme: DefaultTheme = {
     scrollButtonColor: '#594545',
     roundButtonColor: '#594545',
     spinnerColor: '#594545',
+    publicTagColor: '#d2c8e5',
   },
 
   device: {

@@ -1,24 +1,17 @@
 import { useState } from 'react';
 import { FormProvider } from 'react-hook-form';
-import BasicInformationForm from '../container/BasicInformationForm/BasicInformationForm';
 import { useScoreTestFormMethod } from './useScoreTestFormMethod';
 import {
   SCORE_TEST_RESULT_FORM_ID,
   SCORE_TEST_SELECT_FORM_ID,
   SCORE_TEST_FINAL_FORM_ID,
 } from '../container/ScoreTestContainer/scoreTest.const';
-import ScoreTestResultForm from '../container/ScoreTestContainer/ScoreTestResultForm';
-import ScoreTestSelectForm from '../container/ScoreTestContainer/ScoreTestSelectForm';
 import { BASIC_INFORMATION_FORM_ID } from '../tests.const';
-import ScoreTestFinalForm from '../container/ScoreTestContainer/ScoreTestFinalForm';
 import {
   MBTI_TEST_RESULT_FORM_ID,
   MBTI_TEST_SELECT_FORM_ID,
   MBTI_TEST_FINAL_FORM_ID,
 } from '../container/MbtiTestContainer/mbtiTest.const';
-import MbtiTestResultForm from '../container/MbtiTestContainer/MbtiTestResultForm';
-import MbtiTestSelectForm from '../container/MbtiTestContainer/MbtiTestSelectForm';
-import MbtiTestFinalForm from '../container/MbtiTestContainer/MbtiTestFinalForm';
 import { useMbtiTestFormMethods } from './useMbtiTestFormMethods';
 import { useTrueOrFalseTestFormMethods } from './useTrueOrFalseTestFormMethods';
 import {
@@ -26,10 +19,23 @@ import {
   TF_TEST_RESULT_FORM_ID,
   TF_FINAL_FORM_ID,
 } from '../container/TrueOrFalseTestContainer/trueOrFalse.const';
-import TureOrFalseTestSelectForm from '../container/TrueOrFalseTestContainer/TureOrFalseTestSelectForm';
-import TrueOrFalseTestResultForm from '../container/TrueOrFalseTestContainer/TrueOrFalseTestResultForm';
-import TrueOrFalseTestFinalForm from '../container/TrueOrFalseTestContainer/TrueOrFalseTestFinalForm';
 import { useBasicInfoFormMethods } from './useBasicInfoFormMethods';
+import { DynamicBasicInformationForm } from '../container/BasicInformationForm/DynamicBasicInformationForm';
+import {
+  DynamicScoreTestResultForm,
+  DynamicScoreTestSelectForm,
+  DynamicScoreTestFinalForm,
+} from '../container/ScoreTestContainer';
+import {
+  DynamicMbtiTestResultForm,
+  DynamicMbtiTestSelectForm,
+  DynamicMbtiTestFinalForm,
+} from '../container/MbtiTestContainer';
+import {
+  DynamicTureOrFalseTestSelectForm,
+  DynamicTrueOrFalseTestResultForm,
+  DynamicTrueOrFalseTestFinalForm,
+} from '../container/TrueOrFalseTestContainer';
 
 export const useSteps = ({ testType = 'score' }: { testType: string }) => {
   const { basicInfoFormMethods } = useBasicInfoFormMethods();
@@ -50,7 +56,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         title: '기본정보 입력',
         Element: ({ handleNext }) => (
           <FormProvider {...basicInfoFormMethods}>
-            <BasicInformationForm handleNext={handleNext} />
+            <DynamicBasicInformationForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
@@ -59,7 +65,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         title: '유형 설정',
         Element: ({ handleNext }) => (
           <FormProvider {...scoreTestResultFormMethods}>
-            <ScoreTestResultForm handleNext={handleNext} />
+            <DynamicScoreTestResultForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
@@ -68,14 +74,14 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         title: '선택지 설정',
         Element: ({ handleNext }) => (
           <FormProvider {...scoreTestSelectFormMethods}>
-            <ScoreTestSelectForm handleNext={handleNext} />
+            <DynamicScoreTestSelectForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
       {
         formId: SCORE_TEST_FINAL_FORM_ID,
         title: '최종 확인',
-        Element: () => <ScoreTestFinalForm />,
+        Element: () => <DynamicScoreTestFinalForm />,
       },
     ],
 
@@ -85,7 +91,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         title: '기본정보 입력',
         Element: ({ handleNext }) => (
           <FormProvider {...basicInfoFormMethods}>
-            <BasicInformationForm handleNext={handleNext} />
+            <DynamicBasicInformationForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
@@ -94,7 +100,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         title: '유형 설정',
         Element: ({ handleNext }) => (
           <FormProvider {...mbtiTestResultFormMethods}>
-            <MbtiTestResultForm handleNext={handleNext} />
+            <DynamicMbtiTestResultForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
@@ -103,14 +109,14 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         title: '선택지 설정',
         Element: ({ handleNext }) => (
           <FormProvider {...mbtiTestSelectFormMethods}>
-            <MbtiTestSelectForm handleNext={handleNext} />
+            <DynamicMbtiTestSelectForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
       {
         formId: MBTI_TEST_FINAL_FORM_ID,
         title: '최종 확인',
-        Element: () => <MbtiTestFinalForm />,
+        Element: () => <DynamicMbtiTestFinalForm />,
       },
     ],
 
@@ -120,7 +126,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         title: '기본정보 입력',
         Element: ({ handleNext }) => (
           <FormProvider {...basicInfoFormMethods}>
-            <BasicInformationForm handleNext={handleNext} />
+            <DynamicBasicInformationForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
@@ -129,7 +135,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         title: '선택지 설정',
         Element: ({ handleNext }) => (
           <FormProvider {...trueOrFalseTestSelectFormMethods}>
-            <TureOrFalseTestSelectForm handleNext={handleNext} />
+            <DynamicTureOrFalseTestSelectForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
@@ -139,7 +145,7 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
         title: '결과지 설정',
         Element: ({ handleNext }) => (
           <FormProvider {...trueOrFalseTestResultFormMethods}>
-            <TrueOrFalseTestResultForm handleNext={handleNext} />
+            <DynamicTrueOrFalseTestResultForm handleNext={handleNext} />
           </FormProvider>
         ),
       },
@@ -147,10 +153,83 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
       {
         formId: TF_FINAL_FORM_ID,
         title: '최종 확인',
-        Element: () => <TrueOrFalseTestFinalForm />,
+        Element: () => <DynamicTrueOrFalseTestFinalForm />,
       },
     ],
   });
 
   return { steps: steps[testType] };
 };
+
+// const BasicInformationForm = dynamic(
+//   () => import('../container/BasicInformationForm/BasicInformationForm'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+// const ScoreTestResultForm = dynamic(
+//   () => import('../container/ScoreTestContainer/ScoreTestResultForm'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+// const ScoreTestSelectForm = dynamic(
+//   () => import('../container/ScoreTestContainer/ScoreTestSelectForm'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+// const ScoreTestFinalForm = dynamic(
+//   () => import('../container/ScoreTestContainer/ScoreTestFinalForm'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+// const MbtiTestResultForm = dynamic(
+//   () => import('../container/MbtiTestContainer/MbtiTestResultForm'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+// const MbtiTestSelectForm = dynamic(
+//   () => import('../container/MbtiTestContainer/MbtiTestSelectForm'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+// const MbtiTestFinalForm = dynamic(
+//   () => import('../container/MbtiTestContainer/MbtiTestFinalForm'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+// const TureOrFalseTestSelectForm = dynamic(
+//   () =>
+//     import('../container/TrueOrFalseTestContainer/TureOrFalseTestSelectForm'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+// const TrueOrFalseTestResultForm = dynamic(
+//   () =>
+//     import('../container/TrueOrFalseTestContainer/TrueOrFalseTestResultForm'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+// const TrueOrFalseTestFinalForm = dynamic(
+//   () =>
+//     import('../container/TrueOrFalseTestContainer/TrueOrFalseTestFinalForm'),
+//   {
+//     ssr: false,
+//   },
+// );

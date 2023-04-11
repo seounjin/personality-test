@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { ManualItem } from '../../tests.types';
 import {
   Body,
-  BulletPoint,
   Button,
   Container,
   Content,
@@ -15,7 +15,7 @@ import {
 
 interface ManualModalProps {
   activeStep: number;
-  manual: any;
+  manual: ManualItem;
 }
 
 const ManualModal = ({ activeStep, manual }: ManualModalProps): JSX.Element => {

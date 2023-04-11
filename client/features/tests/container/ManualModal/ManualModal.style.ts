@@ -77,7 +77,3 @@ export const Button = styled.button`
   padding: 0;
   margin: 0 5px;
 `;
-
-export const BulletPoint = styled.span`
-  font-size: 20px;
-`;

@@ -47,7 +47,11 @@ export const Headline = styled.h3`
   text-overflow: ellipsis;
 `;
 
-export const TagsWrapper = styled.div``;
+export const TagsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
 
 export const CardHoverWrapper = styled.div`
   border-radius: 4px;

@@ -39,3 +39,14 @@ export interface BaseTestItems {
 }
 
 export type TestDisposition = 'temporary' | 'real' | null;
+
+export interface Manual {
+  title: string;
+  content: string;
+}
+
+export interface ManualItem {
+  data: Manual[];
+  firstStep: number;
+  lastStep: number;
+}

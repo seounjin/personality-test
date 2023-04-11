@@ -75,6 +75,10 @@ const MypageCardList = ({
                 <Description>{explain}</Description>
                 <TagsWrapper>
                   <Tag
+                    name={isPublic ? '공개' : '비공개'}
+                    backgroundColor={`publicTagColor`}
+                  />
+                  <Tag
                     name={`${PARSE_TAG_TEXT[testType]}유형`}
                     backgroundColor={`${testType}TypeTagBgColor`}
                   />

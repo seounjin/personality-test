@@ -3,9 +3,6 @@ import MainPageLayout from '../../layout/MainPageLayout/MainPageLayout';
 import axiosServer from '../../api/axiosServer';
 import { checkTestType } from '../../types/checkTestType';
 import { CustomError } from '../../errors';
-import MbtiTestType from '../../features/tests/container/MbtiTestContainer/MbtiTestType';
-import ScoreTypeTest from '../../features/tests/container/ScoreTestContainer/ScoreTypeTest';
-import TrueOrFalseTypeTest from '../../features/tests/container/TrueOrFalseTestContainer/TrueOrFalseTypeTest';
 import {
   IMAGE_HOLDER_PATH,
   MBTI_TEST_TYPE_CONTENT,
@@ -15,6 +12,32 @@ import { ScoreTestItems } from '../../features/tests/container/ScoreTestContaine
 import { setWeightedScoreDictionary } from '../../features/tests/tests.util';
 import { TrueOrFalseTestItems } from '../../features/tests/container/TrueOrFalseTestContainer/trueOrFalseTest.type';
 import Seo from '../../components/Seo/Seo';
+import dynamic from 'next/dynamic';
+
+const ScoreTypeTest = dynamic(
+  () =>
+    import('../../features/tests/container/ScoreTestContainer/ScoreTypeTest'),
+  {
+    ssr: true,
+  },
+);
+
+const MbtiTestType = dynamic(
+  () => import('../../features/tests/container/MbtiTestContainer/MbtiTestType'),
+  {
+    ssr: false,
+  },
+);
+
+const TrueOrFalseTypeTest = dynamic(
+  () =>
+    import(
+      '../../features/tests/container/TrueOrFalseTestContainer/TrueOrFalseTypeTest'
+    ),
+  {
+    ssr: false,
+  },
+);
 
 interface MainPageProps {
   testItems: ScoreTestItems | MbtiTestItems | TrueOrFalseTestItems;
