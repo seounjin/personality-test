@@ -48,7 +48,6 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
 
   const { trueOrFalseTestSelectFormMethods, trueOrFalseTestResultFormMethods } =
     useTrueOrFalseTestFormMethods();
-
   const [steps] = useState({
     score: [
       {
@@ -160,76 +159,3 @@ export const useSteps = ({ testType = 'score' }: { testType: string }) => {
 
   return { steps: steps[testType] };
 };
-
-// const BasicInformationForm = dynamic(
-//   () => import('../container/BasicInformationForm/BasicInformationForm'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-// const ScoreTestResultForm = dynamic(
-//   () => import('../container/ScoreTestContainer/ScoreTestResultForm'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-// const ScoreTestSelectForm = dynamic(
-//   () => import('../container/ScoreTestContainer/ScoreTestSelectForm'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-// const ScoreTestFinalForm = dynamic(
-//   () => import('../container/ScoreTestContainer/ScoreTestFinalForm'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-// const MbtiTestResultForm = dynamic(
-//   () => import('../container/MbtiTestContainer/MbtiTestResultForm'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-// const MbtiTestSelectForm = dynamic(
-//   () => import('../container/MbtiTestContainer/MbtiTestSelectForm'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-// const MbtiTestFinalForm = dynamic(
-//   () => import('../container/MbtiTestContainer/MbtiTestFinalForm'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-// const TureOrFalseTestSelectForm = dynamic(
-//   () =>
-//     import('../container/TrueOrFalseTestContainer/TureOrFalseTestSelectForm'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-// const TrueOrFalseTestResultForm = dynamic(
-//   () =>
-//     import('../container/TrueOrFalseTestContainer/TrueOrFalseTestResultForm'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-// const TrueOrFalseTestFinalForm = dynamic(
-//   () =>
-//     import('../container/TrueOrFalseTestContainer/TrueOrFalseTestFinalForm'),
-//   {
-//     ssr: false,
-//   },
-// );

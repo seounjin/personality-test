@@ -1,10 +1,10 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// });
 // module.exports = (phase, defaultConfig) => {
 //   return withBundleAnalyzer(defaultConfig);
 // };
-module.exports = withBundleAnalyzer({
+module.exports = {
   swcMinify: true,
   compiler: {
     styledComponents: true,
@@ -36,4 +36,4 @@ module.exports = withBundleAnalyzer({
       },
     ],
   },
-});
+};
