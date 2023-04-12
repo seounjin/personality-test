@@ -1,27 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { useSelector, shallowEqual } from 'react-redux';
 import * as yup from 'yup';
-import { LoginFormButton } from '../../../../components/LoginModal/LoginModal.style';
 import { useFetcher } from '../../../../hooks/useFetcher';
-import { RootState } from '../../../../store/modules';
+import PhraseText from '../../components/PhraseText/PhraseText';
 import SignoutForm from '../../components/SignoutForm/SignoutForm';
-import { Container, Wrapper } from './SignoutContainer.style';
 
 const signoutFormSchema = yup.object({
   password: yup.string().required('비밀번호를 입력해주세요'),
 });
 
 const SignoutContainer = () => {
+  const [userId, setUserId] = useState<string>('');
+  const [isError, setIsError] = useState<boolean>(false);
   const router = useRouter();
-  const { user } = useSelector(
-    (state: RootState) => ({
-      user: state.mypage.user,
-    }),
-    shallowEqual,
-  );
   const fetcher = useFetcher();
 
   const SingoutFormMethods = useForm({
@@ -29,6 +22,22 @@ const SignoutContainer = () => {
     defaultValues: { password: '' },
     mode: 'onChange',
   });
+
+  const requestUserId = async () => {
+    const res = await fetcher('get', '/user');
+    if (res.success) {
+      setUserId(res.userId);
+      return;
+    }
+    setIsError(true);
+    alert('서버 점검중입니다.\n잠시 후 다시 시도해주세요');
+  };
+
+  useEffect(() => {
+    if (!userId) {
+      requestUserId();
+    }
+  }, []);
 
   const onSubmit = async (data: { password: string }) => {
     const res = await fetcher('post', '/user/signout', { data });
@@ -45,14 +54,16 @@ const SignoutContainer = () => {
   };
 
   return (
-    <Wrapper>
-      <Container>
+    <>
+      {userId && (
         <FormProvider {...SingoutFormMethods}>
-          <SignoutForm email={user} onSubmit={onSubmit} />
+          <SignoutForm email={userId} onSubmit={onSubmit} />
         </FormProvider>
-        <LoginFormButton form="signoutForm">회원탈퇴</LoginFormButton>
-      </Container>
-    </Wrapper>
+      )}
+      {isError && (
+        <PhraseText text={'서버 점검중입니다.\n잠시 후 다시 시도해주세요'} />
+      )}
+    </>
   );
 };
 

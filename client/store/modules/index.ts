@@ -2,7 +2,6 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import tests from './tests';
 import auth from './auth';
-import mypage from './mypage';
 import loading from './loading';
 import scoreTest from '../../features/tests/container/ScoreTestContainer/scoreTest.slice';
 import mbtiTest from '../../features/tests/container/MbtiTestContainer/mbtiTest.slice';
@@ -16,7 +15,6 @@ const rootReducer = (state, action) => {
   return combineReducers({
     tests,
     auth,
-    mypage,
     scoreTest,
     mbtiTest,
     trueOrFalseTest,

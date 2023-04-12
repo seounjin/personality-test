@@ -5,6 +5,7 @@ import SubHeadlineLabel from '../../../../components/SubHeadlineLabel/SubHeadlin
 import TextBox from '../../../../components/TextBox/TextBox';
 import SubTextBoxSection from '../../../../components/SubTextBoxSection/SubTextBoxSection';
 import { Form, Input } from './SignoutForm.style';
+import { LoginFormButton } from '../../../../components/LoginModal/LoginModal.style';
 
 interface SignoutFormProps {
   email: string;
@@ -28,6 +29,7 @@ const SignoutForm = ({ email, onSubmit }: SignoutFormProps): JSX.Element => {
         readOnly
       />
       <TextFiled type="password" label={'비밀번호'} name={'password'} />
+      <LoginFormButton form="signoutForm">회원탈퇴</LoginFormButton>
     </Form>
   );
 };

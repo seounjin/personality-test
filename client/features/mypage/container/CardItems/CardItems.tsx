@@ -1,12 +1,8 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '../../../../components/Modal/Modal';
 import DeleteAlertModal from '../DeleteAlertModal/DeleteAlertModal';
 import PhraseText from '../../components/PhraseText/PhraseText';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from '../../../../store/modules';
-import { useDispatch } from 'react-redux';
-import { setCards } from '../../../../store/modules/mypage';
 import MypageCardList from '../../components/MypageCardList/MypageCardList';
 import { useFetcher } from '../../../../hooks/useFetcher';
 
@@ -14,15 +10,24 @@ const CardItems = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [personalityId, setPersonalityId] = useState<string>('');
   const [testType, setTestType] = useState<string>('');
-  const { cards } = useSelector(
-    (state: RootState) => ({
-      cards: state.mypage.cards,
-    }),
-    shallowEqual,
-  );
-  const dispatch = useDispatch();
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [cards, setCards] = useState([]);
   const router = useRouter();
   const fetcher = useFetcher();
+
+  const requestCardList = async () => {
+    const res = await fetcher('get', '/personality/my-personality');
+    if (res.success) {
+      setCards(res.data);
+      setIsEmpty(!res.data.length);
+    }
+  };
+
+  useEffect(() => {
+    if (!cards.length) {
+      requestCardList();
+    }
+  }, []);
 
   const requestDelete = async () => {
     const res = await fetcher(
@@ -32,7 +37,8 @@ const CardItems = () => {
     if (res.success) {
       alert('해당 테스트가 삭제되었습니다');
       const newCards = cards.filter((data) => data.id !== personalityId);
-      dispatch(setCards(newCards));
+      setCards(newCards);
+      setIsEmpty(!newCards.length);
       setIsModalOpen(false);
     } else {
       if (res.status === 400 || res.status === 401) {
@@ -118,15 +124,15 @@ const CardItems = () => {
 
   return (
     <>
-      {cards.length ? (
+      {isEmpty ? (
+        <PhraseText text={'아직 생성한 테스트가 없습니다'} />
+      ) : (
         <MypageCardList
           cardItems={cards}
           deleteButtonClick={deleteButtonClick}
           updateButtonClick={updateButtonClick}
           shareButtonClick={shareButtonClick}
         />
-      ) : (
-        <PhraseText text={'아직 생성한 테스트가 없습니다'} />
       )}
       {isModalOpen && (
         <Modal onClose={handleClose}>

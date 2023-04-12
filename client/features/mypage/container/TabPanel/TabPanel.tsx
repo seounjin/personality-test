@@ -1,8 +1,13 @@
 import { useRouter, withRouter } from 'next/router';
-import React, { useEffect } from 'react';
-import CardItems from '../CardItems/CardItems';
-import SignoutContainer from '../SignoutContainer/SignoutContainer';
-import { Container } from './TabPanel.style';
+import React, { lazy, Suspense, useEffect } from 'react';
+import CardListSkeleton from '../../../../components/CardList/CardListSkeleton';
+import SkeletonSignoutForm from '../../components/SkeletonSignoutForm/SkeletonSignoutForm';
+import { CardItemsWrapper, SignoutFormWrapper } from './TabPanel.style';
+
+const CardItems = lazy(() => import('../CardItems/CardItems'));
+const SignoutContainer = lazy(
+  () => import('../SignoutContainer/SignoutContainer'),
+);
 
 const TebPanel = (): JSX.Element => {
   const router = useRouter();
@@ -19,13 +24,25 @@ const TebPanel = (): JSX.Element => {
     const { menu } = router.query;
     switch (menu) {
       case 'my-personality':
-        return <CardItems />;
+        return (
+          <CardItemsWrapper>
+            <Suspense fallback={<CardListSkeleton CardListLength={3} />}>
+              <CardItems />
+            </Suspense>
+          </CardItemsWrapper>
+        );
       case 'signout':
-        return <SignoutContainer />;
+        return (
+          <SignoutFormWrapper>
+            <Suspense fallback={<SkeletonSignoutForm />}>
+              <SignoutContainer />
+            </Suspense>
+          </SignoutFormWrapper>
+        );
     }
   };
 
-  return <Container>{panelList()}</Container>;
+  return <>{panelList()}</>;
 };
 
 export default withRouter(TebPanel);
