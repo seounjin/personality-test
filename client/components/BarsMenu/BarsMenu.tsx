@@ -23,7 +23,7 @@ const BarsMenu = (): JSX.Element => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    const res = await fetcher('get', '/user/logout');
+    const res = await fetcher('get', '/users/logout');
     if (res.success) {
       alert('로그아웃 되었습니다');
       router.replace('/');

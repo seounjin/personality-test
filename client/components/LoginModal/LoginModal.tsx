@@ -26,7 +26,7 @@ const loginFormSchema = yup.object({
 const LoginModal = (): JSX.Element => {
   const router = useRouter();
   const onSubmit = async (data: { email: string; password: string }) => {
-    const res = await authFetcher('post', '/user/login', { data });
+    const res = await authFetcher('post', '/users/login', { data });
     if (res.success) {
       alert('로그인 성공');
       const redirect = router.query.redirect;

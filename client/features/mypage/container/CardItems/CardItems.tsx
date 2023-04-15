@@ -5,18 +5,19 @@ import DeleteAlertModal from '../DeleteAlertModal/DeleteAlertModal';
 import PhraseText from '../../components/PhraseText/PhraseText';
 import MypageCardList from '../../components/MypageCardList/MypageCardList';
 import { useFetcher } from '../../../../hooks/useFetcher';
+import useModal from '../../../../hooks/useModal';
 
 const CardItems = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [personalityId, setPersonalityId] = useState<string>('');
   const [testType, setTestType] = useState<string>('');
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
   const [cards, setCards] = useState([]);
+  const { isModalOpen, openModal, closeModal } = useModal();
   const router = useRouter();
   const fetcher = useFetcher();
 
   const requestCardList = async () => {
-    const res = await fetcher('get', '/personality/my-personality');
+    const res = await fetcher('get', '/users/my-personality');
     if (res.success) {
       setCards(res.data);
       setIsEmpty(!res.data.length);
@@ -24,6 +25,8 @@ const CardItems = () => {
   };
 
   useEffect(() => {
+    console.log('확인');
+
     if (!cards.length) {
       requestCardList();
     }
@@ -39,7 +42,7 @@ const CardItems = () => {
       const newCards = cards.filter((data) => data.id !== personalityId);
       setCards(newCards);
       setIsEmpty(!newCards.length);
-      setIsModalOpen(false);
+      closeModal();
     } else {
       if (res.status === 400 || res.status === 401) {
         alert('로그인 유효시간이 만료 되었습니다 \n다시 로그인해 주세요');
@@ -56,7 +59,7 @@ const CardItems = () => {
     testType: string,
   ) => {
     event.preventDefault();
-    setIsModalOpen(true);
+    openModal();
     setPersonalityId(id);
     setTestType(testType);
   };
@@ -119,7 +122,7 @@ const CardItems = () => {
   };
 
   const handleClose = () => {
-    setIsModalOpen(false);
+    closeModal();
   };
 
   return (

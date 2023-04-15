@@ -7,6 +7,7 @@ import { wrapper } from '../store';
 import useLoadingIndicator from '../hooks/useLoadingIndicator';
 import Spinner from '../components/Spinner/Spinner';
 import { ShadeScreen } from '../layout/ShadeScreen/ShadeScreen';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const isLoading = useLoadingIndicator();
@@ -27,6 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Spinner />
         </ShadeScreen>
       )}
+      <Head>
+        <title>성향 테스트</title>
+      </Head>
       <Component {...pageProps} />
     </ThemeProvider>
   );

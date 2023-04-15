@@ -45,7 +45,6 @@ class MyDocument extends Document {
           />
           <meta name="author" content="Sung Jin, Young Nam" />
         </Head>
-        <title>성향 테스트</title>
 
         <body>
           <Main />

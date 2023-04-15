@@ -24,7 +24,7 @@ const SignoutContainer = () => {
   });
 
   const requestUserId = async () => {
-    const res = await fetcher('get', '/user');
+    const res = await fetcher('get', '/users');
     if (res.success) {
       setUserId(res.userId);
       return;

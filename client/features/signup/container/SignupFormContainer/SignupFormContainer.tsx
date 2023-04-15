@@ -36,7 +36,7 @@ const SignupFormContainer = () => {
     passwordConfirm: string;
   }) => {
     const data = { email, password };
-    const res = await fetcher('post', `/user/signup`, { data });
+    const res = await fetcher('post', `/users/signup`, { data });
     if (res.success) {
       router.push('/');
       alert('회원가입이 되었습니다');

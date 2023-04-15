@@ -16,6 +16,7 @@ import ManualModal from '../ManualModal/ManualModal';
 import QuestionMarkButton from '../../components/QuestionMarkButton/QuestionMarkButton';
 import ScrollTop from '../../components/ScrollTop/ScrollTop';
 import ScrollButtons from '../../components/ScrollButtons/ScrollButtons';
+import useModal from '../../../../hooks/useModal';
 
 interface StepperProps {
   testType: string;
@@ -28,7 +29,7 @@ const Stepper = ({ testType }: StepperProps): JSX.Element => {
     steps.map((_, index) => index === 0),
   );
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const firstStep = 0;
   const lastStep = steps.length - 1;
@@ -49,11 +50,11 @@ const Stepper = ({ testType }: StepperProps): JSX.Element => {
   };
 
   const handleModal = () => {
-    setIsModalOpen(!isModalOpen);
+    closeModal();
   };
 
   const QuestionMarkClick = () => {
-    setIsModalOpen(true);
+    openModal();
   };
 
   return (
