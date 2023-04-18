@@ -24,6 +24,7 @@ export const CardItem = styled.li`
   list-style: none;
   padding: 10px;
   display: inline-block;
+  vertical-align: top;
 
   ${({ theme }) =>
     theme.device.tablet`
