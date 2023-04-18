@@ -5,7 +5,7 @@ const optionItemsArray = yup.array().of(
     option: yup
       .string()
       .required('한 글자 이상 채워주세요')
-      .max(40, '최대 40글자 이하로 입력해 주세요'),
+      .max(50, '최대 50글자 이하로 입력해 주세요'),
   }),
 );
 
@@ -15,7 +15,7 @@ export const trueOrFalseTestSelectItemsFormSchema = yup.object({
       question: yup
         .string()
         .required('한 글자 이상 채워 주세요')
-        .max(40, '최대 40글자 이하로 입력해 주세요'),
+        .max(50, '최대 50글자 이하로 입력해 주세요'),
       optionItems: optionItemsArray,
     }),
   ),
