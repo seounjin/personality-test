@@ -1,5 +1,7 @@
 # 누구나 자유롭게 만드는 성향 테스트
-각양각색의 사람들의 성향을 테스트 할 수 있는 폼을 제공해주는 웹어플리케이션입니다.
+각양각색의 사람들의 성향을 테스트 할 수 있는 폼을 제공해주는 웹어플리케이션입니다.  
+<br/>
+[성향테스트 체험 하기](https://rororo-marshmallow.store)
 
 <br/>
 
@@ -18,12 +20,22 @@
 - Next.js 사용한 성향 테스트 클라이언트 개발
 - React-Hook-Form을 사용한 성향 테스트 작성폼 개발
 - Redux를 사용한 상태관리
+- 백엔드와의 REST API 통신 구축
+- 모바일 사용자를 고려한 반응형 기능 구현
+- Next.js를 활용한 성능 최적화(코드 스플리팅, Image 컴포넌트 사용)
 
 <br/>
 
 서버
 -----------
 [https://github.com/seounjin/personality-test-server](https://github.com/seounjin/personality-test-server)
+
+<br/>
+
+개발 상세 설명
+-----------
+
+[노션 링크](https://cobalt-hide-2b2.notion.site/Personality-Test-9b48193e011f4ec88a501b7c281a9184)
 
 <br/>
 
