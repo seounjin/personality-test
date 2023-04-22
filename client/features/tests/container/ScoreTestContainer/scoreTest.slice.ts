@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IMAGE_HOLDER_PATH } from '../../tests.const';
 import {
   MIN_NUMBER_OF_ITEMS_COUNT,
   MIN_TYPE_ITEMS_COUNT,
@@ -12,12 +13,15 @@ const initialState: ScoreTestSliceInitialState = {
     {
       resultContent: '',
       explanationContent: '',
+      resultImageUrl: IMAGE_HOLDER_PATH,
     },
     {
       resultContent: '',
       explanationContent: '',
+      resultImageUrl: IMAGE_HOLDER_PATH,
     },
   ],
+  imageBase64DataArray: ['', ''],
   scoreTestSelectFormItems: [],
   isPublic: true,
 };
@@ -69,6 +73,16 @@ const scoreTestSlice = createSlice({
         ? selectItems
         : state.scoreTestSelectFormItems;
     },
+    setImageBase64DataArray: (state, action) => {
+      const { index, imageBase64Data } = action.payload;
+      state.imageBase64DataArray[index] = imageBase64Data;
+    },
+    popImageBase64Data: (state) => {
+      state.imageBase64DataArray.pop();
+    },
+    pushImageBase64Data: (state) => {
+      state.imageBase64DataArray.push('');
+    },
   },
 });
 
@@ -79,6 +93,9 @@ export const {
   setScoreTestResultItemsCount,
   setNumberOfItemsCount,
   setScoreTestItems,
+  setImageBase64DataArray,
+  popImageBase64Data,
+  pushImageBase64Data,
 } = scoreTestSlice.actions;
 
 export default scoreTestSlice.reducer;

@@ -5,13 +5,14 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 754px;
+  max-width: 768px;
   width: 100%;
-  height: 100%;
+  gap: 40px;
+
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    ${(props) => props.theme.colors.boxShadowBorderColor} 0px 0px 0px 2px;
   border-radius: 8px;
   margin-bottom: 40px;
-  padding: 20px 0;
-  box-shadow: ${({ theme }) => theme.boxShadow};
 
   ${({ theme }) =>
     theme.device.mobile`
@@ -19,11 +20,8 @@ export const Container = styled.div`
   `}
 `;
 
-export const SubTitleWrapper = styled.div`
-  margin-bottom: 20px;
-`;
-
-export const SubTitle = styled.h2`
-  margin: 0;
-  font-size: 22px;
+export const NumberLabel = styled.label`
+  font-size: 21px;
+  font-weight: bold;
+  margin-top: 40px;
 `;

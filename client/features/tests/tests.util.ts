@@ -1,7 +1,10 @@
+import imageCompression from 'browser-image-compression';
 import {
   TrueOrFalseTestResultFormItem,
   TrueOrFalseTestSelectFormItem,
 } from './container/TrueOrFalseTestContainer/trueOrFalseTest.type';
+import { allowedExtensions } from './tests.const';
+import { CompressedResult } from './tests.types';
 
 const createArray = (items) => {
   return items.map(({ question, optionItems }, questionIndex) => {
@@ -68,3 +71,50 @@ export const createTrueOrFalseTestResultFormItems = (
 
 export const setWeightedScoreDictionary = (data) =>
   data.reduce((dic, { resultContent }) => ({ ...dic, [resultContent]: 0 }), {});
+
+export const actionImageCompress = async (
+  file: File,
+): Promise<CompressedResult> => {
+  const options = {
+    maxSizeMB: 0.2,
+    maxWidthOrHeight: 1024,
+    useWebWorker: true,
+  };
+
+  try {
+    const compressedFile = await imageCompression(file, options);
+
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onloadend = () => {
+        const imageBase64Data = reader.result as string;
+        resolve({ compressedFile, imageBase64Data });
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(compressedFile);
+    });
+  } catch (error) {
+    console.log('이미지 업로드 에러');
+    throw error;
+  }
+};
+
+export const base64ToFile = async (dataURI, fileName) => {
+  const response = await fetch(dataURI);
+  const blob = await response.blob();
+  const fileExtension = blob.type.split('/')[1];
+  const fullFileName = `${fileName}.${fileExtension}`;
+  return new File([blob], fullFileName, { type: blob.type });
+};
+
+export const objectToFormData = (obj, formData) =>
+  Object.entries(obj).forEach(([key, value]) => {
+    formData.append(key, JSON.stringify(value));
+  });
+
+export const isImageFile = (fileName: string): boolean => {
+  const fileExtension = fileName.split('.').pop()?.toLowerCase();
+  return allowedExtensions.includes(fileExtension ?? '');
+};

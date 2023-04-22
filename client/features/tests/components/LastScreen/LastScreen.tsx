@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
+import PrivewImage from '../../../../components/PrivewImage/PrivewImage';
+import { IMAGE_HOLDER_PATH } from '../../tests.const';
 import OvalButton from '../OvalButton/OvalButton';
 import {
   ButtonWrapper,
@@ -7,11 +9,13 @@ import {
   Content,
   Title,
   ContentWrapper,
+  PrivewImageWrapper,
 } from './LastScreen.style';
 
 interface LastScreenProps {
   resultContent: string;
   explanationContent: string;
+  resultImageUrl?: string;
   subTitle?: string;
   isPublic: boolean;
   onClick: () => void;
@@ -21,6 +25,7 @@ interface LastScreenProps {
 const LastScreen = ({
   resultContent,
   explanationContent,
+  resultImageUrl,
   subTitle,
   isPublic,
   onClick,
@@ -46,6 +51,11 @@ const LastScreen = ({
         {resultContent}
         {subTitle && `(${subTitle})`}
       </Title>
+      {resultImageUrl !== IMAGE_HOLDER_PATH && (
+        <PrivewImageWrapper>
+          <PrivewImage imgUrl={resultImageUrl} />
+        </PrivewImageWrapper>
+      )}
       <ContentWrapper>
         <Content> {explanationContent}</Content>
       </ContentWrapper>

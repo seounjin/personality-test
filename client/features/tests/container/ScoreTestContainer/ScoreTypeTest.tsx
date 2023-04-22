@@ -146,6 +146,9 @@ const ScoreTypeTest = ({
             onClose={handleCloseTemporaryTest}
             resultContent={resultItems.resultContent}
             explanationContent={resultItems.explanationContent}
+            resultImageUrl={
+              resultItems.resultImageUrl ? resultItems.resultImageUrl : ''
+            }
           />
         </BackgroundImage>
       )}

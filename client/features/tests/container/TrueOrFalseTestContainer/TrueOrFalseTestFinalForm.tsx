@@ -10,7 +10,7 @@ import TextBox from '../../../../components/TextBox/TextBox';
 import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
 import FormLayout from '../../../../layout/FormLayout/FormLayout';
 import { RootState } from '../../../../store/modules';
-import PrivewImage from '../../components/PrivewImage/PrivewImage';
+import PrivewImage from '../../../../components/PrivewImage/PrivewImage';
 import SelectedOptionsTable from '../../components/SelectedOptionsTable/SelectedOptionsTable';
 import TemporaryTestWrapper from '../../components/TemporaryTestWrapper/TemporaryTestWrapper';
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';

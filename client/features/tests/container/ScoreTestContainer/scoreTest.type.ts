@@ -7,6 +7,7 @@ import {
 export interface ScoreTestResultFormItem {
   resultContent: string;
   explanationContent: string;
+  resultImageUrl: string;
 }
 
 export type ScoreTestResultFormItems = {
@@ -34,6 +35,7 @@ export interface ScoreTestSliceInitialState {
   isPublic: boolean;
   scoreTestResultFormItems: ScoreTestResultFormItem[];
   scoreTestSelectFormItems: ScoreTestSelectFormItems[];
+  imageBase64DataArray: Array<string>;
 }
 
 export type ScoreTestSelectFormItemsType = {

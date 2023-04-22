@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Label = styled.label`
-  font-size: 1.5rem;
+  font-size: 16px;
   font-weight: bold;
   margin: 4px 0;
 `;
@@ -10,7 +10,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 4px 0;
-  font-size: 1.5rem;
+  font-size: 16px;
 `;
 
 export const Textarea = styled.textarea`

@@ -23,7 +23,9 @@ export const TwoButtonWrapper = styled.div`
   margin: 12px;
 `;
 
-export const StepTitle = styled.h1``;
+export const StepTitle = styled.h1`
+  font-size: 23px;
+`;
 
 export const SubmitButtonWrapper = styled.div`
   width: 100%;

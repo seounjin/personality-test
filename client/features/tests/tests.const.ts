@@ -188,3 +188,5 @@ export const MBTI_TEST_TYPE_CONTENT = [
   { typeContent: 'P' },
   { typeContent: 'J' },
 ];
+
+export const allowedExtensions = ['jpg', 'jpeg', 'png'];

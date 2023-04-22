@@ -11,7 +11,7 @@ import {
   CancleButton,
 } from './ThumbnailImageUpload.style';
 
-import PrivewImage from '../../components/PrivewImage/PrivewImage';
+import PrivewImage from '../../../../components/PrivewImage/PrivewImage';
 import imageCompression from 'browser-image-compression';
 import { MAX_FILE_SIZE } from '../../tests.const';
 import {

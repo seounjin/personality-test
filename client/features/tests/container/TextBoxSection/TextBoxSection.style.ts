@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 interface TitleWrapperProps {
   justifyContent: string;
@@ -12,5 +17,5 @@ export const TitleWrapper = styled.div<TitleWrapperProps>`
 `;
 
 export const Title = styled.h3`
-  font-size: 1.6rem;
+  font-size: 20px;
 `;

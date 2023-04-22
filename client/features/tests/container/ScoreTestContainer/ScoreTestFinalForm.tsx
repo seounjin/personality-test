@@ -10,7 +10,7 @@ import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
 import FormLayout from '../../../../layout/FormLayout/FormLayout';
 import TemporaryTestWrapper from '../../components/TemporaryTestWrapper/TemporaryTestWrapper';
 import { RootState } from '../../../../store/modules';
-import PrivewImage from '../../components/PrivewImage/PrivewImage';
+import PrivewImage from '../../../../components/PrivewImage/PrivewImage';
 import WeightedScoreBoard from '../../components/WeightedScoreBoard/WeightedScoreBoard';
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 import useStorage from '../../hooks/useStorage';
@@ -19,7 +19,11 @@ import TextBoxSection from '../TextBoxSection/TextBoxSection';
 import WeightedScoreBoardSection from '../WeightedScoreBoardSection/WeightedScoreBoardSection';
 import { SCORE_TEST_FINAL_FORM_ID } from './scoreTest.const';
 import RoundButton from '../../../../components/RoundButton/RoundButton';
-import { setWeightedScoreDictionary } from '../../tests.util';
+import {
+  base64ToFile,
+  objectToFormData,
+  setWeightedScoreDictionary,
+} from '../../tests.util';
 
 const ScoreTestFinalForm = () => {
   const {
@@ -31,8 +35,8 @@ const ScoreTestFinalForm = () => {
     scoreTestSelectFormItems,
     isPublic,
     thumbnailImgUrl,
-    imageData,
-    isChangeImage,
+    imageBase64DataArray,
+    thumbnailImageBase64Data,
   } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
@@ -41,12 +45,12 @@ const ScoreTestFinalForm = () => {
       subTitle: state.basicForm.subTitle,
       explain: state.basicForm.explain,
       thumbnailImgUrl: state.basicForm.thumbnailImgUrl,
-      imageData: state.basicForm.imageData,
-      isChangeImage: state.basicForm.isChangeImage,
+      thumbnailImageBase64Data: state.basicForm.thumbnailImageBase64Data,
 
       isPublic: state.scoreTest.isPublic,
       scoreTestResultFormItems: state.scoreTest.scoreTestResultFormItems,
       scoreTestSelectFormItems: state.scoreTest.scoreTestSelectFormItems,
+      imageBase64DataArray: state.scoreTest.imageBase64DataArray,
     }),
     shallowEqual,
   );
@@ -66,28 +70,45 @@ const ScoreTestFinalForm = () => {
     event.preventDefault();
 
     removeTestItems();
-    const isPublic =
-      (event.target as HTMLFormElement).contact.value === 'public'
-        ? true
-        : false;
+
+    const formData = new FormData();
+
+    if (thumbnailImageBase64Data) {
+      const thumbnailImageFile = await base64ToFile(
+        thumbnailImageBase64Data,
+        `thumbnail_0`,
+      );
+      formData.append(`image`, thumbnailImageFile);
+    }
+
+    await Promise.all(
+      imageBase64DataArray.map(async (imageData, index) => {
+        if (!imageData) return null;
+        const imageFile = await base64ToFile(imageData, `result_${index}`);
+        formData.append(`image`, imageFile);
+      }),
+    );
 
     const data = {
       basicInformationItem: {
         title: title,
         subTitle: subTitle,
         explain: explain,
-        imageData: isChangeImage ? JSON.stringify({ imageData }) : '',
+        thumbnailImgUrl: thumbnailImgUrl,
       },
       scoreResultItems: scoreTestResultFormItems,
       scoreSelectItems: scoreTestSelectFormItems,
-      isPublic: isPublic,
+      isPublic:
+        (event.target as HTMLFormElement).contact.value === 'public'
+          ? true
+          : false,
       testType: 'score',
-      isChangeImage: isChangeImage,
-      thumbnailImgUrl: thumbnailImgUrl,
     };
 
+    objectToFormData(data, formData);
+
     if (mode === 'create') {
-      requestRegister(data);
+      requestRegister(formData);
     } else {
       requestUpdate(data);
     }
@@ -118,9 +139,12 @@ const ScoreTestFinalForm = () => {
 
       <BoxShadowCard subtitle="유형 설정">
         {scoreTestResultFormItems.map(
-          ({ resultContent, explanationContent }, index) => (
+          ({ resultContent, explanationContent, resultImageUrl }, index) => (
             <React.Fragment key={`t${index}`}>
               <TextBoxSection title={`${index + 1}번`} titleLocation="center">
+                <SubTextBoxSection>
+                  <PrivewImage imgUrl={resultImageUrl} />
+                </SubTextBoxSection>
                 <SubTextBoxSection>
                   <SubHeadlineLabel label="유 형" subTitleLocation="start" />
                   <TextBox text={resultContent} />

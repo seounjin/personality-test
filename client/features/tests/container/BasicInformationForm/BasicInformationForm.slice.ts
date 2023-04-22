@@ -10,6 +10,7 @@ const initialState: BasicFormSliceInitialState = {
   imageData: '',
   isChangeImage: false,
   isOpenCancleButton: false,
+  thumbnailImageBase64Data: '',
 };
 
 const basicFormSlice = createSlice({
@@ -20,6 +21,7 @@ const basicFormSlice = createSlice({
       state.title = action.payload.title;
       state.subTitle = action.payload.subTitle;
       state.explain = action.payload.explain;
+      state.thumbnailImgUrl = action.payload.thumbnailImgUrl;
     },
     setBasicInformationItems: (state, action) => {
       const {
@@ -52,6 +54,9 @@ const basicFormSlice = createSlice({
       state.imageData = '';
       state.isOpenCancleButton = false;
     },
+    setThumbnailImageBase64Data: (state, action) => {
+      state.thumbnailImageBase64Data = action.payload.thumbnailImageBase64Data;
+    },
   },
 });
 
@@ -60,6 +65,7 @@ export const {
   setBasicInformationItems,
   setImageInformation,
   setResetChangeImage,
+  setThumbnailImageBase64Data,
 } = basicFormSlice.actions;
 
 export default basicFormSlice.reducer;

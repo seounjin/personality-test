@@ -2,11 +2,11 @@ import SelectedOptionsTable from '../../components/SelectedOptionsTable/Selected
 import {
   Container,
   TextFiledWrapper,
-  NumberLabel,
 } from '../../components/ResultWriter/ResultWriter.style';
 import { SelectedOption } from './trueOrFalseTest.type';
 import TextFiled from '../../../../components/TextFiled/TextField';
 import TextAreaInput from '../../components/TextAreaInput/TextAreaInput';
+import { NumberLabel } from '../../components/ResultFormBox/ResultFormBox.style';
 
 interface TrueOrFalseTestResultWriterProps {
   index: number;

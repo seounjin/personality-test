@@ -50,3 +50,8 @@ export interface ManualItem {
   firstStep: number;
   lastStep: number;
 }
+
+export interface CompressedResult {
+  compressedFile: File;
+  imageBase64Data: string;
+}

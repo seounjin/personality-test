@@ -4,8 +4,8 @@ import TextAreaInput from '../../components/TextAreaInput/TextAreaInput';
 import {
   Container,
   TextFiledWrapper,
-  NumberLabel,
 } from '../../components/ResultWriter/ResultWriter.style';
+import { NumberLabel } from '../../components/ResultFormBox/ResultFormBox.style';
 
 interface MbtiTestResultWriterProps {
   index: number;

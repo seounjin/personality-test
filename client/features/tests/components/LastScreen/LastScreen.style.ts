@@ -43,3 +43,7 @@ export const ContentWrapper = styled.div`
   border-radius: 20px;
   background-color: ${({ theme }) => theme.colors.lastScreenContentColor};
 `;
+
+export const PrivewImageWrapper = styled.div`
+  margin-top: 20px;
+`;

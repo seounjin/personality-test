@@ -30,6 +30,11 @@ module.exports = {
         port: '',
       },
       {
+        protocol: 'https',
+        hostname: 'personality-test-images.s3.ap-northeast-2.amazonaws.com',
+        port: '',
+      },
+      {
         protocol: 'http',
         hostname: 'localhost',
         port: '8080',

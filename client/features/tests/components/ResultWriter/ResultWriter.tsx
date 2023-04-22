@@ -1,7 +1,7 @@
 import React from 'react';
 import TextAreaInput from '../TextAreaInput/TextAreaInput';
 import TextFiled from '../../../../components/TextFiled/TextField';
-import { Container, TextFiledWrapper, NumberLabel } from './ResultWriter.style';
+import { Container, TextFiledWrapper } from './ResultWriter.style';
 
 interface ResultWriterProps {
   index: number;
@@ -22,7 +22,6 @@ const ResultWriter = ({
 }: ResultWriterProps): JSX.Element => {
   return (
     <Container>
-      <NumberLabel>{`${index + 1}번`}</NumberLabel>
       <TextFiledWrapper>
         <TextFiled
           label={firstLabel}
