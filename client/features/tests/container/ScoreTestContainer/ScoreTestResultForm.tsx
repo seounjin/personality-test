@@ -1,15 +1,26 @@
+import { useRouter } from 'next/router';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import DeleteAlertModal from '../../../../components/DeleteAlertModal/DeleteAlertModal';
+import Modal from '../../../../components/Modal/Modal';
+import { useFetcher } from '../../../../hooks/useFetcher';
+import useModal from '../../../../hooks/useModal';
 import FormLayout from '../../../../layout/FormLayout/FormLayout';
 import { RootState } from '../../../../store/modules';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import ResultFormBox from '../../components/ResultFormBox/ResultFormBox';
 import ResultWriter from '../../components/ResultWriter/ResultWriter';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
+import useImageValidationState from '../../hooks/useImageValidationState';
 import useStorage from '../../hooks/useStorage';
 import { IMAGE_HOLDER_PATH, MAX_FILE_SIZE } from '../../tests.const';
 import { SetCounterButtonWrapper } from '../../tests.styles';
-import { actionImageCompress, isImageFile } from '../../tests.util';
+import {
+  actionImageCompress,
+  isImageFile,
+  isValidImageUrl,
+  parseS3Url,
+} from '../../tests.util';
 import {
   MAX_TYPE_ITEMS_COUNT,
   MIN_TYPE_ITEMS_COUNT,
@@ -32,6 +43,17 @@ interface TypeFormSectionProps {
 const ScoreTestResultForm = ({
   handleNext,
 }: TypeFormSectionProps): JSX.Element => {
+  const router = useRouter();
+  const fetcher = useFetcher();
+  const {
+    validImageUrl,
+    validImageName,
+    validImageIndex,
+    setImageValidationState,
+  } = useImageValidationState();
+
+  const { isModalOpen, openModal, closeModal } = useModal();
+
   const { control, trigger, handleSubmit, setValue } =
     useFormContext<ScoreTestResultFormItems>();
   const { fields, append, remove } = useFieldArray({
@@ -131,10 +153,37 @@ const ScoreTestResultForm = ({
 
   const handleCancel = (
     name: `scoreTestResultFormItems.${number}.resultImageUrl`,
-    index,
+    index: number,
+    imgUrl: string,
   ) => {
+    if (isValidImageUrl(imgUrl)) {
+      setImageValidationState(imgUrl, name, index);
+      openModal();
+      return;
+    }
     setValue(name, IMAGE_HOLDER_PATH);
     dispatch(setImageBase64DataArray({ index, imageBase64Data: '' }));
+  };
+
+  const handleClose = () => {
+    closeModal();
+  };
+
+  const requestDelete = async () => {
+    const { bucketName, imagePath } = parseS3Url(validImageUrl);
+    const id = router.query.slug[0];
+    const res = await fetcher(
+      'delete',
+      `/personality/${id}/score-result-image?bucketName=${bucketName}&imagePath=${imagePath}&index=${validImageIndex}`,
+    );
+
+    closeModal();
+    if (res.success) {
+      alert('이미지가 삭제 되었습니다.');
+      setValue(validImageName, IMAGE_HOLDER_PATH);
+    } else {
+      alert('죄송합니다. 잠시 후 다시 시도해주세요.');
+    }
   };
 
   return (
@@ -170,6 +219,17 @@ const ScoreTestResultForm = ({
           />
         </ResultFormBox>
       ))}
+      {isModalOpen && (
+        <Modal onClose={handleClose}>
+          <DeleteAlertModal
+            handleConfirm={requestDelete}
+            handleClose={handleClose}
+            textA={
+              '삭제하시면 해당 이미지는 복구 할 수 없습니다. 삭제하시겠습니까?'
+            }
+          />
+        </Modal>
+      )}
     </FormLayout>
   );
 };

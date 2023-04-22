@@ -1,5 +1,5 @@
 import React from 'react';
-import TwoButton from '../../../../components/TwoButton/TwoButton';
+import TwoButton from '../TwoButton/TwoButton';
 import {
   TextWrapper,
   TwoButtonWrapper,
@@ -10,17 +10,21 @@ import {
 interface DeleteModalProps {
   handleConfirm: () => void;
   handleClose: () => void;
+  textA?: string;
+  textB?: string;
 }
 
 const DeleteModal = ({
   handleConfirm,
   handleClose,
+  textA,
+  textB,
 }: DeleteModalProps): JSX.Element => {
   return (
     <Container>
       <TextWrapper>
-        <Text>{'삭제하면 복구할수 없습니다'}</Text>
-        <Text>{'정말 삭제하겠습니까?'}</Text>
+        <Text>{textA}</Text>
+        <Text>{textB}</Text>
       </TextWrapper>
       <TwoButtonWrapper>
         <TwoButton

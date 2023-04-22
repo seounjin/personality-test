@@ -5,8 +5,9 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.p`
-  font-weight: bold;
+  font-weight: 600;
   font-size: 16px;
+  line-height: 1.9;
 `;
 
 export const TextWrapper = styled.div`

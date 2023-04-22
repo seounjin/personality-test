@@ -19,7 +19,7 @@ interface ImageUploadProps {
     name: string,
     index?: number,
   ) => void;
-  handleCancel: (name: string, index: number) => void;
+  handleCancel: (name: string, index?: number, imgUrl?: string) => void;
 }
 
 const ImageUpload = ({
@@ -53,7 +53,10 @@ const ImageUpload = ({
         이미지 등록
       </RegisterButton>
       {imgUrl !== IMAGE_HOLDER_PATH && (
-        <CancleButton type="button" onClick={() => handleCancel(name, index)}>
+        <CancleButton
+          type="button"
+          onClick={() => handleCancel(name, index, imgUrl)}
+        >
           취소하기
         </CancleButton>
       )}

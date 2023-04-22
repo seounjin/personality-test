@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Modal from '../../../../components/Modal/Modal';
-import DeleteAlertModal from '../DeleteAlertModal/DeleteAlertModal';
+import DeleteAlertModal from '../../../../components/DeleteAlertModal/DeleteAlertModal';
 import PhraseText from '../../components/PhraseText/PhraseText';
 import MypageCardList from '../../components/MypageCardList/MypageCardList';
 import { useFetcher } from '../../../../hooks/useFetcher';
@@ -25,8 +25,6 @@ const CardItems = () => {
   };
 
   useEffect(() => {
-    console.log('확인');
-
     if (!cards.length) {
       requestCardList();
     }
@@ -142,6 +140,8 @@ const CardItems = () => {
           <DeleteAlertModal
             handleConfirm={requestDelete}
             handleClose={handleClose}
+            textA={'삭제하면 복구할수 없습니다'}
+            textB={'정말 삭제하겠습니까'}
           />
         </Modal>
       )}

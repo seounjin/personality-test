@@ -189,4 +189,7 @@ export const MBTI_TEST_TYPE_CONTENT = [
   { typeContent: 'J' },
 ];
 
-export const allowedExtensions = ['jpg', 'jpeg', 'png'];
+export const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png'];
+
+export const IMAGE_DOMAIN =
+  'https://personality-test-images.s3.ap-northeast-2.amazonaws.com';

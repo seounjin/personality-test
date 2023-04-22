@@ -3,7 +3,7 @@ import {
   TrueOrFalseTestResultFormItem,
   TrueOrFalseTestSelectFormItem,
 } from './container/TrueOrFalseTestContainer/trueOrFalseTest.type';
-import { allowedExtensions } from './tests.const';
+import { ALLOWED_EXTENSIONS, IMAGE_DOMAIN } from './tests.const';
 import { CompressedResult } from './tests.types';
 
 const createArray = (items) => {
@@ -116,5 +116,19 @@ export const objectToFormData = (obj, formData) =>
 
 export const isImageFile = (fileName: string): boolean => {
   const fileExtension = fileName.split('.').pop()?.toLowerCase();
-  return allowedExtensions.includes(fileExtension ?? '');
+  return ALLOWED_EXTENSIONS.includes(fileExtension ?? '');
+};
+
+export const isValidImageUrl = (imgSrc: string) => {
+  return imgSrc.startsWith(IMAGE_DOMAIN);
+};
+
+export const parseS3Url = (s3Url: string) => {
+  const regex = /^https:\/\/(.+?)\..+?\/(.+)$/;
+  const match = s3Url.match(regex);
+
+  return {
+    bucketName: match[1],
+    imagePath: match[2],
+  };
 };

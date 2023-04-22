@@ -4,7 +4,5 @@ export interface BasicFormSliceInitialState {
   explain: string;
   thumbnailImgUrl: string;
   imageData: string;
-  isChangeImage: boolean;
-  isOpenCancleButton: boolean;
   thumbnailImageBase64Data: string;
 }

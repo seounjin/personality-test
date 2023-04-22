@@ -8,8 +8,6 @@ const initialState: BasicFormSliceInitialState = {
   explain: '',
   thumbnailImgUrl: IMAGE_HOLDER_PATH,
   imageData: '',
-  isChangeImage: false,
-  isOpenCancleButton: false,
   thumbnailImageBase64Data: '',
 };
 
@@ -31,28 +29,17 @@ const basicFormSlice = createSlice({
       state.title = title;
       state.subTitle = subTitle;
       state.explain = explain;
-      state.thumbnailImgUrl = thumbnailImgUrl
-        ? thumbnailImgUrl
-        : IMAGE_HOLDER_PATH;
-      state.isOpenCancleButton = thumbnailImgUrl
-        ? thumbnailImgUrl === IMAGE_HOLDER_PATH
-          ? false
-          : true
-        : false;
+      state.thumbnailImgUrl = thumbnailImgUrl;
     },
 
     setImageInformation: (state, action) => {
       state.thumbnailImgUrl = action.payload.thumbnailImgUrl;
       state.imageData = action.payload.imageData;
-      state.isChangeImage = true;
-      state.isOpenCancleButton = true;
     },
 
     setResetChangeImage: (state) => {
-      state.isChangeImage = false;
       state.thumbnailImgUrl = IMAGE_HOLDER_PATH;
       state.imageData = '';
-      state.isOpenCancleButton = false;
     },
     setThumbnailImageBase64Data: (state, action) => {
       state.thumbnailImageBase64Data = action.payload.thumbnailImageBase64Data;
