@@ -36,7 +36,6 @@ const ImageUpload = ({
   const handleRegister = (): void => {
     imgUploadRef.current.click();
   };
-
   return (
     <Container>
       <Label>썸네일 등록</Label>

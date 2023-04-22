@@ -1,17 +1,19 @@
 import { useState } from 'react';
-
-type ScoreTestResultImageUrl =
-  `scoreTestResultFormItems.${number}.resultImageUrl`;
+import {
+  MbtiTestResultImageUrl,
+  ScoreTestResultImageUrl,
+} from '../tests.types';
 
 const useImageValidationState = () => {
   const [validImageUrl, setValidImageUrl] = useState<string>('');
-  const [validImageName, setValidImageName] =
-    useState<ScoreTestResultImageUrl>(null);
+  const [validImageName, setValidImageName] = useState<
+    ScoreTestResultImageUrl | MbtiTestResultImageUrl
+  >(null);
   const [validImageIndex, setValidImageIndex] = useState<number | null>(null);
 
   const setImageValidationState = (
     imgUrl: string,
-    name: ScoreTestResultImageUrl,
+    name: ScoreTestResultImageUrl | MbtiTestResultImageUrl,
     index: number,
   ) => {
     setValidImageUrl(imgUrl);

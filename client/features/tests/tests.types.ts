@@ -8,6 +8,7 @@ type StepComponentProps = { handleNext?: () => void };
 export interface ResultFormItem {
   resultContent: string;
   explanationContent: string;
+  resultImageUrl: string;
 }
 
 export interface WeightedScoreItem {
@@ -55,3 +56,9 @@ export interface CompressedResult {
   compressedFile: File;
   imageBase64Data: string;
 }
+
+export type ScoreTestResultImageUrl =
+  `scoreTestResultFormItems.${number}.resultImageUrl`;
+
+export type MbtiTestResultImageUrl =
+  `mbtiTestResultFormItems.${number}.resultImageUrl`;

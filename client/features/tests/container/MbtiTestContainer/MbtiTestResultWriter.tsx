@@ -5,7 +5,6 @@ import {
   Container,
   TextFiledWrapper,
 } from '../../components/ResultWriter/ResultWriter.style';
-import { NumberLabel } from '../../components/ResultFormBox/ResultFormBox.style';
 
 interface MbtiTestResultWriterProps {
   index: number;
@@ -26,7 +25,6 @@ const MbtiTestResultWriter = ({
 }: MbtiTestResultWriterProps): JSX.Element => {
   return (
     <Container>
-      <NumberLabel>{`${index + 1}번`}</NumberLabel>
       <TextFiledWrapper>
         <TextFiled
           label={firstLabel}

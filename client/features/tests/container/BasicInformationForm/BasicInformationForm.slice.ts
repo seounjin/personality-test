@@ -29,17 +29,9 @@ const basicFormSlice = createSlice({
       state.title = title;
       state.subTitle = subTitle;
       state.explain = explain;
-      state.thumbnailImgUrl = thumbnailImgUrl;
-    },
-
-    setImageInformation: (state, action) => {
-      state.thumbnailImgUrl = action.payload.thumbnailImgUrl;
-      state.imageData = action.payload.imageData;
-    },
-
-    setResetChangeImage: (state) => {
-      state.thumbnailImgUrl = IMAGE_HOLDER_PATH;
-      state.imageData = '';
+      state.thumbnailImgUrl = thumbnailImgUrl
+        ? thumbnailImgUrl
+        : IMAGE_HOLDER_PATH;
     },
     setThumbnailImageBase64Data: (state, action) => {
       state.thumbnailImageBase64Data = action.payload.thumbnailImageBase64Data;
@@ -50,8 +42,6 @@ const basicFormSlice = createSlice({
 export const {
   setBasicInformationForm,
   setBasicInformationItems,
-  setImageInformation,
-  setResetChangeImage,
   setThumbnailImageBase64Data,
 } = basicFormSlice.actions;
 

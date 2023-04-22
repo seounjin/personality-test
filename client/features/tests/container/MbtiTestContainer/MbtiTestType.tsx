@@ -138,6 +138,7 @@ const MbtiTestType = ({
           <LastScreen
             resultContent={resultItems.resultContent}
             explanationContent={resultItems.explanationContent}
+            resultImageUrl={resultItems.resultImageUrl}
             subTitle={resultItems.mbtiType}
             isPublic={isPublic}
             onClick={reStartClick}

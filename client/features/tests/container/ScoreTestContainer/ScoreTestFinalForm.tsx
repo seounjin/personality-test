@@ -37,7 +37,6 @@ const ScoreTestFinalForm = () => {
     thumbnailImgUrl,
     imageBase64DataArray,
     thumbnailImageBase64Data,
-    resultImgUrlsToDelete,
   } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
@@ -52,7 +51,6 @@ const ScoreTestFinalForm = () => {
       scoreTestResultFormItems: state.scoreTest.scoreTestResultFormItems,
       scoreTestSelectFormItems: state.scoreTest.scoreTestSelectFormItems,
       imageBase64DataArray: state.scoreTest.imageBase64DataArray,
-      resultImgUrlsToDelete: state.scoreTest.resultImgUrlsToDelete,
     }),
     shallowEqual,
   );
@@ -102,7 +100,6 @@ const ScoreTestFinalForm = () => {
       scoreSelectItems: scoreTestSelectFormItems,
       isPublic: (event.target as HTMLFormElement).contact.value === 'public',
       testType: 'score',
-      ...(resultImgUrlsToDelete ? { resultImgUrlsToDelete } : {}),
     };
 
     objectToFormData(data, formData);

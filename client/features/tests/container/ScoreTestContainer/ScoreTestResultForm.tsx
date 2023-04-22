@@ -15,6 +15,7 @@ import useImageValidationState from '../../hooks/useImageValidationState';
 import useStorage from '../../hooks/useStorage';
 import { IMAGE_HOLDER_PATH, MAX_FILE_SIZE } from '../../tests.const';
 import { SetCounterButtonWrapper } from '../../tests.styles';
+import { ScoreTestResultImageUrl } from '../../tests.types';
 import {
   actionImageCompress,
   isImageFile,
@@ -152,7 +153,7 @@ const ScoreTestResultForm = ({
   };
 
   const handleCancel = (
-    name: `scoreTestResultFormItems.${number}.resultImageUrl`,
+    name: ScoreTestResultImageUrl,
     index: number,
     imgUrl: string,
   ) => {
@@ -180,7 +181,7 @@ const ScoreTestResultForm = ({
     closeModal();
     if (res.success) {
       alert('이미지가 삭제 되었습니다.');
-      setValue(validImageName, IMAGE_HOLDER_PATH);
+      setValue(validImageName as ScoreTestResultImageUrl, IMAGE_HOLDER_PATH);
     } else {
       alert('죄송합니다. 잠시 후 다시 시도해주세요.');
     }

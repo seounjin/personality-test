@@ -51,7 +51,10 @@ const BasicInformationForm = ({
     const { title, subTitle, explain, thumbnailImgUrl } = data;
 
     if (mode === 'create') {
-      setTestItems({ basicInformationItems: data });
+      setTestItems({
+        basicInformationItems: { title, subTitle, explain },
+        thumbnailImgUrl,
+      });
     }
 
     dispatch(

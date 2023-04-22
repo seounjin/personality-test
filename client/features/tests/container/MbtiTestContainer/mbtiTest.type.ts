@@ -6,6 +6,7 @@ export interface MbtiTestSliceInitialState {
   isPublic: boolean;
   mbtiTestResultFormItems: MbtiTestResultFormItem[];
   mbtiTestSelectFormItems: MbtiTestSelectFormItems[];
+  imageBase64DataArray: Array<string>;
 }
 
 export interface MbtiTestResultFormItem extends ResultFormItem {

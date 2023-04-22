@@ -16,7 +16,11 @@ import WeightedScoreBoard from '../../components/WeightedScoreBoard/WeightedScor
 import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 import useStorage from '../../hooks/useStorage';
 import { MBTI_TEST_TYPE_CONTENT } from '../../tests.const';
-import { setWeightedScoreDictionary } from '../../tests.util';
+import {
+  base64ToFile,
+  objectToFormData,
+  setWeightedScoreDictionary,
+} from '../../tests.util';
 import TextBoxSection from '../TextBoxSection/TextBoxSection';
 import WeightedScoreBoardSection from '../WeightedScoreBoardSection/WeightedScoreBoardSection';
 import { MBTI_TEST_FINAL_FORM_ID } from './mbtiTest.const';
@@ -31,9 +35,9 @@ const MbtiTestFinalForm = () => {
     mbtiTestResultFormItems,
     mbtiTestSelectFormItems,
     isPublic,
-    imageData,
     thumbnailImgUrl,
-    isChangeImage,
+    thumbnailImageBase64Data,
+    imageBase64DataArray,
   } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
@@ -42,12 +46,12 @@ const MbtiTestFinalForm = () => {
       subTitle: state.basicForm.subTitle,
       explain: state.basicForm.explain,
       thumbnailImgUrl: state.basicForm.thumbnailImgUrl,
-      imageData: state.basicForm.imageData,
-      isChangeImage: state.basicForm.isChangeImage,
+      thumbnailImageBase64Data: state.basicForm.thumbnailImageBase64Data,
 
       isPublic: state.mbtiTest.isPublic,
       mbtiTestResultFormItems: state.mbtiTest.mbtiTestResultFormItems,
       mbtiTestSelectFormItems: state.mbtiTest.mbtiTestSelectFormItems,
+      imageBase64DataArray: state.mbtiTest.imageBase64DataArray,
     }),
     shallowEqual,
   );
@@ -67,30 +71,43 @@ const MbtiTestFinalForm = () => {
     event.preventDefault();
     removeTestItems();
 
-    const isPublic =
-      (event.target as HTMLFormElement).contact.value === 'public'
-        ? true
-        : false;
+    const formData = new FormData();
+
+    if (thumbnailImageBase64Data) {
+      const thumbnailImageFile = await base64ToFile(
+        thumbnailImageBase64Data,
+        `thumbnail_0`,
+      );
+      formData.append(`image`, thumbnailImageFile);
+    }
+
+    await Promise.all(
+      imageBase64DataArray.map(async (imageData, index) => {
+        if (!imageData) return null;
+        const imageFile = await base64ToFile(imageData, `result_${index}`);
+        formData.append(`image`, imageFile);
+      }),
+    );
 
     const data = {
       basicInformationItem: {
         title: title,
         subTitle: subTitle,
         explain: explain,
-        imageData: isChangeImage ? JSON.stringify({ imageData }) : '',
+        thumbnailImgUrl: thumbnailImgUrl,
       },
       mbtiResultItems: mbtiTestResultFormItems,
       mbtiSelectItems: mbtiTestSelectFormItems,
-      isPublic: isPublic,
+      isPublic: (event.target as HTMLFormElement).contact.value === 'public',
       testType: 'mbti',
-      isChangeImage: isChangeImage,
-      thumbnailImgUrl: thumbnailImgUrl,
     };
 
+    objectToFormData(data, formData);
+
     if (mode === 'create') {
-      requestRegister(data);
+      requestRegister(formData);
     } else {
-      requestUpdate(data);
+      requestUpdate(formData);
     }
   };
 
@@ -119,9 +136,15 @@ const MbtiTestFinalForm = () => {
 
       <BoxShadowCard subtitle="유형 설정">
         {mbtiTestResultFormItems.map(
-          ({ mbtiType, resultContent, explanationContent }, index) => (
+          (
+            { mbtiType, resultContent, explanationContent, resultImageUrl },
+            index,
+          ) => (
             <React.Fragment key={`t${index}`}>
               <TextBoxSection title={`${index + 1}번`} titleLocation="center">
+                <SubTextBoxSection>
+                  <PrivewImage imgUrl={resultImageUrl} />
+                </SubTextBoxSection>
                 <SubTextBoxSection>
                   <SubHeadlineLabel
                     label="Mbti 유형"
