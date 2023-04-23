@@ -15,6 +15,7 @@ import {
   isImageFile,
   isValidImageUrl,
   parseS3Url,
+  validateImageFile,
 } from '../../tests.util';
 import { IMAGE_HOLDER_PATH, MAX_FILE_SIZE } from '../../tests.const';
 import useModal from '../../../../hooks/useModal';
@@ -74,15 +75,7 @@ const BasicInformationForm = ({
   ) => {
     const file = event.target.files[0];
 
-    if (!file) return;
-
-    if (!isImageFile(file.name)) {
-      alert('허용되지 않은 파일 형식입니다.');
-      return;
-    }
-
-    if (file.size > MAX_FILE_SIZE) {
-      alert('최대 이미지 용량은 2mb입니다.');
+    if (!validateImageFile(file)) {
       return;
     }
 

@@ -1,73 +1,6 @@
 import imageCompression from 'browser-image-compression';
-import {
-  TrueOrFalseTestResultFormItem,
-  TrueOrFalseTestSelectFormItem,
-} from './container/TrueOrFalseTestContainer/trueOrFalseTest.type';
-import { ALLOWED_EXTENSIONS, IMAGE_DOMAIN } from './tests.const';
+import { ALLOWED_EXTENSIONS, IMAGE_DOMAIN, MAX_FILE_SIZE } from './tests.const';
 import { CompressedResult } from './tests.types';
-
-const createArray = (items) => {
-  return items.map(({ question, optionItems }, questionIndex) => {
-    return optionItems.map(({ id, option }, optionIndex) => {
-      return {
-        qusetionNumber: questionIndex + 1,
-        question: question,
-        optionId: id,
-        optionNumber: optionIndex + 1,
-        option: option,
-      };
-    });
-  });
-};
-
-const combination = (array, prefix = [], res = []) => {
-  if (array.length === 0) {
-    res.push(prefix);
-    return;
-  }
-
-  for (let index = 0; index < array[0].length; index++) {
-    const newPrefix = prefix.concat(array[0][index]);
-    combination(array.slice(1), newPrefix, res);
-  }
-
-  return res;
-};
-
-export const createTrueOrFalseTestResultFormItems = (
-  trueOrFalseTestSelectFormItems: TrueOrFalseTestSelectFormItem[],
-  trueOrFalseTestResultFormItems: TrueOrFalseTestResultFormItem[] = [],
-) => {
-  const array = createArray(trueOrFalseTestSelectFormItems);
-
-  const res = combination(array);
-
-  return res.map((combNumberItem, index) => {
-    return {
-      selectedOptionNumber: combNumberItem.reduce(
-        (num, { optionNumber }, index) => {
-          return (num += optionNumber);
-        },
-        '',
-      ),
-      resultContent: trueOrFalseTestResultFormItems[index]
-        ? trueOrFalseTestResultFormItems[index].resultContent
-        : '',
-      explanationContent: trueOrFalseTestResultFormItems[index]
-        ? trueOrFalseTestResultFormItems[index].explanationContent
-        : '',
-      selectedOption: combNumberItem.map(
-        ({ qusetionNumber, question, optionNumber, optionId, option }) => ({
-          qusetionNumber: qusetionNumber,
-          question: question,
-          optionNumber: optionNumber,
-          optionId: optionId,
-          option: option,
-        }),
-      ),
-    };
-  });
-};
 
 export const setWeightedScoreDictionary = (data) =>
   data.reduce((dic, { resultContent }) => ({ ...dic, [resultContent]: 0 }), {});
@@ -109,14 +42,54 @@ export const base64ToFile = async (dataURI, fileName) => {
   return new File([blob], fullFileName, { type: blob.type });
 };
 
-export const objectToFormData = (obj, formData) =>
+export const appendBase64ImagesToFormData = async (
+  formData,
+  thumbnailImageBase64Data,
+  imageBase64DataArray,
+) => {
+  if (thumbnailImageBase64Data) {
+    const thumbnailImageFile = await base64ToFile(
+      thumbnailImageBase64Data,
+      `thumbnail_0`,
+    );
+    formData.append(`image`, thumbnailImageFile);
+  }
+
+  await Promise.all(
+    imageBase64DataArray.map(async (imageData, index) => {
+      if (!imageData) return null;
+      const imageFile = await base64ToFile(imageData, `result_${index}`);
+      formData.append(`image`, imageFile);
+    }),
+  );
+  return formData;
+};
+
+export const objectToFormData = (obj, formData) => {
   Object.entries(obj).forEach(([key, value]) => {
     formData.append(key, JSON.stringify(value));
   });
+  return formData;
+};
 
 export const isImageFile = (fileName: string): boolean => {
   const fileExtension = fileName.split('.').pop()?.toLowerCase();
   return ALLOWED_EXTENSIONS.includes(fileExtension ?? '');
+};
+
+export const validateImageFile = (file: File) => {
+  if (!file) return false;
+
+  if (!isImageFile(file.name)) {
+    alert('허용되지 않은 파일 형식입니다.');
+    return false;
+  }
+
+  if (file.size > MAX_FILE_SIZE) {
+    alert('최대 이미지 용량은 2mb입니다.');
+    return false;
+  }
+  return true;
 };
 
 export const isValidImageUrl = (imgSrc: string) => {

@@ -17,7 +17,7 @@ import useFinalConfirmationForm from '../../hooks/useFinalConfirmationForm';
 import useStorage from '../../hooks/useStorage';
 import { MBTI_TEST_TYPE_CONTENT } from '../../tests.const';
 import {
-  base64ToFile,
+  appendBase64ImagesToFormData,
   objectToFormData,
   setWeightedScoreDictionary,
 } from '../../tests.util';
@@ -73,20 +73,10 @@ const MbtiTestFinalForm = () => {
 
     const formData = new FormData();
 
-    if (thumbnailImageBase64Data) {
-      const thumbnailImageFile = await base64ToFile(
-        thumbnailImageBase64Data,
-        `thumbnail_0`,
-      );
-      formData.append(`image`, thumbnailImageFile);
-    }
-
-    await Promise.all(
-      imageBase64DataArray.map(async (imageData, index) => {
-        if (!imageData) return null;
-        const imageFile = await base64ToFile(imageData, `result_${index}`);
-        formData.append(`image`, imageFile);
-      }),
+    const formDataWithImages = await appendBase64ImagesToFormData(
+      formData,
+      thumbnailImageBase64Data,
+      imageBase64DataArray,
     );
 
     const data = {
@@ -102,12 +92,15 @@ const MbtiTestFinalForm = () => {
       testType: 'mbti',
     };
 
-    objectToFormData(data, formData);
+    const formDataWithImagesAndData = objectToFormData(
+      data,
+      formDataWithImages,
+    );
 
     if (mode === 'create') {
-      requestRegister(formData);
+      requestRegister(formDataWithImagesAndData);
     } else {
-      requestUpdate(formData);
+      requestUpdate(formDataWithImagesAndData);
     }
   };
 

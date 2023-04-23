@@ -3,12 +3,12 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import FormLayout from '../../../../layout/FormLayout/FormLayout';
 import { RootState } from '../../../../store/modules';
-import { createTrueOrFalseTestResultFormItems } from '../../tests.util';
 import { TF_TEST_RESULT_FORM_ID } from './trueOrFalse.const';
 import { setTrueOrFalseTestResultFormItems } from './trueOrFalse.slice';
 import TrueOrFalseTestResultWriter from './TrueOrFalseTestResultWriter';
 import { TrueOrFalseTestResultFormValues } from './trueOrFalseTest.type';
 import useStorage from '../../hooks/useStorage';
+import { createTrueOrFalseTestResultFormItems } from './trueOrFalse.utils';
 
 interface TrueOrFalseResultFormProps {
   handleNext: () => void;

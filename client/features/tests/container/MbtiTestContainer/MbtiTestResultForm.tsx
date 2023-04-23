@@ -18,6 +18,7 @@ import {
   actionImageCompress,
   isValidImageUrl,
   parseS3Url,
+  validateImageFile,
 } from '../../tests.util';
 import { MBTI_TEST_RESULT_FORM_ID } from './mbtiTest.const';
 import {
@@ -91,15 +92,7 @@ const MbtiTestResultForm = ({
   ) => {
     const file = event.target.files[0];
 
-    if (!file) return;
-
-    if (!isImageFile(file.name)) {
-      alert('허용되지 않은 파일 형식입니다.');
-      return;
-    }
-
-    if (file.size > MAX_FILE_SIZE) {
-      alert('최대 이미지 용량은 2mb입니다.');
+    if (!validateImageFile(file)) {
       return;
     }
 
