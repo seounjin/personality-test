@@ -5,6 +5,7 @@ export interface TrueOrFalseTestSliceInitialState {
   trueOrFalseTestSelectFormItems: TrueOrFalseTestSelectFormItem[];
   trueOrFalseTestResultFormItems: TrueOrFalseTestResultFormItem[];
   isPublic: boolean;
+  imageBase64DataArray: Array<string>;
 }
 
 interface TrueOrFalseTestOptionItem

@@ -113,6 +113,7 @@ const TrueOrFalseTypeTest = ({
           <LastScreen
             resultContent={resultItems.resultContent}
             explanationContent={resultItems.explanationContent}
+            resultImageUrl={resultItems.resultImageUrl}
             isPublic={isPublic}
             onClick={reStartClick}
             onClose={handleCloseTemporaryTest}

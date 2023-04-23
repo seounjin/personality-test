@@ -1,3 +1,4 @@
+import { IMAGE_HOLDER_PATH } from '../../tests.const';
 import {
   TrueOrFalseTestSelectFormItem,
   TrueOrFalseTestResultFormItem,
@@ -47,6 +48,9 @@ export const createTrueOrFalseTestResultFormItems = (
         },
         '',
       ),
+      resultImageUrl: trueOrFalseTestResultFormItems[index]
+        ? trueOrFalseTestResultFormItems[index].resultImageUrl
+        : IMAGE_HOLDER_PATH,
       resultContent: trueOrFalseTestResultFormItems[index]
         ? trueOrFalseTestResultFormItems[index].resultContent
         : '',

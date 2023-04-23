@@ -62,3 +62,6 @@ export type ScoreTestResultImageUrl =
 
 export type MbtiTestResultImageUrl =
   `mbtiTestResultFormItems.${number}.resultImageUrl`;
+
+export type TrueOrFalseTestResultImageUrl =
+  `trueOrFalseTestResultFormItems.${number}.resultImageUrl`;

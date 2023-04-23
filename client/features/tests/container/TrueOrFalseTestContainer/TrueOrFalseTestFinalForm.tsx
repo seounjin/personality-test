@@ -18,6 +18,10 @@ import useStorage from '../../hooks/useStorage';
 import TextBoxSection from '../TextBoxSection/TextBoxSection';
 import { TF_FINAL_FORM_ID } from './trueOrFalse.const';
 import TrueOrFalseTypeTest from './TrueOrFalseTypeTest';
+import {
+  appendBase64ImagesToFormData,
+  objectToFormData,
+} from '../../tests.util';
 
 const TrueOrFalseTestFinalForm = () => {
   const {
@@ -26,11 +30,11 @@ const TrueOrFalseTestFinalForm = () => {
     subTitle,
     explain,
     isPublic,
-    imageData,
     thumbnailImgUrl,
-    isChangeImage,
+    thumbnailImageBase64Data,
     trueOrFalseTestSelectFormItems,
     trueOrFalseTestResultFormItems,
+    imageBase64DataArray,
   } = useSelector(
     (state: RootState) => ({
       mode: state.tests.mode,
@@ -39,14 +43,14 @@ const TrueOrFalseTestFinalForm = () => {
       subTitle: state.basicForm.subTitle,
       explain: state.basicForm.explain,
       thumbnailImgUrl: state.basicForm.thumbnailImgUrl,
-      imageData: state.basicForm.imageData,
-      isChangeImage: state.basicForm.isChangeImage,
+      thumbnailImageBase64Data: state.basicForm.thumbnailImageBase64Data,
 
       isPublic: state.trueOrFalseTest.isPublic,
       trueOrFalseTestSelectFormItems:
         state.trueOrFalseTest.trueOrFalseTestSelectFormItems,
       trueOrFalseTestResultFormItems:
         state.trueOrFalseTest.trueOrFalseTestResultFormItems,
+      imageBase64DataArray: state.trueOrFalseTest.imageBase64DataArray,
     }),
     shallowEqual,
   );
@@ -64,32 +68,36 @@ const TrueOrFalseTestFinalForm = () => {
     event.preventDefault();
     removeTestItems();
 
-    const isPublic =
-      (event.target as HTMLFormElement).contact.value === 'public'
-        ? true
-        : false;
+    const formData = new FormData();
+
+    const formDataWithImages = await appendBase64ImagesToFormData(
+      formData,
+      thumbnailImageBase64Data,
+      imageBase64DataArray,
+    );
 
     const data = {
       basicInformationItem: {
         title: title,
         subTitle: subTitle,
         explain: explain,
-        imageData: isChangeImage ? JSON.stringify({ imageData }) : '',
+        thumbnailImgUrl: thumbnailImgUrl,
       },
-
       trueOrFalseTestSelectFormItems: trueOrFalseTestSelectFormItems,
       trueOrFalseTestResultFormItems: trueOrFalseTestResultFormItems,
-
-      isPublic: isPublic,
+      isPublic: (event.target as HTMLFormElement).contact.value === 'public',
       testType: 'true-or-false',
-      isChangeImage: isChangeImage,
-      thumbnailImgUrl: thumbnailImgUrl,
     };
 
+    const formDataWithImagesAndData = objectToFormData(
+      data,
+      formDataWithImages,
+    );
+
     if (mode === 'create') {
-      requestRegister(data);
+      requestRegister(formDataWithImagesAndData);
     } else {
-      requestUpdate(data);
+      requestUpdate(formDataWithImagesAndData);
     }
   };
 
@@ -143,10 +151,21 @@ const TrueOrFalseTestFinalForm = () => {
 
       <BoxShadowCard subtitle="결과 설정">
         {trueOrFalseTestResultFormItems.map(
-          ({ resultContent, explanationContent, selectedOption }, index) => (
+          (
+            {
+              resultContent,
+              explanationContent,
+              selectedOption,
+              resultImageUrl,
+            },
+            index,
+          ) => (
             <React.Fragment key={`t${index}`}>
               <SelectedOptionsTable selectedOption={selectedOption} />
               <TextBoxSection title={`${index + 1}번`} titleLocation="center">
+                <SubTextBoxSection>
+                  <PrivewImage imgUrl={resultImageUrl} />
+                </SubTextBoxSection>
                 <SubTextBoxSection>
                   <SubHeadlineLabel label="유 형" subTitleLocation="start" />
                   <TextBox text={resultContent} />

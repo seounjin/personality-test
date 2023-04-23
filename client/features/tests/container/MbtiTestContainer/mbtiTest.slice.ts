@@ -92,12 +92,6 @@ const mbtiTestSlice = createSlice({
       const { index, imageBase64Data } = action.payload;
       state.imageBase64DataArray[index] = imageBase64Data;
     },
-    popImageBase64Data: (state) => {
-      state.imageBase64DataArray.pop();
-    },
-    pushImageBase64Data: (state) => {
-      state.imageBase64DataArray.push('');
-    },
   },
 });
 
@@ -107,8 +101,6 @@ export const {
   setMbtiSelctFormItems,
   setInitMbtiSelctFormItems,
   setImageBase64DataArray,
-  popImageBase64Data,
-  pushImageBase64Data,
 } = mbtiTestSlice.actions;
 
 export default mbtiTestSlice.reducer;

@@ -14,6 +14,7 @@ const initialState: TrueOrFalseTestSliceInitialState = {
     },
   ],
   trueOrFalseTestResultFormItems: [],
+  imageBase64DataArray: [''],
   isPublic: true,
 };
 
@@ -44,7 +45,31 @@ const trueOrFalseSlice = createSlice({
         ? selectItems
         : state.trueOrFalseTestSelectFormItems;
 
+      state.numberOfItemsCount = selectItems
+        ? selectItems.length
+        : state.trueOrFalseTestSelectFormItems.length;
       state.isPublic = isPublic;
+    },
+    setImageBase64DataArray: (state, action) => {
+      const { index, imageBase64Data } = action.payload;
+      state.imageBase64DataArray[index] = imageBase64Data;
+    },
+    setInitImageBase64DataArray: (state, action) => {
+      const arrayLength = action.payload.arrayLength;
+      state.imageBase64DataArray = Array.from(
+        { length: arrayLength },
+        (_, index) => {
+          return index < state.imageBase64DataArray.length
+            ? state.imageBase64DataArray[index]
+            : '';
+        },
+      );
+    },
+    popImageBase64Data: (state) => {
+      state.imageBase64DataArray.pop();
+    },
+    pushImageBase64Data: (state) => {
+      state.imageBase64DataArray.push('');
     },
   },
 });
@@ -54,6 +79,10 @@ export const {
   setTrueOrFalseTestSelectFormItems,
   setTrueOrFalseTestResultFormItems,
   setTrueOrFalseTestItems,
+  setImageBase64DataArray,
+  popImageBase64Data,
+  pushImageBase64Data,
+  setInitImageBase64DataArray,
 } = trueOrFalseSlice.actions;
 
 export default trueOrFalseSlice.reducer;

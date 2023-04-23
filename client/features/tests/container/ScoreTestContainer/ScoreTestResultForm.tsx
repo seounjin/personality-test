@@ -125,7 +125,7 @@ const ScoreTestResultForm = ({
 
   const onImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
-    name: `scoreTestResultFormItems.${number}.resultImageUrl`,
+    name: ScoreTestResultImageUrl,
     index: number,
   ) => {
     const file = event.target.files[0];
