@@ -19,6 +19,8 @@ import BoxShadowCard from '../../../../layout/BoxShadowCard/BoxShadowCard';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
 import { SetCounterButtonWrapper } from '../../tests.styles';
 import useStorage from '../../hooks/useStorage';
+import { isValidImageUrl } from '../../tests.util';
+import { IMAGE_HOLDER_PATH } from '../../tests.const';
 
 interface TureOrFalseSelectFormProps {
   handleNext: () => void;
@@ -27,13 +29,16 @@ interface TureOrFalseSelectFormProps {
 const TureOrFalseTestSelectForm = ({
   handleNext,
 }: TureOrFalseSelectFormProps): JSX.Element => {
-  const { mode, numberOfItemsCount } = useSelector(
-    (state: RootState) => ({
-      mode: state.tests.mode,
-      numberOfItemsCount: state.trueOrFalseTest.numberOfItemsCount,
-    }),
-    shallowEqual,
-  );
+  const { mode, numberOfItemsCount, trueOrFalseTestResultFormItems } =
+    useSelector(
+      (state: RootState) => ({
+        mode: state.tests.mode,
+        numberOfItemsCount: state.trueOrFalseTest.numberOfItemsCount,
+        trueOrFalseTestResultFormItems:
+          state.trueOrFalseTest.trueOrFalseTestResultFormItems,
+      }),
+      shallowEqual,
+    );
 
   const dispatch = useDispatch();
 
@@ -45,8 +50,35 @@ const TureOrFalseTestSelectForm = ({
     name: 'trueOrFalseTestSelectFormItems',
   });
 
+  const calculateNumber = (n: number) => {
+    return Math.pow(2, n);
+  };
+
+  const countValidImgUrls = (start: number, end: number) => {
+    return trueOrFalseTestResultFormItems
+      .slice(start, end)
+      .filter(({ resultImageUrl }) => isValidImageUrl(resultImageUrl)).length;
+  };
+
   const decreaseNumberOfItems = () => {
     if (TF_MIN_NUMBER_OF_ITEMS_COUNT === numberOfItemsCount) return;
+    if (mode === 'update') {
+      if (
+        calculateNumber(numberOfItemsCount) ===
+        trueOrFalseTestResultFormItems.length
+      ) {
+        const start = Math.floor(trueOrFalseTestResultFormItems.length / 2);
+        const end = trueOrFalseTestResultFormItems.length;
+        if (countValidImgUrls(start, end)) {
+          alert(
+            `${
+              start + 1
+            }번과 ${end}번사이의 저장된 이미지 삭제요청을 해주세요!`,
+          );
+          return;
+        }
+      }
+    }
     remove(numberOfItemsCount - 1);
     dispatch(setNumberOfItemsCount({ count: -1 }));
   };

@@ -13,12 +13,11 @@ import ResultWriter from '../../components/ResultWriter/ResultWriter';
 import SetCounterButton from '../../components/SetCounterButton/SetCounterButton';
 import useImageValidationState from '../../hooks/useImageValidationState';
 import useStorage from '../../hooks/useStorage';
-import { IMAGE_HOLDER_PATH, MAX_FILE_SIZE } from '../../tests.const';
+import { IMAGE_HOLDER_PATH } from '../../tests.const';
 import { SetCounterButtonWrapper } from '../../tests.styles';
 import { ScoreTestResultImageUrl } from '../../tests.types';
 import {
   actionImageCompress,
-  isImageFile,
   isValidImageUrl,
   parseS3Url,
   validateImageFile,
@@ -75,6 +74,15 @@ const ScoreTestResultForm = ({
 
   const handleDecrease = () => {
     if (MIN_TYPE_ITEMS_COUNT === scoreTestResultItemsCount) return;
+    if (mode === 'update') {
+      if (
+        isValidImageUrl(fields[scoreTestResultItemsCount - 1].resultImageUrl)
+      ) {
+        alert(`${scoreTestResultItemsCount}번 이미지를 삭제해주세요!`);
+        return;
+      }
+    }
+
     dispatch(setScoreTestResultItemsCount({ count: -1 }));
     remove(scoreTestResultItemsCount - 1);
     dispatch(popImageBase64Data());

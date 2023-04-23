@@ -1,5 +1,10 @@
 import imageCompression from 'browser-image-compression';
-import { ALLOWED_EXTENSIONS, IMAGE_DOMAIN, MAX_FILE_SIZE } from './tests.const';
+import {
+  ALLOWED_EXTENSIONS,
+  IMAGE_DOMAIN,
+  IMAGE_HOLDER_PATH,
+  MAX_FILE_SIZE,
+} from './tests.const';
 import { CompressedResult } from './tests.types';
 
 export const setWeightedScoreDictionary = (data) =>

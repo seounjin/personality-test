@@ -42,12 +42,9 @@ export const createTrueOrFalseTestResultFormItems = (
 
   return res.map((combNumberItem, index) => {
     return {
-      selectedOptionNumber: combNumberItem.reduce(
-        (num, { optionNumber }, index) => {
-          return (num += optionNumber);
-        },
-        '',
-      ),
+      selectedOptionNumber: combNumberItem.reduce((num, { optionNumber }) => {
+        return (num += optionNumber);
+      }, ''),
       resultImageUrl: trueOrFalseTestResultFormItems[index]
         ? trueOrFalseTestResultFormItems[index].resultImageUrl
         : IMAGE_HOLDER_PATH,

@@ -201,15 +201,3 @@ const TrueOrFalseTestResultForm = ({
 };
 
 export default TrueOrFalseTestResultForm;
-
-// <TrueOrFalseTestResultWriter
-//             key={id}
-//             index={index}
-//             firstLabel={'유 형'}
-//             firstContent={resultContent}
-//             firstInputDisalbed={false}
-//             secondLabel={'설 명'}
-//             secondContent={explanationContent}
-//             selectedOption={selectedOption}
-//             name={'trueOrFalseTestResultFormItems'}
-//           />
