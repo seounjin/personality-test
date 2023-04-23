@@ -1,12 +1,20 @@
 import React from 'react';
-import { Img } from './PrivewImage.style';
+import Image from 'next/image';
 
 interface PrivewImageProps {
   imgUrl: string;
 }
 
 const PrivewImage = ({ imgUrl }: PrivewImageProps): JSX.Element => {
-  return <Img alt={'preview-img'} src={imgUrl} />;
+  return (
+    <Image
+      alt={'preview-img'}
+      width={229}
+      height={222}
+      src={imgUrl}
+      style={{ objectFit: 'cover' }}
+    />
+  );
 };
 
 export default PrivewImage;
