@@ -48,8 +48,8 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
               alt="card-img"
               src={thumbnailImgUrl}
               fill
-              loading="eager"
               priority
+              sizes="(max-width: 768px) 50%, 25%"
             />
           </CardItemHeader>
           <CardItemBody>
