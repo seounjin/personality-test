@@ -7,7 +7,7 @@ interface BarsIconProps {
 
 const BarsIcon = ({ onClick }: BarsIconProps): JSX.Element => {
   return (
-    <Wrapper onClick={onClick}>
+    <Wrapper type="button" aria-label="메뉴 버튼" onClick={onClick}>
       <BarsSolidIcon />
     </Wrapper>
   );

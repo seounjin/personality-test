@@ -25,6 +25,8 @@ const Sidebar = ({ onClick, sidebarMenu }: SidebarProps): JSX.Element => {
             return item.type === 'button' ? (
               <Menu
                 key={item.id}
+                type="button"
+                aria-label={`${item.text} 버튼`}
                 onClick={() => onClick(item.asPath)}
                 isActive={router.pathname === item.asPath}
               >
@@ -36,6 +38,8 @@ const Sidebar = ({ onClick, sidebarMenu }: SidebarProps): JSX.Element => {
                 {item.subMenu.map((subItem) => (
                   <SubMenu
                     key={subItem.id}
+                    type="button"
+                    aria-label={`${subItem.text} 버튼`}
                     onClick={() => onClick(subItem.asPath)}
                     isActive={router.asPath === subItem.asPath}
                   >
