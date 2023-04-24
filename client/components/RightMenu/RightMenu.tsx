@@ -38,16 +38,22 @@ const RightMenu = (): JSX.Element => {
       {isAuth ? (
         <>
           <NavLink isActive={router.pathname === '/mypage'}>
-            <Link href="/mypage?menu=my-personality">마이페이지</Link>
+            <Link title="마이페이지로 이동" href="/mypage?menu=my-personality">
+              마이페이지
+            </Link>
           </NavLink>
 
           <NavLink isActive={false}>
-            <LogoutButton onClick={handleLogout}> 로그아웃</LogoutButton>
+            <LogoutButton title="사용자 로그아웃" onClick={handleLogout}>
+              로그아웃
+            </LogoutButton>
           </NavLink>
         </>
       ) : (
         <NavLink isActive={false}>
-          <LoginButton onClick={handleLogin}>로그인</LoginButton>
+          <LoginButton title="사용자 로그인" onClick={handleLogin}>
+            로그인
+          </LoginButton>
         </NavLink>
       )}
     </Wrapper>

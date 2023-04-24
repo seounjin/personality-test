@@ -61,6 +61,7 @@ export const theme: DefaultTheme = {
     roundButtonColor: '#594545',
     spinnerColor: '#594545',
     publicTagColor: '#d2c8e5',
+    disabledLinkColor: '#767676',
   },
 
   device: {

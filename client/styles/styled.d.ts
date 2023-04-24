@@ -56,6 +56,7 @@ declare module 'styled-components' {
       roundButtonColor: string;
       spinnerColor: string;
       publicTagColor: string;
+      disabledLinkColor: string;
     };
 
     device: {

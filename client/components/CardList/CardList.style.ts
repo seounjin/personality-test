@@ -4,7 +4,7 @@ export const CardItemHeader = styled.div`
   position: relative;
   padding-top: 75%;
   border-radius: 4px;
-  border: solid 2px rgb(0 0 0 / 10%);
+  border: solid 2px rgba(0, 0, 0, 0.1);
   img {
     border-radius: 4px;
     object-fit: cover;

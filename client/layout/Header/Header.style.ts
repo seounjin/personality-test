@@ -7,8 +7,8 @@ export const Header = styled.header`
   width: 100%;
   height: 50px;
   font-size: 16px;
-  font-weight: bold;
-  border-bottom: 1px solid #e4e4e4;
+  font-weight: 600;
+  border-bottom: solid 2px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   background-color: white;
 `;
