@@ -32,7 +32,6 @@ const MbtiTestType = ({
     id,
     title,
     subTitle,
-    explain,
     testType,
     isPublic,
     weightedScoreDictionary,

@@ -179,14 +179,14 @@ export const MBTI_TEST_TYPE = [
 ];
 
 export const MBTI_TEST_TYPE_CONTENT = [
-  { typeContent: 'E' },
-  { typeContent: 'I' },
-  { typeContent: 'N' },
-  { typeContent: 'S' },
-  { typeContent: 'F' },
-  { typeContent: 'T' },
-  { typeContent: 'P' },
-  { typeContent: 'J' },
+  { resultContent: 'E' },
+  { resultContent: 'I' },
+  { resultContent: 'N' },
+  { resultContent: 'S' },
+  { resultContent: 'F' },
+  { resultContent: 'T' },
+  { resultContent: 'P' },
+  { resultContent: 'J' },
 ];
 
 export const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png'];
