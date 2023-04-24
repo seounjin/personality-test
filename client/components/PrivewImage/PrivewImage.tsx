@@ -13,6 +13,7 @@ const PrivewImage = ({ imgUrl }: PrivewImageProps): JSX.Element => {
       height={222}
       src={imgUrl}
       style={{ objectFit: 'cover' }}
+      priority
     />
   );
 };

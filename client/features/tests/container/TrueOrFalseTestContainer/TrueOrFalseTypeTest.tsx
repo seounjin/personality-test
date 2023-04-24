@@ -86,6 +86,7 @@ const TrueOrFalseTypeTest = ({
 
   const reStartClick = (): void => {
     resetSlide();
+    setResultItems(null);
     setSelectedOption('');
     lastBackgroundImgRef.current.scrollTop = 0;
   };

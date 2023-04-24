@@ -116,6 +116,7 @@ const ScoreTypeTest = ({
 
   const reStartClick = (): void => {
     resetSlide();
+    setResultItems(null);
     setWeightedScore(weightedScoreDictionary);
     lastBackgroundImgRef.current.scrollTop = 0;
   };
