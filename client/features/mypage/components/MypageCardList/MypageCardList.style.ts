@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import shareSvg from '../../../../assets/icons/share.svg';
 
 export const ButtonContainer = styled.div`
   margin-top: 18px;
@@ -23,7 +24,7 @@ export const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.mypageBackgroundColor};
 `;
 
-const GrayCircle = styled.span`
+export const GrayCircle = styled.span`
   width: 50px;
   height: 50px;
   display: flex;
@@ -53,9 +54,4 @@ export const EditEimoji = styled(GrayCircle)`
   }
 `;
 
-export const ShareEimoji = styled(GrayCircle)`
-  &::before {
-    content: '📤';
-    font-size: 20px;
-  }
-`;
+export const ShareSvgIcon = styled(shareSvg)``;

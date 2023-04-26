@@ -18,7 +18,8 @@ import {
   Button,
   DeleteEimoji,
   EditEimoji,
-  ShareEimoji,
+  ShareSvgIcon,
+  GrayCircle,
 } from './MypageCardList.style';
 
 type MypageCardListProps = {
@@ -108,7 +109,9 @@ const MypageCardList = ({
                       shareButtonClick(event, id, testType, isPublic)
                     }
                   >
-                    <ShareEimoji />
+                    <GrayCircle>
+                      <ShareSvgIcon />
+                    </GrayCircle>
                   </Button>
                 </ButtonContainer>
               </CardItemBody>
