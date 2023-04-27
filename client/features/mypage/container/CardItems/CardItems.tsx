@@ -119,10 +119,6 @@ const CardItems = () => {
     copyUrl(shareUrl);
   };
 
-  const handleClose = () => {
-    closeModal();
-  };
-
   return (
     <>
       {isEmpty ? (
@@ -136,10 +132,10 @@ const CardItems = () => {
         />
       )}
       {isModalOpen && (
-        <Modal onClose={handleClose}>
+        <Modal onClose={closeModal}>
           <DeleteAlertModal
             handleConfirm={requestDelete}
-            handleClose={handleClose}
+            handleClose={closeModal}
             textA={'삭제하면 복구할수 없습니다'}
             textB={'정말 삭제하겠습니까'}
           />

@@ -95,9 +95,9 @@ const TrueOrFalseTestFinalForm = () => {
     );
 
     if (mode === 'create') {
-      requestRegister(formDataWithImagesAndData);
+      requestRegister(formDataWithImagesAndData, 'true-or-false');
     } else {
-      requestUpdate(formDataWithImagesAndData);
+      requestUpdate(formDataWithImagesAndData, 'true-or-false');
     }
   };
 

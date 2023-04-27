@@ -98,9 +98,9 @@ const ScoreTestFinalForm = () => {
     );
 
     if (mode === 'create') {
-      requestRegister(formDataWithImagesAndData);
+      requestRegister(formDataWithImagesAndData, 'score');
     } else {
-      requestUpdate(formDataWithImagesAndData);
+      requestUpdate(formDataWithImagesAndData, 'score');
     }
   };
 

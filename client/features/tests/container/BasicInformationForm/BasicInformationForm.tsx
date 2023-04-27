@@ -105,10 +105,6 @@ const BasicInformationForm = ({
     dispatch(setThumbnailImageBase64Data({ thumbnailImageBase64Data: '' }));
   };
 
-  const handleClose = () => {
-    closeModal();
-  };
-
   const requestDelete = async () => {
     const { bucketName, imagePath } = parseS3Url(validImageUrl);
     const id = router.query.slug[0];
@@ -141,10 +137,10 @@ const BasicInformationForm = ({
         />
       </Form>
       {isModalOpen && (
-        <Modal onClose={handleClose}>
+        <Modal onClose={closeModal}>
           <DeleteAlertModal
             handleConfirm={requestDelete}
-            handleClose={handleClose}
+            handleClose={closeModal}
             textA={
               '삭제하시면 해당 이미지는 복구 할 수 없습니다. 삭제하시겠습니까?'
             }

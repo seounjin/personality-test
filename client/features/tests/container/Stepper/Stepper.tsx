@@ -49,10 +49,6 @@ const Stepper = ({ testType }: StepperProps): JSX.Element => {
     setActiveStep((activeStep) => activeStep + 1);
   };
 
-  const handleModal = () => {
-    closeModal();
-  };
-
   const QuestionMarkClick = () => {
     openModal();
   };
@@ -61,7 +57,7 @@ const Stepper = ({ testType }: StepperProps): JSX.Element => {
     <Container>
       <ScrollTop activeStep={activeStep} />
       {isModalOpen && (
-        <Modal onClose={handleModal}>
+        <Modal onClose={closeModal}>
           <ManualModal
             activeStep={activeStep}
             manual={MODAL_MANUAL_ITEMS[testType]}

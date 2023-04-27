@@ -98,9 +98,9 @@ const MbtiTestFinalForm = () => {
     );
 
     if (mode === 'create') {
-      requestRegister(formDataWithImagesAndData);
+      requestRegister(formDataWithImagesAndData, 'mbti');
     } else {
-      requestUpdate(formDataWithImagesAndData);
+      requestUpdate(formDataWithImagesAndData, 'mbti');
     }
   };
 

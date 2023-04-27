@@ -6,16 +6,13 @@ const useFinalConfirmationForm = () => {
   const router = useRouter();
   const fetcher = useFetcher();
 
-  const getTestType = () => router.query.test;
-
   const [isTemporaryTestOpen, setIsTemporaryTestOpen] = useState(false);
 
   const handleCloseTemporaryTest = () => {
     setIsTemporaryTestOpen(!isTemporaryTestOpen);
   };
 
-  const requestRegister = async (formData) => {
-    const testType = getTestType();
+  const requestRegister = async (formData, testType) => {
     const res = await fetcher('post', `/personality/${testType}`, formData);
     if (res.success) {
       alert('성향 테스트가 등록 되었습니다');
@@ -30,9 +27,8 @@ const useFinalConfirmationForm = () => {
     }
   };
 
-  const requestUpdate = async (formData) => {
+  const requestUpdate = async (formData, testType) => {
     const id = router.query.slug[0];
-    const testType = getTestType();
     const res = await fetcher(
       'put',
       `/personality/${testType}/${id}`,
