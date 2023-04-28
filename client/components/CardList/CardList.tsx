@@ -9,10 +9,10 @@ import {
   CardHoverWrapper,
   CardHoverExplain,
   CardHoverTitle,
+  CardItemImage,
 } from './CardList.style';
 import Link from 'next/link';
 import { Card } from './CardList.type';
-import Image from 'next/image';
 import Tag from '../Tag/Tag';
 import { PARSE_TAG_TEXT } from '../../features/tests/tests.const';
 
@@ -44,7 +44,7 @@ const CardList = ({ cardItems }: CardListProps): JSX.Element => {
           </CardHoverWrapper>
 
           <CardItemHeader>
-            <Image
+            <CardItemImage
               alt="card-img"
               src={thumbnailImgUrl}
               fill

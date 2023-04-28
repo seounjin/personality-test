@@ -1,15 +1,17 @@
 import styled from 'styled-components';
+import Image from 'next/image';
 
 export const CardItemHeader = styled.div`
   position: relative;
   padding-top: 75%;
   border-radius: 4px;
   border: solid 2px rgba(0, 0, 0, 0.1);
-  img {
-    border-radius: 4px;
-    object-fit: cover;
-    object-position: 50% 30%;
-  }
+`;
+
+export const CardItemImage = styled(Image)`
+  border-radius: 4px;
+  object-fit: cover;
+  object-position: 50% 30%;
 `;
 
 export const Wrapper = styled.ul`
