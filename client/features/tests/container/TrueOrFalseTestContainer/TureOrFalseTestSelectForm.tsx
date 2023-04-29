@@ -20,7 +20,6 @@ import SetCounterButton from '../../components/SetCounterButton/SetCounterButton
 import { SetCounterButtonWrapper } from '../../tests.styles';
 import useStorage from '../../hooks/useStorage';
 import { isValidImageUrl } from '../../tests.util';
-import { IMAGE_HOLDER_PATH } from '../../tests.const';
 
 interface TureOrFalseSelectFormProps {
   handleNext: () => void;
